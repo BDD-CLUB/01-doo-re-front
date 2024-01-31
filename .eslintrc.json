@@ -1,0 +1,51 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "chakra-ui"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "plugin:prettier/recommended",
+    "plugin:import/typescript",
+    "plugin:import/recommended"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "chakra-ui/props-order": "warn",
+    "chakra-ui/props-shorthand": "warn",
+    "chakra-ui/require-specific-component": "warn",
+    "import/extensions": "off",
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": ["arrow-function"]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", ["sibling", "parent", "index"], "type"],
+        "pathGroupsExcludedImportTypes": [],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {},
+      "typescript": {
+        "directory": "./src"
+      }
+    },
+    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
+  }
+}
