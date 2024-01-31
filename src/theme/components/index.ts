@@ -1,1 +1,3 @@
-export const components = {};
+const components = {};
+
+export default components;

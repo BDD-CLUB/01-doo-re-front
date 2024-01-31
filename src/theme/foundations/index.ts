@@ -1,5 +1,7 @@
-import { colors } from './colors';
+import colors from './colors';
 
-export const foundations = {
+const foundations = {
   colors,
 };
+
+export default foundations;

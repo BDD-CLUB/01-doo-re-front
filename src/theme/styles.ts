@@ -1,3 +1,5 @@
-export const styles = {
+const styles = {
   global: {},
 };
+
+export default styles;
