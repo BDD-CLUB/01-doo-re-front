@@ -26,10 +26,16 @@ jobs:
         run: npm run build
 
       - name: Collect Code
-        run: mkdir -p build/.next && cp -r .next/standalone/. build/. && cp -r public build && cp -r .next/static build/.next
+        run: mkdir -p build/.next && \
+             cp -r .next/standalone/. build/. && \
+             cp -r public build && \
+             cp -r .next/static build/.next
 
       - name: Compress
-        run: mkdir tars && tar -cvzf - build | split -b 100M - tars/${GITHUB_SHA::8}.tar.gz.
+        run: mkdir tars && \
+             tar -cvzf - build | \
+             split -b 100M - \
+             tars/${GITHUB_SHA::8}.tar.gz.
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -73,6 +79,6 @@ jobs:
           key: ${{ secrets.EC2_KEY_DEV }}
           envs: GITHUB_SHA
           script: |
-            cd ~/01-doo-re-infrastructure/doo-re/deploy-front
+            cd ~/01-doo-re-front-infra
             chmod +x ./deploy_front.sh
             sudo ./deploy_front.sh ${GITHUB_SHA::8} dev
