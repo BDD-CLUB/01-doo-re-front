@@ -49,8 +49,7 @@ jobs:
         run: |
           aws s3 sync \
             --region ${{ secrets.AWS_REGION }} \
-            tars ${{secrets.S3_DEV_FRONT_PATH}} \
-            --delete
+            tars ${{secrets.S3_DEV_FRONT_PATH}}
             
   deploy_on_ec2:
     runs-on: ubuntu-22.04
