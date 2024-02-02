@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: npm install
@@ -46,6 +46,7 @@ jobs:
             --region ${{ secrets.AWS_REGION }} \
             tars ${{secrets.S3_DEV_FRONT_PATH}} \
             --delete
+            
   deploy_on_ec2:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
