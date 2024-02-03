@@ -1,12 +1,17 @@
 'use client';
 
+import StudyCard from '@/components/StudyCard';
 import { Link } from '@chakra-ui/next-js';
+import { Box } from '@chakra-ui/react';
 
 const Page = () => {
   return (
-    <Link href="/about" color="blue.400" _hover={{ color: 'blue.500' }}>
-      About
-    </Link>
+    <Box px="20" py="20">
+      <StudyCard />
+      {/* <Link href="/about" color="blue.400" _hover={{ color: 'blue.500' }}>
+        about
+      </Link> */}
+    </Box>
   );
 };
 
