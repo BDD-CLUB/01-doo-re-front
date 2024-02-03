@@ -1,0 +1,82 @@
+name: s3-develop-deploy
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  build_and_upload_dev:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Collect Code
+        run: |
+          mkdir -p build/.next && \
+          cp -r .next/standalone/. build/. && \
+          cp -r public build && \
+          cp -r .next/static build/.next
+
+      - name: Compress
+        run: |
+          mkdir tars && \
+          tar -cvzf - build | \
+            split -b 100M - \
+            tars/${GITHUB_SHA::8}.tar.gz.
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync to s3
+        run: |
+          aws s3 sync \
+            --region ${{ secrets.AWS_REGION }} \
+            tars ${{secrets.S3_DEV_FRONT_PATH}}
+            
+  deploy_on_ec2:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
+    permissions:
+      id-token: write
+      contents: read
+
+    needs: build_and_upload_dev
+
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Run Shell Script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_DEV }}
+          username: ${{ secrets.EC2_USER_DEV }}
+          port: ${{ secrets.EC2_PORT_DEV }}
+          key: ${{ secrets.EC2_KEY_DEV }}
+          envs: GITHUB_SHA
+          script: |
+            cd ~/01-doo-re-front-infra
+            chmod +x ./deploy_front.sh
+            sudo ./deploy_front.sh ${GITHUB_SHA::8} dev
