@@ -1,4 +1,4 @@
-export interface StudyCardProps {
+export interface studyAssetCardProps {
   title: string;
   content: string;
   date: string;

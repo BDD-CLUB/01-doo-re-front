@@ -1,8 +1,8 @@
-import { StudyCardProps } from '@/types';
+import { studyAssetCardProps } from '@/types';
 import { Flex, Card, CardBody, CardFooter, Image, Button, Text } from '@chakra-ui/react';
 import { BiBookmark } from 'react-icons/bi';
 
-const StudyCard = ({ title, content, date, bookmark }: StudyCardProps) => {
+const StudyAssetCard = ({ title, content, date, bookmark }: studyAssetCardProps) => {
   return (
     <Card w="56" p="2" rounded="xl" shadow="md" _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}>
       <Image
@@ -32,4 +32,4 @@ const StudyCard = ({ title, content, date, bookmark }: StudyCardProps) => {
   );
 };
 
-export default StudyCard;
+export default StudyAssetCard;
