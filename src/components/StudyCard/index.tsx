@@ -1,5 +1,6 @@
 import { StudyCardProps } from '@/types';
 import { Flex, Card, CardBody, CardFooter, Image, Button, Text } from '@chakra-ui/react';
+import { BiBookmark } from 'react-icons/bi';
 
 const StudyCard = ({ title, content, date, bookmark }: StudyCardProps) => {
   return (
@@ -21,8 +22,8 @@ const StudyCard = ({ title, content, date, bookmark }: StudyCardProps) => {
           {date}
         </Text>
         <Flex alignItems="center">
-          <Button variant="ghost" px="2" minW="4" w="fit-content">
-            <Image src="\png\bookmark.png" alt="bookmark" w="4" />
+          <Button variant="ghost" px="0" minW="2" w="fit-content">
+            <BiBookmark />
           </Button>
           <Text fontSize="xs">{bookmark}</Text>
         </Flex>
