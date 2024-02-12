@@ -1,4 +1,4 @@
-import { studyAssetCardProps } from '@/types';
+import { studyAssetCardProps } from '@/components/StudyAssetCard/types';
 import { Flex, Card, CardBody, CardFooter, Image, Button, Text } from '@chakra-ui/react';
 import { BiBookmark } from 'react-icons/bi';
 
