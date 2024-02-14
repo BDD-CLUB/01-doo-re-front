@@ -1,37 +1,38 @@
-import { studyCardProps } from '@/types';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Image, Progress } from '@chakra-ui/react';
 
-const StudyCard = ({ name, description, startDate, endDate, cropId, percent }: studyCardProps) => {
+import { StudyCardProps } from '@/components/StudyCard/types';
+
+const StudyCard = ({ name, description, startDate, endDate, cropId, percent }: StudyCardProps) => {
   return (
     <div>
       <Card
+        alignItems="center"
+        justifyContent="center"
+        display="flex"
         w="64"
         h="64"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        shadow="xl"
         pt="6"
-        rounded="3xl"
+        shadow="xl"
         _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}
+        rounded="3xl"
       >
         <CardHeader py="2">
-          <Heading size="md" fontWeight="bold">
+          <Heading fontWeight="bold" size="md">
             {name}
           </Heading>
         </CardHeader>
-        <CardBody textAlign="center" py="0">
-          <Image src="\png\circle.png" alt="crops" w="16" mx="auto" py="4" id="cropId" />
+        <CardBody py="0" textAlign="center" id={cropId.toString()}>
+          <Image w="16" mx="auto" py="4" alt="crops" id="cropId" src="\png\circle.png" />
           <Text fontSize="xs">{description}</Text>
           <Text fontSize="xs">
             {startDate} ~ {endDate}
           </Text>
         </CardBody>
-        <CardFooter display="flex" justifyContent="center" alignItems="center" gap="4" pt="0">
-          <Card w="8" h="8" textAlign="center" alignItems="center" shadow="md" fontWeight="bold">
+        <CardFooter alignItems="center" justifyContent="center" gap="4" display="flex" pt="0">
+          <Card alignItems="center" w="8" h="8" fontWeight="bold" textAlign="center" shadow="md">
             1
           </Card>
-          <Progress value={80} w="32" h="1.5" rounded="md" colorScheme="gray" />
+          <Progress w="32" h="1.5" colorScheme="gray" rounded="md" value={80} />
           <Text fontSize="sm">{percent}%</Text>
         </CardFooter>
       </Card>

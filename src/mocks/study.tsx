@@ -7,4 +7,4 @@ const studyCardData = {
   percent: 80,
 };
 
-export { studyCardData };
+export default studyCardData;
