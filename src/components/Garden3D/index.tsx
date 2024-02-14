@@ -2,15 +2,14 @@
 
 import './style.css';
 
-import { GardenInfoType } from '@/types';
-
 import Bar from './Bar';
 import Floor from './Floor';
+import { Garden3DProps } from './types';
 
-const Garden3D = ({ gardenInfos }: { gardenInfos: GardenInfoType[] }) => {
+const Garden3D = ({ gardenInfos }: Garden3DProps) => {
   const cubeSize = 16;
 
-  const offsetX = 300 - 16 + cubeSize;
+  const offsetX = 300;
   const offsetY = 500;
   const offsetZ = 0;
   const gap = cubeSize * 2 + 4;

@@ -1,14 +1,12 @@
-interface CubeColorType {
+export interface CubeColorType {
   ceil: string;
   side1: string;
   side2: string;
 }
 
-interface GardenInfoType {
+export interface GardenInfoType {
   date: number;
   week: number;
   count: number;
   id: number;
 }
-
-export type { CubeColorType, GardenInfoType };

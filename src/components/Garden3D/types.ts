@@ -1,19 +1,16 @@
 import { GardenInfoType } from '@/types';
 
-interface CubeProps {
+export interface CubeProps {
   currX: number;
   currZ: number;
   offsetY: number;
   cubeSize: number;
 }
 
-interface CubeBarProps extends CubeProps {
+export interface CubeBarProps extends CubeProps {
   barHeight: number;
 }
 
-interface Garden3DProps {
-  isMove: boolean;
+export interface Garden3DProps {
   gardenInfos: GardenInfoType[];
 }
-
-export type { CubeProps, CubeBarProps, Garden3DProps };
