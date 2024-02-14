@@ -1,0 +1,28 @@
+.cube_above {
+  display: block;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+}
+
+.cube_side {
+  display: block;
+  position: absolute;
+  width: 32px;
+  height: 3px;
+}
+
+.front_panel,
+.back_panel {
+  background: #cbd5e0;
+  z-index: 13;
+}
+.right_panel,
+.left_panel {
+  background: #a0aec0;
+  z-index: 13;
+}
+.upper_panel {
+  background: #edf2f7;
+  z-index: 15;
+}

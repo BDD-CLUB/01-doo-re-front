@@ -1,0 +1,29 @@
+.container {
+  width: 600px;
+  height: 300px;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.scene {
+  width: inherit;
+  height: inherit;
+
+  position: absolute;
+
+  transform-style: preserve-3d;
+}
+
+.fake_scene {
+  width: inherit;
+  height: inherit;
+
+  perspective: 800px;
+
+  position: absolute;
+  top: -380px;
+
+  transform-style: preserve-3d;
+}
