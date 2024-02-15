@@ -5,13 +5,13 @@ import './style.css';
 import Bar from './Bar';
 import { Garden3DProps } from './types';
 
-const Garden3D = ({ cubeSize, gardenInfos }: Garden3DProps) => {
+const Garden3D = ({ cubeSize, cubeGap, gardenInfos }: Garden3DProps) => {
   const cubeSizeHalf = cubeSize / 2;
 
   const offsetX = 300;
   const offsetY = 500;
   const offsetZ = 0;
-  const gap = cubeSize + 4;
+  const gap = cubeSize + cubeGap;
   const standX = (gardenInfos[gardenInfos.length - 1].week - gardenInfos[0].week + 1) / 2 + gardenInfos[0].week;
   const maxCount =
     gardenInfos.reduce((prev, value) => {
