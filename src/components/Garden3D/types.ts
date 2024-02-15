@@ -12,5 +12,6 @@ export interface CubeProps {
 export interface Garden3DProps {
   cubeSize: number;
   cubeGap: number;
+  rotateY: number;
   gardenInfos: GardenInfoType[];
 }
