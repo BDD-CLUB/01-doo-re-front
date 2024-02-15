@@ -8,8 +8,8 @@ import './style.css';
 
 const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
   return (
-    <Card overflow="hidden" w={650} h={350} bg="none" borderRadius={30} backdropFilter="blur(30px)">
-      <Box pos="relative" zIndex={60} w="100%" h="100%" bg="rgba(255, 255, 255, 0.1)">
+    <Card overflow="hidden" w="650px" h="350px" bg="none" borderRadius="30" backdropFilter="blur(30px)">
+      <Box pos="relative" zIndex="60" w="100%" h="100%" bg="rgba(255, 255, 255, 0.1)">
         <CardHeader
           alignItems="center"
           justifyContent="left"
@@ -31,7 +31,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
             borderBottomStyle="solid"
             borderBottomColor="white"
           >
-            <Text color="white" fontFamily="Inter" fontSize={80} fontWeight={700} textAlign="right" fontStyle="normal">
+            <Text color="white" fontFamily="Inter" fontSize="80" fontWeight="700" textAlign="right" fontStyle="normal">
               {rank}
             </Text>
             <Box
@@ -47,7 +47,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
             />
           </Box>
           <Box>
-            <Text color="white" fontFamily="Inter" fontSize={36} fontWeight={700} textAlign="left" fontStyle="normal">
+            <Text color="white" fontFamily="Inter" fontSize="36" fontWeight="700" textAlign="left" fontStyle="normal">
               {name}
             </Text>
             <Text
