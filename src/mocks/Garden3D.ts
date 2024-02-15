@@ -2,6 +2,11 @@ import { CubeColorType, GardenInfoType } from '@/types';
 
 const colorInfo: CubeColorType[] = [
   {
+    ceil: '#EDF2F7',
+    side1: '#CBD5E0',
+    side2: '#A0AEC0',
+  },
+  {
     ceil: '#D4EDC3',
     side1: '#C9E2AF',
     side2: '#B1D195',
