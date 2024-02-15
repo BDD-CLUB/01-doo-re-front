@@ -1,11 +1,12 @@
 import { Box, Card, CardHeader, Text } from '@chakra-ui/react';
 
 import Garden3D from '@/components/Garden3D';
-import { userInfos } from '@/mocks/Garden3D';
+
+import { TeamCardProps } from './types';
 
 import './style.css';
 
-const TeamCard = () => {
+const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
   return (
     <Card overflow="hidden" w={650} h={350} bg="none" borderRadius={30} backdropFilter="blur(30px)">
       <Box pos="relative" zIndex={60} w="100%" h="100%" bg="rgba(255, 255, 255, 0.1)">
@@ -31,7 +32,7 @@ const TeamCard = () => {
             borderBottomColor="white"
           >
             <Text color="white" fontFamily="Inter" fontSize={80} fontWeight={700} textAlign="right" fontStyle="normal">
-              11
+              {rank}
             </Text>
             <Box
               className="circle"
@@ -47,7 +48,7 @@ const TeamCard = () => {
           </Box>
           <Box>
             <Text color="white" fontFamily="Inter" fontSize={36} fontWeight={700} textAlign="left" fontStyle="normal">
-              열사모
+              {name}
             </Text>
             <Text
               className="team_description"
@@ -59,7 +60,7 @@ const TeamCard = () => {
               textAlign="left"
               fontStyle="normal"
             >
-              안녕하세요 열정을 사랑하는 사람들의 모임에 오신 것을 환영합니다. 저희 팀에서는 무엇을 할거냐 이말이다~~
+              {description}
             </Text>
           </Box>
         </CardHeader>
@@ -72,7 +73,7 @@ const TeamCard = () => {
           h="fit-content"
           transform="translate(-80%, 0%)"
         >
-          <Garden3D cubeSize={24} cubeGap={4} rotateY={55} gardenInfos={userInfos} />
+          <Garden3D cubeSize={24} cubeGap={4} rotateY={55} gardenInfos={gardenInfos} />
         </Box>
       </Box>
     </Card>
