@@ -60,7 +60,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
               textAlign="left"
               fontStyle="normal"
             >
-              {description}
+              {description === '' ? '팀 소개글이 아직 없습니다.' : description}
             </Text>
           </Box>
         </CardHeader>
