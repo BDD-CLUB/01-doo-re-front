@@ -4,7 +4,7 @@ export interface CubeProps {
   currX: number;
   currZ: number;
   offsetY: number;
-  cubeSize: number;
+  cubeSizeHalf: number;
   count: number;
   maxCount: number;
 }
