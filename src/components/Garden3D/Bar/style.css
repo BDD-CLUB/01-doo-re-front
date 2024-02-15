@@ -1,14 +1,11 @@
 .cube_above {
   display: block;
   position: absolute;
-  width: 32px;
-  height: 32px;
 }
 
 .cube_side {
   display: block;
   position: absolute;
-  width: 32px;
 }
 
 .front_panel,
