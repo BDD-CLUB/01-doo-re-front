@@ -39,7 +39,7 @@ const Garden3D = ({ gardenInfos }: Garden3DProps) => {
                 currX={currX}
                 currZ={currZ}
                 offsetY={offsetY}
-                cubeSize={cubeSize}
+                cubeSizeHalf={cubeSize}
               />
             </div>
           );
