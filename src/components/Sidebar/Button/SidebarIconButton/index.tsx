@@ -1,9 +1,6 @@
 import { IconButton } from '@chakra-ui/react';
 
-interface SidebarIconButtonProps {
-  icon: React.ReactElement;
-  onClick: () => void;
-}
+import { SidebarIconButtonProps } from '../../type';
 
 const SidebarIconButton = ({ icon, onClick }: SidebarIconButtonProps) => {
   return (
