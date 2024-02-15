@@ -1,61 +1,25 @@
 .rolling_crop {
-  animation: 10s linear 0s infinite normal forwards running rollingtop;
-}
-.rolling_crop_clone {
-  animation: 10s linear 0s infinite normal none running rollingtopclone;
+  animation: 1000s linear 0s infinite normal forwards running rolling_top;
 }
 
 .rev_rolling_crop {
-  animation: 10s linear 0s infinite normal forwards running rollingbottom;
-}
-.rev_rolling_crop_clone {
-  animation: 10s linear 0s infinite normal none running rollingbottomclone;
+  animation: 1000s linear 0s infinite normal forwards running rolling_bottom;
 }
 
-@keyframes rollingtop {
+@keyframes rolling_top {
   0% {
-    transform: translateY(0);
+    transform: translateY(0%);
   }
   50% {
     transform: translateY(-100%);
   }
-  50.1% {
-    transform: translateY(99.8%);
-  }
-  100% {
-    transform: translateY(0);
-  }
 }
 
-@keyframes rollingtopclone {
+@keyframes rolling_bottom {
   0% {
-    transform: translateY(100%);
+    transform: translateY(-99%);
   }
   100% {
-    transform: translateY(-100%);
-  }
-}
-
-@keyframes rollingbottom {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(100%);
-  }
-  50.1% {
-    transform: translateY(-99.8%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes rollingbottomclone {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
+    transform: translateY(1%);
   }
 }
