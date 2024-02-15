@@ -11,7 +11,7 @@ const Bar = ({ barHeight, currX, currZ, offsetY, cubeSize }: CubeBarProps) => {
       <div
         style={{
           height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side1}`,
+          background: `${colorInfo[barHeight].side1}`,
           transform: `translateX(${currX}px) translateY(${
             offsetY - exponentialFunction(barHeight) + 3
           }px) translateZ(${currZ + cubeSize}px)`,
@@ -21,7 +21,7 @@ const Bar = ({ barHeight, currX, currZ, offsetY, cubeSize }: CubeBarProps) => {
       <div
         style={{
           height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side1}`,
+          background: `${colorInfo[barHeight].side1}`,
           transform: `translateX(${currX}px) translateY(${
             offsetY - exponentialFunction(barHeight) + 3
           }px) translateZ(${currZ}px) rotateY(180deg) translateZ(${cubeSize}px)`,
@@ -31,7 +31,7 @@ const Bar = ({ barHeight, currX, currZ, offsetY, cubeSize }: CubeBarProps) => {
       <div
         style={{
           height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side2}`,
+          background: `${colorInfo[barHeight].side2}`,
           transform: `translateX(${currX}px) translateY(${
             offsetY - exponentialFunction(barHeight) + 3
           }px) translateZ(${currZ}px) rotateY(90deg) translateZ(${cubeSize}px)`,
@@ -41,7 +41,7 @@ const Bar = ({ barHeight, currX, currZ, offsetY, cubeSize }: CubeBarProps) => {
       <div
         style={{
           height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side2}`,
+          background: `${colorInfo[barHeight].side2}`,
           transform: `translateX(${currX}px) translateY(${
             offsetY - exponentialFunction(barHeight) + 3
           }px) translateZ(${currZ}px) rotateY(270deg) translateZ(${cubeSize}px)`,
@@ -50,7 +50,7 @@ const Bar = ({ barHeight, currX, currZ, offsetY, cubeSize }: CubeBarProps) => {
       />
       <div
         style={{
-          background: `${colorInfo[barHeight - 1].ceil}`,
+          background: `${colorInfo[barHeight].ceil}`,
           transform: `translateX(${currX}px) translateY(${
             offsetY - exponentialFunction(barHeight) + 3
           }px) translateZ(${currZ}px) rotateX(90deg) translateZ(${cubeSize}px)`,
