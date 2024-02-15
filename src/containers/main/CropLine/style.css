@@ -1,0 +1,61 @@
+.rolling_crop {
+  animation: 10s linear 0s infinite normal forwards running rollingtop;
+}
+.rolling_crop_clone {
+  animation: 10s linear 0s infinite normal none running rollingtopclone;
+}
+
+.rev_rolling_crop {
+  animation: 10s linear 0s infinite normal forwards running rollingbottom;
+}
+.rev_rolling_crop_clone {
+  animation: 10s linear 0s infinite normal none running rollingbottomclone;
+}
+
+@keyframes rollingtop {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100%);
+  }
+  50.1% {
+    transform: translateY(99.8%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rollingtopclone {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes rollingbottom {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+  50.1% {
+    transform: translateY(-99.8%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rollingbottomclone {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
