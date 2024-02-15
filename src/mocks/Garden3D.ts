@@ -35,7 +35,7 @@ const userInfos: GardenInfoType[] = [
   // { date: 3, week: 1, count: 10, id: 4 },
   { date: 4, week: 1, count: 8, id: 5 },
   { date: 5, week: 1, count: 10, id: 6 },
-  { date: 6, week: 1, count: 1, id: 7 },
+  { date: 6, week: 1, count: 0, id: 7 },
   { date: 0, week: 2, count: 12, id: 8 },
   { date: 1, week: 2, count: 9, id: 9 },
   { date: 2, week: 2, count: 1, id: 10 },
