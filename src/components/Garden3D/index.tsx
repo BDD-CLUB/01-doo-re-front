@@ -3,7 +3,6 @@
 import './style.css';
 
 import Bar from './Bar';
-import Floor from './Floor';
 import { Garden3DProps } from './types';
 
 const Garden3D = ({ gardenInfos }: Garden3DProps) => {
@@ -34,25 +33,14 @@ const Garden3D = ({ gardenInfos }: Garden3DProps) => {
                 transform: 'rotateY(40deg)',
               }}
             >
-              {info.count === 0 ? (
-                <Floor
-                  count={info.count}
-                  maxCount={maxCount}
-                  currX={currX}
-                  currZ={currZ}
-                  offsetY={offsetY}
-                  cubeSize={cubeSize}
-                />
-              ) : (
-                <Bar
-                  count={info.count}
-                  maxCount={maxCount}
-                  currX={currX}
-                  currZ={currZ}
-                  offsetY={offsetY}
-                  cubeSize={cubeSize}
-                />
-              )}
+              <Bar
+                count={info.count}
+                maxCount={maxCount}
+                currX={currX}
+                currZ={currZ}
+                offsetY={offsetY}
+                cubeSize={cubeSize}
+              />
             </div>
           );
         })}
