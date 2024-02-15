@@ -1,5 +1,8 @@
 import { Box, Card, CardHeader, Text } from '@chakra-ui/react';
 
+import Garden3D from '@/components/Garden3D';
+import { userInfos } from '@/mocks/Garden3D';
+
 import './style.css';
 
 const TeamCard = () => {
@@ -60,6 +63,17 @@ const TeamCard = () => {
             </Text>
           </Box>
         </CardHeader>
+        <Box
+          pos="absolute"
+          zIndex="-1"
+          top="20%"
+          left="100%"
+          w="fit-content"
+          h="fit-content"
+          transform="translate(-80%, 0%)"
+        >
+          <Garden3D cubeSize={24} cubeGap={4} rotateY={55} gardenInfos={userInfos} />
+        </Box>
       </Box>
     </Card>
   );
