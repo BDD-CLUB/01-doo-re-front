@@ -35,10 +35,18 @@ const Garden3D = ({ gardenInfos }: Garden3DProps) => {
               }}
             >
               {info.count === 0 ? (
-                <Floor currX={currX} currZ={currZ} offsetY={offsetY} cubeSize={cubeSize} />
+                <Floor
+                  count={info.count}
+                  maxCount={maxCount}
+                  currX={currX}
+                  currZ={currZ}
+                  offsetY={offsetY}
+                  cubeSize={cubeSize}
+                />
               ) : (
                 <Bar
-                  barHeight={Math.ceil(info.count / maxCount)}
+                  count={info.count}
+                  maxCount={maxCount}
                   currX={currX}
                   currZ={currZ}
                   offsetY={offsetY}

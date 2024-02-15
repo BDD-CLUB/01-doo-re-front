@@ -1,11 +1,13 @@
 import './style.css';
 import { colorInfo } from '@/mocks/Garden3D';
 
-import { CubeBarProps } from '../types';
+import { CubeProps } from '../types';
 
 const exponentialFunction = (height: number) => 10 * height;
 
-const Bar = ({ barHeight, currX, currZ, offsetY, cubeSize }: CubeBarProps) => {
+const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSize }: CubeProps) => {
+  const barHeight = Math.ceil(count / maxCount);
+
   return (
     <>
       <div
