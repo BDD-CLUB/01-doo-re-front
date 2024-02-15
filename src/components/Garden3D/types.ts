@@ -6,10 +6,7 @@ export interface CubeProps {
   offsetY: number;
   cubeSize: number;
   count: number;
-}
-
-export interface CubeBarProps extends CubeProps {
-  barHeight: number;
+  maxCount: number;
 }
 
 export interface Garden3DProps {
