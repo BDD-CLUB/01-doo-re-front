@@ -1,4 +1,4 @@
-import { ParticipantType } from '@/theme/containers/study/Participant/types';
+import { ParticipantType } from '@/types';
 
 const participantData: ParticipantType[] = [
   { id: 1, name: '김철수', status: '스터디원', profileImg: 'profile1.png', myPageUrl: '/' },
