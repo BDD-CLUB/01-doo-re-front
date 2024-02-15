@@ -13,6 +13,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSize }: CubeProps) =>
     <>
       <div
         style={{
+          width: `${cubeSize * 2}px`,
           height: `${barHeight}px`,
           background: `${colorInfo[barX].side1}`,
           transform: `translateX(${currX}px) translateY(${offsetY - barHeight}px) translateZ(${currZ + cubeSize}px)`,
@@ -21,6 +22,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSize }: CubeProps) =>
       />
       <div
         style={{
+          width: `${cubeSize * 2}px`,
           height: `${barHeight}px`,
           background: `${colorInfo[barX].side1}`,
           transform: `translateX(${currX}px) translateY(${
@@ -31,6 +33,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSize }: CubeProps) =>
       />
       <div
         style={{
+          width: `${cubeSize * 2}px`,
           height: `${barHeight}px`,
           background: `${colorInfo[barX].side2}`,
           transform: `translateX(${currX}px) translateY(${
@@ -41,6 +44,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSize }: CubeProps) =>
       />
       <div
         style={{
+          width: `${cubeSize * 2}px`,
           height: `${barHeight}px`,
           background: `${colorInfo[barX].side2}`,
           transform: `translateX(${currX}px) translateY(${
@@ -51,6 +55,8 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSize }: CubeProps) =>
       />
       <div
         style={{
+          width: `${cubeSize * 2}px`,
+          height: `${cubeSize * 2}px`,
           background: `${colorInfo[barX].ceil}`,
           transform: `translateX(${currX}px) translateY(${
             offsetY - barHeight
