@@ -1,6 +1,7 @@
 import './style.css';
 
 import { Box, Flex, Image } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 import { CropLineProps } from '@/containers/main/CropLine/types';
 
@@ -13,7 +14,10 @@ const cropImageList = [
 ];
 
 const CropLine = ({ reverse = false }: CropLineProps) => {
-  const cropListCount = Math.ceil(window.innerHeight / cropImageList.length) + 1;
+  const [cropListCount, setCropListCount] = useState<number>(0);
+  useEffect(() => {
+    setCropListCount(Math.ceil(window.innerHeight / cropImageList.length) + 1);
+  }, []);
 
   const cropList = Array.from({ length: cropListCount * cropImageList.length }).map((_, index) => ({
     id: index,
