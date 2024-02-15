@@ -5,6 +5,7 @@ export interface CubeProps {
   currZ: number;
   offsetY: number;
   cubeSize: number;
+  count: number;
 }
 
 export interface CubeBarProps extends CubeProps {
