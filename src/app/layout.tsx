@@ -12,7 +12,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <Providers>
           <Flex>
             <Sidebar />
-            <Flex w="full">{children}</Flex>
+            {children}
           </Flex>
         </Providers>
       </body>
