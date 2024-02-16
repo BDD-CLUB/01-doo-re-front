@@ -1,15 +1,19 @@
+:root {
+  --duration: 20s;
+}
+
 .rolling_crop {
-  animation: 10s linear 0s infinite normal forwards running rollingtop;
+  animation: var(--duration, 10s) linear 0s infinite normal forwards running rollingtop;
 }
 .rolling_crop_clone {
-  animation: 10s linear 0s infinite normal none running rollingtopclone;
+  animation: var(--duration, 10s) linear 0s infinite normal none running rollingtopclone;
 }
 
 .rev_rolling_crop {
-  animation: 10s linear 0s infinite normal forwards running rollingbottom;
+  animation: var(--duration, 10s) linear 0s infinite normal forwards running rollingbottom;
 }
 .rev_rolling_crop_clone {
-  animation: 10s linear 0s infinite normal none running rollingbottomclone;
+  animation: var(--duration, 10s) linear 0s infinite normal none running rollingbottomclone;
 }
 
 @keyframes rollingtop {
