@@ -6,7 +6,7 @@ import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
-import sidebarData from '@/app/mocks/sidebar';
+import sidebarData from '@/mocks/sidebar';
 
 import SidebarIconButton from './Button/SidebarIconButton';
 import Category from './Category';
