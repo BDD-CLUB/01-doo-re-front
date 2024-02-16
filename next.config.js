@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    swcPlugins: [["@swc-jotai/react-refresh", {}]],
+    swcPlugins: [['@swc-jotai/react-refresh', {}]],
   },
-  output: "standalone",
+  reactStrictMode: false,
+  output: 'standalone',
 };
 
 module.exports = nextConfig;

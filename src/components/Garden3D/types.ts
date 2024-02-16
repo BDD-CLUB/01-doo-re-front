@@ -4,13 +4,14 @@ export interface CubeProps {
   currX: number;
   currZ: number;
   offsetY: number;
-  cubeSize: number;
-}
-
-export interface CubeBarProps extends CubeProps {
-  barHeight: number;
+  cubeSizeHalf: number;
+  count: number;
+  maxCount: number;
 }
 
 export interface Garden3DProps {
+  cubeSize: number;
+  cubeGap: number;
+  rotateY: number;
   gardenInfos: GardenInfoType[];
 }
