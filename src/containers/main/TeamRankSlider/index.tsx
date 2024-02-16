@@ -24,7 +24,7 @@ const TeamRankSlider = () => {
   };
 
   return (
-    <Box pos="relative" w="100vw" h="400">
+    <Box pos="relative" w="100%" h="400">
       <Box pos="absolute" left={`calc(50% - ${780 * indexX}px)`} transform="translate(-50%, 0%)">
         {teamRankInfos.map((info, _) => {
           const leftScale = 780 * _;

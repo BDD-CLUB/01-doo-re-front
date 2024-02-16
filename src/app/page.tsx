@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// TODO - 임시로 eslint 룰 무시했습니다. 추후 제거 필요
-
 'use client';
 
 import { Box, Grid, Text, Flex } from '@chakra-ui/react';
@@ -40,15 +37,12 @@ const Page = () => {
         </Grid>
         <ScrollDownButton onClick={() => mainSectionRef.current?.scrollNext()} />
       </Flex>
-      <Flex w="full" h="100vh">
-        임시
-      </Flex>
 
-      {/* <Box key="main" pos="relative" h="100vh">
+      <Box key="main" pos="relative" h="100vh">
         <TeamRankBG />
         <TeamRankDescription />
         <TeamRankSlider />
-      </Box> */}
+      </Box>
     </MainSection>
   );
 };
