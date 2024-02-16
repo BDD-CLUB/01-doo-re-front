@@ -10,3 +10,11 @@ export interface GardenInfoType {
   count: number;
   id: number;
 }
+
+export interface TeamRankInfoType {
+  id: number;
+  rank: number;
+  name: string;
+  description: string;
+  gardenInfos: GardenInfoType[];
+}
