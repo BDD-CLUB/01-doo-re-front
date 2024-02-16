@@ -8,6 +8,9 @@ import GoogleLoginButton from '@/containers/main/GoogleLoginButton';
 import MainSection from '@/containers/main/MainSection';
 import { MainSectionElement } from '@/containers/main/MainSection/types';
 import ScrollDownButton from '@/containers/main/ScrollDownButton';
+import TeamRankBG from '@/containers/main/TeamRankBG';
+import TeamRankDescription from '@/containers/main/TeamRankDescription';
+import TeamRankSlider from '@/containers/main/TeamRankSlider';
 
 const Page = () => {
   const mainSectionRef = useRef<MainSectionElement>(null);
@@ -34,7 +37,11 @@ const Page = () => {
         </Grid>
         <ScrollDownButton onClick={() => mainSectionRef.current?.scrollNext()} />
       </Flex>
-      <Box key="main" h="100vh" />
+      <Box key="main" pos="relative" w="100vw" h="100vh">
+        <TeamRankBG />
+        <TeamRankDescription />
+        <TeamRankSlider />
+      </Box>
     </MainSection>
   );
 };
