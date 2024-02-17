@@ -15,15 +15,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Flex
-      direction="column"
-      gap="16"
-      w={isOpen ? '72' : '20'}
-      h="100vh"
-      p="4"
-      bg="green"
-      transition="width 0.15s ease-in-out"
-    >
+    <Flex direction="column" gap="16" w={isOpen ? '72' : '20'} p="4" bg="green" transition="width 0.15s ease-in-out">
       <Flex justify={isOpen ? 'space-between' : 'center'}>
         {isOpen && (
           // TODO - 추후 로고 대체
@@ -58,7 +50,7 @@ const Sidebar = () => {
       </Flex>
 
       {isOpen && (
-        <Card direction="column" gap="4" h="100vh" p="4" bg="green_dark" rounded="2xl">
+        <Card direction="column" gap="4" h="100%" p="4" bg="green_dark" rounded="2xl">
           <Flex align="center" justify="space-between">
             <Text color="white" fontSize="xl" fontWeight="bold">
               TEAM & STUDY
