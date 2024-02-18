@@ -15,7 +15,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Flex direction="column" gap="16" w={isOpen ? '72' : '20'} p="4" bg="green" transition="width 0.15s ease-in-out">
+    <Flex direction="column" gap="16" w={isOpen ? '60' : '16'} p="4" bg="green" transition="width 0.15s ease-in-out">
       <Flex justify={isOpen ? 'space-between' : 'center'}>
         {isOpen && (
           // TODO - 추후 로고 대체

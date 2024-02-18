@@ -2,7 +2,7 @@ import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 
 const Page = () => {
   return (
-    <Flex gap="8" w="100%" p="8" bg="#F7F7F7">
+    <Flex gap="8" w="100%" p="8" bg="gray.50">
       <Flex direction="column" gap="8" w="66%" bg="gray.100">
         {/* TODO 이름 + 소개글 컴포넌트 */}
         <Box w="96" h="16" bg="gray.200" />
