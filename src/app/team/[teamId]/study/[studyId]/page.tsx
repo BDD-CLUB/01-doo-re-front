@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 
 const Page = () => {
-  return <Flex w="100%" bg="#F7F7F7" />;
+  return <Flex w="100%" bg="gray.50" />;
 };
 
 export default Page;
