@@ -10,9 +10,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en" className={fonts.rubik.variable}>
       <body>
         <Providers>
-          <Flex>
+          <Flex minH="100vh">
             <Sidebar />
-            {children}
+            <Flex flex="1">{children}</Flex>
           </Flex>
         </Providers>
       </body>

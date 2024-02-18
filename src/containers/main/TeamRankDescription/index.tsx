@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react';
 const TeamRankDescription = () => {
   return (
     <Box
-      w="100vw"
+      w="100%"
       h="fit-content"
       p="70px 0px 30px 180px"
       color="#fff"
