@@ -16,7 +16,7 @@
   animation: var(--duration, 10s) linear 0s infinite normal none running rollingbottomclone;
 }
 
-@keyframes rollingTop {
+@keyframes rolling_top {
   0% {
     transform: translateY(0);
   }
@@ -33,7 +33,7 @@
   }
 }
 
-@keyframes rollingTopClone {
+@keyframes rolling_top_clone {
   0% {
     transform: translateY(100%);
   }
@@ -42,7 +42,7 @@
   }
 }
 
-@keyframes rollingBottom {
+@keyframes rolling_bottom {
   0% {
     transform: translateY(0);
   }
@@ -59,7 +59,7 @@
   }
 }
 
-@keyframes rollingBottomClone {
+@keyframes rolling_bottom_clone {
   0% {
     transform: translateY(-100%);
   }
