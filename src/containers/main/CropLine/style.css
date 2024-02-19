@@ -3,17 +3,17 @@
 }
 
 .rolling_crop {
-  animation: var(--duration, 10s) linear 0s infinite normal forwards running rollingtop;
+  animation: var(--duration, 10s) linear 0s infinite normal forwards running rolling_top;
 }
 .rolling_crop_clone {
-  animation: var(--duration, 10s) linear 0s infinite normal none running rollingtopclone;
+  animation: var(--duration, 10s) linear 0s infinite normal none running rolling_top_clone;
 }
 
 .rev_rolling_crop {
-  animation: var(--duration, 10s) linear 0s infinite normal forwards running rollingbottom;
+  animation: var(--duration, 10s) linear 0s infinite normal forwards running rolling_bottom;
 }
 .rev_rolling_crop_clone {
-  animation: var(--duration, 10s) linear 0s infinite normal none running rollingbottomclone;
+  animation: var(--duration, 10s) linear 0s infinite normal none running rolling_bottom_clone;
 }
 
 @keyframes rolling_top {
