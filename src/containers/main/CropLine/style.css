@@ -1,0 +1,25 @@
+.rolling_crop {
+  animation: 1000s linear 0s infinite normal forwards running rolling_top;
+}
+
+.rev_rolling_crop {
+  animation: 1000s linear 0s infinite normal forwards running rolling_bottom;
+}
+
+@keyframes rolling_top {
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes rolling_bottom {
+  0% {
+    transform: translateY(-99%);
+  }
+  100% {
+    transform: translateY(1%);
+  }
+}

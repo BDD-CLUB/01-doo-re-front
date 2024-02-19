@@ -1,59 +1,66 @@
 import './style.css';
 import { colorInfo } from '@/mocks/Garden3D';
 
-import { CubeBarProps } from '../types';
+import { CubeProps } from '../types';
 
 const exponentialFunction = (height: number) => 10 * height;
 
-const Bar = ({ barHeight, currX, currZ, offsetY, cubeSize }: CubeBarProps) => {
+const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSizeHalf }: CubeProps) => {
+  const barX = count === 0 ? 0 : Math.ceil(count / maxCount);
+  const barHeight = barX === 0 ? 3 : exponentialFunction(barX);
+
   return (
     <>
       <div
         style={{
-          height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side1}`,
-          transform: `translateX(${currX}px) translateY(${
-            offsetY - exponentialFunction(barHeight) + 3
-          }px) translateZ(${currZ + cubeSize}px)`,
+          width: `${cubeSizeHalf * 2}px`,
+          height: `${barHeight}px`,
+          background: `${colorInfo[barX].side1}`,
+          transform: `translateX(${currX}px) translateY(${offsetY - barHeight}px) translateZ(${currZ + cubeSizeHalf}px)`,
         }}
         className="cube_side front_panel"
       />
       <div
         style={{
-          height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side1}`,
+          width: `${cubeSizeHalf * 2}px`,
+          height: `${barHeight}px`,
+          background: `${colorInfo[barX].side1}`,
           transform: `translateX(${currX}px) translateY(${
-            offsetY - exponentialFunction(barHeight) + 3
-          }px) translateZ(${currZ}px) rotateY(180deg) translateZ(${cubeSize}px)`,
+            offsetY - barHeight
+          }px) translateZ(${currZ}px) rotateY(180deg) translateZ(${cubeSizeHalf}px)`,
         }}
         className="cube_side back_panel"
       />
       <div
         style={{
-          height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side2}`,
+          width: `${cubeSizeHalf * 2}px`,
+          height: `${barHeight}px`,
+          background: `${colorInfo[barX].side2}`,
           transform: `translateX(${currX}px) translateY(${
-            offsetY - exponentialFunction(barHeight) + 3
-          }px) translateZ(${currZ}px) rotateY(90deg) translateZ(${cubeSize}px)`,
+            offsetY - barHeight
+          }px) translateZ(${currZ}px) rotateY(90deg) translateZ(${cubeSizeHalf}px)`,
         }}
         className="cube_side right_panel"
       />
       <div
         style={{
-          height: `${exponentialFunction(barHeight)}px`,
-          background: `${colorInfo[barHeight - 1].side2}`,
+          width: `${cubeSizeHalf * 2}px`,
+          height: `${barHeight}px`,
+          background: `${colorInfo[barX].side2}`,
           transform: `translateX(${currX}px) translateY(${
-            offsetY - exponentialFunction(barHeight) + 3
-          }px) translateZ(${currZ}px) rotateY(270deg) translateZ(${cubeSize}px)`,
+            offsetY - barHeight
+          }px) translateZ(${currZ}px) rotateY(270deg) translateZ(${cubeSizeHalf}px)`,
         }}
         className="cube_side left_panel"
       />
       <div
         style={{
-          background: `${colorInfo[barHeight - 1].ceil}`,
+          width: `${cubeSizeHalf * 2}px`,
+          height: `${cubeSizeHalf * 2}px`,
+          background: `${colorInfo[barX].ceil}`,
           transform: `translateX(${currX}px) translateY(${
-            offsetY - exponentialFunction(barHeight) + 3
-          }px) translateZ(${currZ}px) rotateX(90deg) translateZ(${cubeSize}px)`,
+            offsetY - barHeight
+          }px) translateZ(${currZ}px) rotateX(90deg) translateZ(${cubeSizeHalf}px)`,
         }}
         className="cube_above upper_panel"
       />
