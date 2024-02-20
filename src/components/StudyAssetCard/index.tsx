@@ -19,7 +19,7 @@ const StudyAssetCard = ({ title, content, date, bookmark }: StudyAssetCardProps)
         <Text fontSize="xs">{content}</Text>
       </CardBody>
       <CardFooter alignItems="center" justify="space-between" px="2" py="0">
-        <Text color="gray.400" fontSize="xs">
+        <Text color="gray.200" fontSize="xs">
           {date}
         </Text>
         <Flex align="center">
