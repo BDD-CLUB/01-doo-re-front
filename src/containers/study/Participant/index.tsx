@@ -15,7 +15,7 @@ const Participant = ({ participantInfos }: ParticipantProps) => {
   });
 
   return (
-    <Card align="center" overflowY="auto" w="30vw" h="30vh" m="8" bg="white" borderRadius="2xl" shadow="lg">
+    <Card align="center" overflowY="auto" w="100%" h="100%" bg="white" borderRadius="2xl" shadow="lg">
       <Grid templateColumns="repeat(3, 1fr)" pt="5" pb="2">
         {[
           { data: leader, color: colors.orange_dark },
