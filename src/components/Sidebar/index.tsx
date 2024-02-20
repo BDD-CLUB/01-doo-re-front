@@ -6,6 +6,7 @@ import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
+import size from '@/constants/size';
 import sidebarData from '@/mocks/sidebar';
 
 import SidebarIconButton from './Button/SidebarIconButton';
@@ -15,7 +16,14 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Flex direction="column" gap="16" w={isOpen ? '60' : '16'} p="4" bg="green" transition="width 0.15s ease-in-out">
+    <Flex
+      direction="column"
+      gap="16"
+      w={isOpen ? size.sidebarWidth : '16'}
+      p="4"
+      bg="green"
+      transition="width 0.15s ease-in-out"
+    >
       <Flex justify={isOpen ? 'space-between' : 'center'}>
         {isOpen && (
           // TODO - 추후 로고 대체
