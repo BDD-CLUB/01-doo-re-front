@@ -37,7 +37,8 @@ const Page = () => {
         </Grid>
         <ScrollDownButton onClick={() => mainSectionRef.current?.scrollNext()} />
       </Flex>
-      <Box key="main" pos="relative" w="100vw" h="100vh">
+
+      <Box key="main" pos="relative" h="100vh">
         <TeamRankBG />
         <TeamRankDescription />
         <TeamRankSlider />

@@ -16,7 +16,7 @@ const cropImageList = [
 const CropLine = ({ reverse = false }: CropLineProps) => {
   const [cropListCount, setCropListCount] = useState<number>(0);
   useEffect(() => {
-    setCropListCount(Math.ceil(window.innerHeight / cropImageList.length) + 1);
+    setCropListCount(Math.ceil(window.innerHeight / 136 / cropImageList.length) + 1);
   }, []);
 
   const cropList = Array.from({ length: cropListCount * cropImageList.length }).map((_, index) => ({
@@ -27,6 +27,11 @@ const CropLine = ({ reverse = false }: CropLineProps) => {
   return (
     <Box pos="relative" overflow="hidden" w="24" h="100vh">
       <Flex className={reverse ? 'rev_rolling_crop' : 'rolling_crop'} pos="absolute" direction="column">
+        {cropList.map((crop) => (
+          <Image key={crop.id} w="24" mb="10" alt="crop" src={crop.img} />
+        ))}
+      </Flex>
+      <Flex className={reverse ? 'rev_rolling_crop_clone' : 'rolling_crop_clone'} pos="absolute" direction="column">
         {cropList.map((crop) => (
           <Image key={crop.id} w="24" mb="10" alt="crop" src={crop.img} />
         ))}

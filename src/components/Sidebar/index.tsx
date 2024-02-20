@@ -6,6 +6,7 @@ import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
+import size from '@/constants/size';
 import sidebarData from '@/mocks/sidebar';
 
 import SidebarIconButton from './Button/SidebarIconButton';
@@ -18,8 +19,7 @@ const Sidebar = () => {
     <Flex
       direction="column"
       gap="16"
-      w={isOpen ? '72' : '20'}
-      h="100vh"
+      w={isOpen ? size.sidebarWidth : '16'}
       p="4"
       bg="green"
       transition="width 0.15s ease-in-out"
@@ -58,7 +58,7 @@ const Sidebar = () => {
       </Flex>
 
       {isOpen && (
-        <Card direction="column" gap="4" h="100vh" p="4" bg="green_dark" rounded="2xl">
+        <Card direction="column" gap="4" h="100%" p="4" bg="green_dark" rounded="2xl">
           <Flex align="center" justify="space-between">
             <Text color="white" fontSize="xl" fontWeight="bold">
               TEAM & STUDY
