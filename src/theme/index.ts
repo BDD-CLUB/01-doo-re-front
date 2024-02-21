@@ -7,7 +7,7 @@ import styles from './styles';
 const theme = extendTheme({
   styles,
   ...foundations,
-  ...components,
+  components,
 });
 
 export default theme;
