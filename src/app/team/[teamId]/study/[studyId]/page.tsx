@@ -1,4 +1,7 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
+
+import StudyAssetCard from '@/components/StudyAssetCard';
+import studyAssetCardData from '@/mocks/study';
 
 const Page = () => {
   return (
@@ -10,15 +13,22 @@ const Page = () => {
         <Flex flex="1" p="2" bg="gray.200" />
         {/* TODO 학습자료 */}
         <Flex direction="column" gap="2">
-          {/* TODO 전체보기 버튼 */}
           <Box w="100%" h="10" bg="gray.200" />
           {/* TODO 학습자료 카드 */}
-          <Grid gap="4" templateColumns="repeat(4, 1fr)" bg="gray.100">
-            <GridItem w="100%" h="80" bg="gray.200" />
-            <GridItem w="100%" h="80" bg="gray.200" />
-            <GridItem w="100%" h="80" bg="gray.200" />
-            <GridItem w="100%" h="80" bg="gray.200" />
-          </Grid>
+          <SimpleGrid gap="4" overflow="hidden" minH="32" minChildWidth="64">
+            {studyAssetCardData.map((data) => {
+              return (
+                <StudyAssetCard
+                  key={data.title}
+                  title={data.title}
+                  content={data.content}
+                  date={data.date}
+                  bookmark={data.bookmark}
+                  img={data.img}
+                />
+              );
+            })}
+          </SimpleGrid>
         </Flex>
       </Flex>
       <Flex direction="column" gap="8" w="33%" bg="gray.100">

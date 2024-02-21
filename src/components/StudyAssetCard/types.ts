@@ -3,4 +3,5 @@ export interface StudyAssetCardProps {
   content: string;
   date: string;
   bookmark: number;
+  img: string;
 }
