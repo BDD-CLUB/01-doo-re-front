@@ -1,5 +1,7 @@
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 
+import TeamMember from '@/containers/team/teamMember';
+
 const Page = () => {
   return (
     <Flex direction="column" gap="8" w="100%" p="8">
@@ -7,7 +9,10 @@ const Page = () => {
         {/* TODO 이름 + 소개글 컴포넌트 */}
         <Box w="96" h="16" bg="gray.200" />
         {/* TODO 팀원 목록, 초대링크 버튼 */}
-        <Box w="52" h="16" bg="gray.200" />
+
+        <Box w="52" h="16" bg="red.100">
+          <TeamMember />
+        </Box>
       </Flex>
 
       <Flex align="center" flex="1" gap="8" bg="gray.100">
