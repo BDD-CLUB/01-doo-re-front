@@ -18,3 +18,11 @@ export interface TeamRankInfoType {
   description: string;
   gardenInfos: GardenInfoType[];
 }
+
+export interface ParticipantType {
+  id: number;
+  name: string;
+  status: string;
+  profileImg: string;
+  myPageUrl: string;
+}
