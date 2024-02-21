@@ -5,4 +5,5 @@ export interface StudyCardProps {
   endDate: string;
   cropId: number;
   percent: number;
+  rank: number;
 }
