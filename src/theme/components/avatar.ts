@@ -18,6 +18,13 @@ const Avatar = defineMultiStyleConfig({
         w: '38px',
         shadow: 'lg',
       },
+      excessLabel: {
+        bg: 'none',
+        color: 'blackAlpha.800',
+        h: '38px',
+        w: '38px',
+        marginLeft: '4px',
+      },
     }),
     lg: definePartsStyle({
       container: {

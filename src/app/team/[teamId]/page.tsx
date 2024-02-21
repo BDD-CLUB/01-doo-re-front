@@ -1,8 +1,11 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Button } from '@chakra-ui/react';
+import { BsLink45Deg } from 'react-icons/bs';
 
 import TeamMember from '@/containers/team/teamMember';
 
 const Page = () => {
+  // const toast = useToast();
+  // console.log(useToast());
   return (
     <Flex direction="column" gap="8" w="100%" p="8">
       <Flex justify="space-between" bg="gray.100">
@@ -10,9 +13,27 @@ const Page = () => {
         <Box w="96" h="16" bg="gray.200" />
         {/* TODO 팀원 목록, 초대링크 버튼 */}
 
-        <Box w="52" h="16" bg="red.100">
+        <Flex align="center" justify="space-between" gap="8" w="fit-content" h="16">
           <TeamMember />
-        </Box>
+          <Button
+            color="white"
+            bg="orange_dark"
+            // onClick={() =>
+            //   toast({
+            //     title: 'Account created.',
+            //     description: "We've created your account for you.",
+            //     status: 'success',
+            //     duration: 9000,
+            //     isClosable: true,
+            //   })
+            // }
+            rounded="full"
+            size="sm"
+          >
+            초대
+            <BsLink45Deg size="24px" />
+          </Button>
+        </Flex>
       </Flex>
 
       <Flex align="center" flex="1" gap="8" bg="gray.100">
