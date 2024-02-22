@@ -1,5 +1,5 @@
 export interface TitleProps {
-  isTeam: boolean;
+  isTeam?: boolean;
   teamImg?: string;
   name: string;
   description: string;
