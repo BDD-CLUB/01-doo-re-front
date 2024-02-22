@@ -13,6 +13,7 @@ const TabButton = ({ currentTab, changeTab, categoryInfos }: TabButtonProps) => 
             bg={data.name === currentTab ? 'orange_dark' : 'white'}
             borderRadius="30px"
             shadow="md"
+            _hover={{ bg: 'orange_light' }}
             onClick={() => changeTab(data.name)}
           >
             <Text color={data.name === currentTab ? 'white' : 'black'} fontSize="md" fontWeight="bold">
