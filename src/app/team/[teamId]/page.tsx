@@ -6,6 +6,7 @@ import { BsLink45Deg } from 'react-icons/bs';
 
 import StudyCard from '@/components/StudyCard';
 import TabButton from '@/components/TabButton';
+
 import TeamMember from '@/containers/team/teamMember';
 import studyCardData from '@/mocks/studyCard';
 import teamPageCategoryInfos from '@/mocks/team';
