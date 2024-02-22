@@ -1,4 +1,4 @@
-import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
+import { Box, Flex, Grid } from '@chakra-ui/react';
 
 import StudyAssetCard from '@/components/StudyAssetCard';
 import studyAssetCardData from '@/mocks/studyAssetCard';
@@ -15,7 +15,7 @@ const Page = () => {
         <Flex direction="column" gap="2">
           <Box w="100%" h="10" bg="gray.200" />
           {/* TODO 학습자료 카드 */}
-          <SimpleGrid gap="4" overflow="hidden" minH="32" minChildWidth="60">
+          <Grid gap="4" templateColumns="repeat(4, 1fr)">
             {studyAssetCardData.map((data) => {
               return (
                 <StudyAssetCard
@@ -28,7 +28,7 @@ const Page = () => {
                 />
               );
             })}
-          </SimpleGrid>
+          </Grid>
         </Flex>
       </Flex>
       <Flex direction="column" gap="8" w="33%" bg="gray.100">
