@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import './style.css';
 
 import Bar from './Bar';
@@ -18,8 +20,27 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
       return prev.count >= value.count ? prev : value;
     }).count / 4;
 
+  /* setting for drag event */
+  const [yDegree, setYDegree] = useState<number>(rotateY);
+
+  /* cube mouse drag event */
+  const mouseDown = (clickEvent: React.MouseEvent<Element, MouseEvent>) => {
+    const mouseMoveHandler = (moveEvent: MouseEvent) => {
+      const deltaX = moveEvent.screenX - clickEvent.screenX;
+
+      setYDegree(yDegree + deltaX);
+    };
+
+    const mouseUpHandler = () => {
+      document.removeEventListener('mousemove', mouseMoveHandler);
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler, { once: true });
+  };
+
   return (
-    <div className="container" role="textbox" tabIndex={0}>
+    <div className="container" onMouseDown={rotate ? mouseDown : undefined} role="textbox" tabIndex={0}>
       <div className="fake_scene">
         {gardenInfos.map((info) => {
           const currZ = offsetZ + (info.date - 3) * gap;
@@ -30,7 +51,7 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
               key={info.id}
               className="scene"
               style={{
-                transform: `rotateY(${rotateY}deg)`,
+                transform: `rotateY(${yDegree}deg)`,
               }}
             >
               <Bar
