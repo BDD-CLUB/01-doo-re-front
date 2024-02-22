@@ -20,7 +20,7 @@ const Avatar = defineMultiStyleConfig({
       },
       excessLabel: {
         bg: 'none',
-        color: 'blackAlpha.800',
+        color: 'black',
         h: '38px',
         w: '38px',
         marginLeft: '4px',

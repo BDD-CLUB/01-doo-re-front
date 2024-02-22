@@ -6,7 +6,7 @@ const TeamMember = () => {
   return (
     <AvatarGroup max={4} size="md">
       {teamMemberList.map((member) => {
-        return <Avatar key={member.gooleId} name={member.name} src={member.imageUrl} />;
+        return <Avatar key={member.googleId} name={member.name} src={member.imageUrl} />;
       })}
     </AvatarGroup>
   );

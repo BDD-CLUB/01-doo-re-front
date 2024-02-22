@@ -25,7 +25,6 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
             _hover={{ bg: 'transparent' }}
             aria-label="bookmark"
             icon={<BiBookmark />}
-            // onClick={() =>}
           />
           <Text fontSize="sm">{bookmark}</Text>
         </Flex>

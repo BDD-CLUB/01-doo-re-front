@@ -1,6 +1,6 @@
 export interface TeamMemberProps {
   name: string;
-  gooleId: string;
+  googleId: string;
   email: string;
   imageUrl: string;
   isDeleted: boolean;

@@ -22,15 +22,8 @@ const Page = () => {
 
         <Flex align="center" justify="space-between" gap="8" w="fit-content" h="16">
           <TeamMember />
-          <Button
-            color="white"
-            bg="orange_dark"
-            // onClick={() = q}
-            rounded="full"
-            size="sm"
-          >
+          <Button color="white" bg="orange_dark" rightIcon={<BsLink45Deg size="24px" />} rounded="full" size="sm">
             초대
-            <BsLink45Deg size="24px" />
           </Button>
         </Flex>
       </Flex>
