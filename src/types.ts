@@ -26,3 +26,8 @@ export interface ParticipantType {
   profileImg: string;
   myPageUrl: string;
 }
+
+export interface TabButtonInfoType {
+  id: number;
+  name: string;
+}

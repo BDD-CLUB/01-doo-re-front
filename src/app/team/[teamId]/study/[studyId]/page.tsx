@@ -1,7 +1,7 @@
 import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 
 import StudyAssetCard from '@/components/StudyAssetCard';
-import studyAssetCardData from '@/mocks/study';
+import studyAssetCardData from '@/mocks/studyAssetCard';
 
 const Page = () => {
   return (
