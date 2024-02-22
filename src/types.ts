@@ -26,3 +26,8 @@ export interface ParticipantType {
   profileImg: string;
   myPageUrl: string;
 }
+
+export interface CategoryInfoType {
+  id: number;
+  name: string;
+}
