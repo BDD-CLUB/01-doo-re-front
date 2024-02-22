@@ -27,7 +27,7 @@ export interface ParticipantType {
   myPageUrl: string;
 }
 
-export interface CategoryInfoType {
+export interface TabButtonInfoType {
   id: number;
   name: string;
 }
