@@ -11,7 +11,7 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
   const cubeSizeHalf = cubeSize / 2;
 
   const offsetX = 300;
-  const offsetDefaultY = 530;
+  const offsetDefaultY = 545;
   const [offsetY, setOffsetY] = useState<number>(offsetDefaultY);
   const offsetZ = 0;
   const gap = cubeSize + cubeGap;
