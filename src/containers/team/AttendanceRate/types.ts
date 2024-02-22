@@ -1,3 +1,3 @@
-export interface AttendanceProps {
+export interface AttendanceRateProps {
   attendanceRate: number;
 }
