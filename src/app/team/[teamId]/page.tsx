@@ -1,12 +1,12 @@
 'use client';
 
-import { Box, Flex, Grid, GridItem, SimpleGrid } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import TabButton from '@/components/TabButton';
-import teamPageCategoryInfos from '@/mocks/team';
 import StudyCard from '@/components/StudyCard';
+import TabButton from '@/components/TabButton';
 import studyCardData from '@/mocks/studyCard';
+import teamPageCategoryInfos from '@/mocks/team';
 
 const Page = () => {
   const [category, setCategory] = useState<string>(teamPageCategoryInfos[0].name);
