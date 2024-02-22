@@ -9,7 +9,7 @@ const TabButton = ({ currentTab, changeTab, categoryInfos }: TabButtonProps) => 
         return (
           <Button
             key={data.id}
-            w="120px"
+            w="28"
             bg={data.name === currentTab ? 'orange_dark' : 'white'}
             borderRadius="30px"
             shadow="md"
