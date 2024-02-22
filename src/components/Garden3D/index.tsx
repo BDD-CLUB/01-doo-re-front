@@ -5,7 +5,7 @@ import './style.css';
 import Bar from './Bar';
 import { Garden3DProps } from './types';
 
-const Garden3D = ({ cubeSize, cubeGap, rotateY, gardenInfos }: Garden3DProps) => {
+const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: Garden3DProps) => {
   const cubeSizeHalf = cubeSize / 2;
 
   const offsetX = 300;
