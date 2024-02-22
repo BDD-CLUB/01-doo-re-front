@@ -1,13 +1,18 @@
+'use client';
+
 import { Box, Flex, SimpleGrid, Button } from '@chakra-ui/react';
+import { useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
 import StudyCard from '@/components/StudyCard';
+import TabButton from '@/components/TabButton';
 import TeamMember from '@/containers/team/teamMember';
 import studyCardData from '@/mocks/studyCard';
+import teamPageCategoryInfos from '@/mocks/team';
 
 const Page = () => {
-  // const toast = useToast();
-  // console.log(useToast());
+  const [category, setCategory] = useState<string>(teamPageCategoryInfos[0].name);
+
   return (
     <Flex direction="column" gap="8" w="100%" p="8">
       <Flex justify="space-between" bg="gray.100">
@@ -20,15 +25,7 @@ const Page = () => {
           <Button
             color="white"
             bg="orange_dark"
-            // onClick={() =>
-            //   toast({
-            //     title: 'Account created.',
-            //     description: "We've created your account for you.",
-            //     status: 'success',
-            //     duration: 9000,
-            //     isClosable: true,
-            //   })
-            // }
+            // onClick={() = q}
             rounded="full"
             size="sm"
           >
@@ -47,7 +44,7 @@ const Page = () => {
 
       <Flex direction="column" flex="1" gap="4" bg="gray.100">
         {/* TODO 스터디, 학습자료, 작물창고 버튼 */}
-        <Box w="96" h="10" bg="gray.200" />
+        <TabButton currentTab={category} changeTab={setCategory} categoryInfos={teamPageCategoryInfos} />
         {/* TODO 전체보기, 네비게이션 이동 버튼 */}
         <Box h="10" bg="gray.200" />
         {/* TODO 스터디 카드 */}
