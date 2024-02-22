@@ -7,8 +7,15 @@ const TabButton = ({ currentTab, changeTab, categoryInfos }: TabButtonProps) => 
     <Flex gap="30px">
       {categoryInfos.map((data) => {
         return (
-          <Button key={data.id} w="120px" bg="white" borderRadius="30px" shadow="md">
-            <Text color="black" fontSize="md" fontWeight="bold">
+          <Button
+            key={data.id}
+            w="120px"
+            bg={data.name === currentTab ? 'orange_dark' : 'white'}
+            borderRadius="30px"
+            shadow="md"
+            onClick={() => changeTab(data.name)}
+          >
+            <Text color={data.name === currentTab ? 'white' : 'black'} fontSize="md" fontWeight="bold">
               {data.name}
             </Text>
           </Button>
