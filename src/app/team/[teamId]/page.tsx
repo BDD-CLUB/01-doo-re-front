@@ -1,10 +1,12 @@
 'use client';
 
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import TabButton from '@/components/TabButton';
 import teamPageCategoryInfos from '@/mocks/team';
+import StudyCard from '@/components/StudyCard';
+import studyCardData from '@/mocks/studyCard';
 
 const Page = () => {
   const [category, setCategory] = useState<string>(teamPageCategoryInfos[0].name);
@@ -31,12 +33,26 @@ const Page = () => {
         {/* TODO 전체보기, 네비게이션 이동 버튼 */}
         <Box h="10" bg="gray.200" />
         {/* TODO 스터디 카드 */}
-        <Grid gap="4" templateColumns="repeat(4, 1fr)" mx="36" bg="gray.100">
+        <SimpleGrid justifyContent="center" gap="4" px="24" minChildWidth="64">
+          {studyCardData.map((study) => {
+            return (
+              <StudyCard
+                key={study.name}
+                name={study.name}
+                description={study.description}
+                startDate={study.startDate}
+                endDate={study.endDate}
+                cropId={study.cropId}
+                percent={study.percent}
+                rank={study.rank}
+              />
+            );
+          })}
+          {/* <GridItem w="100%" h="64" bg="gray.200" />
           <GridItem w="100%" h="64" bg="gray.200" />
           <GridItem w="100%" h="64" bg="gray.200" />
-          <GridItem w="100%" h="64" bg="gray.200" />
-          <GridItem w="100%" h="64" bg="gray.200" />
-        </Grid>
+          <GridItem w="100%" h="64" bg="gray.200" /> */}
+        </SimpleGrid>
       </Flex>
     </Flex>
   );
