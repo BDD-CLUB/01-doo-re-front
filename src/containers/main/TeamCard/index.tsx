@@ -71,7 +71,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
           left="100%"
           w="fit-content"
           h="fit-content"
-          transform="translate(-80%, 0%)"
+          transform="translate(-80%, -10%)"
         >
           <Garden3D cubeSize={24} cubeGap={4} rotateY={55} gardenInfos={gardenInfos} />
         </Box>
