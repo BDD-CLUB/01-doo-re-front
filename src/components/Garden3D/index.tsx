@@ -11,7 +11,8 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
   const cubeSizeHalf = cubeSize / 2;
 
   const offsetX = 300;
-  const offsetY = 530;
+  const offsetDefaultY = 530;
+  const [offsetY, setOffsetY] = useState<number>(offsetDefaultY);
   const offsetZ = 0;
   const gap = cubeSize + cubeGap;
   const standX = (gardenInfos[gardenInfos.length - 1].week - gardenInfos[0].week + 1) / 2 + gardenInfos[0].week;
@@ -28,6 +29,10 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
     const mouseMoveHandler = (moveEvent: MouseEvent) => {
       const deltaX = moveEvent.screenX - clickEvent.screenX;
 
+      const calcY = Math.abs((yDegree + deltaX) % 180);
+
+      if (calcY < 90) setOffsetY(offsetDefaultY - calcY / 2);
+      else setOffsetY(offsetDefaultY + (calcY - 180) / 2);
       setYDegree(yDegree + deltaX);
     };
 
