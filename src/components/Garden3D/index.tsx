@@ -11,7 +11,7 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
   const cubeSizeHalf = cubeSize / 2;
 
   const offsetX = 300;
-  const offsetY = 500;
+  const offsetY = 530;
   const offsetZ = 0;
   const gap = cubeSize + cubeGap;
   const standX = (gardenInfos[gardenInfos.length - 1].week - gardenInfos[0].week + 1) / 2 + gardenInfos[0].week;
