@@ -10,6 +10,7 @@ export interface CubeProps {
 }
 
 export interface Garden3DProps {
+  rotate?: boolean;
   cubeSize: number;
   cubeGap: number;
   rotateY: number;
