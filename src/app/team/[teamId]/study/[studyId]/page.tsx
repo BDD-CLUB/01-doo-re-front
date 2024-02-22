@@ -15,7 +15,7 @@ const Page = () => {
         <Flex direction="column" gap="2">
           <Box w="100%" h="10" bg="gray.200" />
           {/* TODO 학습자료 카드 */}
-          <SimpleGrid gap="4" overflow="hidden" minH="32" minChildWidth="64">
+          <SimpleGrid gap="4" overflow="hidden" minH="32" minChildWidth="60">
             {studyAssetCardData.map((data) => {
               return (
                 <StudyAssetCard
