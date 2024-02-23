@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import StudyCard from '@/components/StudyCard';
 import TabButton from '@/components/TabButton';
+import Title from '@/components/Title';
 import studyCardData from '@/mocks/studyCard';
 import teamPageCategoryInfos from '@/mocks/team';
 
@@ -14,10 +15,9 @@ const Page = () => {
   return (
     <Flex direction="column" gap="8" w="100%" p="8">
       <Flex justify="space-between" bg="gray.100">
-        {/* TODO 이름 + 소개글 컴포넌트 */}
-        <Box w="96" h="16" bg="gray.200" />
+        <Title name="열사모" description="팀입니다" />
         {/* TODO 팀원 목록, 초대링크 버튼 */}
-        <Box w="52" h="16" bg="gray.200" />
+        {/* <Box w="52" h="16" bg="gray.200" /> */}
       </Flex>
 
       <Flex align="center" flex="1" gap="8" bg="gray.100">
