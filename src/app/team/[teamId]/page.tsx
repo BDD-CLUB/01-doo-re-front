@@ -1,12 +1,10 @@
 'use client';
 
-import { Box, Flex, SimpleGrid, Button } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
-import { BsLink45Deg } from 'react-icons/bs';
 
 import StudyCard from '@/components/StudyCard';
 import TabButton from '@/components/TabButton';
-import TeamMember from '@/containers/team/teamMember';
 import studyCardData from '@/mocks/studyCard';
 import teamPageCategoryInfos from '@/mocks/team';
 
@@ -19,13 +17,7 @@ const Page = () => {
         {/* TODO 이름 + 소개글 컴포넌트 */}
         <Box w="96" h="16" bg="gray.200" />
         {/* TODO 팀원 목록, 초대링크 버튼 */}
-
-        <Flex align="center" justify="space-between" gap="8" w="fit-content" h="16">
-          <TeamMember />
-          <Button color="white" bg="orange_dark" rightIcon={<BsLink45Deg size="24px" />} rounded="full" size="sm">
-            초대
-          </Button>
-        </Flex>
+        <Box w="52" h="16" bg="gray.200" />
       </Flex>
 
       <Flex align="center" flex="1" gap="8" bg="gray.100">
