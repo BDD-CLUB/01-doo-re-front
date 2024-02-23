@@ -15,7 +15,7 @@ const sampleStudy = studyCardData[0];
 const Page = () => {
   return (
     <Flex direction="column" w="100%" px="60" py="8">
-      <Grid templateColumns="3fr 3fr" w="100%">
+      <Grid templateColumns="1fr 1fr" w="100%">
         <Title name={sampleStudy.name} description={sampleStudy.description} />
         <StudyInfoCard
           progress={sampleStudy.percent}
@@ -23,25 +23,23 @@ const Page = () => {
           endAt={new Date(sampleStudy.endDate)}
         />
       </Grid>
-      <Grid templateColumns="2fr 1fr" w="100%" mt="10">
-        <Flex justify="end" direction="column" rowGap="12" pt="12">
+      <Grid columnGap="32" templateColumns="2fr 1fr" w="100%" mt="10">
+        <Flex justify="end" direction="column" rowGap="12">
           <Flex align="center" w="100%" h="100%">
             <CurriculumCard />
           </Flex>
-          <Grid gap="4" templateColumns="repeat(4, 1fr)">
-            {studyAssetCardData.map((data) => {
-              return (
-                <StudyAssetCard
-                  key={data.title}
-                  title={data.title}
-                  content={data.content}
-                  date={data.date}
-                  bookmark={data.bookmark}
-                  img={data.img}
-                />
-              );
-            })}
-          </Grid>
+          <Flex justify="space-between" w="100%">
+            {studyAssetCardData.map((data) => (
+              <StudyAssetCard
+                key={data.title}
+                title={data.title}
+                content={data.content}
+                date={data.date}
+                bookmark={data.bookmark}
+                img={data.img}
+              />
+            ))}
+          </Flex>
         </Flex>
         <Flex justify="end" direction="column" rowGap="12">
           <Feed />
