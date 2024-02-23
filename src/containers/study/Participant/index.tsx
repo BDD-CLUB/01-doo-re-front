@@ -20,7 +20,7 @@ const Participant = ({ participantInfos }: ParticipantProps) => {
       align="center"
       overflowY="auto"
       w="100%"
-      h="100%"
+      h="280px"
       bg="white"
       borderRadius="2xl"
       shadow="lg"
