@@ -6,7 +6,7 @@ import CurriculumItem from './CurriculumItem';
 
 const CurriculumCard = () => {
   return (
-    <Flex h="300px">
+    <Flex w="100%" h="300px">
       <Image
         w="300px"
         borderTopRightRadius="0"
