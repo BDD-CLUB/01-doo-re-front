@@ -52,12 +52,16 @@ const Page = () => {
           {studyCardData.map((study) => {
             return (
               <StudyCard
-                key={study.name}
+                key={study.id}
+                id={study.id}
                 name={study.name}
                 description={study.description}
                 startDate={study.startDate}
                 endDate={study.endDate}
+                status={study.status}
+                isDeleted={study.isDeleted}
                 cropId={study.cropId}
+                teamId={study.teamId}
                 percent={study.percent}
                 rank={study.rank}
               />

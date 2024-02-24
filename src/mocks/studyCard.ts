@@ -12,6 +12,7 @@ const studyCardData: StudyCardProps[] = [
     cropId: 1,
     teamId: 1,
     percent: 80,
+    rank: 1,
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const studyCardData: StudyCardProps[] = [
     cropId: 2,
     teamId: 2,
     percent: 40,
+    rank: 2,
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ const studyCardData: StudyCardProps[] = [
     cropId: 3,
     teamId: 3,
     percent: 50,
+    rank: 3,
   },
   {
     id: 4,
@@ -48,6 +51,7 @@ const studyCardData: StudyCardProps[] = [
     cropId: 4,
     teamId: 4,
     percent: 50,
+    rank: 4,
   },
 ];
 

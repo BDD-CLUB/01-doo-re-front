@@ -9,4 +9,5 @@ export interface StudyCardProps {
   cropId: number;
   teamId: number;
   percent: number;
+  rank: number;
 }
