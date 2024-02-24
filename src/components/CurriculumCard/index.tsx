@@ -4,11 +4,13 @@ import CurriculumCardData from '@/mocks/curriculum';
 
 import CurriculumItem from './CurriculumItem';
 
+import '@/style.css';
+
 const CurriculumCard = () => {
   return (
-    <Flex h="300px">
+    <Flex w="100%" h="20vw">
       <Image
-        w="300px"
+        w="20vw"
         borderTopRightRadius="0"
         borderTopLeftRadius="2xl"
         borderBottomLeftRadius="2xl"
@@ -18,7 +20,7 @@ const CurriculumCard = () => {
       />
       <Card
         direction="row"
-        w="70%"
+        w="100%"
         py="4"
         pr="1"
         borderTopRightRadius="2xl"
@@ -26,7 +28,7 @@ const CurriculumCard = () => {
         borderBottomLeftRadius="0"
         borderBottomRightRadius="2xl"
       >
-        <Flex direction="column" gap="3" overflowY="auto" w="100%">
+        <Flex className="scroll" direction="column" gap="3" overflowY="auto" w="100%">
           {CurriculumCardData.map((data) => {
             return (
               <CurriculumItem

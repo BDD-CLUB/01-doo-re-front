@@ -2,10 +2,12 @@ import { Flex, Card, UnorderedList, ListItem, Text } from '@chakra-ui/react';
 
 import FeedDate from '@/mocks/feed';
 
+import '@/style.css';
+
 const Feed = () => {
   return (
-    <Card direction="row" w="100%" p="6" borderRadius="2xl">
-      <Flex direction="column" gap="6" overflowY="auto" w="100%">
+    <Card p="6" borderRadius="2xl">
+      <Flex className="scroll" direction="column" gap="6" overflowY="auto" w="100%" h="100%" maxH="40vh">
         {FeedDate.map((data) => {
           return (
             <Flex key={data.date} direction="column" gap="2">
