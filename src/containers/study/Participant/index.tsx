@@ -3,7 +3,7 @@ import { Flex, Avatar, Text, Grid, Link, Card } from '@chakra-ui/react';
 import colors from '@/theme/foundations/colors';
 
 import { ParticipantProps } from './types';
-import './style.css';
+import '@/style.css';
 
 const Participant = ({ participantInfos }: ParticipantProps) => {
   const leader = participantInfos.find((data) => data.status === '스터디장')!;
@@ -15,16 +15,7 @@ const Participant = ({ participantInfos }: ParticipantProps) => {
   });
 
   return (
-    <Card
-      className="scroll"
-      align="center"
-      overflowY="auto"
-      w="100%"
-      h="100%"
-      bg="white"
-      borderRadius="2xl"
-      shadow="lg"
-    >
+    <Card className="scroll" overflowY="auto" w="100%" h="100%" bg="white" borderRadius="2xl" shadow="lg">
       <Grid templateColumns="repeat(3, 1fr)" pt="5" pb="2">
         {[
           { data: leader, color: colors.orange_dark },
@@ -33,7 +24,7 @@ const Participant = ({ participantInfos }: ParticipantProps) => {
           <Flex key={data.id} mr="5" mb="3" ml="5">
             <Avatar size="sm" src={data.profileImg} />
             <Link href={data.myPageUrl}>
-              <Text ml="2" color={color} fontSize="md" fontWeight="bold">
+              <Text ml="2" color={color} fontSize={{ base: 'sm', '2xl': 'md' }} fontWeight="bold">
                 {data.name}
               </Text>
             </Link>

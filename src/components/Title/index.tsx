@@ -27,7 +27,7 @@ const Title = ({ isTeam = false, teamImg, name, description }: TitleProps) => {
           top="50%"
           left="0"
           overflow="hidden"
-          w="96"
+          w={{ base: '72', '2xl': '96' }}
           minH="6"
           maxH="12"
           px="3"
