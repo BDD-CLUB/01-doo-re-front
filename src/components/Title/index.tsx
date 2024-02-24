@@ -11,7 +11,7 @@ const Title = ({ isTeam = false, teamImg, name, description }: TitleProps) => {
       <Text mr="5" fontSize="3xl" fontWeight="bold">
         {name}
       </Text>
-      <Box pos="relative" maxW="96" minH="8" maxH="12">
+      <Box pos="relative" maxW="96" h="12px">
         <Box
           pos="absolute"
           zIndex="1"
@@ -28,9 +28,9 @@ const Title = ({ isTeam = false, teamImg, name, description }: TitleProps) => {
           left="0"
           overflow="hidden"
           w={{ base: '72', '2xl': '96' }}
-          minH="8"
+          minH="6"
           maxH="12"
-          px="2"
+          px="3"
           bg="white"
           borderRadius="base"
           shadow="md"
