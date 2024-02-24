@@ -17,7 +17,7 @@ const teamMemberList: TeamMemberProps[] = [
   },
   {
     name: '두레3',
-    googleId: '4',
+    googleId: '3',
     email: 'email.com',
     imageUrl: '',
     isDeleted: false,
