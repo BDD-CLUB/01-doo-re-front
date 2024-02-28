@@ -1,9 +1,9 @@
 const textStyles = {
   bold_4xl: {
     fontSize: {
-      base: '40px', // 0 ~ 991
-      lg: '44px', // 992 ~ 1535
-      '2xl': '48px', // 1536px ~
+      base: '40px',
+      lg: '44px',
+      '2xl': '48px',
     },
     fontWeight: 'bold',
   },
