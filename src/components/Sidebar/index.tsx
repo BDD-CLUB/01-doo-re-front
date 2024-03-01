@@ -6,7 +6,6 @@ import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
-import size from '@/constants/size';
 import sidebarData from '@/mocks/sidebar';
 
 import SidebarIconButton from './Button/SidebarIconButton';
@@ -16,14 +15,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Flex
-      direction="column"
-      gap="16"
-      w={isOpen ? size.sidebarWidth : '16'}
-      p="4"
-      bg="green"
-      transition="width 0.15s ease-in-out"
-    >
+    <Flex direction="column" gap="16" px={isOpen ? '4' : '2'} py="4" bg="green" transition="width 0.15s ease-in-out">
       <Flex justify={isOpen ? 'space-between' : 'center'}>
         {isOpen && (
           // TODO - 추후 로고 대체
@@ -34,6 +26,7 @@ const Sidebar = () => {
           </Button>
         )}
         <IconButton
+          minW="0"
           color="white"
           fontSize={{
             base: '28px',
@@ -63,8 +56,8 @@ const Sidebar = () => {
 
       {isOpen && (
         <Card direction="column" gap="4" h="100%" p="4" bg="green_dark" rounded="2xl">
-          <Flex align="center" justify="space-between">
-            <Text textStyle="bold_xl" w="fit-content" color="white" whiteSpace="nowrap">
+          <Flex align="center" justify="space-between" gap="2">
+            <Text textStyle="bold_xl" color="white" whiteSpace="nowrap">
               TEAM & STUDY
             </Text>
             <IconButton color="black" bg="white" aria-label="" icon={<BsPlus />} size="icon_sm" />
