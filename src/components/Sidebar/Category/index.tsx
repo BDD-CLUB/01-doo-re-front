@@ -26,8 +26,6 @@ const Category = ({ id, name, subCategory }: CategoryProps) => {
             path={studyPath}
             text={`${study.name} 스터디`}
             isSelected={currentPath === studyPath}
-            isTeam={false}
-            isTeamMatch={false}
           />
         );
       })}

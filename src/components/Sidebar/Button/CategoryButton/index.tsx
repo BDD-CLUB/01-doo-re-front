@@ -3,7 +3,7 @@ import { BsCircleFill } from 'react-icons/bs';
 
 import { CategoryButtonProps } from '../../type';
 
-const CategoryButton = ({ path, text, isSelected, isTeam, isTeamMatch }: CategoryButtonProps) => {
+const CategoryButton = ({ path, text, isSelected, isTeam = false, isTeamMatch = false }: CategoryButtonProps) => {
   return (
     <Button
       as="a"
