@@ -35,7 +35,11 @@ const Sidebar = () => {
         )}
         <IconButton
           color="white"
-          fontSize={['28px', '28px', '28px', '32px', '32px', '36px']} // base sm md lg xl 2xl
+          fontSize={{
+            base: '28px',
+            lg: '32px',
+            '2xl': '36px',
+          }}
           bg="transparent"
           _hover={{ bg: 'transparent' }}
           aria-label=""
