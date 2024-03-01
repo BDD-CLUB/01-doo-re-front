@@ -53,11 +53,11 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
       document.addEventListener('mousemove', mouseMoveHandler);
       document.addEventListener('mouseup', mouseUpHandler, { once: true });
     };
-
     window.scrollTo(0, 0);
     window.addEventListener(
       'wheel',
       (e: WheelEvent) => {
+        e.preventDefault();
         if (e.deltaY > 0 && sectionsRef.current.currentIndex < sectionsRef.current.sections.length - 1) {
           scrollNext();
         } else if (e.deltaY < 0 && sectionsRef.current.currentIndex > 0) {
@@ -73,7 +73,7 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
   }, []);
 
   return (
-    <Box ref={baseRef} overflow="hidden" w="100%" h="100vh">
+    <Box ref={baseRef} overflow="scroll" w="100%" h="100vh">
       {children.map((child) => (
         <Box key={child?.key} ref={(el) => sectionsRef.current.sections.push(el)}>
           {child}
