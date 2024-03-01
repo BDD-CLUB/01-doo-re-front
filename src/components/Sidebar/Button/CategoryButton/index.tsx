@@ -8,6 +8,7 @@ const CategoryButton = ({ path, text, isSelected, isTeam, isTeamMatch }: Categor
     <Button
       as="a"
       justifyContent="flex-start"
+      h="fit-content"
       p="2"
       color={isSelected ? 'white' : (isTeamMatch && 'orange') || 'white'}
       bg={isSelected ? 'orange' : 'transparent'}
@@ -17,7 +18,7 @@ const CategoryButton = ({ path, text, isSelected, isTeam, isTeamMatch }: Categor
       rounded="full"
     >
       {isTeam && <Icon as={BsCircleFill} mr="2" fontSize="6" />}
-      <Text ml={isTeam ? '0px' : '24px'} fontSize={isTeam ? 'xl' : 'md'} fontWeight={isTeam ? 'bold' : 'md'}>
+      <Text textStyle={isTeam ? 'bold_xl' : 'md'} ml={isTeam ? '0px' : '24px'}>
         {text}
       </Text>
     </Button>

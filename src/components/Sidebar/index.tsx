@@ -28,14 +28,14 @@ const Sidebar = () => {
         {isOpen && (
           // TODO - 추후 로고 대체
           <Button as="a" p="0" bg="transparent" _hover={{ bg: 'transparent' }} href="/">
-            <Text color="white" fontSize="3xl" fontWeight="bold">
+            <Text textStyle="bold_3xl" color="white">
               DOO RE
             </Text>
           </Button>
         )}
         <IconButton
           color="white"
-          fontSize="3xl"
+          fontSize={['28px', '28px', '28px', '32px', '32px', '36px']} // base sm md lg xl 2xl
           bg="transparent"
           _hover={{ bg: 'transparent' }}
           aria-label=""
@@ -46,7 +46,7 @@ const Sidebar = () => {
       <Flex align="center" direction="column" gap="4">
         <Avatar size={isOpen ? 'lg' : 'md'} src="" />
         {isOpen && (
-          <Text px="10" py="2" color="white" fontSize="2xl" fontWeight="bold" bg="green_dark" rounded="full">
+          <Text textStyle="bold_2xl" px="10" py="1" color="white" bg="green_dark" rounded="full">
             두레
           </Text>
         )}
@@ -60,7 +60,7 @@ const Sidebar = () => {
       {isOpen && (
         <Card direction="column" gap="4" h="100%" p="4" bg="green_dark" rounded="2xl">
           <Flex align="center" justify="space-between">
-            <Text color="white" fontSize="xl" fontWeight="bold">
+            <Text textStyle="bold_xl" w="fit-content" color="white" whiteSpace="nowrap">
               TEAM & STUDY
             </Text>
             <IconButton color="black" bg="white" aria-label="" icon={<BsPlus />} size="icon_sm" />
