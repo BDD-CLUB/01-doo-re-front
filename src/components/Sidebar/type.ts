@@ -16,3 +16,8 @@ export interface CategoryProps {
   name: string;
   subCategory: { id: number; name: string }[];
 }
+
+export interface SidebarContentProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
