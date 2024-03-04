@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, useMediaQuery, Flex } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import SidebarContent from './SidebarContent';
@@ -15,18 +15,16 @@ const Sidebar = () => {
     }
   }, [isDesktop]);
 
-  return isDesktop || !isOpen ? (
-    <SidebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
-  ) : (
+  return (
     <>
-      <Box pos="fixed" zIndex="99" w="100%" h="100%" bg="rgba(0,0,0,0.5)">
-        <Box pos="absolute" top="0" left="0">
+      <Box pos="fixed" zIndex="99">
+        <Box pos="absolute" w={isOpen ? { base: '215px', lg: '230px', '2xl': '240px' } : '52px'}>
           <SidebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
       </Box>
-      <Flex pos="sticky" top="0" left="0">
-        <Box w="50px" />
-      </Flex>
+      <Box pos="sticky" top="0" left="0">
+        <Box w={isDesktop && isOpen ? { base: '215px', lg: '230px', '2xl': '240px' } : '52px'} />
+      </Box>
     </>
   );
 };
