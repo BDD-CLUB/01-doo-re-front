@@ -1,24 +1,36 @@
 import { Image, Button, Box } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
 
-const isLogin = true;
+import { userAtom } from '@/atom';
+
+const GOOGLE_LOGIN_URL =
+  'https://accounts.google.com/o/oauth2/v2/auth?' +
+  `client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&` +
+  `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL}&` +
+  `response_type=code&` +
+  `scope=${process.env.NEXT_PUBLIC_GOOGLE_SCOPE}`;
 
 const GoogleLoginButton = () => {
-  if (isLogin) {
-    return <Box h="16" />;
+  const user = useAtomValue(userAtom);
+
+  if (!user.isLogin) {
+    return (
+      <Button
+        as="a"
+        justifyContent="start"
+        w="fit-content"
+        h="16"
+        p="0"
+        _hover={{ opacity: '0.8' }}
+        _active={{ opacity: '0.8' }}
+        bgColor="transparent"
+        href={GOOGLE_LOGIN_URL}
+      >
+        <Image h="100%" alt="google_sign_in" src="/images/google_sign_in.png" />
+      </Button>
+    );
   }
-  return (
-    <Button
-      justifyContent="start"
-      w="fit-content"
-      h="16"
-      p="0"
-      _hover={{ opacity: '0.8' }}
-      _active={{ opacity: '0.8' }}
-      bgColor="transparent"
-    >
-      <Image h="100%" alt="google_sign_in" src="/images/google_sign_in.png" />
-    </Button>
-  );
+  return <Box h="16" />;
 };
 
 export default GoogleLoginButton;

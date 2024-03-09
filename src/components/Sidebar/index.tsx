@@ -1,11 +1,14 @@
 'use client';
 
 import { Avatar, Button, Card, Flex, IconButton, Text } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
+import { useResetAtom } from 'jotai/utils';
 import React, { useState } from 'react';
 import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
+import { userAtom } from '@/atom';
 import size from '@/constants/size';
 import sidebarData from '@/mocks/sidebar';
 
@@ -14,6 +17,8 @@ import Category from './Category';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const user = useAtomValue(userAtom);
+  const resetUser = useResetAtom(userAtom);
 
   return (
     <Flex
@@ -50,11 +55,13 @@ const Sidebar = () => {
             두레
           </Text>
         )}
-        <Flex direction={isOpen ? 'row' : 'column'} gap="4">
-          <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
-          <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
-          <SidebarIconButton icon={<MdOutlineLogout />} onClick={() => {}} />
-        </Flex>
+        {user.isLogin && (
+          <Flex direction={isOpen ? 'row' : 'column'} gap="4">
+            <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
+            <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
+            <SidebarIconButton icon={<MdOutlineLogout />} onClick={resetUser} />
+          </Flex>
+        )}
       </Flex>
 
       {isOpen && (
