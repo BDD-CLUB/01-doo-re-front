@@ -34,7 +34,7 @@ const textStyles = {
     fontWeight: 'bold',
   },
   title_lg: {
-    fontSize: { base: '80px', lg: '92px', '2xl': '100px' },
+    fontSize: { base: '52px', xl: '76px', '2xl': '92px' },
     fontWeight: 'black',
   },
   title_md: {
