@@ -9,8 +9,8 @@ import 'swiper/css';
 import teamRankInfos from '@/mocks/TeamRanking';
 
 const TeamRankSlider = () => {
-  const [swiperIndex, setSwiperIndex] = useState<number>(0); // -> 페이지네이션용
-  const [swiper, setSwiper] = useState<SwiperClass>(); // -> 슬라이드용
+  const [swiperIndex, setSwiperIndex] = useState<number>(0);
+  const [swiper, setSwiper] = useState<SwiperClass>();
 
   return (
     <Flex align="center" direction="column">
