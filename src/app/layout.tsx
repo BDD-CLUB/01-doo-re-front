@@ -1,4 +1,6 @@
-import { Flex } from '@chakra-ui/react';
+'use client';
+
+import { Flex, Box } from '@chakra-ui/react';
 
 import Sidebar from '@/components/Sidebar';
 
@@ -10,9 +12,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en" className={fonts.rubik.variable}>
       <body>
         <Providers>
-          <Flex minH="100vh">
+          <Flex pos="relative" minH="100vh">
             <Sidebar />
-            <Flex flex="1">{children}</Flex>
+            <Box flex="1">{children}</Box>
           </Flex>
         </Providers>
       </body>

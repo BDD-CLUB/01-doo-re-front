@@ -2,8 +2,8 @@ export interface CategoryButtonProps {
   path: string;
   text: string;
   isSelected: boolean;
-  isTeam: boolean;
-  isTeamMatch: boolean;
+  isTeam?: boolean;
+  isTeamMatch?: boolean;
 }
 
 export interface SidebarIconButtonProps {
@@ -15,4 +15,9 @@ export interface CategoryProps {
   id: number;
   name: string;
   subCategory: { id: number; name: string }[];
+}
+
+export interface SidebarContentProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
