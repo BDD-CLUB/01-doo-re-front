@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid, Text, Flex } from '@chakra-ui/react';
+import { Text, Flex } from '@chakra-ui/react';
 import { useRef } from 'react';
 
 import CropLine from '@/containers/main/CropLine';
@@ -18,23 +18,36 @@ const Page = () => {
   return (
     <MainSection ref={mainSectionRef}>
       <Flex key="title_with_login" pos="relative" justify="center" h="100vh" bgColor="green_dark">
-        <Grid key="title_with_login" gap="80" templateColumns="2fr 1fr" h="100%">
-          <Flex justify="center" direction="column" w="2xl" h="100%" textColor="white" fontWeight="bold">
-            <Text fontSize="100px">DOORE</Text>
-            <Text mb="2" fontSize="40px">
+        <Flex
+          key="title_with_login"
+          justify={{ base: 'center', lg: 'space-between' }}
+          w="100%"
+          h="100%"
+          mx={{ base: '0', lg: '5%', '2xl': '8%' }}
+        >
+          <Flex
+            justify={{ base: 'baseline', lg: 'center' }}
+            direction="column"
+            w={{ base: '480px', lg: '680px', '2xl': '960px' }}
+            h="100%"
+            pt={{ base: '100px', lg: '0' }}
+            textColor="white"
+          >
+            <Text textStyle="title_xl">DOORE</Text>
+            <Text textStyle="title_md" mb="2" whiteSpace="nowrap">
               community for developer
             </Text>
-            <Text mb="14" fontSize="20px" fontWeight="semibold">
+            <Text textStyle="title_sm" mb="4">
               Investigators have raided the home of the teenage suspect behind the physical attack on ruling party
               lawmaker Bae Hyun-jin as police are trying to determine the exact motive of the...
             </Text>
             <GoogleLoginButton />
           </Flex>
-          <Flex columnGap="10" h="100%">
+          <Flex columnGap={{ base: '6', lg: '8', '2xl': '10' }} display={{ base: 'none', lg: 'flex' }} h="100%">
             <CropLine />
             <CropLine reverse />
           </Flex>
-        </Grid>
+        </Flex>
         <ScrollDownButton onClick={() => mainSectionRef.current?.scrollNext()} />
       </Flex>
 
