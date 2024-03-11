@@ -20,10 +20,10 @@ const Page = () => {
       <Flex key="title_with_login" pos="relative" justify="center" h="100vh" bgColor="green_dark">
         <Flex
           key="title_with_login"
-          justify={{ base: 'center', lg: 'space-between' }}
+          justify={{ base: 'center', md: 'space-between' }}
           w="100%"
           h="100%"
-          mx={{ base: '0', lg: '5%', '2xl': '8%' }}
+          mx={{ base: '0', md: '5%', '2xl': '8%' }}
         >
           <Flex
             justify={{ base: 'baseline', lg: 'center' }}
@@ -43,7 +43,7 @@ const Page = () => {
             </Text>
             <GoogleLoginButton />
           </Flex>
-          <Flex columnGap={{ base: '6', lg: '8', '2xl': '10' }} display={{ base: 'none', lg: 'flex' }} h="100%">
+          <Flex columnGap={{ base: '6', lg: '8', '2xl': '10' }} display={{ base: 'none', md: 'flex' }} h="100%">
             <CropLine />
             <CropLine reverse />
           </Flex>
