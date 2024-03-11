@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Grid, Text, Flex } from '@chakra-ui/react';
+import { Grid, Text, Flex } from '@chakra-ui/react';
 import { useRef } from 'react';
 
 import CropLine from '@/containers/main/CropLine';
@@ -38,11 +38,20 @@ const Page = () => {
         <ScrollDownButton onClick={() => mainSectionRef.current?.scrollNext()} />
       </Flex>
 
-      <Box key="main" pos="relative" h="100vh">
+      <Flex
+        key="main"
+        pos="relative"
+        align="center"
+        direction="column"
+        overflow="hidden"
+        w="100%"
+        h="100vh"
+        whiteSpace="nowrap"
+      >
         <TeamRankBG />
         <TeamRankDescription />
         <TeamRankSlider />
-      </Box>
+      </Flex>
     </MainSection>
   );
 };

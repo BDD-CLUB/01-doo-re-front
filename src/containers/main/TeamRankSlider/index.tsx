@@ -1,77 +1,56 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
-import { useState } from 'react';
+'use client';
 
-import TeamCard from '@/containers/main/TeamCard';
+import { Box, Flex } from '@chakra-ui/react';
+import { useState } from 'react';
+import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
+
+import 'swiper/css';
+
 import teamRankInfos from '@/mocks/TeamRanking';
 
 const TeamRankSlider = () => {
-  const [indexX, setIndexX] = useState<number>(0);
-  const [navigationIdx, setNavigationIdx] = useState<number>(0);
-
-  const clickNext = () => {
-    if (indexX > 5 && navigationIdx < teamRankInfos.length - 13) setNavigationIdx((prev) => prev + 1);
-    if (indexX < teamRankInfos.length - 1) setIndexX((prev) => prev + 1);
-  };
-
-  const clickPrev = () => {
-    if (indexX < teamRankInfos.length - 7 && navigationIdx > 0) setNavigationIdx((prev) => prev - 1);
-    if (indexX > 0) setIndexX((prev) => prev - 1);
-  };
-
-  const clickNav = (idx: number) => {
-    setIndexX(idx);
-    if (idx > 6 && idx < teamRankInfos.length - 6) setNavigationIdx(idx - 6);
-  };
+  const [swiperIndex, setSwiperIndex] = useState<number>(0);
+  const [swiper, setSwiper] = useState<SwiperClass>();
 
   return (
-    <Box pos="relative" w="100%" h="400">
-      <Box
-        pos="absolute"
-        left={`calc(50% - ${780 * indexX}px)`}
-        transform="translate(-50%, 0%)"
-        transition="left 1s ease-in-out 0s"
-      >
-        {teamRankInfos.map((info, _) => {
-          const leftScale = 780 * _;
-          return (
-            <Box key={info.id} pos="absolute" left={`calc(50% + ${leftScale}px)`} transform="translate(-50%, 0%)">
-              <TeamCard
-                rank={info.rank}
-                name={info.name}
-                description={info.description}
-                gardenInfos={info.gardenInfos}
-              />
-            </Box>
-          );
-        })}
-      </Box>
-      <Grid pos="absolute" columnGap="780" templateColumns="repeat(2, 1fr)" overflow="hidden" w="100%" h="100%">
-        <GridItem onClick={clickPrev} />
-        <GridItem onClick={clickNext} />
-      </Grid>
-      <Box pos="absolute" top="95%" left="50%" overflow="hidden" w="248px" h="15px" transform="translate(-50%, 0%)">
-        <Box pos="absolute" left={`calc(-${20 * navigationIdx}px)`} w="100%" h="100%">
-          {teamRankInfos.map((info, _) => {
-            const leftScale = 20 * _;
-            return (
+    <Flex align="center" direction="column">
+      <Box w="100%">
+        <Swiper
+          centeredSlides
+          slidesPerView="auto"
+          spaceBetween={100}
+          onSwiper={(e) => setSwiper(e)}
+          onSlideChange={(e) => setSwiperIndex(e.activeIndex)}
+        >
+          {teamRankInfos.map((data) => (
+            <SwiperSlide key={data.id} style={{ width: 'fit-content' }}>
               <Box
-                key={info.id + 100}
-                pos="absolute"
-                left={`calc(${leftScale}px)`}
-                w="2"
-                h="2"
-                bg="#fff"
-                opacity={indexX === _ ? 1 : 0.3}
-                borderRadius="100%"
-                onClick={() => {
-                  clickNav(_);
-                }}
-              />
-            );
-          })}
-        </Box>
+                w={{ base: '450px', lg: '600px', '2xl': '720px' }}
+                h={{ base: '300px', lg: '360px', '2xl': '430px' }}
+                bg="white"
+              >
+                {/* TODO - 팀 카드 넣기 */}
+              </Box>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </Box>
-    </Box>
+
+      <Flex justify="center" w="100%" h="10" mt="8">
+        {teamRankInfos.map((data) => (
+          <Box
+            key={data.id}
+            w="3"
+            h="3"
+            mx="4"
+            bg={data.idx === swiperIndex ? 'white' : 'transparent'}
+            border="2px solid white"
+            borderRadius="100%"
+            onClick={() => swiper?.slideTo(data.idx)}
+          />
+        ))}
+      </Flex>
+    </Flex>
   );
 };
 
