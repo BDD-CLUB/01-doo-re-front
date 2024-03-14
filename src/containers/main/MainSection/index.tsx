@@ -73,7 +73,7 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
   }, []);
 
   return (
-    <Box ref={baseRef} overflow="scroll" w="100%" h="100vh">
+    <Box ref={baseRef} overflow="auto" w="100%" h="100vh">
       {children.map((child) => (
         <Box key={child?.key} ref={(el) => sectionsRef.current.sections.push(el)}>
           {child}
