@@ -53,6 +53,16 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
       document.addEventListener('mousemove', mouseMoveHandler);
       document.addEventListener('mouseup', mouseUpHandler, { once: true });
     };
+
+    const widthChange = () => {
+      const prevIndex = sectionsRef.current.currentIndex;
+      sectionsRef.current.currentIndex = prevIndex;
+      sectionsRef.current.sections[prevIndex]?.scrollIntoView({ block: 'end' });
+    };
+
+    window.addEventListener('resize', widthChange);
+    widthChange();
+
     window.scrollTo(0, 0);
     window.addEventListener(
       'wheel',
@@ -67,8 +77,10 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
       { passive: false },
     );
     window.addEventListener('mousedown', mouseDown);
+
     return () => {
       window.removeEventListener('wheel', () => {});
+      window.removeEventListener('resize', widthChange);
     };
   }, []);
 
