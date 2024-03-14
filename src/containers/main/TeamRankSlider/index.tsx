@@ -13,7 +13,7 @@ const TeamRankSlider = () => {
   const [swiper, setSwiper] = useState<SwiperClass>();
 
   return (
-    <Flex align="center" direction="column">
+    <Flex align="center" direction="column" w="100%">
       <Box w="100%">
         <Swiper
           centeredSlides

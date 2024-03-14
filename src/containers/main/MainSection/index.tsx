@@ -53,6 +53,16 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
       document.addEventListener('mousemove', mouseMoveHandler);
       document.addEventListener('mouseup', mouseUpHandler, { once: true });
     };
+
+    const widthChange = () => {
+      const prevIndex = sectionsRef.current.currentIndex;
+      sectionsRef.current.currentIndex = prevIndex;
+      sectionsRef.current.sections[prevIndex]?.scrollIntoView({ block: 'end' });
+    };
+
+    window.addEventListener('resize', widthChange);
+    widthChange();
+
     window.scrollTo(0, 0);
     window.addEventListener(
       'wheel',
@@ -67,13 +77,15 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
       { passive: false },
     );
     window.addEventListener('mousedown', mouseDown);
+
     return () => {
       window.removeEventListener('wheel', () => {});
+      window.removeEventListener('resize', widthChange);
     };
   }, []);
 
   return (
-    <Box ref={baseRef} overflow="scroll" w="100%" h="100vh">
+    <Box ref={baseRef} overflow="auto" w="100%" h="100vh">
       {children.map((child) => (
         <Box key={child?.key} ref={(el) => sectionsRef.current.sections.push(el)}>
           {child}
