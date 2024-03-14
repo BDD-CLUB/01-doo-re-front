@@ -26,11 +26,10 @@ const Page = () => {
           mx={{ base: '0', md: '5%', '2xl': '8%' }}
         >
           <Flex
-            justify={{ base: 'baseline', lg: 'center' }}
+            justify="center"
             direction="column"
             w={{ base: '480px', lg: '680px', '2xl': '960px' }}
             h="100%"
-            pt={{ base: '100px', lg: '0' }}
             textColor="white"
           >
             <Text textStyle="title_xl">DOORE</Text>
