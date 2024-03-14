@@ -13,6 +13,7 @@ export interface GardenInfoType {
 
 export interface TeamRankInfoType {
   id: number;
+  idx: number;
   rank: number;
   name: string;
   description: string;
