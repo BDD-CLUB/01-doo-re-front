@@ -31,3 +31,20 @@ export interface TabButtonInfoType {
   id: number;
   name: string;
 }
+
+export interface CurriculumDto {
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+  name: string;
+  itemOrder: number;
+  isDeleted: boolean;
+  study: string;
+  // participantCurriculumItems: CurriculumItemDto[];
+}
+
+export interface CurriculumItemsDto {
+  curriculumItems: CurriculumDto[];
+  deletedCurriculumItems: CurriculumDto[];
+  participantCurriculumItems: CurriculumDto[];
+}
