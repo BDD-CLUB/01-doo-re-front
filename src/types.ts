@@ -56,3 +56,8 @@ export interface EditStudyDto {
   endDate: string;
   status: string;
 }
+
+export interface EditTeamDto {
+  name: string;
+  description: string;
+}
