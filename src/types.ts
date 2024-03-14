@@ -13,6 +13,7 @@ export interface GardenInfoType {
 
 export interface TeamRankInfoType {
   id: number;
+  idx: number;
   rank: number;
   name: string;
   description: string;
@@ -32,6 +33,30 @@ export interface TabButtonInfoType {
   name: string;
 }
 
+export interface CurriculumItemDto {
+  id: number;
+  name: string;
+  itemOrder: number;
+  isDeleted: boolean;
+}
+
+export interface CreateStudyDto {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  cropId: number;
+  curriculumItems: CurriculumItemDto[];
+}
+
+export interface EditStudyDto {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+}
+
 export interface CurriculumDto {
   createdAt: string;
   updatedAt: string;
@@ -40,7 +65,7 @@ export interface CurriculumDto {
   itemOrder: number;
   isDeleted: boolean;
   study: string;
-  // participantCurriculumItems: CurriculumItemDto[];
+  participantCurriculumItems: CurriculumItemDto[];
 }
 
 export interface CurriculumItemsDto {

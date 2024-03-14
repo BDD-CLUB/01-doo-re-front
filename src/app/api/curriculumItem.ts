@@ -10,11 +10,10 @@ const postcurriculumFetch = (studyId: number, curriculum: CurriculumItemsDto) =>
   });
 };
 
-const patchcurriculumFetch = () => {
-  // curriculumFetcher(`/curriculums/${}/${}/check`, {
-  //     method: 'PATCH',
-  //     body: curriculum,
-  // });
+const patchcurriculumFetch = (curriculumId: number, ParticipantId: number) => {
+  curriculumFetcher(`/curriculums/${curriculumId}/${ParticipantId}/check`, {
+    method: 'PATCH',
+  });
 };
 
 export { postcurriculumFetch, patchcurriculumFetch };
