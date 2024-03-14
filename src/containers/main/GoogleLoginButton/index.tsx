@@ -10,7 +10,7 @@ const GoogleLoginButton = () => {
     <Button
       justifyContent="start"
       w="fit-content"
-      h="16"
+      h={{ base: '8', lg: '10', '2xl': '14' }}
       p="0"
       _hover={{ opacity: '0.8' }}
       _active={{ opacity: '0.8' }}

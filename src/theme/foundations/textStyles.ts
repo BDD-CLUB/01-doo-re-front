@@ -26,7 +26,7 @@ const textStyles = {
     fontSize: { base: '8px', lg: '10px', '2xl': '12px' },
   },
   title_xl: {
-    fontSize: { base: '100px', lg: '120px', '2xl': '150px' },
+    fontSize: { base: '80px', lg: '100px', '2xl': '130px' },
     fontWeight: 'black',
   },
   title_bold_xl: {
@@ -38,11 +38,11 @@ const textStyles = {
     fontWeight: 'black',
   },
   title_md: {
-    fontSize: { base: '44px', lg: '48px', '2xl': '52px' },
+    fontSize: { base: '40px', lg: '48px', '2xl': '52px' },
     fontWeight: 'bold',
   },
   title_sm: {
-    fontSize: { base: '24px', lg: '28px', '2xl': '32px' },
+    fontSize: { base: '20px', lg: '28px', '2xl': '32px' },
     fontWeight: 'semibold',
   },
 };
