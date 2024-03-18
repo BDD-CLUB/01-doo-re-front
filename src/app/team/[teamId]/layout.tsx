@@ -1,10 +1,10 @@
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Box w="100%" bg="gray.50">
+    <Flex w="100%" h="100%" bg="gray.50">
       {children}
-    </Box>
+    </Flex>
   );
 };
 
