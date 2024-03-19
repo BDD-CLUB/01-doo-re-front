@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Flex, Grid } from '@chakra-ui/react';
+import { Box, Button, Flex, Grid, useBreakpointValue } from '@chakra-ui/react';
 import { useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
@@ -32,9 +32,15 @@ const Page = () => {
 
       <Flex pos="relative" align="center" flex="1" gap="8">
         {/* TODO  잔디 */}
-        <Box pos="relative" overflow="hidden" w="100%" h="300px">
+        <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px' }}>
           <Box pos="absolute" left="50%" transform="translate(-50%, 0%)">
-            <Garden3D rotate rotateY={0} cubeGap={4} cubeSize={28} gardenInfos={gardenInfos1} />
+            <Garden3D
+              rotate
+              rotateY={0}
+              cubeGap={useBreakpointValue({ base: 3, xl: 4 }) || 3}
+              cubeSize={useBreakpointValue({ base: 20, md: 26, xl: 30 }) || 20}
+              gardenInfos={gardenInfos1}
+            />
           </Box>
         </Box>
 

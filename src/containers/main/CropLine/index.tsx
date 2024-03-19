@@ -25,15 +25,15 @@ const CropLine = ({ reverse = false }: CropLineProps) => {
   }));
 
   return (
-    <Box pos="relative" overflow="hidden" w="24" h="100vh">
+    <Box pos="relative" overflow="hidden" w={{ base: '16', lg: '20', '2xl': '24' }} h="100%">
       <Flex className={reverse ? 'rev_rolling_crop' : 'rolling_crop'} pos="absolute" direction="column">
         {cropList.map((crop) => (
-          <Image key={crop.id} w="24" mb="10" alt="crop" src={crop.img} />
+          <Image key={crop.id} mb="10" alt="crop" src={crop.img} />
         ))}
       </Flex>
       <Flex className={reverse ? 'rev_rolling_crop_clone' : 'rolling_crop_clone'} pos="absolute" direction="column">
         {cropList.map((crop) => (
-          <Image key={crop.id} w="24" mb="10" alt="crop" src={crop.img} />
+          <Image key={crop.id} mb="10" alt="crop" src={crop.img} />
         ))}
       </Flex>
     </Box>
