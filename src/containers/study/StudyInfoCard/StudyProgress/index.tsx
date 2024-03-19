@@ -18,7 +18,7 @@ const StudyProgress = ({ progress }: StudyProgressProps) => {
           <Box key={box.key} w="4" h="4" mr="1" bg={box.fill ? 'orange_dark' : 'gray.100'} borderRadius="sm" />
         ),
       )}
-      <Text ml="2" color="orange_dark" fontSize="sm" fontWeight="bold">
+      <Text display={{ base: 'none', md: 'block' }} ml="2" color="orange_dark" fontSize="sm" fontWeight="bold">
         {progress}%
       </Text>
     </Flex>
