@@ -1,32 +1,32 @@
 const textStyles = {
   bold_4xl: {
-    fontSize: { base: '40px', lg: '44px', '2xl': '48px' },
+    fontSize: { base: '32px', xl: '36px' },
     fontWeight: 'bold',
   },
   bold_3xl: {
-    fontSize: { base: '32px', lg: '36px', '2xl': '40px' },
+    fontSize: { base: '28px', xl: '30px' },
     fontWeight: 'bold',
   },
   bold_2xl: {
-    fontSize: { base: '22px', lg: '26px', '2xl': '30px' },
+    fontSize: { base: '22px', xl: '24px' },
     fontWeight: 'bold',
   },
   bold_xl: {
-    fontSize: { base: '16px', lg: '18px', '2xl': '20px' },
+    fontSize: { base: '18px', xl: '20px' },
     fontWeight: 'bold',
   },
   bold_md: {
-    fontSize: { base: '12px', lg: '14px', '2xl': '16px' },
+    fontSize: { base: '14px', xl: '16px' },
     fontWeight: 'bold',
   },
   md: {
-    fontSize: { base: '12px', lg: '14px', '2xl': '16px' },
+    fontSize: { base: '14px', xl: '16px' },
   },
   sm: {
-    fontSize: { base: '8px', lg: '10px', '2xl': '12px' },
+    fontSize: { base: '12px', xl: '14px' },
   },
   title_xl: {
-    fontSize: { base: '80px', lg: '100px', '2xl': '130px' },
+    fontSize: { base: '80px', lg: '80px', '2xl': '130px' },
     fontWeight: 'black',
   },
   title_bold_xl: {
