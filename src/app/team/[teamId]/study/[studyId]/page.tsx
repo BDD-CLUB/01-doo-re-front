@@ -1,4 +1,4 @@
-import { Box, Flex, Grid } from '@chakra-ui/react';
+import { Flex, Grid } from '@chakra-ui/react';
 
 import CurriculumCard from '@/components/CurriculumCard';
 import StudyAssetCard from '@/components/StudyAssetCard';
@@ -14,8 +14,8 @@ const sampleStudy = studyCardData[0];
 
 const Page = () => {
   return (
-    <Grid alignItems="center" rowGap="6" templateRows="1fr 10fr" w="100%" px={{ base: '5', '2xl': '20' }} py="3">
-      <Flex justify="space-between" alignSelf="self-end" w="100%">
+    <Grid alignItems="center" gap="9" w="100%" p="8">
+      <Flex justify="space-between" w="100%">
         <Title name={sampleStudy.name} description={sampleStudy.description} />
         <StudyInfoCard
           progress={sampleStudy.percent}
@@ -23,13 +23,10 @@ const Page = () => {
           endAt={new Date(sampleStudy.endDate)}
         />
       </Flex>
-      <Grid columnGap={{ base: '6', '2xl': '12' }} templateColumns="2fr 1fr" w="100%">
-        <Flex justify="end" direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-          <Flex direction="column">
-            <Box w="100%" h="10" />
-            <CurriculumCard />
-          </Flex>
-          <Flex justify="space-between" columnGap="1" w="100%">
+      <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
+        <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
+          <CurriculumCard />
+          <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
             {studyAssetCardData.map((data) => (
               <StudyAssetCard
                 key={data.title}
@@ -40,7 +37,7 @@ const Page = () => {
                 img={data.img}
               />
             ))}
-          </Flex>
+          </Grid>
         </Flex>
         <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
           <Feed />

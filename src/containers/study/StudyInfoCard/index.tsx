@@ -10,10 +10,12 @@ const StudyInfoCard = ({ progress, startAt, endAt }: StudyInfoCardProps) => {
   return (
     <Card p="4" bg="white" borderRadius="lg">
       <Flex columnGap={{ base: '0', '2xl': '4' }} fontWeight="bold">
-        <Text>스터디 진행률</Text>
+        <Text display={{ base: 'none', lg: 'none', '2xl': 'block' }}>스터디 진행률</Text>
         <StudyProgress progress={progress} />
-        <Text ml="auto">스터디 기간</Text>
-        <Text>
+        <Text display={{ base: 'none', lg: 'none', '2xl': 'block' }} ml="auto">
+          스터디 기간
+        </Text>
+        <Text display={{ base: 'none', md: 'block' }}>
           {dateFormat(startAt, '/')} - {dateFormat(endAt, '/')}
         </Text>
       </Flex>
