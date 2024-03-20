@@ -33,7 +33,7 @@ const Page = () => {
       <Flex pos="relative" align="center" flex="1" gap="8">
         {/* TODO  잔디 */}
         <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px' }}>
-          <Box pos="absolute" left="50%" transform="translate(-50%, 0%)">
+          <Box pos="absolute" w="100%" h="100%">
             <Garden3D
               rotate
               rotateY={0}
