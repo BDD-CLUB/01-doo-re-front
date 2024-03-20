@@ -1,13 +1,10 @@
-import { Box, Card, CardHeader, Text, Flex, CardBody, useMediaQuery } from '@chakra-ui/react';
+import { Box, Card, CardHeader, Text, Flex, CardBody, useBreakpointValue } from '@chakra-ui/react';
 
 import Garden3D from '@/components/Garden3D';
 
 import { TeamCardProps } from './types';
 
 const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
-  const [isLargerThan992] = useMediaQuery('(min-width: 992px)');
-  const [isLargerThan1536] = useMediaQuery('(min-width: 1536px)');
-
   return (
     <Card overflow="hidden" w="100%" h="100%" bg="none" backdropFilter="blur(30px)">
       <CardHeader
@@ -59,13 +56,12 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
         h={{ base: '95%', lg: '90%' }}
         p="0"
       >
-        {isLargerThan1536 && <Garden3D cubeSize={32} cubeGap={4} rotateY={55} gardenInfos={gardenInfos} />}
-        {!isLargerThan1536 &&
-          (isLargerThan992 ? (
-            <Garden3D cubeSize={24} cubeGap={4} rotateY={55} gardenInfos={gardenInfos} />
-          ) : (
-            <Garden3D cubeSize={18} cubeGap={4} rotateY={55} gardenInfos={gardenInfos} />
-          ))}
+        <Garden3D
+          cubeSize={useBreakpointValue({ base: 18, lg: 24, '2xl': 32 }) || 18}
+          cubeGap={4}
+          rotateY={55}
+          gardenInfos={gardenInfos}
+        />
       </CardBody>
     </Card>
   );
