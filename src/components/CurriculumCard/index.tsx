@@ -8,9 +8,10 @@ import '@/style.css';
 
 const CurriculumCard = () => {
   return (
-    <Flex w="100%" h="20vw">
+    <Flex w="100%" h={{ base: '30vh', lg: '35vh', '2xl': '40vh' }}>
       <Image
-        w="20vw"
+        display={{ base: 'none', md: 'block' }}
+        w={{ base: '30vh', lg: '35vh', '2xl': '40vh' }}
         borderTopRightRadius="0"
         borderTopLeftRadius="2xl"
         borderBottomLeftRadius="2xl"
@@ -24,8 +25,8 @@ const CurriculumCard = () => {
         py="4"
         pr="1"
         borderTopRightRadius="2xl"
-        borderTopLeftRadius="0"
-        borderBottomLeftRadius="0"
+        borderTopLeftRadius={{ base: '2xl', md: '0' }}
+        borderBottomLeftRadius={{ base: '2xl', md: '0' }}
         borderBottomRightRadius="2xl"
       >
         <Flex className="scroll" direction="column" gap="3" overflowY="auto" w="100%">

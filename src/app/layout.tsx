@@ -1,5 +1,3 @@
-'use client';
-
 import { Flex, Box } from '@chakra-ui/react';
 
 import Sidebar from '@/components/Sidebar';

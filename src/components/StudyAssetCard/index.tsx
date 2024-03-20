@@ -5,7 +5,7 @@ import { StudyAssetCardProps } from './types';
 
 const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardProps) => {
   return (
-    <Card w="100%" maxW="60" p="2" shadow="md" _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }} rounded="xl">
+    <Card w="100%" p="2" shadow="md" _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }} rounded="xl">
       <Image objectFit="cover" alt="study card" rounded="sm" src={img} />
       <CardBody px="2">
         <Text fontSize="xl" fontWeight="bold">
