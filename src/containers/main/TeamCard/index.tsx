@@ -43,7 +43,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
             textStyle="md"
             overflow="hidden"
             w={{ base: '250px', lg: '300px', '2xl': '350px' }}
-            maxH={{ base: '11', xl: '12' }}
+            maxH={{ base: '44px', xl: '48px' }}
             whiteSpace="wrap"
           >
             {description === '' ? '팀 소개글이 아직 없습니다.' : description}
