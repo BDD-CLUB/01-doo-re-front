@@ -17,6 +17,7 @@ export interface TeamRankInfoType {
   rank: number;
   name: string;
   description: string;
+  url: string;
   gardenInfos: GardenInfoType[];
 }
 
