@@ -27,11 +27,14 @@ const TeamRankSlider = () => {
           {teamRankInfos.map((data) => (
             <SwiperSlide key={data.id} style={{ width: 'fit-content' }}>
               <Box
+                as="a"
+                display="block"
                 overflow="hidden"
                 w={{ base: '450px', lg: '600px', '2xl': '720px' }}
                 h={{ base: '300px', lg: '360px', '2xl': '430px' }}
                 bg="rgba(255, 255, 255, 0.1)"
                 borderRadius="30"
+                href={data.url}
               >
                 <TeamCard
                   rank={data.rank}
