@@ -1,5 +1,4 @@
 import { Box, Card, CardHeader, Text, Flex, CardBody, useMediaQuery } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
 import Garden3D from '@/components/Garden3D';
 
@@ -8,10 +7,6 @@ import { TeamCardProps } from './types';
 const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
   const [isLargerThan992] = useMediaQuery('(min-width: 992px)');
   const [isLargerThan1536] = useMediaQuery('(min-width: 1536px)');
-
-  useEffect(() => {
-    console.log(isLargerThan992, isLargerThan1536);
-  }, [isLargerThan992, isLargerThan1536]);
 
   return (
     <Card overflow="hidden" w="100%" h="100%" bg="none" backdropFilter="blur(30px)">
