@@ -8,6 +8,8 @@ import 'swiper/css';
 
 import teamRankInfos from '@/mocks/TeamRanking';
 
+import TeamCard from '../TeamCard';
+
 const TeamRankSlider = () => {
   const [swiperIndex, setSwiperIndex] = useState<number>(0);
   const [swiper, setSwiper] = useState<SwiperClass>();
@@ -25,11 +27,19 @@ const TeamRankSlider = () => {
           {teamRankInfos.map((data) => (
             <SwiperSlide key={data.id} style={{ width: 'fit-content' }}>
               <Box
+                overflow="hidden"
                 w={{ base: '450px', lg: '600px', '2xl': '720px' }}
                 h={{ base: '300px', lg: '360px', '2xl': '430px' }}
-                bg="white"
+                bg="rgba(255, 255, 255, 0.1)"
+                borderRadius="30"
+                // bg="white"
               >
-                {/* TODO - 팀 카드 넣기 */}
+                <TeamCard
+                  rank={data.rank}
+                  name={data.name}
+                  description={data.description}
+                  gardenInfos={data.gardenInfos}
+                />
               </Box>
             </SwiperSlide>
           ))}
