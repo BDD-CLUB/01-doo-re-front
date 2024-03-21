@@ -14,12 +14,12 @@ const CurriculumItem = ({ id, name, itemOrder, isCompleted }: CurriculumItemProp
 
   return (
     <Flex key={id.toString()} align="center" gap="4" px="4">
-      <Text color={checked ? 'orange' : 'orange_light'} fontSize="xl" fontWeight="bold">
+      <Text textStyle="bold_xl" color={checked ? 'orange' : 'orange_light'}>
         {itemOrder.toString().padStart(2, '0')}
       </Text>
 
-      <Box w="100%" px="3" py="1.5" color="white" fontSize="lg" bg={checked ? 'orange' : 'orange_light'} rounded="3xl">
-        <Text pr="10" fontSize="xl">
+      <Box textStyle="lg" w="100%" px="3" py="1.5" color="white" bg={checked ? 'orange' : 'orange_light'} rounded="3xl">
+        <Text textStyle="bold_xl" pr="10">
           {name}
         </Text>
       </Box>
