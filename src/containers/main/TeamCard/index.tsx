@@ -51,8 +51,8 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
         pos="absolute"
         zIndex="-1"
         top={{ base: '0%', lg: '10%' }}
-        left={{ base: '28%', lg: '30%', '2xl': '35%' }}
-        w={{ base: '80%', lg: '80%', '2xl': '70%' }}
+        left={{ base: '28%', lg: '30%', '2xl': '30%' }}
+        w="80%"
         h={{ base: '95%', lg: '90%' }}
         p="0"
       >
