@@ -3,10 +3,12 @@
 import { Box, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
+import size from '@/constants/size';
+
 import SidebarContent from './SidebarContent';
 
 const Sidebar = () => {
-  const [isDesktop] = useMediaQuery('(min-width: 768px)');
+  const [isDesktop] = useMediaQuery(`(min-width: ${size.lg})`);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
