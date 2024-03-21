@@ -19,6 +19,10 @@ const textStyles = {
     fontSize: { base: '14px', xl: '16px' },
     fontWeight: 'bold',
   },
+  bold_sm: {
+    fontSize: { base: '12px', xl: '14px' },
+    fontWeight: 'bold',
+  },
   md: {
     fontSize: { base: '14px', xl: '16px' },
   },
