@@ -1,6 +1,7 @@
 'use client';
 
 import { Box, Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
 
@@ -13,6 +14,15 @@ import TeamCard from '../TeamCard';
 const TeamRankSlider = () => {
   const [swiperIndex, setSwiperIndex] = useState<number>(0);
   const [swiper, setSwiper] = useState<SwiperClass>();
+  const router = useRouter();
+
+  const slideOnClick = (idx: number, url: string) => {
+    if (swiper?.activeIndex === idx) {
+      router.push(url);
+    } else {
+      swiper?.slideTo(idx);
+    }
+  };
 
   return (
     <Flex align="center" direction="column" w="100%">
@@ -27,14 +37,12 @@ const TeamRankSlider = () => {
           {teamRankInfos.map((data) => (
             <SwiperSlide key={data.id} style={{ width: 'fit-content' }}>
               <Box
-                as="a"
-                display="block"
                 overflow="hidden"
                 w={{ base: '450px', lg: '600px', '2xl': '720px' }}
                 h={{ base: '300px', lg: '360px', '2xl': '430px' }}
                 bg="rgba(255, 255, 255, 0.1)"
                 borderRadius="30"
-                href={swiper?.activeIndex === data.idx ? data.url : undefined}
+                onClick={() => slideOnClick(data.idx, data.url)}
               >
                 <TeamCard
                   rank={data.rank}
