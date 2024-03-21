@@ -14,8 +14,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <Sidebar />
             <Box flex="1">
               <Box pos="relative" w="100%" h="100%">
-                <Box pos="absolute" w="inherit">
-                  <Box pos="relative" w="100%">
+                <Box pos="absolute" w="inherit" h="100%">
+                  <Box pos="relative" w="100%" h="100%">
                     {children}
                   </Box>
                 </Box>
