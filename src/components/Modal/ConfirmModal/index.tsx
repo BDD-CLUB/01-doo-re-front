@@ -13,17 +13,8 @@ const ConfirmModal = ({
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent rounded="2xl">
-        <Flex
-          textStyle="bold_2xl"
-          align="center"
-          justify="center"
-          h="12"
-          textColor="white"
-          bg="orange"
-          borderTopRightRadius="2xl"
-          borderTopLeftRadius="2xl"
-        >
+      <ModalContent overflow="hidden" rounded="2xl">
+        <Flex textStyle="bold_2xl" align="center" justify="center" h="12" textColor="white" bg="orange">
           {title}
         </Flex>
         <ModalBody p="4">
