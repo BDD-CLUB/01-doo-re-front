@@ -3,7 +3,6 @@ import { Flex, Avatar, Text, Grid, Link, Card } from '@chakra-ui/react';
 import colors from '@/theme/foundations/colors';
 
 import { ParticipantProps } from './types';
-import '@/style.css';
 
 const Participant = ({ participantInfos }: ParticipantProps) => {
   const leader = participantInfos.find((data) => data.status === '스터디장')!;

@@ -4,8 +4,6 @@ import CurriculumCardData from '@/mocks/curriculum';
 
 import CurriculumItem from './CurriculumItem';
 
-import '@/style.css';
-
 const CurriculumCard = () => {
   return (
     <Flex w="100%" h={{ base: '30vh', lg: '35vh', '2xl': '40vh' }}>

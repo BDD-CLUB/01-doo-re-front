@@ -63,8 +63,9 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
     window.addEventListener('resize', widthChange);
     widthChange();
 
-    window.scrollTo(0, 0);
-    window.addEventListener(
+    const mainSection = document.getElementById('main_section');
+    mainSection?.scrollTo(0, 0);
+    mainSection?.addEventListener(
       'wheel',
       (e: WheelEvent) => {
         e.preventDefault();
@@ -79,13 +80,13 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
     window.addEventListener('mousedown', mouseDown);
 
     return () => {
-      window.removeEventListener('wheel', () => {});
+      mainSection?.removeEventListener('wheel', () => {});
       window.removeEventListener('resize', widthChange);
     };
   }, []);
 
   return (
-    <Box ref={baseRef} overflow="auto" w="100%" h="100vh">
+    <Box className="scroll_hide" ref={baseRef} overflow="auto" w="100%" h="100vh" id="main_section">
       {children.map((child) => (
         <Box key={child?.key} ref={(el) => sectionsRef.current.sections.push(el)}>
           {child}
