@@ -8,3 +8,10 @@ export interface ActionModalProps {
   mainButtonText: string;
   onMainButtonClick: () => void;
 }
+
+export interface AlertModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
