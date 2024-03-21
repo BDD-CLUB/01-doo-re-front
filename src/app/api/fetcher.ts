@@ -1,4 +1,4 @@
-type AllowObjectBodyRequestInit = Omit<RequestInit, 'body'> & { body?: RequestInit['body'] | object };
+type AllowObjectBodyRequestInit = Omit<RequestInit, 'body'> & { body?: RequestInit['body'] | object | FormData };
 
 export type FetchProps = [string, AllowObjectBodyRequestInit?];
 

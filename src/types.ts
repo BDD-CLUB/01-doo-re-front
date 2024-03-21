@@ -17,6 +17,7 @@ export interface TeamRankInfoType {
   rank: number;
   name: string;
   description: string;
+  url: string;
   gardenInfos: GardenInfoType[];
 }
 
@@ -55,6 +56,11 @@ export interface EditStudyDto {
   startDate: string;
   endDate: string;
   status: string;
+}
+
+export interface EditTeamDto {
+  name: string;
+  description: string;
 }
 
 export interface CurriculumDto {

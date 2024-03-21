@@ -1,10 +1,12 @@
+import size from '@/constants/size';
+
 const breakpoints = {
-  base: '0px',
-  sm: '480px',
-  md: '768px',
-  lg: '992px',
-  xl: '1300px',
-  '2xl': '1536px',
+  base: size.base,
+  sm: size.sm,
+  md: size.md,
+  lg: size.lg,
+  xl: size.xl,
+  '2xl': size['2xl'],
 };
 
 export default breakpoints;

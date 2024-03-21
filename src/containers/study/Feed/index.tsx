@@ -11,14 +11,16 @@ const Feed = () => {
         {FeedDate.map((data) => {
           return (
             <Flex key={data.date} direction="column" gap="2">
-              {data.date}
+              <Text textStyle="md">{data.date}</Text>
               <UnorderedList spacing="3">
                 {data.content.map((content) => {
                   return (
                     <ListItem key={content.id} flexDir="row">
                       <Flex>
-                        <Text fontWeight="bold">{content.name} </Text>
-                        님이 {content.subject}을 {content.action}했습니다.
+                        <Text textStyle="bold_md">{content.name} </Text>
+                        <Text textStyle="md">
+                          님이 {content.subject}을 {content.action}했습니다.{' '}
+                        </Text>
                       </Flex>
                     </ListItem>
                   );

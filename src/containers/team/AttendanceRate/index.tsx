@@ -1,4 +1,4 @@
-import { CircularProgress, CircularProgressLabel, useBreakpointValue } from '@chakra-ui/react';
+import { CircularProgress, CircularProgressLabel, useBreakpointValue, Text } from '@chakra-ui/react';
 
 import { AttendanceRateProps } from './types';
 
@@ -15,8 +15,8 @@ const AttendanceRate = ({ attendanceRate }: AttendanceRateProps) => {
       thickness="5"
       value={attendanceRate}
     >
-      <CircularProgressLabel color="orange" fontSize="2xl" fontWeight="bold">
-        {attendanceRate}%
+      <CircularProgressLabel color="orange">
+        <Text textStyle={useBreakpointValue({ base: 'bold_md', md: 'bold_2xl' })}>{attendanceRate}%</Text>
       </CircularProgressLabel>
     </CircularProgress>
   );
