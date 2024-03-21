@@ -1,6 +1,24 @@
 import { defineStyleConfig } from '@chakra-ui/react';
 
 const Button = defineStyleConfig({
+  baseStyle: {
+    borderRadius: 'full',
+    shadow: 'md',
+  },
+
+  variants: {
+    white: {
+      bg: 'white',
+      color: 'black',
+      minW: '24',
+    },
+    orange: {
+      bg: 'orange',
+      color: 'white',
+      minW: '24',
+    },
+  },
+
   sizes: {
     icon_sm: {
       fontSize: { base: '16px', lg: '18px', '2xl': '20px' },
