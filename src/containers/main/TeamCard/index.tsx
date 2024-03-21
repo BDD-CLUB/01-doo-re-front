@@ -16,7 +16,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
         color="white"
       >
         <Box pos="relative" w={{ base: '100px', lg: '120px', '2xl': '170px' }}>
-          <Text textStyle="title_bold_xl" fontFamily="Inter" textAlign="right">
+          <Text textStyle="title_bold_xl" textAlign="right">
             {rank}
           </Text>
           <Box pos="absolute" top={{ base: '110px', lg: '150px', '2xl': '170px' }} w="100%">
