@@ -36,24 +36,6 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
   }));
 
   useEffect(() => {
-    const mouseDown = (clickEvent: MouseEvent) => {
-      const mouseMoveHandler = (moveEvent: MouseEvent) => {
-        const deltaY = moveEvent.pageY - clickEvent.pageY;
-        if (deltaY > 0) {
-          scrollNext();
-        } else if (deltaY < 0) {
-          scrollPrev();
-        }
-      };
-
-      const mouseUpHandler = () => {
-        document.removeEventListener('mousemove', mouseMoveHandler);
-      };
-
-      document.addEventListener('mousemove', mouseMoveHandler);
-      document.addEventListener('mouseup', mouseUpHandler, { once: true });
-    };
-
     const widthChange = () => {
       const prevIndex = sectionsRef.current.currentIndex;
       sectionsRef.current.currentIndex = prevIndex;
@@ -77,7 +59,6 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
       },
       { passive: false },
     );
-    window.addEventListener('mousedown', mouseDown);
 
     return () => {
       mainSection?.removeEventListener('wheel', () => {});
