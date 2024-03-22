@@ -5,6 +5,8 @@ import Sidebar from '@/components/Sidebar';
 import fonts from './fonts';
 import Providers from './providers';
 
+import '@/style.css';
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={fonts.rubik.variable}>

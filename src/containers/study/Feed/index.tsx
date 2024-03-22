@@ -2,8 +2,6 @@ import { Flex, Card, UnorderedList, ListItem, Text } from '@chakra-ui/react';
 
 import FeedDate from '@/mocks/feed';
 
-import '@/style.css';
-
 const Feed = () => {
   return (
     <Card p="6" borderRadius="2xl">
