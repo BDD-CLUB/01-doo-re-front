@@ -20,9 +20,8 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
             {rank}
           </Text>
           <Box pos="absolute" top={{ base: '110px', lg: '150px', '2xl': '170px' }} w="100%">
-            <Box className="bar" w="100%" h="2px" bg="white" />
+            <Box w="100%" h="2px" bg="white" id="bar" />
             <Box
-              className="circle"
               pos="absolute"
               top="0%"
               left="100%"
@@ -31,6 +30,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
               bg="white"
               borderRadius="100%"
               transform="translate(-50%, -50%)"
+              id="circle"
             />
           </Box>
         </Box>
