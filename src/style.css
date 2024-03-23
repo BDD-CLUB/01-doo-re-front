@@ -7,3 +7,7 @@
   border-radius: 48px;
   border: 12px solid #ffffff;
 }
+
+.scroll_hide::-webkit-scrollbar {
+  width: 0px;
+}

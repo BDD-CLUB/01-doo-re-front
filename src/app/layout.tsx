@@ -5,6 +5,8 @@ import Sidebar from '@/components/Sidebar';
 import fonts from './fonts';
 import Providers from './providers';
 
+import '@/style.css';
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={fonts.rubik.variable}>
@@ -12,15 +14,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <Providers>
           <Flex w="100vw" maxW="100vw" minH="100vh">
             <Sidebar />
-            <Box flex="1">
-              <Box pos="relative" w="100%" h="100%">
-                <Box pos="absolute" w="inherit" h="100%">
-                  <Box pos="relative" w="100%" h="100%">
-                    {children}
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
+            <Box flex="1">{children}</Box>
           </Flex>
         </Providers>
       </body>

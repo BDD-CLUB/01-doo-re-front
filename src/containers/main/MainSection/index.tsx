@@ -36,24 +36,6 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
   }));
 
   useEffect(() => {
-    const mouseDown = (clickEvent: MouseEvent) => {
-      const mouseMoveHandler = (moveEvent: MouseEvent) => {
-        const deltaY = moveEvent.pageY - clickEvent.pageY;
-        if (deltaY > 0) {
-          scrollNext();
-        } else if (deltaY < 0) {
-          scrollPrev();
-        }
-      };
-
-      const mouseUpHandler = () => {
-        document.removeEventListener('mousemove', mouseMoveHandler);
-      };
-
-      document.addEventListener('mousemove', mouseMoveHandler);
-      document.addEventListener('mouseup', mouseUpHandler, { once: true });
-    };
-
     const widthChange = () => {
       const prevIndex = sectionsRef.current.currentIndex;
       sectionsRef.current.currentIndex = prevIndex;
@@ -63,8 +45,9 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
     window.addEventListener('resize', widthChange);
     widthChange();
 
-    window.scrollTo(0, 0);
-    window.addEventListener(
+    const mainSection = document.getElementById('main_section');
+    mainSection?.scrollTo(0, 0);
+    mainSection?.addEventListener(
       'wheel',
       (e: WheelEvent) => {
         e.preventDefault();
@@ -76,16 +59,15 @@ const MainSection = forwardRef(({ children }: MainSectionProps, ref: ForwardedRe
       },
       { passive: false },
     );
-    window.addEventListener('mousedown', mouseDown);
 
     return () => {
-      window.removeEventListener('wheel', () => {});
+      mainSection?.removeEventListener('wheel', () => {});
       window.removeEventListener('resize', widthChange);
     };
   }, []);
 
   return (
-    <Box ref={baseRef} overflow="auto" w="100%" h="100vh">
+    <Box className="scroll_hide" ref={baseRef} overflow="auto" w="100%" h="100vh" id="main_section">
       {children.map((child) => (
         <Box key={child?.key} ref={(el) => sectionsRef.current.sections.push(el)}>
           {child}
