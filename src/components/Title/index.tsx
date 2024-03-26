@@ -5,8 +5,15 @@ import { TitleProps } from './types';
 const Title = ({ isTeam = false, teamImg, name, description }: TitleProps) => {
   return (
     <Flex pos="relative" align="center" gap="3">
-      {isTeam && teamImg && <Avatar borderWidth="3px" borderColor="gray.100" size="md" src={teamImg} />}
-      {isTeam && !teamImg && <Avatar bg="white" borderWidth="3px" borderColor="gray.100" size="md" />}
+      {isTeam && (
+        <Avatar
+          borderWidth="3px"
+          borderColor="gray.100"
+          shadow="none"
+          size="md"
+          src={teamImg || '/images/doore_log.png'}
+        />
+      )}
       <Text textStyle="bold_3xl">{name}</Text>
       <Box pos="relative" display={{ base: 'none', lg: 'block' }} w="10" h="12" px="2">
         <Box pos="absolute" zIndex="1" top="50%" w="5" h="5" bg="white" transform="translate(0%, -50%) rotate(45deg)" />
