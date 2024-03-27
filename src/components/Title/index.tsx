@@ -11,7 +11,7 @@ const Title = ({ isTeam = false, teamImg, name, description }: TitleProps) => {
           borderColor="gray.100"
           shadow="none"
           size="md"
-          src={teamImg || '/images/doore_log.png'}
+          src={teamImg || '/images/doore_logo.png'}
         />
       )}
       <Text textStyle="bold_3xl">{name}</Text>
