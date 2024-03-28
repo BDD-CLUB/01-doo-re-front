@@ -32,7 +32,7 @@ const Selector = ({ placeholder, label }: SelectorProps) => {
         >
           <Text textStyle="bold_md">{placeholder}</Text>
         </MenuButton>
-        <MenuList minW={boxWidth} bg="orange_light" borderColor="orange_light" borderRadius="xl">
+        <MenuList overflow="hidden" minW={boxWidth} bg="orange_light" borderColor="orange_light" borderRadius="3xl">
           {label.map((item) => (
             <MenuItem key={item} color="white" bg="orange_light" _hover={{ bg: 'orange_dark' }}>
               <Text textStyle="bold_md">{item}</Text>
