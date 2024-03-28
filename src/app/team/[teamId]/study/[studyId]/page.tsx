@@ -14,7 +14,7 @@ const sampleStudy = studyCardData[0];
 
 const Page = () => {
   return (
-    <Grid alignItems="center" gap="9" w="100%" p="8">
+    <Flex align="center" direction="column" gap="9" w="100%" p="8">
       <Flex justify="space-between" w="100%">
         <Title name={sampleStudy.name} description={sampleStudy.description} />
         <StudyInfoCard
@@ -44,7 +44,7 @@ const Page = () => {
           <Participant participantInfos={participantData} />
         </Flex>
       </Grid>
-    </Grid>
+    </Flex>
   );
 };
 
