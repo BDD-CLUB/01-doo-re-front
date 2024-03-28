@@ -33,8 +33,8 @@ const Selector = ({ placeholder, label }: SelectorProps) => {
         <Text textStyle="bold_md">{placeholder}</Text>
       </MenuButton>
       <MenuList overflow="hidden" minW={menuWidth} bg="orange_light" borderColor="orange_light" borderRadius="3xl">
-        {label.map((item) => (
-          <MenuItem key={item} color="white" bg="orange_light" _hover={{ bg: 'orange_dark' }}>
+        {label.map((item, index) => (
+          <MenuItem key={item} color="white" bg="orange_light" _hover={{ bg: 'orange_dark' }} value={index}>
             <Text textStyle="bold_md">{item}</Text>
           </MenuItem>
         ))}
