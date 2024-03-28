@@ -12,19 +12,19 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
         <Text textStyle="sm">{content}</Text>
       </CardBody>
       <CardFooter alignItems="center" justify="space-between" px="2" py="0">
-        <Text color="gray.200" fontSize="sm">
+        <Text textStyle="sm" color="gray.200">
           {date}
         </Text>
         <Flex align="center">
           <IconButton
             color="black"
-            fontSize="md"
+            fontStyle="md"
             bg="transparent"
             _hover={{ bg: 'transparent' }}
             aria-label="bookmark"
             icon={<BiBookmark />}
           />
-          <Text fontSize="sm">{bookmark}</Text>
+          <Text textStyle="sm">{bookmark}</Text>
         </Flex>
       </CardFooter>
     </Card>
