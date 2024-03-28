@@ -1,5 +1,5 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
-import { BiFile } from 'react-icons/bi';
+import { BiFile, BiLink } from 'react-icons/bi';
 
 import ActionModal from '@/components/Modal/ActionModal';
 import colors from '@/theme/foundations/colors';
@@ -45,12 +45,33 @@ const StudyAssetModal = ({ isOpen, setIsModalOpen, title, content, type }: Study
             />
           )}
           {type === 'file' && (
-            <Flex textStyle="bold_sm" w="full" p={2} textColor="white" bgColor={colors.orange_light} rounded="2xl">
-              <BiFile color="white" width={4} />
-              파일이 첨부됩니다
+            <Flex
+              textStyle="bold_sm"
+              gap={2}
+              w="full"
+              p={2}
+              textColor="white"
+              bgColor={colors.orange_light}
+              rounded="2xl"
+            >
+              <BiFile color="white" size={20} />
+              <Text>파일이 첨부됩니다</Text>
             </Flex>
           )}
-          {type === 'link' && <Box>링크가 공유됩니다</Box>}
+          {type === 'link' && (
+            <Flex
+              textStyle="bold_sm"
+              gap={2}
+              w="full"
+              p={2}
+              textColor="white"
+              bgColor={colors.orange_light}
+              rounded="2xl"
+            >
+              <BiLink color="white" size={20} />
+              <Text>링크가 공유됩니다</Text>
+            </Flex>
+          )}
         </Flex>
       </Box>
     </ActionModal>
