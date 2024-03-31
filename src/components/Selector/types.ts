@@ -1,4 +1,5 @@
 export interface SelectorProps {
-  placeholder: string;
+  selected: string | undefined;
   label: string[];
+  handleSelector: (data: string) => void;
 }
