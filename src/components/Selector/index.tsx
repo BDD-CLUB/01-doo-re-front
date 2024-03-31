@@ -28,7 +28,7 @@ const Selector = ({ placeholder, label }: SelectorProps) => {
         _hover={{ bg: 'orange_light' }}
         _active={{ bg: 'orange_light' }}
         _focus={{ bg: 'orange_light' }}
-        rightIcon={<BiChevronDown />}
+        rightIcon={<BiChevronDown size="28px" />}
       >
         <Text textStyle="bold_md">{placeholder}</Text>
       </MenuButton>
