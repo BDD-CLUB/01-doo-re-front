@@ -16,23 +16,21 @@ const StudyCard = ({ name, description, startDate, endDate, cropId, percent, ran
       rounded="2xl"
     >
       <CardHeader py="2">
-        <Text fontWeight="bold" size="xl">
-          {name}
-        </Text>
+        <Text textStyle="bold_md">{name}</Text>
       </CardHeader>
       <CardBody py="0" textAlign="center" id={cropId.toString()}>
         <Image w="16" mx="auto" py="4" alt="crops" id="cropId" src="\png\circle.png" />
-        <Text fontSize="sm">{description}</Text>
-        <Text fontSize="sm">
+        <Text textStyle="sm">{description}</Text>
+        <Text textStyle="sm">
           {startDate} ~ {endDate}
         </Text>
       </CardBody>
       <CardFooter alignItems="center" justifyContent="center" gap="4" display="flex" w="100%" pt="0">
-        <Card alignItems="center" w="8" h="8" fontWeight="bold" textAlign="center" shadow="md">
+        <Card textStyle="bold_md" alignItems="center" w="8" h="8" textAlign="center" shadow="md">
           {rank}
         </Card>
         <Progress flex="1" h="1.5" colorScheme="blackAlpha" rounded="md" value={percent} />
-        <Text fontSize="sm">{percent}%</Text>
+        <Text textStyle="sm">{percent}%</Text>
       </CardFooter>
     </Card>
   );
