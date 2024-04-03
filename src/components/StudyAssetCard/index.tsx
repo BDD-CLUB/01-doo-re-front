@@ -25,7 +25,7 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
         setIsModalOpen={setIsModalOpen}
         title={title}
         content={content}
-        type="link"
+        type="image"
       />
       <Image objectFit="cover" alt="study card" rounded="sm" src={img} />
       <CardBody px="2">

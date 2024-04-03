@@ -1,5 +1,7 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
+import Link from 'next/link';
 import { BiFile, BiLink } from 'react-icons/bi';
+import { BsFolder2Open } from 'react-icons/bs';
 
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
@@ -42,11 +44,29 @@ const StudyAssetModal = ({ isOpen, setIsModalOpen, title, content, type }: Study
       <Text textStyle="bold_xl" mt={8}>
         첨부파일
       </Text>
-      <Box className="scroll" overflowY="auto" maxH={72}>
+      <Box className="scroll" overflowY="auto" maxH={72} mt={4}>
         <Flex direction="column" gap={2}>
-          {type === 'image' && imgData.map((data) => <Image alt={data.name} rounded="2xl" src={data.url} />)}
-          {type === 'file' && fileData.map((data) => <IconBox leftIcon={<BiFile size={20} />} content={data.name} />)}
-          {type === 'link' && linkData.map((data) => <IconBox leftIcon={<BiLink size={20} />} content={data.name} />)}
+          {type === 'image' &&
+            imgData.map((data) => (
+              <Link href={data.url} download>
+                <Image alt={data.name} rounded="2xl" src={data.url} />{' '}
+              </Link>
+            ))}
+          {type === 'file' &&
+            fileData.map((data) => (
+              <Link href={data.url} download>
+                <IconBox
+                  leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
+                  content={data.name}
+                />
+              </Link>
+            ))}
+          {type === 'link' &&
+            linkData.map((data) => (
+              <Link href={data.url}>
+                <IconBox leftIcon={<BiLink size={30} />} content={data.name} />
+              </Link>
+            ))}
         </Flex>
       </Box>
     </ActionModal>
