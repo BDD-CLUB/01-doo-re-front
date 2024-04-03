@@ -35,7 +35,7 @@ const StudyAssetModal = ({ isOpen, setIsModalOpen, title, content, type }: Study
           </Flex>
           <Flex textStyle="bold_md" justify="space-between">
             <Text> 공개범위</Text>
-            <Text> 전체공개 </Text>
+            <Text> 전체 </Text>
           </Flex>
         </Flex>
       </Flex>
