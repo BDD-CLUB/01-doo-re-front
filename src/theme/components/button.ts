@@ -3,7 +3,6 @@ import { defineStyleConfig } from '@chakra-ui/react';
 const Button = defineStyleConfig({
   baseStyle: {
     borderRadius: 'full',
-    shadow: 'md',
   },
 
   variants: {
@@ -16,6 +15,13 @@ const Button = defineStyleConfig({
       bg: 'orange',
       color: 'white',
       minW: '24',
+    },
+    transparent: {
+      bg: 'transparent',
+      color: 'white',
+      _hover: {
+        bg: 'transparent',
+      },
     },
   },
 
