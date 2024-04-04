@@ -6,7 +6,7 @@ const IconBox = ({ leftIcon, content, rightIcon, handleClick }: IconBoxProps) =>
   return (
     <Flex align="center" gap="2" w="100%" px="3" py="1" color="white" bg="orange_light" borderRadius="2xl">
       <IconButton as="div" flexShrink="0" aria-label="" icon={leftIcon} size="icon_md" variant="transparent" />
-      <Text textStyle="bold_xl" flex="auto" isTruncated>
+      <Text textStyle="bold_md" flex="auto" isTruncated>
         {content}
       </Text>
       {rightIcon && (
