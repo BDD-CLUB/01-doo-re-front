@@ -18,11 +18,11 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
         <Flex align="center">
           <IconButton
             color="black"
-            fontStyle="md"
             bg="transparent"
             _hover={{ bg: 'transparent' }}
             aria-label="bookmark"
             icon={<BiBookmark />}
+            size="icon_sm"
           />
           <Text textStyle="sm">{bookmark}</Text>
         </Flex>
