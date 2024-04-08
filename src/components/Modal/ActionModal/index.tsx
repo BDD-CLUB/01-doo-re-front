@@ -11,9 +11,10 @@ const ActionModal = ({
   onSubButtonClick,
   mainButtonText,
   onMainButtonClick,
+  size,
 }: ActionModalProps) => {
   return (
-    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+    <Modal isCentered isOpen={isOpen} onClose={onClose} size={size || 'md'}>
       <ModalOverlay />
       <ModalContent rounded="2xl">
         <Text textStyle="bold_2xl" px="4" pt="4">

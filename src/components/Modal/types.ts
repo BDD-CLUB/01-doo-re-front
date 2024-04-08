@@ -7,6 +7,7 @@ export interface ActionModalProps {
   onSubButtonClick: () => void;
   mainButtonText: string;
   onMainButtonClick: () => void;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full';
 }
 
 export interface AlertModalProps {
@@ -14,6 +15,7 @@ export interface AlertModalProps {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full';
 }
 
 export interface ConfirmModalProps {
@@ -23,4 +25,5 @@ export interface ConfirmModalProps {
   children: React.ReactNode;
   confirmButtonText: string;
   onConfirmButtonClick: () => void;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full';
 }

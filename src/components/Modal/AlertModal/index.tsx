@@ -2,9 +2,9 @@ import { Text, Modal, ModalOverlay, ModalContent, ModalBody, Flex, ModalCloseBut
 
 import { AlertModalProps } from '../types';
 
-const AlertModal = ({ isOpen, onClose, title, children }: AlertModalProps) => {
+const AlertModal = ({ isOpen, onClose, title, children, size }: AlertModalProps) => {
   return (
-    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+    <Modal isCentered isOpen={isOpen} onClose={onClose} size={size || 'md'}>
       <ModalOverlay />
       <ModalContent overflow="hidden" rounded="2xl">
         <Text textStyle="bold_2xl" h="12" textColor="white" lineHeight="48px" textAlign="center" bg="orange">
