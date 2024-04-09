@@ -23,7 +23,7 @@ const StyledRadio = (props: StyledRadioProps) => {
         justify="center"
         w={6}
         h={6}
-        mr={3}
+        mr={1}
         borderWidth="3px"
         borderColor={color.orange_light}
         borderRadius="full"
