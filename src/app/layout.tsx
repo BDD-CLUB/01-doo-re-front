@@ -8,6 +8,8 @@ import Providers from './providers';
 import '@/style.css';
 
 export const metadata = {
+  title: 'DOORE',
+  description: '두레 웹페이집니다.',
   icons: {
     icon: '/images/doore_logo.png',
   },
