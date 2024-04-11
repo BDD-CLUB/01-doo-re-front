@@ -23,7 +23,7 @@ const StyledRadio = (props: StyledRadioProps) => {
         justify="center"
         w={6}
         h={6}
-        mr={3}
+        mr={1}
         borderWidth="3px"
         borderColor={color.orange_light}
         borderRadius="full"
@@ -55,7 +55,7 @@ const StyledRadio = (props: StyledRadioProps) => {
         }}
         bgColor={color.orange_light}
       >
-        <Text p="3" textColor="white" {...textStyles.bold_xl}>
+        <Text px="6" textColor="white" {...textStyles.bold_md}>
           {props.children}
         </Text>
       </Flex>

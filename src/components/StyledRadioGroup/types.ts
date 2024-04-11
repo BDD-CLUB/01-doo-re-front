@@ -6,4 +6,5 @@ export interface StyledRadioGroupProps {
   defaultValue?: string;
   value?: string;
   children: JSX.Element[];
+  spacing?: string | number;
 }
