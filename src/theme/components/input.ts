@@ -13,11 +13,15 @@ const Input = defineMultiStyleConfig({
       field: {
         bg: 'orange_light',
         color: 'white',
-        rounded: '3xl',
+        rounded: '2xl',
         _focus: {
           borderColor: 'orange',
           bg: 'orange',
         },
+      },
+      element: {
+        h: '40px',
+        w: { base: '34px', lg: '36px', '2xl': '38px' },
       },
     }),
   },

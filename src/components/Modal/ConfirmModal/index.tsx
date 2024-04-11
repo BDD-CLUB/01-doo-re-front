@@ -9,9 +9,10 @@ const ConfirmModal = ({
   children,
   confirmButtonText,
   onConfirmButtonClick,
+  size,
 }: ConfirmModalProps) => {
   return (
-    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+    <Modal isCentered isOpen={isOpen} onClose={onClose} size={size || 'md'}>
       <ModalOverlay />
       <ModalContent overflow="hidden" rounded="2xl">
         <Flex textStyle="bold_2xl" align="center" justify="center" h="12" textColor="white" bg="orange">
