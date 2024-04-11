@@ -25,6 +25,15 @@ const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
 
+  const onClose = () => {
+    setName('');
+    setDescription('');
+    setThumbnail(null);
+    setAlertName(false);
+    setAlertDescription(false);
+    setIsOpen(false);
+  };
+
   const onSave = () => {
     if (!alertName && !alertDescription) {
       // TODO - API 연결
@@ -35,10 +44,10 @@ const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
   return (
     <ActionModal
       isOpen={isOpen}
-      onClose={() => setIsOpen(false)}
+      onClose={onClose}
       title="팀 생성"
       subButtonText="취소"
-      onSubButtonClick={() => setIsOpen(false)}
+      onSubButtonClick={onClose}
       mainButtonText="저장"
       onMainButtonClick={onSave}
     >
