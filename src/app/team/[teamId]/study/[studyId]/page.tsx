@@ -1,9 +1,14 @@
-import { Flex, Grid } from '@chakra-ui/react';
+'use client';
+
+import { Flex, Grid, Button } from '@chakra-ui/react';
+import { useState } from 'react';
 
 import CurriculumCard from '@/components/CurriculumCard';
 import StudyAssetCard from '@/components/StudyAssetCard';
 import Title from '@/components/Title';
 import Feed from '@/containers/study/Feed';
+import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
+import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import participantData from '@/mocks/participant';
@@ -13,38 +18,79 @@ import studyCardData from '@/mocks/studyCard';
 const sampleStudy = studyCardData[0];
 
 const Page = () => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
+
   return (
-    <Flex align="center" direction="column" gap="9" w="100%" p="8">
-      <Flex justify="space-between" w="100%">
-        <Title name={sampleStudy.name} description={sampleStudy.description} />
-        <StudyInfoCard
-          progress={sampleStudy.percent}
-          startAt={new Date(sampleStudy.startDate)}
-          endAt={new Date(sampleStudy.endDate)}
-        />
+    <>
+      <Flex direction="column" gap="0" w="100%" p="8">
+        <Flex justify="space-between" w="100%">
+          <Title name={sampleStudy.name} description={sampleStudy.description} />
+          <StudyInfoCard
+            progress={sampleStudy.percent}
+            startAt={new Date(sampleStudy.startDate)}
+            endAt={new Date(sampleStudy.endDate)}
+          />
+        </Flex>
+        <Flex gap="2" mb="8">
+          <Button
+            w="fit-content"
+            px="4"
+            py="1"
+            color="white"
+            bg="orange_dark"
+            shadow="md"
+            _hover={{ bg: 'orange_dark' }}
+            aria-label=""
+            onClick={() => setIsTerminateModalOpen(true)}
+            size="xs"
+          >
+            종료
+          </Button>
+          <Button
+            w="fit-content"
+            px="4"
+            py="1"
+            color="black"
+            bg="white"
+            shadow="md"
+            _hover={{ bg: 'white' }}
+            aria-label=""
+            onClick={() => setIsDeleteModalOpen(true)}
+            size="xs"
+          >
+            삭제
+          </Button>
+        </Flex>
+        <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
+          <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
+            <CurriculumCard />
+            <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
+              {studyAssetCardData.map((data) => (
+                <StudyAssetCard
+                  key={data.title}
+                  title={data.title}
+                  content={data.content}
+                  date={data.date}
+                  bookmark={data.bookmark}
+                  img={data.img}
+                />
+              ))}
+            </Grid>
+          </Flex>
+          <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
+            <Feed />
+            <Participant participantInfos={participantData} />
+          </Flex>
+        </Grid>
       </Flex>
-      <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
-        <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-          <CurriculumCard />
-          <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-            {studyAssetCardData.map((data) => (
-              <StudyAssetCard
-                key={data.title}
-                title={data.title}
-                content={data.content}
-                date={data.date}
-                bookmark={data.bookmark}
-                img={data.img}
-              />
-            ))}
-          </Grid>
-        </Flex>
-        <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-          <Feed />
-          <Participant participantInfos={participantData} />
-        </Flex>
-      </Grid>
-    </Flex>
+      <TerminateStudyModal
+        studyName={sampleStudy.name}
+        isOpen={isTerminateModalOpen}
+        setIsOpen={setIsTerminateModalOpen}
+      />
+      <DeleteStudyModal studyName={sampleStudy.name} isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} />
+    </>
   );
 };
 
