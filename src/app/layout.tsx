@@ -7,6 +7,12 @@ import Providers from './providers';
 
 import '@/style.css';
 
+export const metadata = {
+  icons: {
+    icon: '/images/doore_logo.png',
+  },
+};
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={fonts.rubik.variable}>
