@@ -1,18 +1,18 @@
 'use client';
 
 import { useSetAtom } from 'jotai';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { postGoogleLoginFetch } from '@/app/api/login';
 import { userAtom } from '@/atom';
 
 const Page = ({ searchParams }: { searchParams: { code: string } }) => {
   const { code } = searchParams;
+  const router = useRouter();
 
   const setUser = useSetAtom(userAtom);
 
   const login = postGoogleLoginFetch();
-
   login(code).then((res) => {
     if (res?.ok) {
       setUser({
@@ -20,16 +20,13 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
         token: res.body?.token,
         isLogin: true,
       });
-      redirect('/');
+    } else {
+      alert(res.body.message);
     }
-    return res;
+    router.replace('/');
   });
 
-  return (
-    <div>
-      <h1>Google Code {code}</h1>
-    </div>
-  );
+  return <div />;
 };
 
 export default Page;
