@@ -1,23 +1,17 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 const TeamRankDescription = () => {
   return (
-    <Box
-      w="100%"
-      h="fit-content"
-      p="70px 0px 30px 180px"
-      color="#fff"
-      fontFamily="Inter"
-      fontSize="80"
-      fontWeight="900"
-      fontStyle="normal"
-    >
-      <Text>
-        Check
-        <br />
-        Team Ranking !
-      </Text>
-    </Box>
+    <Flex justify={{ base: 'center', md: 'start' }} w="100%">
+      <Flex direction="column" my="2%" ml={{ base: '0%', md: '10%' }} color="white">
+        <Text textStyle="title_lg" display="inline">
+          Check
+        </Text>
+        <Text textStyle="title_lg" display="inline" whiteSpace="nowrap">
+          TEAM RANKING !
+        </Text>
+      </Flex>
+    </Flex>
   );
 };
 

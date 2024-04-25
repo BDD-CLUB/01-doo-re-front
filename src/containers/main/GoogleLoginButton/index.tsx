@@ -13,24 +13,24 @@ const GOOGLE_LOGIN_URL =
 const GoogleLoginButton = () => {
   const user = useAtomValue(userAtom);
 
-  if (!user.isLogin) {
-    return (
-      <Button
-        as="a"
-        justifyContent="start"
-        w="fit-content"
-        h="16"
-        p="0"
-        _hover={{ opacity: '0.8' }}
-        _active={{ opacity: '0.8' }}
-        bgColor="transparent"
-        href={GOOGLE_LOGIN_URL}
-      >
-        <Image h="100%" alt="google_sign_in" src="/images/google_sign_in.png" />
-      </Button>
-    );
+  if (user.isLogin) {
+    return <Box h={{ base: '8', lg: '10', '2xl': '14' }} />;
   }
-  return <Box h="16" />;
+  return (
+    <Button
+      as="a"
+      justifyContent="start"
+      w="fit-content"
+      h={{ base: '8', lg: '10', '2xl': '14' }}
+      p="0"
+      _hover={{ opacity: '0.8' }}
+      _active={{ opacity: '0.8' }}
+      bgColor="transparent"
+      href={GOOGLE_LOGIN_URL}
+    >
+      <Image h="100%" alt="google_sign_in" src="/images/google_sign_in.png" />
+    </Button>
+  );
 };
 
 export default GoogleLoginButton;

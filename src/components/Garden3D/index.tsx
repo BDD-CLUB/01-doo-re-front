@@ -1,8 +1,7 @@
 'use client';
 
+import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
-
-import './style.css';
 
 import Bar from './Bar';
 import { Garden3DProps } from './types';
@@ -10,10 +9,9 @@ import { Garden3DProps } from './types';
 const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: Garden3DProps) => {
   const cubeSizeHalf = cubeSize / 2;
 
-  const offsetX = 300;
   const offsetDefaultY = 545;
   const [offsetY, setOffsetY] = useState<number>(offsetDefaultY);
-  const offsetZ = 0;
+
   const gap = cubeSize + cubeGap;
   const standX = (gardenInfos[gardenInfos.length - 1].week - gardenInfos[0].week + 1) / 2 + gardenInfos[0].week;
   const maxCount =
@@ -45,19 +43,25 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
   };
 
   return (
-    <div className="container" onMouseDown={rotate ? mouseDown : undefined} role="textbox" tabIndex={0}>
-      <div className="fake_scene">
+    <Box pos="relative" zIndex="20" overflow="hidden" w="100%" h="100%" onMouseDown={rotate ? mouseDown : undefined}>
+      <Box
+        pos="absolute"
+        top="-380px"
+        w="100%"
+        h="100%"
+        style={{ perspective: '800px', transformStyle: 'preserve-3d' }}
+      >
         {gardenInfos.map((info) => {
-          const currZ = offsetZ + (info.date - 3) * gap;
-          const currX = offsetX + (info.week - standX) * gap;
+          const currX = (info.week - standX) * gap;
+          const currZ = (info.date - 3) * gap;
 
           return (
-            <div
+            <Box
               key={info.id}
-              className="scene"
-              style={{
-                transform: `rotateY(${yDegree}deg)`,
-              }}
+              pos="absolute"
+              w="100%"
+              h="100%"
+              style={{ transformStyle: 'preserve-3d', transform: `rotateY(${yDegree}deg)` }}
             >
               <Bar
                 count={info.count}
@@ -67,11 +71,11 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
                 offsetY={offsetY}
                 cubeSizeHalf={cubeSizeHalf}
               />
-            </div>
+            </Box>
           );
         })}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

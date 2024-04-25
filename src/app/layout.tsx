@@ -1,18 +1,28 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 
 import Sidebar from '@/components/Sidebar';
 
 import fonts from './fonts';
 import Providers from './providers';
 
+import '@/style.css';
+
+export const metadata = {
+  title: 'DOORE',
+  description: '두레 웹페이집니다.',
+  icons: {
+    icon: '/images/doore_logo.png',
+  },
+};
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={fonts.rubik.variable}>
       <body>
         <Providers>
-          <Flex minH="100vh">
+          <Flex w="100vw" maxW="100vw" minH="100vh">
             <Sidebar />
-            <Flex flex="1">{children}</Flex>
+            <Box flex="1">{children}</Box>
           </Flex>
         </Providers>
       </body>
