@@ -6,7 +6,7 @@ import { BiChevronDown } from 'react-icons/bi';
 
 import { SelectorProps } from './types';
 
-const Selector = ({ selected, label, handleSelector }: SelectorProps) => {
+const Selector = ({ selected, label, handleSelector, onBlur }: SelectorProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuWidth, setMenuWidth] = useState('0px');
 
@@ -17,7 +17,7 @@ const Selector = ({ selected, label, handleSelector }: SelectorProps) => {
   }, []);
 
   return (
-    <Menu>
+    <Menu onClose={onBlur}>
       <MenuButton
         ref={menuRef}
         as={Button}
