@@ -9,7 +9,7 @@ const Textarea = defineStyleConfig({
     default: {
       bg: 'orange_light',
       color: 'white',
-      rounded: '3xl',
+      rounded: '2xl',
       _focus: {
         borderColor: 'orange',
         bg: 'orange',
