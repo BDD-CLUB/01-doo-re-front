@@ -7,6 +7,7 @@ import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import StyledDatePicker from '@/components/DatePicker';
 import ActionModal from '@/components/Modal/ActionModal';
 import Selector from '@/components/Selector';
+import { CurriculumItemDto } from '@/types';
 
 import { CreateStudyModalProps } from './types';
 
