@@ -20,56 +20,75 @@ const AlertContent = ({ message }: { message: string }) => {
 
 const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => {
   const [step, setStep] = useState(1);
-  const [studyName, setStudyName] = useState<string>('');
-  const [studyDescription, setStudyDescription] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [crop, setCrop] = useState<string>('작물을 선택해주세요');
-  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
-  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
-  const [curriculums, setCurriculums] = useState([
-    { id: 1, name: '' },
-    { id: 2, name: '' },
-    { id: 3, name: '' },
-    { id: 4, name: '' },
-    { id: 5, name: '' },
+  const [cropId, setCropId] = useState<number>(0);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [curriculumItems, setCurriculumItems] = useState<CurriculumItemDto[]>([
+    { id: 1, name: '', itemOrder: 1, isDeleted: false },
+    { id: 2, name: '', itemOrder: 2, isDeleted: false },
+    { id: 3, name: '', itemOrder: 3, isDeleted: false },
+    { id: 4, name: '', itemOrder: 4, isDeleted: false },
+    { id: 5, name: '', itemOrder: 5, isDeleted: false },
   ]);
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
-  const [alertSelectedCrop, setAlertSelectedCrop] = useState<boolean>(false);
+  const [alertSelectedCropId, setAlertSelectedCropId] = useState<boolean>(false);
+
+  const crops = ['토마토', '고구마', '당근', '완두콩', '벼'];
 
   const handleNextButtonClick = () => {
     if (step === 1) {
-      if (studyName === '') setAlertName(true);
-      if (studyDescription === '') setAlertDescription(true);
-      if (studyName !== '' && studyDescription !== '') setStep(step + 1);
+      if (name === '') setAlertName(true);
+      if (description === '') setAlertDescription(true);
+      if (name !== '' && description !== '') setStep(step + 1);
     } else if (step === 2) {
-      if (crop === '작물을 선택해주세요') setAlertSelectedCrop(true);
+      if (crop === '작물을 선택해주세요') setAlertSelectedCropId(true);
       else setStep(step + 1);
-    } else {
-      setStep(step + 1);
     }
   };
   const handlePrevButtonClick = () => {
     setStep(step - 1);
   };
-  const handleStudyNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setStudyName(e.target.value);
+  const handleSaveButtonClick = () => {
+    const filteredCurriculumItems = curriculumItems.filter((curriculum) => curriculum.name.trim() !== '');
+    const updatedCurriculumItems = filteredCurriculumItems.map((curriculum, index) => ({
+      ...curriculum,
+      id: index + 1,
+      itemOrder: index + 1,
+    }));
+    setCurriculumItems(updatedCurriculumItems);
+    setIsModalOpen(false);
   };
-  const handleStudyDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setStudyDescription(e.target.value);
+  const handleNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setName(e.target.value);
+  };
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
   };
   const handleStartDateChange = (date: Date | null) => {
-    setSelectedStartDate(date);
+    setStartDate(date);
   };
   const handleEndDateChange = (date: Date | null) => {
-    setSelectedEndDate(date);
+    setEndDate(date);
   };
   const handleAddCurriculum = () => {
-    setCurriculums([...curriculums, { id: curriculums.length + 1, name: '' }]);
+    setCurriculumItems([
+      ...curriculumItems,
+      {
+        id: curriculumItems.length + 1,
+        name: '',
+        itemOrder: 0,
+        isDeleted: false,
+      },
+    ]);
   };
   const handleCurriculumChange = (index: number, value: string) => {
-    const updatedCurriculums = [...curriculums];
-    updatedCurriculums[index].name = value;
-    setCurriculums(updatedCurriculums);
+    const updatedCurriculumItems = [...curriculumItems];
+    updatedCurriculumItems[index].name = value;
+    setCurriculumItems(updatedCurriculumItems);
   };
 
   const cropRef = useRef(crop);
@@ -86,7 +105,7 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
       subButtonText={step === 1 ? '취소' : '이전'}
       mainButtonText={step === 3 ? '저장' : '다음'}
       onSubButtonClick={step === 1 ? () => setIsModalOpen(false) : handlePrevButtonClick}
-      onMainButtonClick={step === 3 ? () => setIsModalOpen(false) : handleNextButtonClick}
+      onMainButtonClick={step === 3 ? handleSaveButtonClick : handleNextButtonClick}
     >
       <Box overflowY="auto" minH="60vh" maxH="60vh">
         {step === 1 && (
@@ -98,8 +117,8 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
             <AutoResizeTextarea
               minH="10vh"
               placeholder="스터디 이름을 작성해주세요"
-              value={studyName}
-              onChange={handleStudyNameChange}
+              value={name}
+              onChange={handleNameChange}
               _placeholder={{ color: 'white' }}
               textStyle="bold_xl"
               onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,8 +133,8 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
             <AutoResizeTextarea
               minH="30vh"
               placeholder="스터디 소개글을 작성해주세요"
-              value={studyDescription}
-              onChange={handleStudyDescriptionChange}
+              value={description}
+              onChange={handleDescriptionChange}
               _placeholder={{ color: 'white' }}
               textStyle="bold_xl"
               onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,25 +149,26 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
             <Text textStyle="bold_xl" mt="4" mb="2">
               작물 선택 *
             </Text>
-            {alertSelectedCrop && <AlertContent message="필수 입력 란입니다." />}
+            {alertSelectedCropId && <AlertContent message="필수 입력 란입니다." />}
             <Selector
               selected={crop}
-              label={['토마토', '고구마', '당근', '완두콩', '벼']}
+              label={crops}
               handleSelector={(value) => {
                 setCrop(value);
+                setCropId(crops.indexOf(value) + 1);
                 cropRef.current = value;
               }}
               onBlur={() => {
-                if (cropRef.current !== '작물을 선택해주세요') setAlertSelectedCrop(false);
-                else setAlertSelectedCrop(true);
+                if (cropRef.current !== '작물을 선택해주세요') setAlertSelectedCropId(false);
+                else setAlertSelectedCropId(true);
               }}
             />
             <Text textStyle="bold_xl" mt="8" mb="2">
               날짜 선택
             </Text>
             <VStack spacing="3">
-              <StyledDatePicker label="시작 날짜" selectedDate={selectedStartDate} onChange={handleStartDateChange} />
-              <StyledDatePicker label="종료 날짜" selectedDate={selectedEndDate} onChange={handleEndDateChange} />
+              <StyledDatePicker label="시작 날짜" selectedDate={startDate} onChange={handleStartDateChange} />
+              <StyledDatePicker label="종료 날짜" selectedDate={endDate} onChange={handleEndDateChange} />
             </VStack>
           </>
         )}
@@ -163,7 +183,7 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
               </Button>
             </Flex>
             <VStack>
-              {curriculums.map((curriculum, index) => (
+              {curriculumItems.map((curriculum, index) => (
                 <Input
                   key={curriculum.id}
                   textStyle="bold_xl"
