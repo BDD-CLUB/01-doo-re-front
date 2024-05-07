@@ -121,8 +121,15 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
         </StyledRadioGroup>
         <Divider borderWidth="2px" borderColor={color.orange_dark} />
         <Flex justify="end" direction="row" gap="4" shrink="0">
-          <Input ref={urlInputRef} flex="1" h="7" hidden={doctype !== 'url'} placeholder="URL 링크를 입력해주세요." />
-          <Button w="28" h="7" onClick={() => handleAddDoc[doctype]()} variant="orange">
+          <Input
+            ref={urlInputRef}
+            flex="1"
+            h="7"
+            shadow="md"
+            hidden={doctype !== 'url'}
+            placeholder="URL 링크를 입력해주세요."
+          />
+          <Button w="28" h="7" shadow="md" onClick={() => handleAddDoc[doctype]()} variant="orange">
             추가하기
           </Button>
         </Flex>
