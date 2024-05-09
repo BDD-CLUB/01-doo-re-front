@@ -1,8 +1,8 @@
 import { Flex, Grid } from '@chakra-ui/react';
 
-import CurriculumCard from '@/components/CurriculumCard';
 import StudyAssetCard from '@/components/StudyAssetCard';
 import Title from '@/components/Title';
+import CurriculumCard from '@/containers/study/CurriculumCard';
 import Feed from '@/containers/study/Feed';
 import Participant from '@/containers/study/Participant';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
