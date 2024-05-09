@@ -1,11 +1,32 @@
+'use client';
+
 import { Flex, Card, CardBody, CardFooter, Image, Text, IconButton } from '@chakra-ui/react';
+import { useState } from 'react';
 import { BiBookmark } from 'react-icons/bi';
+
+import StudyAssetModal from '@/containers/study/StudyAssetModal';
 
 import { StudyAssetCardProps } from './types';
 
 const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <Card w="100%" p="2" shadow="md" _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }} rounded="xl">
+    <Card
+      w="100%"
+      p="2"
+      shadow="md"
+      _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}
+      onClick={() => setIsModalOpen(true)}
+      rounded="xl"
+    >
+      <StudyAssetModal
+        isOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        title={title}
+        content={content}
+        type="file"
+      />
       <Image objectFit="cover" alt="study card" rounded="sm" src={img} />
       <CardBody px="2">
         <Text textStyle="bold_md">{title}</Text>
