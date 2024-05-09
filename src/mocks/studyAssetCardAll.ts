@@ -1,0 +1,232 @@
+import { StudyAssetCardProps } from '@/components/StudyAssetCard/types';
+
+const studyAssetCardDataAll: StudyAssetCardProps[] = [
+  {
+    title: '자료이름1',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/01/01',
+    bookmark: 1111,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름2',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/02/02',
+    bookmark: 2222,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름3',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/03/03',
+    bookmark: 3333,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름4',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 4444,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름5',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 5555,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름6',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 6666,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름7',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 7777,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름8',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 8888,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름9',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 9999,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름10',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 10000,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름11',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 1111,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름12',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 22222,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름13',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 3333,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름14',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 4444,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름15',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 5555,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름16',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 6666,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름17',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 7777,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름18',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 8888,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름19',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 9999,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+  {
+    title: '자료이름20',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 2000,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름21',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 1111,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름22',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 2222,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름23',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 3333,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름24',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 4444,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름25',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 5555,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름26',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 6666,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름27',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 7777,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름28',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 8888,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름29',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 9999,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+
+  {
+    title: '자료이름30',
+    content: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
+    date: '2024/04/04',
+    bookmark: 3000,
+    img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+  },
+];
+
+export default studyAssetCardDataAll;
