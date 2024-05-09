@@ -119,7 +119,6 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
           <StyledRadio value="file">파일</StyledRadio>
           <StyledRadio value="url">URL 링크</StyledRadio>
         </StyledRadioGroup>
-        <Divider borderWidth="2px" borderColor={color.orange_dark} />
         <Flex justify="end" direction="row" gap="4" shrink="0">
           <Input
             ref={urlInputRef}
@@ -133,6 +132,7 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
             추가하기
           </Button>
         </Flex>
+        <Divider borderWidth="2px" borderColor={color.orange_dark} />
         <input
           hidden
           type="file"
