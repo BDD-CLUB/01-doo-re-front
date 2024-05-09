@@ -26,35 +26,35 @@ const StudyAssetModal = ({ isOpen, setIsModalOpen, title, content, type }: Study
       onSubButtonClick={() => setIsModalOpen(false)}
       onMainButtonClick={() => setIsModalOpen(false)}
     >
-      <Flex gap={4}>
-        <Box w={3 / 5} p={4} textColor="white" bgColor={colors.orange_dark} rounded="2xl">
-          <Text textStyle="bold_md">{content}</Text>
+      <Flex textStyle="bold_md" gap="4">
+        <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">
+          <Text>{content}</Text>
         </Box>
-        <Flex justify="space-between" direction="column" w={2 / 5} p={4} bgColor={colors.orange_light} rounded="2xl">
-          <Flex textStyle="bold_md" justify="space-between">
+        <Flex justify="space-between" direction="column" w={2 / 5} p="4" bgColor={colors.orange_light} rounded="2xl">
+          <Flex justify="space-between">
             <Text> 작성자</Text>
             <Text> 김철수 </Text>
           </Flex>
-          <Flex textStyle="bold_md" justify="space-between">
+          <Flex justify="space-between">
             <Text> 공개범위</Text>
             <Text> 전체 </Text>
           </Flex>
         </Flex>
       </Flex>
-      <Text textStyle="bold_xl" mt={8}>
+      <Text textStyle="bold_xl" mt="8">
         첨부파일
       </Text>
-      <Box className="scroll" overflowY="auto" maxH={72} mt={4}>
-        <Flex direction="column" gap={2}>
+      <Box className="scroll" overflowY="auto" maxH="72" mt="4">
+        <Flex direction="column" gap="2">
           {type === 'image' &&
             imgData.map((data) => (
               <Link href={data.url} download>
-                <Image alt={data.name} rounded="2xl" src={data.url} />{' '}
+                <Image alt={data.name} id={data.id.toString()} rounded="2xl" src={data.url} />{' '}
               </Link>
             ))}
           {type === 'file' &&
             fileData.map((data) => (
-              <Link href={data.url} download>
+              <Link href={data.url} download id={data.id.toString()}>
                 <IconBox
                   leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
                   content={data.name}
@@ -64,7 +64,7 @@ const StudyAssetModal = ({ isOpen, setIsModalOpen, title, content, type }: Study
           {type === 'link' &&
             linkData.map((data) => (
               <Link href={data.url}>
-                <IconBox leftIcon={<BiLink size={30} />} content={data.name} />
+                <IconBox leftIcon={<BiLink size="30" />} content={data.name} />
               </Link>
             ))}
         </Flex>

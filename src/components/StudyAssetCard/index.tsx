@@ -17,7 +17,7 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
       p="2"
       shadow="md"
       _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}
-      onClick={() => setIsModalOpen(!isModalOpen)}
+      onClick={() => setIsModalOpen(true)}
       rounded="xl"
     >
       <StudyAssetModal
@@ -25,7 +25,7 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
         setIsModalOpen={setIsModalOpen}
         title={title}
         content={content}
-        type="image"
+        type="file"
       />
       <Image objectFit="cover" alt="study card" rounded="sm" src={img} />
       <CardBody px="2">
