@@ -1,7 +1,9 @@
 'use client';
 
-import { Flex, Grid } from '@chakra-ui/react';
+import { Flex, Grid, IconButton, Text, Link } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { useState } from 'react';
+import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import CurriculumCard from '@/components/CurriculumCard';
 import StudyAssetCard from '@/components/StudyAssetCard';
@@ -37,18 +39,31 @@ const Page = () => {
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <CurriculumCard />
-            <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-              {studyAssetCardData.map((data) => (
-                <StudyAssetCard
-                  key={data.title}
-                  title={data.title}
-                  content={data.content}
-                  date={data.date}
-                  bookmark={data.bookmark}
-                  img={data.img}
+            <Flex align="right" direction="column" rowGap="3">
+              <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/">
+                <IconButton
+                  fontSize="16px"
+                  aria-label=""
+                  icon={<MdOutlineArrowForwardIos />}
+                  isRound
+                  size="icon_sm"
+                  variant="icon_orange"
                 />
-              ))}
-            </Grid>
+                <Text>전체 보기</Text>
+              </Link>
+              <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
+                {studyAssetCardData.map((data) => (
+                  <StudyAssetCard
+                    key={data.title}
+                    title={data.title}
+                    content={data.content}
+                    date={data.date}
+                    bookmark={data.bookmark}
+                    img={data.img}
+                  />
+                ))}
+              </Grid>
+            </Flex>
           </Flex>
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <Feed />

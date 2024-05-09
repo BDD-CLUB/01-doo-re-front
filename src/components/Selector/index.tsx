@@ -38,7 +38,7 @@ const Selector = ({ selected, label, handleSelector }: SelectorProps) => {
         p="0"
         bg="orange_light"
         borderColor="orange_light"
-        borderRadius="3xl"
+        borderRadius="2xl"
       >
         {label.map((item, index) => (
           <MenuItem
