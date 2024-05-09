@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Grid, Button } from '@chakra-ui/react';
+import { Flex, Grid } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import CurriculumCard from '@/components/CurriculumCard';
@@ -10,6 +10,7 @@ import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
+import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import participantData from '@/mocks/participant';
 import studyAssetCardData from '@/mocks/studyAssetCard';
@@ -32,36 +33,7 @@ const Page = () => {
             endAt={new Date(sampleStudy.endDate)}
           />
         </Flex>
-        <Flex gap="2" mb="8">
-          <Button
-            w="fit-content"
-            px="4"
-            py="1"
-            color="white"
-            bg="orange_dark"
-            shadow="md"
-            _hover={{ bg: 'orange_dark' }}
-            aria-label=""
-            onClick={() => setIsTerminateModalOpen(true)}
-            size="xs"
-          >
-            종료
-          </Button>
-          <Button
-            w="fit-content"
-            px="4"
-            py="1"
-            color="black"
-            bg="white"
-            shadow="md"
-            _hover={{ bg: 'white' }}
-            aria-label=""
-            onClick={() => setIsDeleteModalOpen(true)}
-            size="xs"
-          >
-            삭제
-          </Button>
-        </Flex>
+        <StudyControlPanel terminateModalOpen={setIsTerminateModalOpen} deleteModalOpen={setIsDeleteModalOpen} />
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <CurriculumCard />
