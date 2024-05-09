@@ -21,7 +21,7 @@ const DeleteStudyModal = ({ studyName, isOpen, setIsOpen }: DeleteStudyModalProp
       <Text align="center">
         삭제된 스터디는 되돌릴 수 없습니다.
         <br />
-        &quot;{studyName}&quot;을 삭제하시겠습니까?
+        {`"${studyName}"을 삭제하시겠습니까?`}
       </Text>
     </ConfirmModal>
   );
