@@ -23,7 +23,7 @@ const TerminateStudyModal = ({ studyName, isOpen, setIsOpen }: TerminateStudyMod
         <br />
         스터디 정보 수정 및 삭제가 불가능합니다.
         <br />
-        &quot;{studyName}&quot;을 종료하시겠습니까?
+        {`"${studyName}"을 종료하시겠습니까?`}
       </Text>
     </ConfirmModal>
   );
