@@ -35,7 +35,9 @@ const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
   };
 
   const onSave = () => {
-    if (!alertName && !alertDescription) {
+    if (name === '') setAlertName(true);
+    else if (description === '') setAlertDescription(true);
+    else {
       // TODO - API 연결
       setIsOpen(false);
     }
