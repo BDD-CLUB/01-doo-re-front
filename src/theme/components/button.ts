@@ -16,6 +16,10 @@ const Button = defineStyleConfig({
       color: 'white',
       minW: '24',
     },
+    icon_orange: {
+      bg: 'orange',
+      color: 'white',
+    },
     transparent: {
       bg: 'transparent',
       color: 'white',
