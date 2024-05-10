@@ -1,30 +1,20 @@
-'use client';
-
 import { Input, InputGroup, Icon, InputRightElement, Box } from '@chakra-ui/react';
-import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { BiCalendar } from 'react-icons/bi';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import './style.css';
 import { StyledDatePickerProps } from './types';
 
-const StyledDatePicker: React.FC<StyledDatePickerProps> = ({ label, selectedDate, onChange }) => {
-  const boxRef = useRef<HTMLDivElement>(null);
-  const [boxWidth, setBoxWidth] = useState('0px');
-
-  useEffect(() => {
-    if (boxRef.current) {
-      setBoxWidth(`${boxRef.current.offsetWidth}px`);
-    }
-  }, []);
-
+const StyledDatePicker = ({ label, selectedDate, onChange }: StyledDatePickerProps) => {
   return (
-    <Box ref={boxRef} w="100%">
+    <Box w="100%" role="group">
       <DatePicker
         selected={selectedDate}
         onChange={onChange}
+        wrapperClassName="styled_date_picker"
         customInput={
-          <InputGroup minW={boxWidth}>
+          <InputGroup w="100%">
             <Input
               textStyle="bold_xl"
               _hover={{ cursor: 'pointer' }}
