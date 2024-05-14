@@ -31,24 +31,31 @@ export const fetcher = (options?: FetcherOptions) => {
   const { baseUrl, headers, interceptors } = { ...defaultOptions, ...options };
 
   return async (...props: FetchProps) => {
-    let [url, config] = props;
-    if (interceptors?.request) {
-      [url, config] = await interceptors.request(props);
+    try {
+      let [url, config] = props;
+      if (interceptors?.request) {
+        [url, config] = await interceptors.request(props);
+      }
+      if (config?.body && typeof config.body === 'object') {
+        config.body = JSON.stringify(config.body);
+      }
+      const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
+      let response = await fetch(fullUrl, {
+        ...(config as RequestInit),
+        headers: {
+          ...headers,
+          ...(config?.headers || {}),
+        },
+      });
+      if (interceptors?.response) {
+        response = await interceptors.response(response);
+      }
+      return await response.json();
+    } catch (error) {
+      let message = '';
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return { ok: false, body: { message } };
     }
-    if (config?.body && typeof config.body === 'object') {
-      config.body = JSON.stringify(config.body);
-    }
-    const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
-    let response = await fetch(fullUrl, {
-      ...(config as RequestInit),
-      headers: {
-        ...headers,
-        ...(config?.headers || {}),
-      },
-    });
-    if (interceptors?.response) {
-      response = await interceptors.response(response);
-    }
-    return response.json();
   };
 };
