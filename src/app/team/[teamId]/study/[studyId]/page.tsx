@@ -21,6 +21,7 @@ import studyCardData from '@/mocks/studyCard';
 const sampleStudy = studyCardData[0];
 
 const Page = () => {
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
 
@@ -35,7 +36,11 @@ const Page = () => {
             endAt={new Date(sampleStudy.endDate)}
           />
         </Flex>
-        <StudyControlPanel terminateModalOpen={setIsTerminateModalOpen} deleteModalOpen={setIsDeleteModalOpen} />
+        <StudyControlPanel
+          editModalOpen={setIsEditModalOpen}
+          terminateModalOpen={setIsTerminateModalOpen}
+          deleteModalOpen={setIsDeleteModalOpen}
+        />
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <CurriculumCard />
