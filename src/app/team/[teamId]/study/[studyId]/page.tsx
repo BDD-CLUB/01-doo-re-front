@@ -29,7 +29,7 @@ const Page = () => {
         <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
           <CurriculumCard />
           <Flex align="right" direction="column" rowGap="3">
-            <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/">
+            <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/team/1/study/1/asset">
               <IconButton
                 fontSize="16px"
                 aria-label=""
