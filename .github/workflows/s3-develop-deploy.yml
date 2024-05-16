@@ -22,6 +22,14 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Create .env File
+        env:
+          PREFIX: 'NEXT_PUBLIC_'
+          SECRETS: ${{ toJson(secrets) }}
+        run: |
+          touch .env && \
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS" | grep $PREFIX > .env
+
       - name: Build
         run: npm run build
 
