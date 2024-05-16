@@ -2,9 +2,23 @@ import { Button, Flex } from '@chakra-ui/react';
 
 import { StudyControlPanelProps } from './types';
 
-const StudyControlPanel = ({ terminateModalOpen, deleteModalOpen }: StudyControlPanelProps) => {
+const StudyControlPanel = ({ editModalOpen, terminateModalOpen, deleteModalOpen }: StudyControlPanelProps) => {
   return (
     <Flex gap="2" mb="8">
+      <Button
+        w="fit-content"
+        px="4"
+        py="1"
+        color="white"
+        bg="orange"
+        shadow="md"
+        _hover={{ bg: 'orange' }}
+        aria-label=""
+        onClick={() => editModalOpen(true)}
+        size="xs"
+      >
+        수정
+      </Button>
       <Button
         w="fit-content"
         px="4"
