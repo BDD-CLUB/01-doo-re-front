@@ -1,21 +1,49 @@
 'use client';
 
-import { Box, Button, Flex, Grid, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
 import Garden3D from '@/components/Garden3D';
-import StudyCard from '@/components/StudyCard';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
+import AssetGridView from '@/containers/team/AssetGridView';
 import AttendanceRate from '@/containers/team/AttendanceRate';
+import NavigationButton from '@/containers/team/NavigationButton';
+import StudyGridView from '@/containers/team/StudyGridView';
 import TeamMember from '@/containers/team/teamMember';
 import { gardenInfos1 } from '@/mocks/Garden3D';
+import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
 import teamPageCategoryInfos from '@/mocks/team';
 
 const Page = () => {
   const [category, setCategory] = useState<string>(teamPageCategoryInfos[0].name);
+  const [cardIdx, setCardIdx] = useState<number>(0);
+
+  const handlePrevClick = () => {
+    if (cardIdx === 1) return;
+    setCardIdx((idx) => idx - 1);
+  };
+  const handleNextClick = () => {
+    if (category === '스터디' && cardIdx + 4 < studyCardData.length) {
+      setCardIdx((idx) => idx + 1);
+    } else if (category === '학습자료' && cardIdx + 4 < studyAssetCardData.length) {
+      setCardIdx((idx) => idx + 1);
+    }
+  };
+  const handlePlusClick = () => {
+    if (category === '스터디') {
+      // TODO: create study modal 띄우기
+    } else if (category === '학습자료') {
+      // TODO: create study asset modal 띄우기
+    }
+  };
+
+  const handleCategoryChange = (tab: string) => {
+    setCategory(tab);
+    setCardIdx(0);
+  };
 
   return (
     <Flex direction="column" gap="8" w="100%" p="8">
@@ -50,29 +78,18 @@ const Page = () => {
 
       <Flex direction="column" flex="1" gap="4">
         {/* TODO 스터디, 학습자료, 작물창고 버튼 */}
-        <TabButton currentTab={category} changeTab={setCategory} categoryInfos={teamPageCategoryInfos} />
+        <TabButton currentTab={category} changeTab={handleCategoryChange} categoryInfos={teamPageCategoryInfos} />
+        {category !== '작물창고' && (
+          <NavigationButton
+            handlePrevClick={handlePrevClick}
+            handleNextClick={handleNextClick}
+            handlePlusClick={handlePlusClick}
+          />
+        )}
         {/* TODO 전체보기, 네비게이션 이동 버튼 */}
         {/* TODO 스터디 카드 */}
-        <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-          {studyCardData.map((study) => {
-            return (
-              <StudyCard
-                key={study.id}
-                id={study.id}
-                name={study.name}
-                description={study.description}
-                startDate={study.startDate}
-                endDate={study.endDate}
-                status={study.status}
-                isDeleted={study.isDeleted}
-                cropId={study.cropId}
-                teamId={study.teamId}
-                percent={study.percent}
-                rank={study.rank}
-              />
-            );
-          })}
-        </Grid>
+        {category === '스터디' && <StudyGridView studyArray={studyCardData.slice(cardIdx, cardIdx + 4)} />}
+        {category === '학습자료' && <AssetGridView assetArray={studyAssetCardData.slice(cardIdx, cardIdx + 4)} />}
       </Flex>
     </Flex>
   );
