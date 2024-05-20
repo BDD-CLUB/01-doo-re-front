@@ -4,9 +4,9 @@ import { IconBoxProps } from './type';
 
 const IconBox = ({ leftIcon, content, rightIcon, handleClick }: IconBoxProps) => {
   return (
-    <Flex align="center" gap="1" w="100%" color="white" bg="orange_light" borderRadius="2xl">
+    <Flex align="center" gap="1" w="100%" h="40px" minH="40px" color="white" bg="orange_light" borderRadius="2xl">
       <IconButton as="div" flexShrink="0" aria-label="" icon={leftIcon} size="icon_md" variant="transparent" />
-      <Text textStyle="bold_md" flex="auto" isTruncated>
+      <Text textStyle="bold_md" flex="auto" cursor="default" isTruncated>
         {content}
       </Text>
       {rightIcon && (

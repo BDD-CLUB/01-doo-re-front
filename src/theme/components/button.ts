@@ -30,6 +30,10 @@ const Button = defineStyleConfig({
       _hover: { bg: '#FF6347' },
       minW: '24',
     },
+    icon_orange: {
+      bg: 'orange',
+      color: 'white',
+    },
     transparent: {
       bg: 'transparent',
       color: 'white',
