@@ -19,6 +19,7 @@
     "next": "14.0.4",
     "react": "^18",
     "react-beautiful-dnd": "^13.1.1",
+    "react-datepicker": "^6.6.0",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "react-textarea-autosize": "^8.5.3",

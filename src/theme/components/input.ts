@@ -14,7 +14,7 @@ const Input = defineMultiStyleConfig({
         bg: 'orange_light',
         color: 'white',
         rounded: '2xl',
-        _focus: {
+        _groupFocusWithin: {
           borderColor: 'orange',
           bg: 'orange',
         },
