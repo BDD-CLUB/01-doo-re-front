@@ -1,7 +1,7 @@
 'use client';
 
-import { Flex, Image, Card, IconButton, useDisclosure } from '@chakra-ui/react';
-import { BiArrowBack } from 'react-icons/bi';
+import { Flex, Image, Card, IconButton, useDisclosure, Text } from '@chakra-ui/react';
+import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import CurriculumCardData from '@/mocks/curriculum';
 
@@ -13,16 +13,12 @@ const CurriculumCard = () => {
   const { isOpen: isActionModalOpen, onOpen: onActionModalOpen, onClose: onActionModalClose } = useDisclosure();
 
   return (
-    <Flex direction="column" w="100%">
-      <IconButton
-        color="white"
-        bg="green_dark"
-        _hover={{ bg: 'green_dark' }}
-        aria-label=""
-        icon={<BiArrowBack />}
-        onClick={onActionModalOpen}
-        size="icon_sm"
-      />
+    <Flex direction="column" gap="3" w="100%">
+      <Flex gap="3" display="flex" w="fit-content" ml="auto" cursor="pointer" onClick={onActionModalOpen}>
+        <IconButton aria-label="" icon={<MdOutlineArrowForwardIos />} size="icon_sm" variant="icon_orange" />
+        <Text>전체 보기</Text>
+      </Flex>
+
       <Flex h={{ base: '30vh', lg: '35vh', '2xl': '40vh' }}>
         <Image
           display={{ base: 'none', md: 'block' }}
