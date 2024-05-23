@@ -4,9 +4,9 @@ import { Box, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
-import StyledDatePicker from '@/components/DatePicker';
 import ActionModal from '@/components/Modal/ActionModal';
 import Selector from '@/components/Selector';
+import StyledDatePicker from '@/components/StyledDatePicker';
 
 import { CreateStudyModalProps } from './types';
 
