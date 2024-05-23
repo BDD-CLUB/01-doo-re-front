@@ -19,7 +19,7 @@ const AlertContent = ({ message }: { message: string }) => {
 };
 
 const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<number>(1);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [crop, setCrop] = useState<string>('작물을 선택해주세요');
