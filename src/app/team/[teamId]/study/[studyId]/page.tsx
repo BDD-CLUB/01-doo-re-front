@@ -5,9 +5,9 @@ import NextLink from 'next/link';
 import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
-import CurriculumCard from '@/components/CurriculumCard';
 import StudyAssetCard from '@/components/StudyAssetCard';
 import Title from '@/components/Title';
+import CurriculumCard from '@/containers/study/CurriculumCard';
 import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
@@ -40,7 +40,7 @@ const Page = () => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <CurriculumCard />
             <Flex align="right" direction="column" rowGap="3">
-              <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/">
+              <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/team/1/study/1/asset">
                 <IconButton
                   fontSize="16px"
                   aria-label=""
