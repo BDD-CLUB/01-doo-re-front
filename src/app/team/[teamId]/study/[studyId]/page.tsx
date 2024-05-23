@@ -5,9 +5,9 @@ import NextLink from 'next/link';
 import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
-import CurriculumCard from '@/components/CurriculumCard';
 import StudyAssetCard from '@/components/StudyAssetCard';
 import Title from '@/components/Title';
+import CurriculumCard from '@/containers/study/CurriculumCard';
 import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
