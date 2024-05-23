@@ -124,7 +124,7 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
                 setCropId(crops.indexOf(value) + 1);
                 cropRef.current = value;
               }}
-              onBlur={() => {
+              handleClose={() => {
                 if (cropRef.current !== '작물을 선택해주세요') setAlertSelectedCropId(false);
                 else setAlertSelectedCropId(true);
               }}
