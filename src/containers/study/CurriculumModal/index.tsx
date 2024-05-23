@@ -3,50 +3,57 @@
 'use client';
 
 import { Flex, IconButton, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react';
-import React, { useState, ChangeEvent } from 'react';
+import { useParams } from 'next/navigation';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 
+import { postCurriculum } from '@/app/api/study';
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
+import ActionModal from '@/components/Modal/ActionModal';
 
-const CurriculumModal = () => {
-  const [curriculums, setCurriculums] = useState([
-    { key: 'item-1', itemOrder: 1, content: 'item-1', isEdit: false },
-    { key: 'item-2', itemOrder: 2, content: 'item-2', isEdit: false },
-    { key: 'item-3', itemOrder: 3, content: 'item-3', isEdit: false },
-    { key: 'item-4', itemOrder: 4, content: 'item-4', isEdit: false },
-  ]);
+import { EditCurriculum, CurriculumModalProps } from './type';
 
-  const [addCurriculum, setAddCurriculum] = useState('');
-  const editCurriculumRef = React.useRef<HTMLTextAreaElement>(null);
+const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModalProps) => {
+  const { studyId } = useParams<{ studyId: string }>();
 
-  const handleNewContentChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setAddCurriculum(event.target.value);
+  const [curriculums, setCurriculums] = useState<EditCurriculum[]>([]);
+  const [deleteCurriculums, setDeleteCurriculums] = useState<EditCurriculum[]>([]);
+
+  const [newCurriculum, setNewCurriculum] = useState<string>('');
+  const [newCurriculumId, setNewCurriculumId] = useState<number>((originCurriculums.at(-1)?.id || 0) + 1);
+
+  const editCurriculumRef = React.useRef<HTMLTextAreaElement>();
+
+  const handleNewCurriculumChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewCurriculum(event.target.value);
   };
 
-  const handleEditCurriculumChange = (event: ChangeEvent<HTMLTextAreaElement>, index: number) => {
+  const handleCurriculumChange = (index: number) => (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
 
     setCurriculums((prevCurriculums) => {
       const updatedCurriculums = [...prevCurriculums];
-      updatedCurriculums[index].content = value;
+      updatedCurriculums[index].name = value;
       return updatedCurriculums;
     });
   };
 
   const handleAddButtonClick = () => {
-    if (addCurriculum.trim() !== '') {
+    if (newCurriculum.trim() !== '') {
       setCurriculums((prevCurriculums) => [
         ...prevCurriculums,
         {
-          key: `item-${prevCurriculums.length + 1}`,
+          id: newCurriculumId + 1,
           itemOrder: prevCurriculums.length + 1,
-          content: addCurriculum,
+          name: newCurriculum.trim(),
           isEdit: false,
         },
       ]);
-      setAddCurriculum('');
+
+      setNewCurriculum('');
+      setNewCurriculumId((prevId) => prevId + 1);
     }
   };
 
@@ -68,6 +75,25 @@ const CurriculumModal = () => {
           itemOrder: idx + 1,
         })),
     );
+    setDeleteCurriculums((prevCurriculums) => [...prevCurriculums, curriculums[index]]);
+  };
+
+  const handleSaveButtonClick = () => {
+    const deletedCurriculumItems = deleteCurriculums
+      .filter((curriculum) => originCurriculums.some((origin) => origin.id === curriculum.id))
+      .map((curriculum) => ({
+        id: curriculum.id,
+        name: curriculum.name,
+        itemOrder: curriculum.itemOrder,
+      }));
+
+    const curriculumItems = curriculums.map((curriculum) => ({
+      id: curriculum.id,
+      name: curriculum.name,
+      itemOrder: curriculum.itemOrder,
+    }));
+
+    postCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems);
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -94,14 +120,35 @@ const CurriculumModal = () => {
     });
   };
 
+  useEffect(() => {
+    setCurriculums(
+      originCurriculums.map((curriculum) => ({
+        id: curriculum.id,
+        itemOrder: curriculum.itemOrder,
+        name: curriculum.name,
+        isEdit: false,
+      })),
+    );
+  }, [originCurriculums]);
+
   return (
-    <>
+    <ActionModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="커리큘럼"
+      subButtonText="취소"
+      onSubButtonClick={() => {
+        onClose();
+      }}
+      mainButtonText="저장"
+      onMainButtonClick={handleSaveButtonClick}
+    >
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="DropLand">
           {(provided) => (
             <Flex direction="column" gap="4" m="4" {...provided.droppableProps} ref={provided.innerRef}>
               {curriculums.map((curriculum, index) => (
-                <Draggable key={curriculum.key} draggableId={curriculum.key} index={index}>
+                <Draggable key={curriculum.id} draggableId={curriculum.id.toString()} index={index}>
                   {(innerProvided) => (
                     <Flex
                       ref={innerProvided.innerRef}
@@ -115,14 +162,15 @@ const CurriculumModal = () => {
                       </Text>
 
                       <AutoResizeTextarea
-                        ref={editCurriculumRef}
+                        ref={editCurriculumRef.current}
+                        bg={curriculum.isEdit ? 'orange' : 'orange_light'}
                         zIndex={!curriculum.isEdit ? '-1' : '1'}
-                        value={curriculum.content}
-                        onChange={(event: ChangeEvent<HTMLTextAreaElement>) => handleEditCurriculumChange(event, index)}
+                        value={curriculum.name}
+                        onChange={handleCurriculumChange(index)}
                         RightIconButton={
                           <>
                             <IconButton
-                              aria-label="edit"
+                              aria-label="edit curriculum"
                               icon={<BiEdit />}
                               onClick={() => {
                                 handleEditButtonClick(index);
@@ -131,7 +179,7 @@ const CurriculumModal = () => {
                               variant="transparent"
                             />
                             <IconButton
-                              aria-label="delete"
+                              aria-label="delete curriculum"
                               icon={<BiTrash />}
                               onClick={() => {
                                 handleDeleteButtonClick(index);
@@ -153,10 +201,10 @@ const CurriculumModal = () => {
       </DragDropContext>
 
       <InputGroup>
-        <Input onChange={handleNewContentChange} value={addCurriculum} />
+        <Input onChange={handleNewCurriculumChange} value={newCurriculum} />
         <InputRightElement>
           <IconButton
-            aria-label="add"
+            aria-label="add curriculum"
             icon={<AiOutlinePlus />}
             onClick={handleAddButtonClick}
             size="icon_md"
@@ -164,7 +212,7 @@ const CurriculumModal = () => {
           />
         </InputRightElement>
       </InputGroup>
-    </>
+    </ActionModal>
   );
 };
 
