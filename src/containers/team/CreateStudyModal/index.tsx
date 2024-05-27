@@ -22,13 +22,14 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
   const [step, setStep] = useState<number>(1);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [crop, setCrop] = useState<string>('작물을 선택해주세요');
+  const [cropName, setCropName] = useState<string>('');
   const [cropId, setCropId] = useState<number>(0);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
   const [alertSelectedCropId, setAlertSelectedCropId] = useState<boolean>(false);
+  const [alertStartDate, setAlertStartDate] = useState<boolean>(false);
 
   const crops = ['토마토', '고구마', '당근', '완두콩', '벼'];
 
@@ -41,8 +42,9 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
     if (name !== '' && description !== '') setStep(step + 1);
   };
   const handleSaveButtonClick = () => {
-    if (crop === '작물을 선택해주세요') setAlertSelectedCropId(true);
-    else setIsModalOpen(false);
+    if (cropName === '') setAlertSelectedCropId(true);
+    if (startDate === null) setAlertStartDate(true);
+    if (cropName !== '' && startDate !== null) setIsModalOpen(false);
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setName(e.target.value);
@@ -52,16 +54,17 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
   };
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
+    if (date !== null) setAlertStartDate(false);
   };
   const handleEndDateChange = (date: Date | null) => {
     setEndDate(date);
   };
 
-  const cropRef = useRef(crop);
+  const cropRef = useRef(cropName);
 
   useEffect(() => {
-    cropRef.current = crop;
-  }, [crop]);
+    cropRef.current = cropName;
+  }, [cropName]);
 
   return (
     <ActionModal
@@ -117,21 +120,23 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
             </Text>
             {alertSelectedCropId && <AlertContent message="필수 입력 란입니다." />}
             <Selector
-              selected={crop}
+              placeholder="작물을 선택해주세요"
+              selected={cropName}
               label={crops}
               handleSelector={(value) => {
-                setCrop(value);
+                setCropName(value);
                 setCropId(crops.indexOf(value) + 1);
                 cropRef.current = value;
               }}
               handleClose={() => {
-                if (cropRef.current !== '작물을 선택해주세요') setAlertSelectedCropId(false);
+                if (cropRef.current !== '') setAlertSelectedCropId(false);
                 else setAlertSelectedCropId(true);
               }}
             />
             <Text textStyle="bold_xl" mt="8" mb="2">
-              날짜 선택
+              날짜 선택 *
             </Text>
+            {alertStartDate && <AlertContent message="필수 입력 란입니다." />}
             <VStack spacing="3">
               <StyledDatePicker label="시작 날짜" selectedDate={startDate} onChange={handleStartDateChange} />
               <StyledDatePicker label="종료 날짜" selectedDate={endDate} onChange={handleEndDateChange} />
