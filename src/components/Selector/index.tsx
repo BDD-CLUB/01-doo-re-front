@@ -6,7 +6,7 @@ import { BiChevronDown } from 'react-icons/bi';
 
 import { SelectorProps } from './types';
 
-const Selector = ({ selected, label, handleSelector, handleClose }: SelectorProps) => {
+const Selector = ({ placeholder, selected, label, handleSelector, handleClose }: SelectorProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuWidth, setMenuWidth] = useState('0px');
 
@@ -30,7 +30,7 @@ const Selector = ({ selected, label, handleSelector, handleClose }: SelectorProp
         _focus={{ bg: 'orange_light' }}
         rightIcon={<BiChevronDown size="28px" />}
       >
-        <Text textStyle="bold_md">{selected}</Text>
+        <Text textStyle="bold_md">{selected || placeholder}</Text>
       </MenuButton>
       <MenuList
         overflow="hidden"
