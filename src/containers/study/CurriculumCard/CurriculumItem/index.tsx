@@ -15,7 +15,7 @@ const CurriculumItem = ({
 }: Curriculum & { participantId: number }) => {
   const [isChecked, setIsChecked] = useState(isCompleted);
 
-  const handleCheckboxClick = () => {
+  const handleCheckboxChange = () => {
     setIsChecked((prev) => !prev);
     patchCurriculumCompleted(id, participantId);
   };
@@ -37,7 +37,7 @@ const CurriculumItem = ({
         colorScheme="white"
         defaultChecked={isChecked}
         iconColor="orange"
-        onChange={handleCheckboxClick}
+        onChange={handleCheckboxChange}
         size="lg"
       />
     </Flex>
