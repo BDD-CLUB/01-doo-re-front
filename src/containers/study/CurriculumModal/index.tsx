@@ -22,7 +22,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
   const [deleteCurriculums, setDeleteCurriculums] = useState<EditCurriculum[]>([]);
 
   const [newCurriculum, setNewCurriculum] = useState<string>('');
-  const [newCurriculumId, setNewCurriculumId] = useState<number>((originCurriculums.at(-1)?.id || 0) + 1);
+  const [newCurriculumId, setNewCurriculumId] = useState<number>((originCurriculums.at(-1)?.id ?? 0) + 1);
 
   const editCurriculumRef = React.useRef<HTMLTextAreaElement>();
 
@@ -45,7 +45,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
       setCurriculums((prevCurriculums) => [
         ...prevCurriculums,
         {
-          id: newCurriculumId + 1,
+          id: newCurriculumId,
           itemOrder: prevCurriculums.length + 1,
           name: newCurriculum.trim(),
           isEdit: false,
