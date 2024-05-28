@@ -15,7 +15,7 @@ const CurriculumCard = () => {
 
   const { participantId, curriculumItems } = getCurriculum(Number(studyId));
 
-  const { isOpen: isActionModalOpen, onOpen: onActionModalOpen, onClose: onActionModalClose } = useDisclosure();
+  const { isOpen: isCurriculumModalOpen, onOpen: onActionModalOpen, onClose: onCurriculumModalClose } = useDisclosure();
 
   return (
     <Flex direction="column" gap="3" w="100%">
@@ -62,7 +62,11 @@ const CurriculumCard = () => {
         </Card>
       </Flex>
 
-      <CurriculumModal isOpen={isActionModalOpen} onClose={onActionModalClose} originCurriculums={curriculumItems} />
+      <CurriculumModal
+        isOpen={isCurriculumModalOpen}
+        onClose={onCurriculumModalClose}
+        originCurriculums={curriculumItems}
+      />
     </Flex>
   );
 };
