@@ -7,6 +7,7 @@ import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
 import Selector from '@/components/Selector';
 import StyledDatePicker from '@/components/StyledDatePicker';
+import CROP from '@/constants/crop';
 
 import { CreateStudyModalProps } from './types';
 
@@ -30,8 +31,6 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
   const [alertSelectedCropId, setAlertSelectedCropId] = useState<boolean>(false);
   const [alertStartDate, setAlertStartDate] = useState<boolean>(false);
-
-  const crops = ['토마토', '고구마', '당근', '완두콩', '벼'];
 
   const handlePrevButtonClick = () => {
     setStep(step - 1);
@@ -122,10 +121,10 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
             <Selector
               placeholder="작물을 선택해주세요"
               selected={cropName}
-              label={crops}
+              label={CROP.map((crop) => crop.name)}
               handleSelector={(value) => {
                 setCropName(value);
-                setCropId(crops.indexOf(value) + 1);
+                setCropId(CROP.find((crop) => crop.name === value)?.id || 0);
                 cropRef.current = value;
               }}
               handleClose={() => {
