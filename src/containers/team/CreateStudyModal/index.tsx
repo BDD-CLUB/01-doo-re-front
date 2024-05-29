@@ -53,7 +53,6 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
   };
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
-    if (date !== null) setAlertStartDate(false);
   };
   const handleEndDateChange = (date: Date | null) => {
     setEndDate(date);
