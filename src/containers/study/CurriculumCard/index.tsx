@@ -1,16 +1,21 @@
 'use client';
 
-import { Flex, Image, Card, IconButton, useDisclosure, Text } from '@chakra-ui/react';
+import { Flex, Image, Card, useDisclosure, Text, IconButton } from '@chakra-ui/react';
+import { useParams } from 'next/navigation';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
-import CurriculumCardData from '@/mocks/curriculum';
+import { getCurriculum } from '@/app/api/study';
+import { Curriculum } from '@/types';
 
 import CurriculumItem from './CurriculumItem';
-import ActionModal from '../../../components/Modal/ActionModal';
 import CurriculumModal from '../CurriculumModal';
 
 const CurriculumCard = () => {
-  const { isOpen: isActionModalOpen, onOpen: onActionModalOpen, onClose: onActionModalClose } = useDisclosure();
+  const { studyId } = useParams<{ studyId: string }>();
+
+  const { participantId, curriculumItems } = getCurriculum(Number(studyId));
+
+  const { isOpen: isCurriculumModalOpen, onOpen: onActionModalOpen, onClose: onCurriculumModalClose } = useDisclosure();
 
   return (
     <Flex direction="column" gap="3" w="100%">
@@ -41,35 +46,27 @@ const CurriculumCard = () => {
           borderBottomRightRadius="2xl"
         >
           <Flex className="scroll" direction="column" gap="3" overflowY="auto" w="100%">
-            {CurriculumCardData.map((data) => {
+            {curriculumItems?.map((curriculum: Curriculum) => {
               return (
                 <CurriculumItem
-                  key={data.id}
-                  id={data.id}
-                  name={data.name}
-                  itemOrder={data.itemOrder}
-                  isCompleted={data.isCompleted}
+                  participantId={participantId}
+                  key={curriculum.id}
+                  id={curriculum.id}
+                  name={curriculum.name}
+                  itemOrder={curriculum.itemOrder}
+                  isCompleted={curriculum.isCompleted}
                 />
               );
             })}
           </Flex>
         </Card>
       </Flex>
-      <ActionModal
-        isOpen={isActionModalOpen}
-        onClose={onActionModalClose}
-        title="커리큘럼"
-        subButtonText="이전"
-        onSubButtonClick={() => {
-          onActionModalClose();
-        }}
-        mainButtonText="다음"
-        onMainButtonClick={() => {
-          onActionModalClose();
-        }}
-      >
-        <CurriculumModal />
-      </ActionModal>
+
+      <CurriculumModal
+        isOpen={isCurriculumModalOpen}
+        onClose={onCurriculumModalClose}
+        originCurriculums={curriculumItems}
+      />
     </Flex>
   );
 };
