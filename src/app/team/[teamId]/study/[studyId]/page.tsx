@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { Flex, Grid, IconButton, Text, Link } from '@chakra-ui/react';
@@ -59,6 +61,7 @@ const Page = () => {
               <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
                 {studyAssetCardData.map((data) => (
                   <StudyAssetCard
+                    id={data.id}
                     key={data.title}
                     title={data.title}
                     content={data.content}

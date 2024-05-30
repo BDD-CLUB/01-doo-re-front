@@ -8,6 +8,7 @@ const colors = {
   orange_dark: color.orange_dark,
   gray: {
     '50': '#F7F7F7',
+    '75': '#E8E8E8',
     '100': '#DADADA',
     '200': '#9A9A9A',
   },

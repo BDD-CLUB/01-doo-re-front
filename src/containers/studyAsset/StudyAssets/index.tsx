@@ -11,6 +11,7 @@ const StudyAssets = () => {
       <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns="repeat(4, 1fr)" w="100%">
         {studyAssetCardDataAll.map((data) => (
           <StudyAssetCard
+            id={data.id}
             key={data.title}
             title={data.title}
             content={data.content}
