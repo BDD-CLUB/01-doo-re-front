@@ -48,13 +48,13 @@ const StudyAssetModal = ({ isOpen, setIsModalOpen, title, content, type }: Study
         <Flex direction="column" gap="2">
           {type === 'image' &&
             imgData.map((data) => (
-              <Link href={data.url} download>
+              <Link key={data.url} href={data.url} download>
                 <Image alt={data.name} id={data.id.toString()} rounded="2xl" src={data.url} />{' '}
               </Link>
             ))}
           {type === 'file' &&
             fileData.map((data) => (
-              <Link href={data.url} download id={data.id.toString()}>
+              <Link key={data.url} href={data.url} download id={data.id.toString()}>
                 <IconBox
                   leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
                   content={data.name}
@@ -63,7 +63,7 @@ const StudyAssetModal = ({ isOpen, setIsModalOpen, title, content, type }: Study
             ))}
           {type === 'link' &&
             linkData.map((data) => (
-              <Link href={data.url}>
+              <Link key={data.url} href={data.url}>
                 <IconBox leftIcon={<BiLink size="30" />} content={data.name} />
               </Link>
             ))}

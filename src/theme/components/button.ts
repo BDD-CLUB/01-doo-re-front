@@ -9,11 +9,25 @@ const Button = defineStyleConfig({
     white: {
       bg: 'white',
       color: 'black',
+      _hover: { bg: 'gray.75' },
       minW: '24',
     },
     orange: {
       bg: 'orange',
       color: 'white',
+      _hover: { bg: 'orange_dark' },
+      minW: '24',
+    },
+    orange_light: {
+      bg: 'orange_light',
+      color: 'white',
+      _hover: { bg: 'orange' },
+      minW: '24',
+    },
+    orange_dark: {
+      bg: 'orange_dark',
+      color: 'white',
+      _hover: { bg: '#FF6347' },
       minW: '24',
     },
     icon_orange: {
@@ -23,9 +37,17 @@ const Button = defineStyleConfig({
     transparent: {
       bg: 'transparent',
       color: 'white',
-      _hover: {
-        bg: 'transparent',
-      },
+      _hover: { bg: 'transparent' },
+    },
+    icon_white: {
+      bg: 'white',
+      color: 'black',
+      _hover: { bg: 'orange_light' },
+    },
+    icon_orange_dark: {
+      bg: 'orange_dark',
+      color: 'white',
+      _hover: { bg: 'orange_light' },
     },
   },
 

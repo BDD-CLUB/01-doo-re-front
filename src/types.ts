@@ -32,6 +32,8 @@ export interface ParticipantType {
 export interface TabButtonInfoType {
   id: number;
   name: string;
+  wholeView: boolean;
+  page?: string;
 }
 
 export interface CurriculumItemDto {
