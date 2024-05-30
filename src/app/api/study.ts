@@ -1,5 +1,5 @@
 import { fetcher } from '@/app/api/fetcher';
-import { CreateStudyDto, EditStudyDto } from '@/types';
+import { CreateStudyDto, Curriculum, EditStudyDto } from '@/types';
 
 const studyFetcher = fetcher();
 
@@ -47,6 +47,58 @@ const leaveStudyFetch = (studyId: number) =>
 
 const getStudyMembersFetch = (studyId: number) => studyFetcher(`/studies/${studyId}/members`);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getCurriculum = (studyId: number): { participantId: number; curriculumItems: Curriculum[] } => {
+  // FIXME 추후 더미데이터 제거하고 Api 연결 필요.
+  // studyFetcher(`/curriculum/${studyId}`, {
+  //   method: 'GET',
+  // });
+
+  const data = {
+    participantId: 1,
+    curriculumItems: [
+      {
+        id: 1,
+        name: '커리큘럼 1',
+        itemOrder: 1,
+        isCompleted: false,
+      },
+      {
+        id: 2,
+        name: '커리큘럼 2',
+        itemOrder: 2,
+        isCompleted: false,
+      },
+      {
+        id: 3,
+        name: '커리큘럼 3',
+        itemOrder: 3,
+        isCompleted: true,
+      },
+    ],
+  };
+
+  return {
+    participantId: data.participantId,
+    curriculumItems: data.curriculumItems,
+  };
+};
+
+const postCurriculum = (studyId: number, curriculumItems: Curriculum[], deletedCurriculumItems: Curriculum[]) =>
+  studyFetcher(`/curriculum/${studyId}`, {
+    method: 'POST',
+    body: {
+      curriculumItems,
+      deletedCurriculumItems,
+    },
+  });
+
+const patchCurriculumCompleted = (curriculumId: number, participantId: number) => {
+  studyFetcher(`/curriculums/${curriculumId}/${participantId}/check`, {
+    method: 'PATCH',
+  });
+};
+
 export {
   postStudyFetch,
   getStudyAllFetch,
@@ -59,4 +111,7 @@ export {
   deleteStudyMemberFetch,
   leaveStudyFetch,
   getStudyMembersFetch,
+  getCurriculum,
+  postCurriculum,
+  patchCurriculumCompleted,
 };
