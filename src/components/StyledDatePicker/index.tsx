@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { Input, InputGroup, Icon, InputRightElement, Box } from '@chakra-ui/react';
 import DatePicker from 'react-datepicker';
 import { BiCalendar } from 'react-icons/bi';
