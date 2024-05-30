@@ -3,60 +3,60 @@ import { CreateStudyDto, EditStudyDto } from '@/types';
 
 const studyFetcher = fetcher();
 
-const postStudyFetch = (teamId: number, study: CreateStudyDto) =>
+const postStudy = (teamId: number, study: CreateStudyDto) =>
   studyFetcher(`/teams/${teamId}/studies`, {
     method: 'POST',
     body: study,
   });
-const getStudyAllFetch = (studyId: number) => studyFetcher(`/studies/${studyId}/all`);
+const getStudyAll = (studyId: number) => studyFetcher(`/studies/${studyId}/all`);
 
-const getStudyFetch = (studyId: number) => studyFetcher(`/studies/${studyId}`);
+const getStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`);
 
-const deleteStudyFetch = (studyId: number) => studyFetcher(`/studies/${studyId}`, { method: 'DELETE' });
+const deleteStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`, { method: 'DELETE' });
 
-const putEditStudyFetch = (studyId: number, study: EditStudyDto) =>
+const putEditStudy = (studyId: number, study: EditStudyDto) =>
   studyFetcher(`/studies/${studyId}`, {
     method: 'PUT',
     body: study,
   });
 
-const patchTerminateStudyFetch = (studyId: number) =>
+const patchTerminateStudy = (studyId: number) =>
   studyFetcher(`/studies/${studyId}/termination`, {
     method: 'PATCH',
   });
 
-const patchStudyStatusFetch = (studyId: number, status: string) =>
+const patchStudyStatus = (studyId: number, status: string) =>
   studyFetcher(`/studies/${studyId}/status?status=${status}`, {
     method: 'PATCH',
   });
 
-const postStudyMemberFetch = (studyId: number, userId: number) =>
+const postStudyMember = (studyId: number, userId: number) =>
   studyFetcher(`/studies/${studyId}/members/${userId}`, {
     method: 'POST',
   });
 
-const deleteStudyMemberFetch = (studyId: number, userId: number) =>
+const deleteStudyMember = (studyId: number, userId: number) =>
   studyFetcher(`/studies/${studyId}/members/${userId}`, {
     method: 'DELETE',
   });
 
-const leaveStudyFetch = (studyId: number) =>
+const leaveStudy = (studyId: number) =>
   studyFetcher(`/studies/${studyId}/members`, {
     method: 'DELETE',
   });
 
-const getStudyMembersFetch = (studyId: number) => studyFetcher(`/studies/${studyId}/members`);
+const getStudyMembers = (studyId: number) => studyFetcher(`/studies/${studyId}/members`);
 
 export {
-  postStudyFetch,
-  getStudyFetch,
-  getStudyAllFetch,
-  deleteStudyFetch,
-  putEditStudyFetch,
-  patchTerminateStudyFetch,
-  patchStudyStatusFetch,
-  postStudyMemberFetch,
-  deleteStudyMemberFetch,
-  leaveStudyFetch,
-  getStudyMembersFetch,
+  postStudy,
+  getStudy,
+  getStudyAll,
+  deleteStudy,
+  putEditStudy,
+  patchTerminateStudy,
+  patchStudyStatus,
+  postStudyMember,
+  deleteStudyMember,
+  leaveStudy,
+  getStudyMembers,
 };
