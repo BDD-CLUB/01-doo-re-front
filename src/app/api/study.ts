@@ -8,6 +8,7 @@ const postStudyFetch = (teamId: number, study: CreateStudyDto) =>
     method: 'POST',
     body: study,
   });
+const getStudyAllFetch = (studyId: number) => studyFetcher(`/studies/${studyId}/all`);
 
 const getStudyFetch = (studyId: number) => studyFetcher(`/studies/${studyId}`);
 
@@ -49,6 +50,7 @@ const getStudyMembersFetch = (studyId: number) => studyFetcher(`/studies/${study
 export {
   postStudyFetch,
   getStudyFetch,
+  getStudyAllFetch,
   deleteStudyFetch,
   putEditStudyFetch,
   patchTerminateStudyFetch,
