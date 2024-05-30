@@ -1,4 +1,4 @@
-import { CurriculumItemProps } from '@/components/CurriculumCard/types';
+import { CurriculumItemProps } from '@/containers/study/CurriculumCard/types';
 
 const CurriculumCardData: CurriculumItemProps[] = [
   {
