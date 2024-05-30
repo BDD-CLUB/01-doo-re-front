@@ -92,6 +92,32 @@ const studyCardData: StudyCardProps[] = [
     percent: 50,
     rank: 4,
   },
+  {
+    id: 8,
+    name: '당근 스터디3',
+    description: '함께 당근 심고 수확까지 합니다.',
+    startDate: '2024/01/01',
+    endDate: '2024/01/31',
+    status: 'IN_PROGRESS',
+    isDeleted: false,
+    cropId: 4,
+    teamId: 4,
+    percent: 50,
+    rank: 4,
+  },
+  {
+    id: 9,
+    name: '당근 스터디3',
+    description: '함께 당근 심고 수확까지 합니다.',
+    startDate: '2024/01/01',
+    endDate: '2024/01/31',
+    status: 'IN_PROGRESS',
+    isDeleted: false,
+    cropId: 4,
+    teamId: 4,
+    percent: 50,
+    rank: 4,
+  },
 ];
 
 export default studyCardData;

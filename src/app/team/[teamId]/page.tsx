@@ -1,12 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
 import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
 import Garden3D from '@/components/Garden3D';
+import { StudyAssetCardProps } from '@/components/StudyAssetCard/types';
+import { StudyCardProps } from '@/components/StudyCard/types';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
+import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
 import AssetGridView from '@/containers/team/AssetGridView';
 import AttendanceRate from '@/containers/team/AttendanceRate';
 import NavigationButton from '@/containers/team/NavigationButton';
@@ -15,23 +20,50 @@ import TeamMember from '@/containers/team/teamMember';
 import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
-import teamPageCategoryInfos from '@/mocks/team';
 
 const Page = () => {
-  const [category, setCategory] = useState<string>(teamPageCategoryInfos[0].name);
+  const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
 
-  const handlePrevClick = () => {
-    if (cardIdx === 1) return;
-    setCardIdx((idx) => idx - 1);
-  };
-  const handleNextClick = () => {
-    if (category === '스터디' && cardIdx + 4 < studyCardData.length) {
-      setCardIdx((idx) => idx + 1);
-    } else if (category === '학습자료' && cardIdx + 4 < studyAssetCardData.length) {
-      setCardIdx((idx) => idx + 1);
+  const [studyArray, setStudyArray] = useState<StudyCardProps[]>([]);
+  const [studyLength, setStudyLength] = useState<number>(0);
+  const [assetArray, setAssetArray] = useState<StudyAssetCardProps[]>([]);
+  const [assetLength, setAssetLength] = useState<number>(0);
+
+  const getCardData = (start: number) => {
+    if (category === '스터디') {
+      // TODO: 스터디 목록 조회하기.
+      setStudyArray(studyCardData.slice(start, start + CARD_PER_PAGE));
+    } else if (category === '학습자료') {
+      // TODO: 학습자료 목록 조회하기.
+      setAssetArray(studyAssetCardData.slice(start, start + CARD_PER_PAGE));
     }
   };
+
+  useEffect(() => {
+    // TODO: 아래의 handleNextClick의 조건문을 기능시키기 위해,
+    //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
+    setStudyLength(studyCardData.length);
+    setAssetLength(studyAssetCardData.length);
+  }, []);
+
+  useEffect(() => {
+    getCardData(cardIdx);
+  }, [cardIdx]);
+
+  const handlePrevClick = () => {
+    if (cardIdx - CARD_PER_PAGE < 0) return;
+
+    setCardIdx((idx) => idx - CARD_PER_PAGE);
+  };
+
+  const handleNextClick = () => {
+    if (category === '스터디' && cardIdx + CARD_PER_PAGE >= studyLength) return;
+    if (category === '학습자료' && cardIdx + CARD_PER_PAGE >= assetLength) return;
+
+    setCardIdx((idx) => idx + CARD_PER_PAGE);
+  };
+
   const handlePlusClick = () => {
     if (category === '스터디') {
       // TODO: create study modal 띄우기
@@ -78,7 +110,7 @@ const Page = () => {
 
       <Flex direction="column" flex="1" gap="4">
         {/* TODO 스터디, 학습자료, 작물창고 버튼 */}
-        <TabButton currentTab={category} changeTab={handleCategoryChange} categoryInfos={teamPageCategoryInfos} />
+        <TabButton currentTab={category} changeTab={handleCategoryChange} categoryInfos={TEAM_CATEGORY_INFOS} />
         {category !== '작물창고' && (
           <NavigationButton
             handlePrevClick={handlePrevClick}
@@ -88,8 +120,8 @@ const Page = () => {
         )}
         {/* TODO 전체보기, 네비게이션 이동 버튼 */}
         {/* TODO 스터디 카드 */}
-        {category === '스터디' && <StudyGridView studyArray={studyCardData.slice(cardIdx, cardIdx + 4)} />}
-        {category === '학습자료' && <AssetGridView assetArray={studyAssetCardData.slice(cardIdx, cardIdx + 4)} />}
+        {category === '스터디' && <StudyGridView studyArray={studyArray} />}
+        {category === '학습자료' && <AssetGridView assetArray={assetArray} />}
       </Flex>
     </Flex>
   );
