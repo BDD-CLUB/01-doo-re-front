@@ -3,8 +3,8 @@ import { BiChevronRight, BiChevronLeft } from 'react-icons/bi';
 
 import { PageNavigatorProps } from './types';
 
-const PageNavigator = ({ currentPage, setCurrentPage, studyAssetCardDataAll, itemsPerPage }: PageNavigatorProps) => {
-  const totalPages = Math.ceil(studyAssetCardDataAll.length / itemsPerPage);
+const PageNavigator = ({ currentPage, setCurrentPage, componentLength, itemsPerPage }: PageNavigatorProps) => {
+  const totalPages = Math.ceil(componentLength / itemsPerPage);
   const goToPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };

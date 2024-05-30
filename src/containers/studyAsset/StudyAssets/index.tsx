@@ -8,7 +8,7 @@ import StudyAssetCard from '@/components/StudyAssetCard';
 import studyAssetCardDataAll from '@/mocks/studyAssetCardAll';
 
 const StudyAssets = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = useBreakpointValue({ base: 4, md: 8, xl: 10 })!;
 
@@ -32,7 +32,7 @@ const StudyAssets = () => {
       <PageNavigator
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        studyAssetCardDataAll={studyAssetCardDataAll}
+        componentLength={studyAssetCardDataAll.length}
         itemsPerPage={itemsPerPage}
       />
     </Flex>
