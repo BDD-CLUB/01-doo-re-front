@@ -1,9 +1,9 @@
 import { fetcher } from '@/app/api/fetcher';
-import { CurriculumItemsDto } from '@/types';
+import { Curriculum } from '@/types';
 
 const curriculumFetcher = fetcher();
 
-const postCurriculumFetch = (studyId: number, curriculum: CurriculumItemsDto) => {
+const postCurriculumFetch = (studyId: number, curriculum: Curriculum) => {
   curriculumFetcher(`/studies/${studyId}/curriculums`, {
     method: 'POST',
     body: curriculum,
