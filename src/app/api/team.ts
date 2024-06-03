@@ -7,7 +7,6 @@ const teamFetcher = fetcher();
 const postTeamFetch = (team: FormData) =>
   teamFetcher('/teams', {
     method: 'POST',
-    headers: { 'Content-Type': 'multipart/form-data' },
     body: team,
   });
 
