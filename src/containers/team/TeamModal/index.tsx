@@ -4,7 +4,7 @@ import { Flex, Text, Textarea, Image } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { BiEdit, BiFile } from 'react-icons/bi';
 
-import { postTeamFetch } from '@/app/api/team';
+import { postTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 
@@ -49,7 +49,7 @@ const TeamModal = ({ isOpen, setIsOpen }: TeamModalProps) => {
       teamForm.append('request', requestBlob);
       teamForm.append('file', thumbnail as Blob);
 
-      postTeamFetch(teamForm).then(() => {
+      postTeam(teamForm).then(() => {
         onClose();
       });
     }
