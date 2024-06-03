@@ -4,6 +4,7 @@ import { Flex, Text, Textarea, Image } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { BiEdit, BiFile } from 'react-icons/bi';
 
+import { postTeamFetch } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 
@@ -38,8 +39,19 @@ const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
     if (name === '') setAlertName(true);
     else if (description === '') setAlertDescription(true);
     else {
-      // TODO - API 연결
-      setIsOpen(false);
+      const teamForm = new FormData();
+      const request = {
+        name,
+        description,
+      };
+      const requestBlob = new Blob([JSON.stringify(request)], { type: 'application/json' });
+
+      teamForm.append('request', requestBlob);
+      teamForm.append('file', thumbnail as Blob);
+
+      postTeamFetch(teamForm).then(() => {
+        setIsOpen(false);
+      });
     }
   };
 
