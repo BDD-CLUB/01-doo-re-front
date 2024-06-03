@@ -8,7 +8,7 @@ import { postTeamFetch } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 
-import { CreateTeamModalProps } from '../type';
+import { TeamModalProps } from './type';
 
 const AlertContent = ({ message }: { message: string }) => {
   return (
@@ -18,7 +18,7 @@ const AlertContent = ({ message }: { message: string }) => {
   );
 };
 
-const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
+const TeamModal = ({ isOpen, setIsOpen }: TeamModalProps) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -128,4 +128,4 @@ const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
   );
 };
 
-export default CreateTeamModal;
+export default TeamModal;
