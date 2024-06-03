@@ -50,7 +50,7 @@ const TeamModal = ({ isOpen, setIsOpen }: TeamModalProps) => {
       teamForm.append('file', thumbnail as Blob);
 
       postTeamFetch(teamForm).then(() => {
-        setIsOpen(false);
+        onClose();
       });
     }
   };
