@@ -3,7 +3,7 @@
 import { useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 
-import { postGoogleLoginFetch } from '@/app/api/login';
+import { postGoogleLogin } from '@/app/api/login';
 import { userAtom } from '@/atom';
 
 const Page = ({ searchParams }: { searchParams: { code: string } }) => {
@@ -12,8 +12,7 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
 
   const setUser = useSetAtom(userAtom);
 
-  const login = postGoogleLoginFetch();
-  login(code).then((res) => {
+  postGoogleLogin(code).then((res) => {
     if (res?.ok) {
       setUser({
         memberId: res.body?.memberId,
