@@ -14,7 +14,7 @@ import Category from '../Category';
 import { SidebarContentProps } from '../type';
 
 const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
-  const [isCreateTeamModalOpen, setIsCreateTeamModalOpen] = useState<boolean>(false);
+  const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -68,7 +68,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
                   bg="white"
                   aria-label=""
                   icon={<BsPlus />}
-                  onClick={() => setIsCreateTeamModalOpen(true)}
+                  onClick={() => setIsTeamModalOpen(true)}
                   size="icon_sm"
                 />
               </Flex>
@@ -90,7 +90,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           </>
         )}
       </Flex>
-      <TeamModal isOpen={isCreateTeamModalOpen} setIsOpen={setIsCreateTeamModalOpen} />
+      <TeamModal isOpen={isTeamModalOpen} setIsOpen={setIsTeamModalOpen} />
     </>
   );
 };
