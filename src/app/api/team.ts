@@ -4,7 +4,7 @@ import { fetcher } from './fetcher';
 
 const teamFetcher = fetcher();
 
-const postTeam = (team: FormData) =>
+const postCreateTeam = (team: FormData) =>
   teamFetcher('/teams', {
     method: 'POST',
     body: team,
@@ -39,4 +39,4 @@ const postJoinTeam = (teamId: number, code: string) =>
     body: code,
   });
 
-export { postTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam };
+export { postCreateTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam };
