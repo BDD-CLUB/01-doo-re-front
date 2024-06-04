@@ -3,9 +3,11 @@
 'use client';
 
 import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
+import { postInviteTeam } from '@/app/api/team';
 import Garden3D from '@/components/Garden3D';
 import { StudyAssetCardProps } from '@/components/StudyAssetCard/types';
 import { StudyCardProps } from '@/components/StudyCard/types';
@@ -22,6 +24,9 @@ import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
 
 const Page = () => {
+  const params = useParams<{ teamId: string }>();
+  const teamId = parseInt(params.teamId, 10);
+
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
 
@@ -77,6 +82,19 @@ const Page = () => {
     setCardIdx(0);
   };
 
+  const handleInviteClick = () => {
+    postInviteTeam(teamId).then((res) => {
+      if (res.success) {
+        navigator.clipboard.writeText(
+          `${process.env.NEXT_PUBLIC_DEPLOY_URL}/team/${teamId}/join?code=${res.body.code}`,
+        );
+        alert('초대 링크가 복사되었습니다.');
+      } else {
+        alert('초대 링크 생성에 실패했습니다.');
+      }
+    });
+  };
+
   return (
     <Flex direction="column" gap="8" w="100%" p="8">
       <Flex justify="space-between">
@@ -84,7 +102,14 @@ const Page = () => {
         {/* TODO 팀원 목록, 초대링크 버튼 */}
         <Flex align="center" gap={{ base: '2', lg: '8' }}>
           <TeamMember />
-          <Button color="white" bg="orange_dark" rightIcon={<BsLink45Deg size="24px" />} rounded="full" size="sm">
+          <Button
+            color="white"
+            bg="orange_dark"
+            onClick={handleInviteClick}
+            rightIcon={<BsLink45Deg size="24px" />}
+            rounded="full"
+            size="sm"
+          >
             초대
           </Button>
         </Flex>
