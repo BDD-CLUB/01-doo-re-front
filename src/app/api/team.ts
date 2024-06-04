@@ -27,10 +27,9 @@ const deleteTeam = (teamId: number) =>
     method: 'DELETE',
   });
 
-const postInviteTeam = (teamId: number, code: string) =>
+const postInviteTeam = (teamId: number) =>
   teamFetcher(`/teams/${teamId}/invite-code`, {
     method: 'POST',
-    body: code,
   });
 
 const postJoinTeam = (teamId: number, code: string) =>
