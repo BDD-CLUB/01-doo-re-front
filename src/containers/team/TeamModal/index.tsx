@@ -4,10 +4,11 @@ import { Flex, Text, Textarea, Image } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { BiEdit, BiFile } from 'react-icons/bi';
 
+import { postCreateTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 
-import { CreateTeamModalProps } from '../type';
+import { TeamModalProps } from './type';
 
 const AlertContent = ({ message }: { message: string }) => {
   return (
@@ -17,7 +18,7 @@ const AlertContent = ({ message }: { message: string }) => {
   );
 };
 
-const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
+const TeamModal = ({ isOpen, setIsOpen }: TeamModalProps) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -38,8 +39,19 @@ const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
     if (name === '') setAlertName(true);
     else if (description === '') setAlertDescription(true);
     else {
-      // TODO - API 연결
-      setIsOpen(false);
+      const teamForm = new FormData();
+      const request = {
+        name,
+        description,
+      };
+      const requestBlob = new Blob([JSON.stringify(request)], { type: 'application/json' });
+
+      teamForm.append('request', requestBlob);
+      teamForm.append('file', thumbnail as Blob);
+
+      postCreateTeam(teamForm).then(() => {
+        onClose();
+      });
     }
   };
 
@@ -116,4 +128,4 @@ const CreateTeamModal = ({ isOpen, setIsOpen }: CreateTeamModalProps) => {
   );
 };
 
-export default CreateTeamModal;
+export default TeamModal;
