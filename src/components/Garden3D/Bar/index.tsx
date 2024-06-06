@@ -7,7 +7,7 @@ import { CubeProps } from '../types';
 const exponentialFunction = (height: number) => 10 * height;
 
 const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSizeHalf }: CubeProps) => {
-  const barX = count === 0 ? 0 : Math.ceil(count / maxCount);
+  const barX = count === 0 || maxCount === 0 ? 0 : Math.ceil(count / maxCount);
   const barHeight = barX === 0 ? 3 : exponentialFunction(barX);
 
   return (

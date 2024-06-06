@@ -20,6 +20,7 @@ import TeamMember from '@/containers/team/teamMember';
 import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
+import { GardenInfo } from '@/types';
 
 const Page = () => {
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
@@ -29,6 +30,8 @@ const Page = () => {
   const [studyLength, setStudyLength] = useState<number>(0);
   const [assetArray, setAssetArray] = useState<StudyAssetCardProps[]>([]);
   const [assetLength, setAssetLength] = useState<number>(0);
+
+  const [gardenArray, setGardenArray] = useState<GardenInfo[]>([]);
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
@@ -45,6 +48,9 @@ const Page = () => {
     //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
     setStudyLength(studyCardData.length);
     setAssetLength(studyAssetCardData.length);
+
+    // garden api 호출
+    setGardenArray(gardenInfos1);
   }, []);
 
   useEffect(() => {
@@ -99,7 +105,7 @@ const Page = () => {
               rotateY={0}
               cubeGap={useBreakpointValue({ base: 3, xl: 4 }) || 3}
               cubeSize={useBreakpointValue({ base: 20, md: 26, xl: 30 }) || 20}
-              gardenInfos={gardenInfos1}
+              gardenInfos={gardenArray}
             />
           </Box>
         </Box>
