@@ -4,11 +4,11 @@ export interface CubeColorType {
   side2: string;
 }
 
-export interface GardenInfoType {
-  date: number;
-  week: number;
-  count: number;
-  id: number;
+export interface GardenInfo {
+  dayOfYear: number;
+  dayOfWeek: number;
+  weekOfYear: number;
+  contributeCount: number;
 }
 
 export interface TeamRankInfoType {
@@ -18,7 +18,7 @@ export interface TeamRankInfoType {
   name: string;
   description: string;
   url: string;
-  gardenInfos: GardenInfoType[];
+  gardenInfos: GardenInfo[];
 }
 
 export interface ParticipantType {
