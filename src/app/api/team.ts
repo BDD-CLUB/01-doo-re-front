@@ -39,4 +39,9 @@ const postJoinTeam = (teamId: number, code: string) =>
     body: code,
   });
 
-export { postCreateTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam };
+const getGardenInfo = (teamId: number) =>
+  teamFetcher(`/garden/${teamId}`, {
+    method: 'GET',
+  });
+
+export { postCreateTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam, getGardenInfo };
