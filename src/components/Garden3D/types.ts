@@ -1,4 +1,4 @@
-import { GardenInfoType } from '@/types';
+import { GardenInfo } from '@/types';
 
 export interface CubeProps {
   currX: number;
@@ -14,5 +14,5 @@ export interface Garden3DProps {
   cubeSize: number;
   cubeGap: number;
   rotateY: number;
-  gardenInfos: GardenInfoType[];
+  gardenInfos: GardenInfo[];
 }
