@@ -90,7 +90,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           </>
         )}
       </Flex>
-      <TeamModal isOpen={isTeamModalOpen} setIsOpen={setIsTeamModalOpen} />
+      <TeamModal isOpen={isTeamModalOpen} onClose={() => setIsTeamModalOpen(false)} />
     </>
   );
 };

@@ -1,4 +1,7 @@
+import { Team } from '@/types';
+
 export interface TeamModalProps {
+  teamInfo?: Team;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
 }
