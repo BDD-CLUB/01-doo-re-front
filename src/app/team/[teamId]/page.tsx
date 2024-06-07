@@ -16,12 +16,17 @@ import AssetGridView from '@/containers/team/AssetGridView';
 import AttendanceRate from '@/containers/team/AttendanceRate';
 import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
+import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
+import teamInfoData from '@/mocks/teamInfo';
 
 const Page = () => {
+  // TODO 팀 조회 연결
+  const teamInfo = teamInfoData;
+
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
 
@@ -78,9 +83,9 @@ const Page = () => {
   };
 
   return (
-    <Flex direction="column" gap="8" w="100%" p="8">
+    <Flex direction="column" gap="2" w="100%" p="8">
       <Flex justify="space-between">
-        <Title isTeam name="열사모" description="팀입니다" />
+        <Title isTeam imageUrl={teamInfo.imageUrl} name={teamInfo.name} description={teamInfo.description} />
         {/* TODO 팀원 목록, 초대링크 버튼 */}
         <Flex align="center" gap={{ base: '2', lg: '8' }}>
           <TeamMember />
@@ -89,6 +94,7 @@ const Page = () => {
           </Button>
         </Flex>
       </Flex>
+      <TeamControlPanel teamInfo={teamInfo} />
 
       <Flex pos="relative" align="center" flex="1" gap="8">
         {/* TODO  잔디 */}
@@ -105,7 +111,7 @@ const Page = () => {
         </Box>
 
         {/* TODO  진행도 */}
-        <AttendanceRate attendanceRate={75} />
+        <AttendanceRate attendanceRate={teamInfo.attendanceRate} />
       </Flex>
 
       <Flex direction="column" flex="1" gap="4">
