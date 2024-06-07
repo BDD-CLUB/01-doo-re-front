@@ -2,7 +2,7 @@ import { Text, Flex, Avatar, Box } from '@chakra-ui/react';
 
 import { TitleProps } from './types';
 
-const Title = ({ isTeam = false, teamImg, name, description }: TitleProps) => {
+const Title = ({ isTeam = false, name, description, imageUrl }: TitleProps) => {
   return (
     <Flex pos="relative" align="center" gap="3">
       {isTeam && (
@@ -11,7 +11,7 @@ const Title = ({ isTeam = false, teamImg, name, description }: TitleProps) => {
           borderColor="gray.100"
           shadow="none"
           size="md"
-          src={teamImg || '/images/doore_logo.png'}
+          src={imageUrl ?? '/images/doore_logo.png'}
         />
       )}
       <Text textStyle="bold_3xl">{name}</Text>
