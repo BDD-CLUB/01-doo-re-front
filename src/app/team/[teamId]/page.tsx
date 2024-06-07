@@ -12,6 +12,7 @@ import { StudyCardProps } from '@/components/StudyCard/types';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
 import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
+import StudyModal from '@/containers/study/Modal/StudyModal';
 import AssetGridView from '@/containers/team/AssetGridView';
 import AttendanceRate from '@/containers/team/AttendanceRate';
 import NavigationButton from '@/containers/team/NavigationButton';
@@ -21,7 +22,7 @@ import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
 
-const Page = () => {
+const Page = ({ params }: { params: { teamId: number } }) => {
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
 
@@ -29,6 +30,8 @@ const Page = () => {
   const [studyLength, setStudyLength] = useState<number>(0);
   const [assetArray, setAssetArray] = useState<StudyAssetCardProps[]>([]);
   const [assetLength, setAssetLength] = useState<number>(0);
+
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
@@ -66,7 +69,7 @@ const Page = () => {
 
   const handlePlusClick = () => {
     if (category === '스터디') {
-      // TODO: create study modal 띄우기
+      setIsCreateModalOpen(true);
     } else if (category === '학습자료') {
       // TODO: create study asset modal 띄우기
     }
@@ -78,52 +81,55 @@ const Page = () => {
   };
 
   return (
-    <Flex direction="column" gap="8" w="100%" p="8">
-      <Flex justify="space-between">
-        <Title isTeam name="열사모" description="팀입니다" />
-        {/* TODO 팀원 목록, 초대링크 버튼 */}
-        <Flex align="center" gap={{ base: '2', lg: '8' }}>
-          <TeamMember />
-          <Button color="white" bg="orange_dark" rightIcon={<BsLink45Deg size="24px" />} rounded="full" size="sm">
-            초대
-          </Button>
+    <>
+      <Flex direction="column" gap="8" w="100%" p="8">
+        <Flex justify="space-between">
+          <Title isTeam name="열사모" description="팀입니다" />
+          {/* TODO 팀원 목록, 초대링크 버튼 */}
+          <Flex align="center" gap={{ base: '2', lg: '8' }}>
+            <TeamMember />
+            <Button color="white" bg="orange_dark" rightIcon={<BsLink45Deg size="24px" />} rounded="full" size="sm">
+              초대
+            </Button>
+          </Flex>
+        </Flex>
+
+        <Flex pos="relative" align="center" flex="1" gap="8">
+          {/* TODO  잔디 */}
+          <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px', xl: '320px' }}>
+            <Box pos="absolute" w="100%" h="100%">
+              <Garden3D
+                rotate
+                rotateY={0}
+                cubeGap={useBreakpointValue({ base: 3, xl: 4 }) || 3}
+                cubeSize={useBreakpointValue({ base: 20, md: 26, xl: 30 }) || 20}
+                gardenInfos={gardenInfos1}
+              />
+            </Box>
+          </Box>
+
+          {/* TODO  진행도 */}
+          <AttendanceRate attendanceRate={75} />
+        </Flex>
+
+        <Flex direction="column" flex="1" gap="4">
+          {/* TODO 스터디, 학습자료, 작물창고 버튼 */}
+          <TabButton currentTab={category} changeTab={handleCategoryChange} categoryInfos={TEAM_CATEGORY_INFOS} />
+          {category !== '작물창고' && (
+            <NavigationButton
+              handlePrevClick={handlePrevClick}
+              handleNextClick={handleNextClick}
+              handlePlusClick={handlePlusClick}
+            />
+          )}
+          {/* TODO 전체보기, 네비게이션 이동 버튼 */}
+          {/* TODO 스터디 카드 */}
+          {category === '스터디' && <StudyGridView studyArray={studyArray} />}
+          {category === '학습자료' && <AssetGridView assetArray={assetArray} />}
         </Flex>
       </Flex>
-
-      <Flex pos="relative" align="center" flex="1" gap="8">
-        {/* TODO  잔디 */}
-        <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px', xl: '320px' }}>
-          <Box pos="absolute" w="100%" h="100%">
-            <Garden3D
-              rotate
-              rotateY={0}
-              cubeGap={useBreakpointValue({ base: 3, xl: 4 }) || 3}
-              cubeSize={useBreakpointValue({ base: 20, md: 26, xl: 30 }) || 20}
-              gardenInfos={gardenInfos1}
-            />
-          </Box>
-        </Box>
-
-        {/* TODO  진행도 */}
-        <AttendanceRate attendanceRate={75} />
-      </Flex>
-
-      <Flex direction="column" flex="1" gap="4">
-        {/* TODO 스터디, 학습자료, 작물창고 버튼 */}
-        <TabButton currentTab={category} changeTab={handleCategoryChange} categoryInfos={TEAM_CATEGORY_INFOS} />
-        {category !== '작물창고' && (
-          <NavigationButton
-            handlePrevClick={handlePrevClick}
-            handleNextClick={handleNextClick}
-            handlePlusClick={handlePlusClick}
-          />
-        )}
-        {/* TODO 전체보기, 네비게이션 이동 버튼 */}
-        {/* TODO 스터디 카드 */}
-        {category === '스터디' && <StudyGridView studyArray={studyArray} />}
-        {category === '학습자료' && <AssetGridView assetArray={assetArray} />}
-      </Flex>
-    </Flex>
+      <StudyModal teamId={params.teamId} isOpen={isCreateModalOpen} setIsModalOpen={setIsCreateModalOpen} />
+    </>
   );
 };
 
