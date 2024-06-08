@@ -84,7 +84,12 @@ const Page = ({ params }: { params: { studyId: number } }) => {
         isOpen={isTerminateModalOpen}
         setIsOpen={setIsTerminateModalOpen}
       />
-      <DeleteStudyModal studyName={sampleStudy.name} isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} />
+      <DeleteStudyModal
+        id={params.studyId}
+        name={sampleStudy.name}
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setIsDeleteModalOpen}
+      />
     </>
   );
 };
