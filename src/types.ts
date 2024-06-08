@@ -43,20 +43,13 @@ export interface CurriculumItemDto {
   isDeleted: boolean;
 }
 
-export interface CreateStudyDto {
+export interface Study {
+  readonly id: number;
   name: string;
   description: string;
   startDate: string;
   endDate: string;
   cropId: number;
-  curriculumItems: CurriculumItemDto[];
-}
-
-export interface EditStudyDto {
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
   status: string;
 }
 
