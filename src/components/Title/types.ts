@@ -1,5 +1,6 @@
-import { Team } from '@/types';
-
-export interface TitleProps extends Omit<Team, 'id'> {
+export interface TitleProps {
   isTeam?: boolean;
+  name: string;
+  description: string;
+  imageUrl?: string;
 }

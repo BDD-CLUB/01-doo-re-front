@@ -2,7 +2,7 @@ import { Text, Flex, Avatar, Box } from '@chakra-ui/react';
 
 import { TitleProps } from './types';
 
-const Title = ({ isTeam = false, name, description, imageUrl }: TitleProps) => {
+const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
   return (
     <Flex pos="relative" align="center" gap="3">
       {isTeam && (
