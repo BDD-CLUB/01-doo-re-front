@@ -31,7 +31,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [assetArray, setAssetArray] = useState<StudyAssetCardProps[]>([]);
   const [assetLength, setAssetLength] = useState<number>(0);
 
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+  const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
@@ -69,7 +69,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const handlePlusClick = () => {
     if (category === '스터디') {
-      setIsCreateModalOpen(true);
+      setIsCreateStudyModalOpen(true);
     } else if (category === '학습자료') {
       // TODO: create study asset modal 띄우기
     }
@@ -128,7 +128,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           {category === '학습자료' && <AssetGridView assetArray={assetArray} />}
         </Flex>
       </Flex>
-      <StudyModal teamId={params.teamId} isOpen={isCreateModalOpen} setIsModalOpen={setIsCreateModalOpen} />
+      <StudyModal teamId={params.teamId} isOpen={isCreateStudyModalOpen} setIsModalOpen={setIsCreateStudyModalOpen} />
     </>
   );
 };

@@ -91,7 +91,7 @@ const StudyModal = ({ teamId, studyId, isOpen, setIsModalOpen }: StudyModalProps
     <ActionModal
       isOpen={isOpen}
       onClose={onClose}
-      title={isEditMode ? '스터디 수정' : '스터디 생성'}
+      title={`스터디 ${isEditMode ? '수정' : '생성'}`}
       subButtonText={step === 1 ? '취소' : '이전'}
       mainButtonText={step === 1 ? '다음' : '저장'}
       onSubButtonClick={step === 1 ? onClose : handlePrevButtonClick}
