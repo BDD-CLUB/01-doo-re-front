@@ -5,6 +5,7 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
+import { putEditStudy } from '@/app/api/study';
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
 import Selector from '@/components/Selector';
@@ -21,8 +22,7 @@ const AlertContent = ({ message }: { message: string }) => {
   );
 };
 
-const StudyModal = ({ teamId, studyId, isOpen, setIsModalOpen }: StudyModalProps) => {
-  const isEditMode = Boolean(studyId);
+const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: StudyModalProps) => {
   const [step, setStep] = useState<number>(1);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -59,15 +59,20 @@ const StudyModal = ({ teamId, studyId, isOpen, setIsModalOpen }: StudyModalProps
     if (name !== '' && description !== '') setStep(step + 1);
   };
   const handleSaveButtonClick = () => {
-    if (isEditMode) {
-      if (startDate === null) setAlertStartDate(true);
-      else onClose();
-    } else {
-      if (cropName === '') setAlertSelectedCropId(true);
-      if (startDate === null) setAlertStartDate(true);
-      if (cropName !== '' && startDate !== null) onClose();
+    if (startDate === null) setAlertStartDate(true);
+    else if (studyId && studyInfo) {
+      putEditStudy(studyId, {
+        name,
+        description,
+        startDate: startDate.toISOString().slice(0, 10),
+        endDate: endDate ? endDate.toISOString().slice(0, 10) : '',
+        status: startDate <= new Date() ? 'IN_PROGRESS' : 'UPCOMING',
+      }).then(() => {
+        onClose();
+      });
     }
   };
+
   const handleNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setName(e.target.value);
   };
@@ -87,11 +92,21 @@ const StudyModal = ({ teamId, studyId, isOpen, setIsModalOpen }: StudyModalProps
     cropRef.current = cropName;
   }, [cropName]);
 
+  useEffect(() => {
+    if (studyInfo) {
+      setName(studyInfo.name);
+      setDescription(studyInfo.description);
+      setCropName(CROP.find((crop) => crop.id === studyInfo.cropId)?.name || '');
+      setStartDate(new Date(studyInfo.startDate));
+      setEndDate(studyInfo.endDate ? new Date(studyInfo.endDate) : null);
+    }
+  }, [studyInfo]);
+
   return (
     <ActionModal
       isOpen={isOpen}
       onClose={onClose}
-      title={`스터디 ${isEditMode ? '수정' : '생성'}`}
+      title={`스터디 ${studyInfo ? '수정' : '생성'}`}
       subButtonText={step === 1 ? '취소' : '이전'}
       mainButtonText={step === 1 ? '다음' : '저장'}
       onSubButtonClick={step === 1 ? onClose : handlePrevButtonClick}
@@ -134,7 +149,7 @@ const StudyModal = ({ teamId, studyId, isOpen, setIsModalOpen }: StudyModalProps
             />
           </>
         )}
-        {step === 2 && !isEditMode && (
+        {step === 2 && !studyInfo && (
           <>
             <Text textStyle="bold_xl" mt="4" mb="2">
               작물 선택 *

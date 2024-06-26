@@ -1,9 +1,9 @@
 import { fetcher } from '@/app/api/fetcher';
-import { CreateStudyDto, Curriculum, EditStudyDto } from '@/types';
+import { Study, Curriculum } from '@/types';
 
 const studyFetcher = fetcher();
 
-const postStudy = (teamId: number, study: CreateStudyDto) =>
+const postStudy = (teamId: number, study: Pick<Study, 'name' | 'description' | 'startDate' | 'endDate' | 'cropId'>) =>
   studyFetcher(`/teams/${teamId}/studies`, {
     method: 'POST',
     body: study,
@@ -14,7 +14,10 @@ const getStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`);
 
 const deleteStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`, { method: 'DELETE' });
 
-const putEditStudy = (studyId: number, study: EditStudyDto) =>
+const putEditStudy = (
+  studyId: number,
+  study: Pick<Study, 'name' | 'description' | 'startDate' | 'endDate' | 'status'>,
+) =>
   studyFetcher(`/studies/${studyId}`, {
     method: 'PUT',
     body: study,

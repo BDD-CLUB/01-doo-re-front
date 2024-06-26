@@ -78,7 +78,12 @@ const Page = ({ params }: { params: { studyId: number } }) => {
           </Flex>
         </Grid>
       </Flex>
-      <StudyModal studyId={params.studyId} isOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen} />
+      <StudyModal
+        studyId={params.studyId}
+        studyInfo={sampleStudy}
+        isOpen={isEditModalOpen}
+        setIsModalOpen={setIsEditModalOpen}
+      />
       <TerminateStudyModal
         studyName={sampleStudy.name}
         isOpen={isTerminateModalOpen}
