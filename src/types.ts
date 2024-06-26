@@ -51,6 +51,7 @@ export interface Study {
   endDate: string;
   cropId: number;
   status: string;
+  studyProgressRatio: number;
 }
 
 export interface EditTeamDto {

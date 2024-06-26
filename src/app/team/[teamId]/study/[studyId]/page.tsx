@@ -2,9 +2,10 @@
 
 import { Flex, Grid, IconButton, Text, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
+import { getStudy } from '@/app/api/study';
 import StudyAssetCard from '@/components/StudyAssetCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
@@ -17,25 +18,34 @@ import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import participantData from '@/mocks/participant';
 import studyAssetCardData from '@/mocks/studyAssetCard';
-import studyCardData from '@/mocks/studyCard';
-
-const sampleStudy = studyCardData[0];
+import { Study } from '@/types';
 
 const Page = ({ params }: { params: { studyId: number } }) => {
+  const [studyData, setStudyData] = useState<Study>();
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    getStudy(params.studyId).then((data) => {
+      setStudyData(data);
+    });
+  }, [params.studyId]);
 
   return (
     <>
       <Flex direction="column" gap="0" w="100%" p="8">
         <Flex justify="space-between" w="100%">
-          <Title name={sampleStudy.name} description={sampleStudy.description} />
-          <StudyInfoCard
-            progress={sampleStudy.percent}
-            startAt={new Date(sampleStudy.startDate)}
-            endAt={new Date(sampleStudy.endDate)}
-          />
+          {studyData && (
+            <>
+              <Title name={studyData.name} description={studyData.description} />
+              <StudyInfoCard
+                progress={studyData.studyProgressRatio}
+                startAt={new Date(studyData.startDate)}
+                endAt={new Date(studyData.endDate)}
+              />
+            </>
+          )}
         </Flex>
         <StudyControlPanel
           editModalOpen={setIsEditModalOpen}
@@ -80,18 +90,18 @@ const Page = ({ params }: { params: { studyId: number } }) => {
       </Flex>
       <StudyModal
         studyId={params.studyId}
-        studyInfo={sampleStudy}
+        studyInfo={studyData || null}
         isOpen={isEditModalOpen}
         setIsModalOpen={setIsEditModalOpen}
       />
       <TerminateStudyModal
-        studyName={sampleStudy.name}
+        studyName={studyData?.name || ''}
         isOpen={isTerminateModalOpen}
         setIsOpen={setIsTerminateModalOpen}
       />
       <DeleteStudyModal
         id={params.studyId}
-        name={sampleStudy.name}
+        name={studyData?.name || ''}
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
       />

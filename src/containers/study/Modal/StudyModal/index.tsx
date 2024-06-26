@@ -93,14 +93,14 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
   }, [cropName]);
 
   useEffect(() => {
-    if (studyInfo) {
+    if (isOpen && studyInfo) {
       setName(studyInfo.name);
       setDescription(studyInfo.description);
       setCropName(CROP.find((crop) => crop.id === studyInfo.cropId)?.name || '');
       setStartDate(new Date(studyInfo.startDate));
       setEndDate(studyInfo.endDate ? new Date(studyInfo.endDate) : null);
     }
-  }, [studyInfo]);
+  }, [isOpen, studyInfo]);
 
   return (
     <ActionModal
