@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
-import { putEditStudy } from '@/app/api/study';
+import { postStudy, putEditStudy } from '@/app/api/study';
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
 import Selector from '@/components/Selector';
@@ -32,7 +30,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
-  const [alertSelectedCropId, setAlertSelectedCropId] = useState<boolean>(false);
+  const [alertCropId, setAlertCropId] = useState<boolean>(false);
   const [alertStartDate, setAlertStartDate] = useState<boolean>(false);
 
   const onClose = () => {
@@ -45,7 +43,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
     setEndDate(null);
     setAlertName(false);
     setAlertDescription(false);
-    setAlertSelectedCropId(false);
+    setAlertCropId(false);
     setAlertStartDate(false);
     setIsModalOpen(false);
   };
@@ -59,6 +57,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
     if (name !== '' && description !== '') setStep(step + 1);
   };
   const handleSaveButtonClick = () => {
+    if (cropId === 0) setAlertCropId(true);
     if (startDate === null) setAlertStartDate(true);
     else if (studyId && studyInfo) {
       putEditStudy(studyId, {
@@ -67,6 +66,16 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
         startDate: startDate.toISOString().slice(0, 10),
         endDate: endDate ? endDate.toISOString().slice(0, 10) : '',
         status: startDate <= new Date() ? 'IN_PROGRESS' : 'UPCOMING',
+      }).then(() => {
+        onClose();
+      });
+    } else if (teamId) {
+      postStudy(teamId, {
+        name,
+        description,
+        startDate: startDate.toISOString().slice(0, 10),
+        endDate: endDate ? endDate.toISOString().slice(0, 10) : '',
+        cropId,
       }).then(() => {
         onClose();
       });
@@ -154,7 +163,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
             <Text textStyle="bold_xl" mt="4" mb="2">
               작물 선택 *
             </Text>
-            {alertSelectedCropId && <AlertContent message="필수 입력 란입니다." />}
+            {alertCropId && <AlertContent message="필수 입력 란입니다." />}
             <Selector
               placeholder="작물을 선택해주세요"
               selected={cropName}
@@ -165,8 +174,8 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
                 cropRef.current = value;
               }}
               handleClose={() => {
-                if (cropRef.current !== '') setAlertSelectedCropId(false);
-                else setAlertSelectedCropId(true);
+                if (cropRef.current !== '') setAlertCropId(false);
+                else setAlertCropId(true);
               }}
             />
           </>
