@@ -14,12 +14,12 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
   const [modalMember, setModalMember] = useState<Member>({ id: -1, name: '', imageUrl: '' });
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
   const handleMouseOut = () => {
     setIsHovering(false);
+  };
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
   };
 
   const handleFiredButtonClick = (member: Member) => {
