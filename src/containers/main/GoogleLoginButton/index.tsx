@@ -1,7 +1,6 @@
 import { Image, Button, Box } from '@chakra-ui/react';
-import { useAtomValue } from 'jotai';
 
-import { userAtom } from '@/atom';
+import useGetUser from '@/hooks/useGetUser';
 
 const GOOGLE_LOGIN_URL =
   'https://accounts.google.com/o/oauth2/v2/auth?' +
@@ -11,9 +10,9 @@ const GOOGLE_LOGIN_URL =
   `scope=${process.env.NEXT_PUBLIC_GOOGLE_SCOPE}`;
 
 const GoogleLoginButton = () => {
-  const user = useAtomValue(userAtom);
+  const user = useGetUser();
 
-  if (user.isLogin) {
+  if (!user || user.isLogin) {
     return <Box h={{ base: '8', lg: '10', '2xl': '14' }} />;
   }
   return (

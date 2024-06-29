@@ -6,21 +6,21 @@ import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
+import { DocumentCardProps } from '@/components/DocumentCard/types';
 import Garden3D from '@/components/Garden3D';
-import { StudyAssetCardProps } from '@/components/StudyAssetCard/types';
 import { StudyCardProps } from '@/components/StudyCard/types';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
 import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
 import StudyModal from '@/containers/study/Modal/StudyModal';
-import AssetGridView from '@/containers/team/AssetGridView';
 import AttendanceRate from '@/containers/team/AttendanceRate';
+import DocumentGridView from '@/containers/team/DocumentGridView';
 import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { gardenData } from '@/mocks/Garden3D';
-import studyAssetCardData from '@/mocks/studyAssetCard';
+import documentCardData from '@/mocks/documentCard';
 import studyCardData from '@/mocks/studyCard';
 import teamInfoData from '@/mocks/teamInfo';
 
@@ -33,8 +33,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const [studyArray, setStudyArray] = useState<StudyCardProps[]>([]);
   const [studyLength, setStudyLength] = useState<number>(0);
-  const [assetArray, setAssetArray] = useState<StudyAssetCardProps[]>([]);
-  const [assetLength, setAssetLength] = useState<number>(0);
+  const [documentArray, setDocumentArray] = useState<DocumentCardProps[]>([]);
+  const [documentLength, setDocumentLength] = useState<number>(0);
 
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
 
@@ -44,7 +44,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       setStudyArray(studyCardData.slice(start, start + CARD_PER_PAGE));
     } else if (category === '학습자료') {
       // TODO: 학습자료 목록 조회하기.
-      setAssetArray(studyAssetCardData.slice(start, start + CARD_PER_PAGE));
+      setDocumentArray(documentCardData.slice(start, start + CARD_PER_PAGE));
     }
   };
 
@@ -52,7 +52,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     // TODO: 아래의 handleNextClick의 조건문을 기능시키기 위해,
     //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
     setStudyLength(studyCardData.length);
-    setAssetLength(studyAssetCardData.length);
+    setDocumentLength(documentCardData.length);
   }, []);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const handleNextClick = () => {
     if (category === '스터디' && cardIdx + CARD_PER_PAGE >= studyLength) return;
-    if (category === '학습자료' && cardIdx + CARD_PER_PAGE >= assetLength) return;
+    if (category === '학습자료' && cardIdx + CARD_PER_PAGE >= documentLength) return;
 
     setCardIdx((idx) => idx + CARD_PER_PAGE);
   };
@@ -76,7 +76,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     if (category === '스터디') {
       setIsCreateStudyModalOpen(true);
     } else if (category === '학습자료') {
-      // TODO: create study asset modal 띄우기
+      // TODO: create study `asset` modal 띄우기
     }
   };
 
@@ -131,7 +131,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           {/* TODO 전체보기, 네비게이션 이동 버튼 */}
           {/* TODO 스터디 카드 */}
           {category === '스터디' && <StudyGridView studyArray={studyArray} />}
-          {category === '학습자료' && <AssetGridView assetArray={assetArray} />}
+          {category === '학습자료' && <DocumentGridView documentArray={documentArray} />}
         </Flex>
       </Flex>
       <StudyModal teamId={params.teamId} isOpen={isCreateStudyModalOpen} setIsModalOpen={setIsCreateStudyModalOpen} />

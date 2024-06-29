@@ -39,9 +39,25 @@ const postJoinTeam = (teamId: number, code: string) =>
     body: code,
   });
 
-const getTeams = () =>
-  teamFetcher(`/teams`, {
-    method: 'Get',
+const getTeams = () => teamFetcher(`/teams`);
+
+const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}`);
+
+const getMyTeamsWithStudy = (token: string, memberId: number) =>
+  teamFetcher(`/teams/members/${memberId}/studies`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-export { postCreateTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam, getTeams };
+export {
+  postCreateTeam,
+  putEditTeam,
+  patchEditTeamImage,
+  deleteTeam,
+  postInviteTeam,
+  postJoinTeam,
+  getTeams,
+  getMyTeams,
+  getMyTeamsWithStudy,
+};

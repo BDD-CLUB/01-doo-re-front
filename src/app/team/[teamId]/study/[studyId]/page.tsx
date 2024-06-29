@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
-import StudyAssetCard from '@/components/StudyAssetCard';
+import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
 import Feed from '@/containers/study/Feed';
@@ -15,8 +15,8 @@ import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
+import documentCardData from '@/mocks/documentCard';
 import participantData from '@/mocks/participant';
-import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
 
 const sampleStudy = studyCardData[0];
@@ -46,7 +46,7 @@ const Page = ({ params }: { params: { studyId: number } }) => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <CurriculumCard />
             <Flex align="right" direction="column" rowGap="3">
-              <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/team/1/study/1/asset">
+              <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/team/1/study/1/document">
                 <IconButton
                   fontSize="16px"
                   aria-label=""
@@ -58,8 +58,8 @@ const Page = ({ params }: { params: { studyId: number } }) => {
                 <Text>전체 보기</Text>
               </Link>
               <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-                {studyAssetCardData.map((data) => (
-                  <StudyAssetCard
+                {documentCardData.map((data) => (
+                  <DocumentCard
                     id={data.id}
                     key={data.title}
                     title={data.title}

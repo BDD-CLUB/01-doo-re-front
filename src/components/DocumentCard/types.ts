@@ -1,4 +1,4 @@
-export interface StudyAssetCardProps {
+export interface DocumentCardProps {
   id: number;
   title: string;
   content: string;

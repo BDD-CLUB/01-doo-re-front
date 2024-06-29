@@ -56,9 +56,10 @@ export interface TeamDetail extends Team {
 
 export interface Curriculum {
   id: number;
+  participantId?: number;
   name: string;
   itemOrder: number;
-  isCompleted?: boolean;
+  isChecked?: boolean;
 }
 
 export interface Garden {
@@ -72,3 +73,16 @@ export interface TeamRank {
   teamReferenceResponse: Team;
   teamGardenResponse: Garden[];
 }
+
+export interface Document {
+  title: string;
+  description: string;
+  accessType: DocumentAccessType;
+  type: DocumentType;
+  url: string;
+  uploaderId: number;
+}
+
+export type DocumentAccessType = 'TEAM' | 'STUDY' | 'ALL';
+
+export type DocumentType = 'DOCUMENT' | 'IMAGE' | 'URL';
