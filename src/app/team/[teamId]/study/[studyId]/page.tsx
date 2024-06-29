@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import { Flex, Grid, IconButton, Text, Link } from '@chakra-ui/react';
@@ -7,22 +5,23 @@ import NextLink from 'next/link';
 import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
-import StudyAssetCard from '@/components/StudyAssetCard';
+import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
 import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
+import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
+import documentCardData from '@/mocks/documentCard';
 import participantData from '@/mocks/participant';
-import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
 
 const sampleStudy = studyCardData[0];
 
-const Page = () => {
+const Page = ({ params }: { params: { studyId: number } }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
@@ -47,7 +46,7 @@ const Page = () => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <CurriculumCard />
             <Flex align="right" direction="column" rowGap="3">
-              <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/team/1/study/1/asset">
+              <Link as={NextLink} gap="3" display="flex" w="fit-content" ml="auto" href="/team/1/study/1/document">
                 <IconButton
                   fontSize="16px"
                   aria-label=""
@@ -59,8 +58,8 @@ const Page = () => {
                 <Text>전체 보기</Text>
               </Link>
               <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-                {studyAssetCardData.map((data) => (
-                  <StudyAssetCard
+                {documentCardData.map((data) => (
+                  <DocumentCard
                     id={data.id}
                     key={data.title}
                     title={data.title}
@@ -79,6 +78,7 @@ const Page = () => {
           </Flex>
         </Grid>
       </Flex>
+      <StudyModal studyId={params.studyId} isOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen} />
       <TerminateStudyModal
         studyName={sampleStudy.name}
         isOpen={isTerminateModalOpen}

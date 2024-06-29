@@ -26,3 +26,9 @@ export interface CreateTeamModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface SidebarTeam {
+  teamId: number;
+  teamName: string;
+  teamStudies: { id: number; name: string }[];
+}

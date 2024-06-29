@@ -1,8 +1,8 @@
 const sidebarData = [
   {
-    id: 1,
-    name: '팀1',
-    studyList: [
+    teamId: 1,
+    teamName: '팀1',
+    teamStudies: [
       {
         id: 1,
         name: '스터디1',
@@ -10,76 +10,46 @@ const sidebarData = [
       {
         id: 2,
         name: '스터디2',
+      },
+      {
+        id: 3,
+        name: '스터디3',
       },
     ],
   },
   {
-    id: 2,
-    name: '팀2',
-    studyList: [
+    teamId: 2,
+    teamName: '팀2',
+    teamStudies: [
       {
-        id: 1,
-        name: '스터디1',
+        id: 4,
+        name: '스터디4',
       },
       {
-        id: 2,
-        name: '스터디2',
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: '팀3',
-    studyList: [
-      {
-        id: 1,
-        name: '스터디1',
+        id: 5,
+        name: '스터디5',
       },
       {
-        id: 2,
-        name: '스터디2',
+        id: 6,
+        name: '스터디6',
       },
     ],
   },
   {
-    id: 4,
-    name: '팀4',
-    studyList: [
+    teamId: 3,
+    teamName: '팀3',
+    teamStudies: [
       {
-        id: 1,
-        name: '스터디1',
+        id: 7,
+        name: '스터디7',
       },
       {
-        id: 2,
-        name: '스터디2',
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: '팀5',
-    studyList: [
-      {
-        id: 1,
-        name: '스터디1',
+        id: 8,
+        name: '스터디8',
       },
       {
-        id: 2,
-        name: '스터디2',
-      },
-    ],
-  },
-  {
-    id: 6,
-    name: '팀6',
-    studyList: [
-      {
-        id: 1,
-        name: '스터디1',
-      },
-      {
-        id: 2,
-        name: '스터디2',
+        id: 9,
+        name: '스터디9',
       },
     ],
   },

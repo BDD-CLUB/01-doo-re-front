@@ -1,4 +1,4 @@
-import { EditTeamDto } from '@/types';
+import { Team } from '@/types';
 
 import { fetcher } from './fetcher';
 
@@ -10,10 +10,10 @@ const postCreateTeam = (team: FormData) =>
     body: team,
   });
 
-const putEditTeam = (teamId: number, team: EditTeamDto) =>
+const putEditTeam = (teamId: number, teamInfo: Pick<Team, 'name' | 'description'>) =>
   teamFetcher(`/teams/${teamId}`, {
     method: 'PUT',
-    body: team,
+    body: teamInfo,
   });
 
 const patchEditTeamImage = (teamId: number, file: FormData) =>
@@ -38,4 +38,22 @@ const postJoinTeam = (teamId: number, code: string) =>
     body: code,
   });
 
-export { postCreateTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam };
+const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}`);
+
+const getMyTeamsWithStudy = (token: string, memberId: number) =>
+  teamFetcher(`/teams/members/${memberId}/studies`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export {
+  postCreateTeam,
+  putEditTeam,
+  patchEditTeamImage,
+  deleteTeam,
+  postInviteTeam,
+  postJoinTeam,
+  getMyTeams,
+  getMyTeamsWithStudy,
+};
