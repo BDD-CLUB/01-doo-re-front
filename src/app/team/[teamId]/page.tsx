@@ -14,6 +14,7 @@ import Title from '@/components/Title';
 import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import AttendanceRate from '@/containers/team/AttendanceRate';
+import DocumentGridView from '@/containers/team/DocumentGridView';
 import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
@@ -22,8 +23,6 @@ import documentCardData from '@/mocks/documentCard';
 import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyCardData from '@/mocks/studyCard';
 import teamInfoData from '@/mocks/teamInfo';
-
-import DocumentGridView from '@/containers/team/DocumentGridView';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
   // TODO 팀 조회 연결
