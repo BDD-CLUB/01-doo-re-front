@@ -22,7 +22,7 @@ import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import documentCardData from '@/mocks/documentCard';
-import { gardenInfos1 } from '@/mocks/Garden3D';
+import { gardenData } from '@/mocks/Garden3D';
 import studyCardData from '@/mocks/studyCard';
 import teamInfoData from '@/mocks/teamInfo';
 
@@ -133,7 +133,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
                 rotateY={0}
                 cubeGap={useBreakpointValue({ base: 3, xl: 4 }) || 3}
                 cubeSize={useBreakpointValue({ base: 20, md: 26, xl: 30 }) || 20}
-                gardenInfos={gardenInfos1}
+                garden={gardenData}
               />
             </Box>
           </Box>

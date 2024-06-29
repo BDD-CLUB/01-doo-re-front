@@ -2,27 +2,38 @@
 
 import { Box, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
 
 import 'swiper/css';
 
-import teamRankInfos from '@/mocks/TeamRanking';
+import { getTeams } from '@/app/api/team';
+import { TeamRank } from '@/types';
 
 import TeamCard from '../TeamCard';
 
 const TeamRankSlider = () => {
+  const [teamRank, setTeamRank] = useState<TeamRank[]>([]);
   const [swiperIndex, setSwiperIndex] = useState<number>(0);
   const [swiper, setSwiper] = useState<SwiperClass>();
   const router = useRouter();
 
-  const slideOnClick = (idx: number, url: string) => {
+  const slideOnClick = (idx: number, teamId: number) => {
     if (swiper?.activeIndex === idx) {
-      router.push(url);
+      router.push(`/team/${teamId}`);
     } else {
       swiper?.slideTo(idx);
     }
   };
+
+  useEffect(() => {
+    getTeams().then((res) => {
+      const teams = res.body.slice(0, 10).map((team: TeamRank, idx: number) => {
+        return { ...team, rank: idx + 1 };
+      });
+      setTeamRank(teams);
+    });
+  }, []);
 
   return (
     <Flex align="center" direction="column" w="100%">
@@ -34,21 +45,20 @@ const TeamRankSlider = () => {
           onSwiper={(e) => setSwiper(e)}
           onSlideChange={(e) => setSwiperIndex(e.activeIndex)}
         >
-          {teamRankInfos.map((data) => (
-            <SwiperSlide key={data.id} style={{ width: 'fit-content' }}>
+          {teamRank.map((team, idx) => (
+            <SwiperSlide key={team.teamReferenceResponse.id} style={{ width: 'fit-content' }}>
               <Box
                 overflow="hidden"
                 w={{ base: '450px', lg: '600px', '2xl': '720px' }}
                 h={{ base: '300px', lg: '360px', '2xl': '430px' }}
                 bg="rgba(255, 255, 255, 0.1)"
                 borderRadius="30"
-                onClick={() => slideOnClick(data.idx, data.url)}
+                onClick={() => slideOnClick(idx, team.teamReferenceResponse.id)}
               >
                 <TeamCard
-                  rank={data.rank}
-                  name={data.name}
-                  description={data.description}
-                  gardenInfos={data.gardenInfos}
+                  rank={team.rank}
+                  teamReferenceResponse={team.teamReferenceResponse}
+                  teamGardenResponse={team.teamGardenResponse}
                 />
               </Box>
             </SwiperSlide>
@@ -57,16 +67,16 @@ const TeamRankSlider = () => {
       </Box>
 
       <Flex justify="center" w="100%" h="10" mt="8">
-        {teamRankInfos.map((data) => (
+        {teamRank.map((team, idx) => (
           <Box
-            key={data.id}
+            key={team.teamReferenceResponse.id}
             w="3"
             h="3"
             mx="4"
-            bg={data.idx === swiperIndex ? 'white' : 'transparent'}
+            bg={idx === swiperIndex ? 'white' : 'transparent'}
             border="2px solid white"
             borderRadius="100%"
-            onClick={() => swiper?.slideTo(data.idx)}
+            onClick={() => swiper?.slideTo(idx)}
           />
         ))}
       </Flex>
