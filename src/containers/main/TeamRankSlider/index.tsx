@@ -27,8 +27,8 @@ const TeamRankSlider = () => {
   };
 
   useEffect(() => {
-    getTeams().then((res: TeamRank[]) => {
-      const teams = res.slice(0, 10).map((team: TeamRank, _: number) => {
+    getTeams().then((res) => {
+      const teams = res.body.slice(0, 10).map((team: TeamRank, _: number) => {
         return { ...team, rank: _ + 1 };
       });
       setTeamRank(teams);
