@@ -39,4 +39,9 @@ const postJoinTeam = (teamId: number, code: string) =>
     body: code,
   });
 
-export { postCreateTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam };
+const getTeamMembers = (teamId: number) =>
+  teamFetcher(`/teams/${teamId}/members`, {
+    method: 'GET',
+  });
+
+export { postCreateTeam, putEditTeam, patchEditTeamImage, deleteTeam, postInviteTeam, postJoinTeam, getTeamMembers };
