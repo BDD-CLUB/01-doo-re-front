@@ -1,10 +1,10 @@
 import { Box, Card, CardHeader, Text, Flex, CardBody, useBreakpointValue } from '@chakra-ui/react';
 
 import Garden3D from '@/components/Garden3D';
+import { gardenData } from '@/mocks/Garden3D';
+import { TeamRank } from '@/types';
 
-import { TeamCardProps } from './types';
-
-const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
+const TeamCard = ({ rank, teamReferenceResponse, teamGardenResponse }: Omit<TeamRank, 'point'>) => {
   return (
     <Card overflow="hidden" w="100%" h="100%" bg="none" backdropFilter="blur(30px)">
       <CardHeader
@@ -19,7 +19,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
           <Text textStyle="title_bold_xl" textAlign="right">
             {rank}
           </Text>
-          <Box pos="absolute" top={{ base: '110px', lg: '150px', '2xl': '170px' }} w="100%">
+          <Box pos="absolute" top={{ base: '120px', lg: '160px', '2xl': '170px' }} w="100%">
             <Box w="100%" h="2px" bg="white" id="bar" />
             <Box
               pos="absolute"
@@ -35,7 +35,7 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
           </Box>
         </Box>
         <Flex direction="column" w="full" pt={{ base: '6', lg: '7', '2xl': '10' }}>
-          <Text textStyle="bold_4xl">{name}</Text>
+          <Text textStyle="bold_4xl">{teamReferenceResponse.name}</Text>
           <Text
             textStyle="md"
             overflow="hidden"
@@ -43,7 +43,9 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
             maxH={{ base: '44px', xl: '48px' }}
             whiteSpace="wrap"
           >
-            {description === '' ? '팀 소개글이 아직 없습니다.' : description}
+            {teamReferenceResponse.description === ''
+              ? '팀 소개글이 아직 없습니다.'
+              : teamReferenceResponse.description}
           </Text>
         </Flex>
       </CardHeader>
@@ -60,7 +62,8 @@ const TeamCard = ({ rank, name, description, gardenInfos }: TeamCardProps) => {
           cubeSize={useBreakpointValue({ base: 18, lg: 24, '2xl': 32 }) || 18}
           cubeGap={4}
           rotateY={55}
-          gardenInfos={gardenInfos}
+          // TODO: teamGardenResponse로 바꾸기.
+          garden={gardenData}
         />
       </CardBody>
     </Card>

@@ -19,7 +19,7 @@ import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
-import { gardenInfos1 } from '@/mocks/Garden3D';
+import { gardenData } from '@/mocks/Garden3D';
 import studyAssetCardData from '@/mocks/studyAssetCard';
 import studyCardData from '@/mocks/studyCard';
 import teamInfoData from '@/mocks/teamInfo';
@@ -109,7 +109,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
                 rotateY={0}
                 cubeGap={useBreakpointValue({ base: 3, xl: 4 }) || 3}
                 cubeSize={useBreakpointValue({ base: 20, md: 26, xl: 30 }) || 20}
-                gardenInfos={gardenInfos1}
+                garden={gardenData}
               />
             </Box>
           </Box>

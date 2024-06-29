@@ -4,23 +4,6 @@ export interface CubeColorType {
   side2: string;
 }
 
-export interface GardenInfoType {
-  date: number;
-  week: number;
-  count: number;
-  id: number;
-}
-
-export interface TeamRankInfoType {
-  id: number;
-  idx: number;
-  rank: number;
-  name: string;
-  description: string;
-  url: string;
-  gardenInfos: GardenInfoType[];
-}
-
 export interface ParticipantType {
   id: number;
   name: string;
@@ -76,4 +59,16 @@ export interface Curriculum {
   name: string;
   itemOrder: number;
   isCompleted?: boolean;
+}
+
+export interface Garden {
+  date: string;
+  contributeCount: number;
+}
+
+export interface TeamRank {
+  point: number;
+  rank: number;
+  teamReferenceResponse: Team;
+  teamGardenResponse: Garden[];
 }

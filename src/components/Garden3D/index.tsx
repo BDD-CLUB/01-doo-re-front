@@ -1,28 +1,43 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react-hooks/rules-of-hooks */
+
 'use client';
 
 import { Box } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { useState } from 'react';
+
+import { Garden } from '@/types';
 
 import Bar from './Bar';
 import { Garden3DProps } from './types';
 
-const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: Garden3DProps) => {
+const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, garden }: Garden3DProps) => {
+  const gardenInfo: Garden[] = [];
+
+  const dayCount = 7 * 12 + dayjs().day();
+  for (let i = dayCount; i >= 0; i -= 1) {
+    gardenInfo.push({ date: dayjs().subtract(i, 'days').format('YYYY-MM-DD'), contributeCount: 0 });
+  }
+  garden.forEach((grass) => {
+    const duration = dayjs().diff(dayjs(grass.date), 'days');
+    if (dayCount >= duration) gardenInfo[dayCount - duration].contributeCount = grass.contributeCount;
+  });
+
   const cubeSizeHalf = cubeSize / 2;
 
   const offsetDefaultY = 545;
   const [offsetY, setOffsetY] = useState<number>(offsetDefaultY);
 
   const gap = cubeSize + cubeGap;
-  const standX = (gardenInfos[gardenInfos.length - 1].week - gardenInfos[0].week + 1) / 2 + gardenInfos[0].week;
+  const standX = 8;
   const maxCount =
-    gardenInfos.reduce((prev, value) => {
-      return prev.count >= value.count ? prev : value;
-    }).count / 4;
+    garden.reduce((prev, value) => {
+      return prev.contributeCount >= value.contributeCount ? prev : value;
+    }).contributeCount / 4;
 
-  /* setting for drag event */
   const [yDegree, setYDegree] = useState<number>(rotateY);
 
-  /* cube mouse drag event */
   const mouseDown = (clickEvent: React.MouseEvent<Element, MouseEvent>) => {
     const mouseMoveHandler = (moveEvent: MouseEvent) => {
       const deltaX = moveEvent.screenX - clickEvent.screenX;
@@ -51,20 +66,20 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, gardenInfos }: G
         h="100%"
         style={{ perspective: '800px', transformStyle: 'preserve-3d' }}
       >
-        {gardenInfos.map((info) => {
-          const currX = (info.week - standX) * gap;
-          const currZ = (info.date - 3) * gap;
+        {gardenInfo.map((info, _) => {
+          const currX = (Math.floor(_ / 7) - standX) * gap;
+          const currZ = (dayjs(info.date).day() - 3) * gap;
 
           return (
             <Box
-              key={info.id}
+              key={info.date}
               pos="absolute"
               w="100%"
               h="100%"
               style={{ transformStyle: 'preserve-3d', transform: `rotateY(${yDegree}deg)` }}
             >
               <Bar
-                count={info.count}
+                count={info.contributeCount}
                 maxCount={maxCount}
                 currX={currX}
                 currZ={currZ}
