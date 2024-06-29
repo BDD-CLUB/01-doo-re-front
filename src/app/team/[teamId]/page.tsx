@@ -18,7 +18,7 @@ import DocumentGridView from '@/containers/team/DocumentGridView';
 import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
-import TeamMember from '@/containers/team/teamMember';
+import TeamMember from '@/containers/team/TeamMember';
 import documentCardData from '@/mocks/documentCard';
 import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyCardData from '@/mocks/studyCard';
