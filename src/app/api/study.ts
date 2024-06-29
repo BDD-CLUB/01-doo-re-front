@@ -30,22 +30,36 @@ const patchStudyStatus = (studyId: number, status: string) =>
     method: 'PATCH',
   });
 
-const postStudyMember = (studyId: number, userId: number) =>
+const postStudyMember = (token: string, studyId: number, userId: number) =>
   studyFetcher(`/studies/${studyId}/members/${userId}`, {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-const deleteStudyMember = (studyId: number, userId: number) =>
+const deleteStudyMember = (token: string, studyId: number, userId: number) =>
   studyFetcher(`/studies/${studyId}/members/${userId}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-const leaveStudy = (studyId: number) =>
+const leaveStudy = (token: string, studyId: number) =>
   studyFetcher(`/studies/${studyId}/members`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-const getStudyMembers = (studyId: number) => studyFetcher(`/studies/${studyId}/members`);
+const getStudyMembers = (token: string, studyId: number) =>
+  studyFetcher(`/studies/${studyId}/members`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getCurriculum = (studyId: number): { curriculumItems: Curriculum[] } => {
