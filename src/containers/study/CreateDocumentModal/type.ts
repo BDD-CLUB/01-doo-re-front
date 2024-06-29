@@ -1,11 +1,12 @@
+import { DocumentType } from '@/types';
+
 export interface DocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export type DocumentType = 'img' | 'file' | 'url';
-
 interface Document {
+  key: string;
   name: string;
   content: string | File;
 }

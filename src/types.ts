@@ -87,6 +87,6 @@ export interface Document {
   uploaderId: number;
 }
 
-export type DocumentAccessType = 'TEAM' | 'STUDY' | 'ALL';
+export type DocumentAccessType = 'TEAM' | 'ALL'; // 'STUDY' 추가 가능성
 
 export type DocumentType = 'DOCUMENT' | 'IMAGE' | 'URL';

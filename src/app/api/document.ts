@@ -3,14 +3,14 @@ import { Document, DocumentType } from '@/types';
 
 const documentFetcher = fetcher();
 
-const postDocument = (groupType: number, groupId: number, document: Document, files: FormData) => {
+const postDocument = (groupType: string, groupId: number, document: Document, files: FormData) => {
   documentFetcher(`/${groupType}/${groupId}/documents`, {
     method: 'POST',
     body: { document, files },
   });
 };
 
-const getDocumentList = (groupType: number, groupId: number, page: number = 0, size: number = 4) => {
+const getDocumentList = (groupType: string, groupId: number, page: number = 0, size: number = 4) => {
   documentFetcher(`/${groupType}/${groupId}/documents?page=${page}&size=${size}`, {
     method: 'GET',
   });
