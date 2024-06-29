@@ -2,12 +2,12 @@ import { Grid } from '@chakra-ui/react';
 
 import DocumentCard from '@/components/DocumentCard';
 
-import { AssetGridViewProps } from './types';
+import { DocumentGridViewProps } from './types';
 
-const AssetGridView = ({ assetArray }: AssetGridViewProps) => {
+const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
   return (
     <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-      {assetArray.map((document) => {
+      {documentArray.map((document) => {
         return (
           <DocumentCard
             key={`${document.title}-${document.id}`}
@@ -24,4 +24,4 @@ const AssetGridView = ({ assetArray }: AssetGridViewProps) => {
   );
 };
 
-export default AssetGridView;
+export default DocumentGridView;
