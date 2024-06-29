@@ -28,8 +28,8 @@ const TeamRankSlider = () => {
 
   useEffect(() => {
     getTeams().then((res) => {
-      const teams = res.body.slice(0, 10).map((team: TeamRank, _: number) => {
-        return { ...team, rank: _ + 1 };
+      const teams = res.body.slice(0, 10).map((team: TeamRank, idx: number) => {
+        return { ...team, rank: idx + 1 };
       });
       setTeamRank(teams);
     });
@@ -67,13 +67,13 @@ const TeamRankSlider = () => {
       </Box>
 
       <Flex justify="center" w="100%" h="10" mt="8">
-        {teamRank.map((team, _) => (
+        {teamRank.map((team, idx) => (
           <Box
             key={team.teamReferenceResponse.id}
             w="3"
             h="3"
             mx="4"
-            bg={_ === swiperIndex ? 'white' : 'transparent'}
+            bg={idx === swiperIndex ? 'white' : 'transparent'}
             border="2px solid white"
             borderRadius="100%"
             onClick={() => swiper?.slideTo(_)}

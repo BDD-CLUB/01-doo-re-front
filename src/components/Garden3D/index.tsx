@@ -66,8 +66,8 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, garden }: Garden
         h="100%"
         style={{ perspective: '800px', transformStyle: 'preserve-3d' }}
       >
-        {gardenInfo.map((info, _) => {
-          const currX = (Math.floor(_ / 7) - standX) * gap;
+        {gardenInfo.map((info, idx) => {
+          const currX = (Math.floor(idx / 7) - standX) * gap;
           const currZ = (dayjs(info.contributeDate).day() - 3) * gap;
 
           return (
