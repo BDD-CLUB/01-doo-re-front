@@ -110,7 +110,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           {/* TODO 팀원 목록, 초대링크 버튼 */}
           <Flex align="center" gap={{ base: '2', lg: '8' }}>
             <TeamMember teamId={params.teamId} />
-            <Button 
+            <Button
               color="white"
               bg="orange_dark"
               onClick={handleInviteClick}
