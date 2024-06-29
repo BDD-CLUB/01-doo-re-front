@@ -1,5 +1,5 @@
 import { fetcher } from '@/app/api/fetcher';
-import { Document } from '@/types';
+import { Document, DocumentType } from '@/types';
 
 const documentFetcher = fetcher();
 
@@ -22,7 +22,7 @@ const getDocument = (documentId: number) => {
   });
 };
 
-const putDocument = (documentId: number, title: string, description: string, accessType: string) => {
+const putDocument = (documentId: number, title: string, description: string, accessType: DocumentType) => {
   documentFetcher(`/${documentId}`, {
     method: 'PUT',
     body: {

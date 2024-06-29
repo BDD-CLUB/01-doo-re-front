@@ -86,3 +86,5 @@ export interface Document {
   url: string;
   uploaderId: number;
 }
+
+export type DocumentType = 'TEAM' | 'STUDY' | 'ALL';
