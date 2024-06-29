@@ -1,6 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 'use client';
 
 import { Box, Text, VStack } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 
 import { postStudy, putEditStudy } from '@/app/api/study';
@@ -63,8 +66,8 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
       putEditStudy(studyId, {
         name,
         description,
-        startDate: startDate.toISOString().slice(0, 10),
-        endDate: endDate ? endDate.toISOString().slice(0, 10) : '',
+        startDate: dayjs(startDate).format('YYYY-MM-DD'),
+        endDate: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
         status: startDate <= new Date() ? 'IN_PROGRESS' : 'UPCOMING',
       }).then(() => {
         onClose();
@@ -73,8 +76,8 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
       postStudy(teamId, {
         name,
         description,
-        startDate: startDate.toISOString().slice(0, 10),
-        endDate: endDate ? endDate.toISOString().slice(0, 10) : '',
+        startDate: dayjs(startDate).format('YYYY-MM-DD'),
+        endDate: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
         cropId,
       }).then(() => {
         onClose();
