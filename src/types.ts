@@ -70,7 +70,6 @@ export interface Team {
 export interface TeamDetail extends Team {
   attendanceRate: number;
 }
-export type accessType = 'TEAM' | 'STUDY' | 'ALL';
 
 export interface Curriculum {
   id: number;
