@@ -18,7 +18,7 @@ const DocumentBoxIcon = {
   url: <BsLink45Deg />,
 };
 
-const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
+const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('img');
   const [docList, setDocList] = useState<DocumentList>({
     img: [],
@@ -162,4 +162,4 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
   );
 };
 
-export default DocumentModal;
+export default CreateDocumentModal;
