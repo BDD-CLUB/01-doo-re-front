@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 
+import { FetchResult } from '@/app/api/fetcher';
 import useGetUser from '@/hooks/useGetUser';
 
 export function useGetFetchWithToken(fetch: (token: string, ...props: any[]) => any, props: any[], originUser?: any) {
@@ -25,8 +26,8 @@ export function useGetFetchWithToken(fetch: (token: string, ...props: any[]) => 
   return result;
 }
 
-export function useMutateWithToken(fetch: (token: string, ...props: any[]) => any) {
+export function useMutateWithToken(fetch: (token: string, ...props: any[]) => Promise<FetchResult>) {
   const user = useGetUser();
 
-  return (props: any[]) => fetch(user?.token || '', ...props);
+  return (...props: any[]) => fetch(user?.token || '', ...props);
 }
