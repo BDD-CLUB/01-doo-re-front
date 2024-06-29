@@ -23,10 +23,11 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
             token: res.body?.token,
             isLogin: true,
           });
+          router.replace(loginBackPath);
         } else {
           alert(res?.body?.message || '알 수 없는 오류가 발생했습니다.');
+          router.replace('/');
         }
-        router.replace(loginBackPath);
       });
     }
   }, [code, router, setUser, loginBackPath]);
