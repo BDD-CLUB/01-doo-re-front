@@ -62,7 +62,7 @@ export interface Curriculum {
 }
 
 export interface Garden {
-  date: string;
+  contributeDate: string;
   contributeCount: number;
 }
 

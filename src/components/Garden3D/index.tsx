@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react-hooks/rules-of-hooks */
 
 'use client';
 
@@ -17,11 +16,12 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, garden }: Garden
 
   const dayCount = 7 * 12 + dayjs().day();
   for (let i = dayCount; i >= 0; i -= 1) {
-    gardenInfo.push({ date: dayjs().subtract(i, 'days').format('YYYY-MM-DD'), contributeCount: 0 });
+    gardenInfo.push({ contributeDate: dayjs().subtract(i, 'days').format('YYYY-MM-DD'), contributeCount: 0 });
   }
+
   garden.forEach((grass) => {
-    const duration = dayjs().diff(dayjs(grass.date), 'days');
-    if (dayCount >= duration) gardenInfo[dayCount - duration].contributeCount = grass.contributeCount;
+    const duration = dayjs().diff(dayjs(grass.contributeDate), 'days');
+    if (duration >= 0 && dayCount >= duration) gardenInfo[dayCount - duration].contributeCount = grass.contributeCount;
   });
 
   const cubeSizeHalf = cubeSize / 2;
@@ -68,11 +68,11 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, garden }: Garden
       >
         {gardenInfo.map((info, _) => {
           const currX = (Math.floor(_ / 7) - standX) * gap;
-          const currZ = (dayjs(info.date).day() - 3) * gap;
+          const currZ = (dayjs(info.contributeDate).day() - 3) * gap;
 
           return (
             <Box
-              key={info.date}
+              key={info.contributeDate}
               pos="absolute"
               w="100%"
               h="100%"

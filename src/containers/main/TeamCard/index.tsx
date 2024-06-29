@@ -1,7 +1,6 @@
 import { Box, Card, CardHeader, Text, Flex, CardBody, useBreakpointValue } from '@chakra-ui/react';
 
 import Garden3D from '@/components/Garden3D';
-import { gardenData } from '@/mocks/Garden3D';
 import { TeamRank } from '@/types';
 
 const TeamCard = ({ rank, teamReferenceResponse, teamGardenResponse }: Omit<TeamRank, 'point'>) => {
@@ -62,8 +61,7 @@ const TeamCard = ({ rank, teamReferenceResponse, teamGardenResponse }: Omit<Team
           cubeSize={useBreakpointValue({ base: 18, lg: 24, '2xl': 32 }) || 18}
           cubeGap={4}
           rotateY={55}
-          // TODO: teamGardenResponse로 바꾸기.
-          garden={gardenData}
+          garden={teamGardenResponse}
         />
       </CardBody>
     </Card>

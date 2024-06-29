@@ -32,7 +32,6 @@ const TeamRankSlider = () => {
         return { ...team, rank: _ + 1 };
       });
       setTeamRank(teams);
-      console.log(teams);
     });
   }, []);
 
