@@ -71,11 +71,18 @@ export interface TeamDetail extends Team {
   attendanceRate: number;
 }
 
+export interface Member {
+  readonly id: number;
+  name: string;
+  imageUrl: string;
+}
+
 export interface Curriculum {
   id: number;
+  participantId?: number;
   name: string;
   itemOrder: number;
-  isCompleted?: boolean;
+  isChecked?: boolean;
 }
 
 export interface Document {

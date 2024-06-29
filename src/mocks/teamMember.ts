@@ -1,76 +1,25 @@
-import { TeamMemberProps } from '@/containers/team/teamMember/types';
+/* eslint-disable import/prefer-default-export */
+import { Member } from '@/types';
 
-const teamMemberList: TeamMemberProps[] = [
-  {
-    name: '두레1',
-    googleId: '1',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레2',
-    googleId: '2',
-    email: 'email.com',
-    imageUrl: 'https://bit.ly/ryan-florence',
-    isDeleted: false,
-  },
-  {
-    name: '두레3',
-    googleId: '3',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레4',
-    googleId: '4',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레5',
-    googleId: '5',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레6',
-    googleId: '6',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레7',
-    googleId: '7',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레8',
-    googleId: '8',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레9',
-    googleId: '9',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
-  {
-    name: '두레10',
-    googleId: '10',
-    email: 'email.com',
-    imageUrl: '',
-    isDeleted: false,
-  },
+export const teamMember: Member[] = [
+  { id: 1, name: '김철수1', imageUrl: '' },
+  { id: 2, name: '김철수2', imageUrl: '' },
+  { id: 3, name: '김철수3', imageUrl: '' },
+  { id: 4, name: '김철수4', imageUrl: '' },
+  { id: 5, name: '김철수5', imageUrl: '' },
+  { id: 6, name: '김철수6', imageUrl: '' },
+  { id: 7, name: '김철수7', imageUrl: '' },
+  { id: 8, name: '김철수8', imageUrl: '' },
+  { id: 9, name: '김철수9', imageUrl: '' },
+  { id: 10, name: '김철수10', imageUrl: '' },
+  { id: 11, name: '김철수11', imageUrl: '' },
+  { id: 12, name: '김철수12', imageUrl: '' },
+  { id: 13, name: '김철수13', imageUrl: '' },
+  { id: 14, name: '김철수14', imageUrl: '' },
+  { id: 15, name: '김철수15', imageUrl: '' },
+  { id: 16, name: '김철수16', imageUrl: '' },
+  { id: 17, name: '김철수17', imageUrl: '' },
+  { id: 18, name: '김철수18', imageUrl: '' },
+  { id: 19, name: '김철수19', imageUrl: '' },
+  { id: 20, name: '김철수20', imageUrl: '' },
 ];
-
-export default teamMemberList;

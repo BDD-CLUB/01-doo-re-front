@@ -109,8 +109,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           <Title isTeam imageUrl={teamInfo.imageUrl} name={teamInfo.name} description={teamInfo.description} />
           {/* TODO 팀원 목록, 초대링크 버튼 */}
           <Flex align="center" gap={{ base: '2', lg: '8' }}>
-            <TeamMember />
-            <Button
+            <TeamMember teamId={params.teamId} />
+            <Button 
               color="white"
               bg="orange_dark"
               onClick={handleInviteClick}

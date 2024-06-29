@@ -44,6 +44,8 @@ const postJoinTeam = (token: string, teamId: number, code: string) =>
     },
   });
 
+const getTeamMembers = (teamId: number) => teamFetcher(`/teams/${teamId}/members`);
+
 const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}`);
 
 const getMyTeamsWithStudy = (token: string, memberId: number) =>
@@ -62,4 +64,5 @@ export {
   postJoinTeam,
   getMyTeams,
   getMyTeamsWithStudy,
+  getTeamMembers,
 };
