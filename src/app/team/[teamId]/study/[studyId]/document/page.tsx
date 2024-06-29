@@ -2,7 +2,7 @@
 
 import { Button, Flex, Text } from '@chakra-ui/react';
 
-import StudyAssets from '@/containers/studyAsset/StudyAssets';
+import Documents from '@/containers/document/Documents';
 
 const Page = () => {
   return (
@@ -15,7 +15,7 @@ const Page = () => {
           자료 등록
         </Button>
       </Flex>
-      <StudyAssets />
+      <Documents />
     </Flex>
   );
 };

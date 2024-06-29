@@ -1,6 +1,6 @@
-import { StudyAssetCardProps } from '@/components/StudyAssetCard/types';
+import { DocumentCardProps } from '@/components/DocumentCard/types';
 
-const studyAssetCardDataAll: StudyAssetCardProps[] = [
+const documentCardDataAll: DocumentCardProps[] = [
   {
     id: 1,
     title: '자료이름1',
@@ -169,4 +169,4 @@ const studyAssetCardDataAll: StudyAssetCardProps[] = [
   },
 ];
 
-export default studyAssetCardDataAll;
+export default documentCardDataAll;

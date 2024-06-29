@@ -1,22 +1,22 @@
 import { Grid } from '@chakra-ui/react';
 
-import StudyAssetCard from '@/components/StudyAssetCard';
+import DocumentCard from '@/components/DocumentCard';
 
 import { AssetGridViewProps } from './types';
 
 const AssetGridView = ({ assetArray }: AssetGridViewProps) => {
   return (
     <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-      {assetArray.map((asset) => {
+      {assetArray.map((document) => {
         return (
-          <StudyAssetCard
-            key={`${asset.title}-${asset.id}`}
-            id={asset.id}
-            title={asset.title}
-            content={asset.content}
-            date={asset.date}
-            bookmark={asset.bookmark}
-            img={asset.img}
+          <DocumentCard
+            key={`${document.title}-${document.id}`}
+            id={document.id}
+            title={document.title}
+            content={document.content}
+            date={document.date}
+            bookmark={document.bookmark}
+            img={document.img}
           />
         );
       })}
