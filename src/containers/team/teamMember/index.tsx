@@ -4,9 +4,11 @@ import { Avatar, AvatarGroup, Box, Flex, IconButton, useBreakpointValue } from '
 import { useEffect, useState } from 'react';
 import { BiCrown, BiUserX } from 'react-icons/bi';
 
-import ConfirmModal from '@/components/Modal/ConfirmModal';
 import { teamMember } from '@/mocks/teamMember';
 import { Member } from '@/types';
+
+import FiredMemberModal from './FiredMemberModal';
+import MandateMemberModal from './MandateMemberModal';
 
 const TeamMember = ({ teamId }: { teamId: number }) => {
   const [mandateModalOpen, setMandateModalOpen] = useState<boolean>(false);
@@ -36,16 +38,6 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
     setMandateModalOpen(false);
     setFiredModalOpen(false);
     setIsHovering(false);
-  };
-
-  const handleFiredMemberClick = () => {
-    // TODO: 팀원 퇴출 api 연결
-    handleModalCloseClick();
-  };
-
-  const handleMandateMemberClick = () => {
-    // TODO: 팀장 권한 위임 api 연결
-    handleModalCloseClick();
   };
 
   useEffect(() => {
@@ -102,24 +94,8 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
           </Box>
         </Box>
       )}
-      <ConfirmModal
-        isOpen={firedModalOpen}
-        onClose={handleModalCloseClick}
-        title="팀원 퇴출"
-        confirmButtonText="퇴출"
-        onConfirmButtonClick={handleFiredMemberClick}
-      >
-        {modalMember.name}을 퇴출하시겠습니까?
-      </ConfirmModal>
-      <ConfirmModal
-        isOpen={mandateModalOpen}
-        onClose={handleModalCloseClick}
-        title="팀장 위임"
-        confirmButtonText="위임"
-        onConfirmButtonClick={handleMandateMemberClick}
-      >
-        {modalMember.name}에게 팀장을 위임하겠습니까?
-      </ConfirmModal>
+      <FiredMemberModal member={modalMember} isOpen={firedModalOpen} onClose={handleModalCloseClick} />
+      <MandateMemberModal member={modalMember} isOpen={mandateModalOpen} onClose={handleModalCloseClick} />
     </Box>
   );
 };
