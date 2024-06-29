@@ -1,6 +1,6 @@
-import { StudyAssetData } from '@/containers/study/StudyAssetModal/types';
+import { DocumentData } from '@/containers/study/DocumentModal/types';
 
-const studyAssetImgData: StudyAssetData[] = [
+const documentImgData: DocumentData[] = [
   {
     id: 1,
     type: 'img',
@@ -27,4 +27,4 @@ const studyAssetImgData: StudyAssetData[] = [
   },
 ];
 
-export default studyAssetImgData;
+export default documentImgData;

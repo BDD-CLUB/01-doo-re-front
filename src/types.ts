@@ -79,9 +79,10 @@ export interface Member {
 
 export interface Curriculum {
   id: number;
+  participantId?: number;
   name: string;
   itemOrder: number;
-  isCompleted?: boolean;
+  isChecked?: boolean;
 }
 
 export interface Document {
