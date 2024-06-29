@@ -27,16 +27,21 @@ const deleteTeam = (teamId: number) =>
     method: 'DELETE',
   });
 
-const postInviteTeam = (teamId: number, code: string) =>
+const postInviteTeam = (token: string, teamId: number) =>
   teamFetcher(`/teams/${teamId}/invite-code`, {
     method: 'POST',
-    body: code,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-const postJoinTeam = (teamId: number, code: string) =>
+const postJoinTeam = (token: string, teamId: number, code: string) =>
   teamFetcher(`/teams/${teamId}/join`, {
     method: 'POST',
     body: code,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
 const getTeamMembers = (teamId: number) => teamFetcher(`/teams/${teamId}/members`);

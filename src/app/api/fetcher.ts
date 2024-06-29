@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type AllowObjectBodyRequestInit = Omit<RequestInit, 'body'> & { body?: RequestInit['body'] | object | FormData };
 
 export type FetchProps = [string, AllowObjectBodyRequestInit?];
+
+export type FetchResult = { ok: boolean; body: any };
 
 export type FetcherOptions = {
   baseUrl?: string;
@@ -30,7 +33,7 @@ const defaultOptions: FetcherOptions = {
 export const fetcher = (options?: FetcherOptions) => {
   const { baseUrl, headers, interceptors } = { ...defaultOptions, ...options };
 
-  return async (...props: FetchProps) => {
+  return async (...props: FetchProps): Promise<FetchResult> => {
     try {
       let [url, config] = props;
       if (interceptors?.request) {

@@ -6,6 +6,7 @@ import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
+import { postInviteTeam } from '@/app/api/team';
 import { DocumentCardProps } from '@/components/DocumentCard/types';
 import Garden3D from '@/components/Garden3D';
 import { StudyCardProps } from '@/components/StudyCard/types';
@@ -19,6 +20,7 @@ import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import documentCardData from '@/mocks/documentCard';
 import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyCardData from '@/mocks/studyCard';
@@ -37,6 +39,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [documentLength, setDocumentLength] = useState<number>(0);
 
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
+
+  const inviteTeam = useMutateWithToken(postInviteTeam);
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
@@ -85,6 +89,19 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     setCardIdx(0);
   };
 
+  const handleInviteClick = () => {
+    inviteTeam(params.teamId).then((res) => {
+      if (res.ok) {
+        navigator.clipboard.writeText(
+          `${process.env.NEXT_PUBLIC_DEPLOY_URL}/team/${params.teamId}/join?code=${res.body.code}`,
+        );
+        alert('초대 링크가 복사되었습니다.');
+      } else {
+        alert('초대 링크 생성에 실패했습니다.');
+      }
+    });
+  };
+
   return (
     <>
       <Flex direction="column" gap="8" w="100%" p="8">
@@ -93,7 +110,14 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           {/* TODO 팀원 목록, 초대링크 버튼 */}
           <Flex align="center" gap={{ base: '2', lg: '8' }}>
             <TeamMember teamId={params.teamId} />
-            <Button color="white" bg="orange_dark" rightIcon={<BsLink45Deg size="24px" />} rounded="full" size="sm">
+            <Button
+              color="white"
+              bg="orange_dark"
+              onClick={handleInviteClick}
+              rightIcon={<BsLink45Deg size="24px" />}
+              rounded="full"
+              size="sm"
+            >
               초대
             </Button>
           </Flex>
