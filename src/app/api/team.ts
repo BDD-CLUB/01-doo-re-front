@@ -1,4 +1,4 @@
-import { EditTeamDto } from '@/types';
+import { Team } from '@/types';
 
 import { fetcher } from './fetcher';
 
@@ -10,10 +10,10 @@ const postCreateTeam = (team: FormData) =>
     body: team,
   });
 
-const putEditTeam = (teamId: number, team: EditTeamDto) =>
+const putEditTeam = (teamId: number, teamInfo: Pick<Team, 'name' | 'description'>) =>
   teamFetcher(`/teams/${teamId}`, {
     method: 'PUT',
-    body: team,
+    body: teamInfo,
   });
 
 const patchEditTeamImage = (teamId: number, file: FormData) =>

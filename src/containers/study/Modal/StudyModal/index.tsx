@@ -11,7 +11,7 @@ import Selector from '@/components/Selector';
 import StyledDatePicker from '@/components/StyledDatePicker';
 import CROP from '@/constants/crop';
 
-import { CreateStudyModalProps } from './types';
+import { StudyModalProps } from './types';
 
 const AlertContent = ({ message }: { message: string }) => {
   return (
@@ -21,7 +21,8 @@ const AlertContent = ({ message }: { message: string }) => {
   );
 };
 
-const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => {
+const StudyModal = ({ teamId, studyId, isOpen, setIsModalOpen }: StudyModalProps) => {
+  const isEditMode = Boolean(studyId);
   const [step, setStep] = useState<number>(1);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -34,6 +35,21 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
   const [alertSelectedCropId, setAlertSelectedCropId] = useState<boolean>(false);
   const [alertStartDate, setAlertStartDate] = useState<boolean>(false);
 
+  const onClose = () => {
+    setStep(1);
+    setName('');
+    setDescription('');
+    setCropName('');
+    setCropId(0);
+    setStartDate(null);
+    setEndDate(null);
+    setAlertName(false);
+    setAlertDescription(false);
+    setAlertSelectedCropId(false);
+    setAlertStartDate(false);
+    setIsModalOpen(false);
+  };
+
   const handlePrevButtonClick = () => {
     setStep(step - 1);
   };
@@ -43,9 +59,14 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
     if (name !== '' && description !== '') setStep(step + 1);
   };
   const handleSaveButtonClick = () => {
-    if (cropName === '') setAlertSelectedCropId(true);
-    if (startDate === null) setAlertStartDate(true);
-    if (cropName !== '' && startDate !== null) setIsModalOpen(false);
+    if (isEditMode) {
+      if (startDate === null) setAlertStartDate(true);
+      else onClose();
+    } else {
+      if (cropName === '') setAlertSelectedCropId(true);
+      if (startDate === null) setAlertStartDate(true);
+      if (cropName !== '' && startDate !== null) onClose();
+    }
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setName(e.target.value);
@@ -69,11 +90,11 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
   return (
     <ActionModal
       isOpen={isOpen}
-      onClose={() => setIsModalOpen(false)}
-      title="스터디 생성"
+      onClose={onClose}
+      title={`스터디 ${isEditMode ? '수정' : '생성'}`}
       subButtonText={step === 1 ? '취소' : '이전'}
       mainButtonText={step === 1 ? '다음' : '저장'}
-      onSubButtonClick={step === 1 ? () => setIsModalOpen(false) : handlePrevButtonClick}
+      onSubButtonClick={step === 1 ? onClose : handlePrevButtonClick}
       onMainButtonClick={step === 1 ? handleNextButtonClick : handleSaveButtonClick}
     >
       <Box overflowY="auto" minH="60vh" maxH="60vh">
@@ -113,7 +134,7 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
             />
           </>
         )}
-        {step === 2 && (
+        {step === 2 && !isEditMode && (
           <>
             <Text textStyle="bold_xl" mt="4" mb="2">
               작물 선택 *
@@ -133,6 +154,10 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
                 else setAlertSelectedCropId(true);
               }}
             />
+          </>
+        )}
+        {step === 2 && (
+          <>
             <Text textStyle="bold_xl" mt="8" mb="2">
               날짜 선택 *
             </Text>
@@ -147,4 +172,4 @@ const CreateStudyModal = ({ isOpen, setIsModalOpen }: CreateStudyModalProps) => 
     </ActionModal>
   );
 };
-export default CreateStudyModal;
+export default StudyModal;

@@ -1,7 +1,6 @@
 import { Team } from '@/types';
 
-export interface TeamModalProps {
-  teamInfo?: Team;
+export interface DeleteTeamModalProps extends Pick<Team, 'id' | 'name'> {
   isOpen: boolean;
   onClose: () => void;
 }
