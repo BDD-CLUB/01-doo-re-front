@@ -45,7 +45,7 @@ const TeamRankSlider = () => {
           onSwiper={(e) => setSwiper(e)}
           onSlideChange={(e) => setSwiperIndex(e.activeIndex)}
         >
-          {teamRank.map((team, _) => (
+          {teamRank.map((team, idx) => (
             <SwiperSlide key={team.teamReferenceResponse.id} style={{ width: 'fit-content' }}>
               <Box
                 overflow="hidden"
@@ -53,7 +53,7 @@ const TeamRankSlider = () => {
                 h={{ base: '300px', lg: '360px', '2xl': '430px' }}
                 bg="rgba(255, 255, 255, 0.1)"
                 borderRadius="30"
-                onClick={() => slideOnClick(_, team.teamReferenceResponse.id)}
+                onClick={() => slideOnClick(idx, team.teamReferenceResponse.id)}
               >
                 <TeamCard
                   rank={team.rank}
@@ -76,7 +76,7 @@ const TeamRankSlider = () => {
             bg={idx === swiperIndex ? 'white' : 'transparent'}
             border="2px solid white"
             borderRadius="100%"
-            onClick={() => swiper?.slideTo(_)}
+            onClick={() => swiper?.slideTo(idx)}
           />
         ))}
       </Flex>
