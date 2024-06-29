@@ -50,13 +50,6 @@ const getTeamMembers = (teamId: number) => teamFetcher(`/teams/${teamId}/members
 
 const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}`);
 
-const getMyTeamsWithStudy = (token: string, memberId: number) =>
-  teamFetcher(`/teams/members/${memberId}/studies`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
 export {
   postCreateTeam,
   putEditTeam,
@@ -66,6 +59,5 @@ export {
   postJoinTeam,
   getTeams,
   getMyTeams,
-  getMyTeamsWithStudy,
   getTeamMembers,
 };
