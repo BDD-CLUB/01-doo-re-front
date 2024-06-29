@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { userAtom } from '@/atom';
 
 const useGetUser = () => {
-  const [isMunted, setIsMunted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const user = useAtomValue(userAtom);
 
   useEffect(() => {
-    setIsMunted(true);
+    setIsMounted(true);
   }, []);
 
-  return isMunted ? user : null;
+  return isMounted ? user : null;
 };
 
 export default useGetUser;
