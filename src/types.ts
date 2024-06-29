@@ -70,12 +70,14 @@ export interface Team {
 export interface TeamDetail extends Team {
   attendanceRate: number;
 }
+export type accessType = 'TEAM' | 'STUDY' | 'ALL';
 
 export interface Curriculum {
   id: number;
+  participantId?: number;
   name: string;
   itemOrder: number;
-  isCompleted?: boolean;
+  isChecked?: boolean;
 }
 
 export interface Document {
