@@ -3,12 +3,10 @@ import { fetcher } from '@/app/api/fetcher';
 
 const loginFetcher = fetcher();
 
-const postGoogleLoginFetch = () => {
-  return async (code: string | null) =>
-    loginFetcher('/login/google', {
-      method: 'POST',
-      body: { code },
-    });
-};
+const postGoogleLogin = (code: string | null) =>
+  loginFetcher('/login/google', {
+    method: 'POST',
+    body: { code },
+  });
 
-export { postGoogleLoginFetch };
+export { postGoogleLogin };

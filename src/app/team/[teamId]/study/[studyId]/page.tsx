@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import { Flex, Grid, IconButton, Text, Link } from '@chakra-ui/react';
@@ -12,6 +10,7 @@ import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
 import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
+import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
@@ -22,7 +21,7 @@ import studyCardData from '@/mocks/studyCard';
 
 const sampleStudy = studyCardData[0];
 
-const Page = () => {
+const Page = ({ params }: { params: { studyId: number } }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
@@ -79,6 +78,7 @@ const Page = () => {
           </Flex>
         </Grid>
       </Flex>
+      <StudyModal studyId={params.studyId} isOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen} />
       <TerminateStudyModal
         studyName={sampleStudy.name}
         isOpen={isTerminateModalOpen}

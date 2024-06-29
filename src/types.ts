@@ -60,9 +60,15 @@ export interface EditStudyDto {
   status: string;
 }
 
-export interface EditTeamDto {
+export interface Team {
+  readonly id: number;
   name: string;
   description: string;
+  imageUrl: string;
+}
+
+export interface TeamDetail extends Team {
+  attendanceRate: number;
 }
 
 export interface Curriculum {

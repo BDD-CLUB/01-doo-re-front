@@ -6,15 +6,15 @@ import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
+import TeamModal from '@/containers/team/TeamModal';
 import sidebarData from '@/mocks/sidebar';
 
 import SidebarIconButton from '../Button/SidebarIconButton';
 import Category from '../Category';
-import CreateTeamModal from '../CreateTeamModal';
 import { SidebarContentProps } from '../type';
 
 const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
-  const [isCreateTeamModalOpen, setIsCreateTeamModalOpen] = useState<boolean>(false);
+  const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -68,7 +68,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
                   bg="white"
                   aria-label=""
                   icon={<BsPlus />}
-                  onClick={() => setIsCreateTeamModalOpen(true)}
+                  onClick={() => setIsTeamModalOpen(true)}
                   size="icon_sm"
                 />
               </Flex>
@@ -90,7 +90,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           </>
         )}
       </Flex>
-      <CreateTeamModal isOpen={isCreateTeamModalOpen} setIsOpen={setIsCreateTeamModalOpen} />
+      <TeamModal isOpen={isTeamModalOpen} onClose={() => setIsTeamModalOpen(false)} />
     </>
   );
 };

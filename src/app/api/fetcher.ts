@@ -36,16 +36,23 @@ export const fetcher = (options?: FetcherOptions) => {
       if (interceptors?.request) {
         [url, config] = await interceptors.request(props);
       }
+
+      let fetchHeaders = {
+        ...headers,
+        ...(config?.headers || {}),
+      };
+
       if (config?.body && typeof config.body === 'object') {
-        config.body = JSON.stringify(config.body);
+        if (!(config.body instanceof FormData)) {
+          config.body = JSON.stringify(config.body);
+        } else {
+          fetchHeaders = {};
+        }
       }
       const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
       let response = await fetch(fullUrl, {
         ...(config as RequestInit),
-        headers: {
-          ...headers,
-          ...(config?.headers || {}),
-        },
+        headers: fetchHeaders,
       });
       if (interceptors?.response) {
         response = await interceptors.response(response);
