@@ -7,6 +7,7 @@ import { BiEdit, BiFile } from 'react-icons/bi';
 import { patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { TeamModalProps } from './type';
 
@@ -26,6 +27,8 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const [thumbnail, setThumbnail] = useState<File | null>();
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
+
+  const createTeam = useMutateWithToken(postCreateTeam);
 
   const resetState = () => {
     setName('');
@@ -82,8 +85,10 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
     teamForm.append('request', requestBlob);
     teamForm.append('file', thumbnail as Blob);
 
-    postCreateTeam(teamForm).then(() => {
-      resetAndCloseModal();
+    createTeam(teamForm).then((res) => {
+      if (res.ok) {
+        resetAndCloseModal();
+      }
     });
   };
 
