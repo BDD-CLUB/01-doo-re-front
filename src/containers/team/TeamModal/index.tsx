@@ -1,10 +1,10 @@
 'use client';
 
 import { Flex, Text, Textarea, Image } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BiEdit, BiFile } from 'react-icons/bi';
 
-import { postCreateTeam } from '@/app/api/team';
+import { patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 
@@ -18,52 +18,92 @@ const AlertContent = ({ message }: { message: string }) => {
   );
 };
 
-const TeamModal = ({ isOpen, setIsOpen }: TeamModalProps) => {
+const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [thumbnailPath, setThumbnailPath] = useState<string>('');
   const [thumbnail, setThumbnail] = useState<File | null>();
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
 
-  const onClose = () => {
+  const resetState = () => {
     setName('');
     setDescription('');
+    setThumbnailPath('');
     setThumbnail(null);
     setAlertName(false);
     setAlertDescription(false);
-    setIsOpen(false);
   };
 
-  const onSave = () => {
-    if (name === '') setAlertName(true);
-    else if (description === '') setAlertDescription(true);
-    else {
-      const teamForm = new FormData();
-      const request = {
+  const resetAndCloseModal = () => {
+    resetState();
+    onClose();
+  };
+
+  const isTeamInfoValid = () => {
+    const isValidName = name.trim() !== '';
+    const isValidDescription = description.trim() !== '';
+    setAlertName(!isValidName);
+    setAlertDescription(!isValidDescription);
+
+    return isValidName && isValidDescription;
+  };
+
+  const handleEditTeamButtonClick = () => {
+    if (!isTeamInfoValid()) return;
+
+    if (teamInfo) {
+      putEditTeam(teamInfo.id, {
         name,
         description,
-      };
-      const requestBlob = new Blob([JSON.stringify(request)], { type: 'application/json' });
+      }).then(() => {
+        if (thumbnail) {
+          const teamForm = new FormData();
+          teamForm.append('file', thumbnail as Blob);
 
-      teamForm.append('request', requestBlob);
-      teamForm.append('file', thumbnail as Blob);
-
-      postCreateTeam(teamForm).then(() => {
-        onClose();
+          patchEditTeamImage(teamInfo.id, teamForm).then(() => {});
+        }
+        resetAndCloseModal();
       });
     }
   };
 
+  const handleAddTeamButtonClick = () => {
+    if (!isTeamInfoValid) return;
+
+    const teamForm = new FormData();
+    const request = {
+      name,
+      description,
+    };
+    const requestBlob = new Blob([JSON.stringify(request)], { type: 'application/json' });
+
+    teamForm.append('request', requestBlob);
+    teamForm.append('file', thumbnail as Blob);
+
+    postCreateTeam(teamForm).then(() => {
+      resetAndCloseModal();
+    });
+  };
+
+  useEffect(() => {
+    if (teamInfo) {
+      setName(teamInfo.name);
+      setDescription(teamInfo.description);
+      setThumbnailPath(teamInfo.imageUrl ?? '');
+    }
+  }, [teamInfo]);
+
   return (
     <ActionModal
       isOpen={isOpen}
-      onClose={onClose}
-      title="팀 생성"
+      onClose={resetAndCloseModal}
+      title={`팀 ${teamInfo ? '수정' : '생성'}`}
       subButtonText="취소"
-      onSubButtonClick={onClose}
-      mainButtonText="저장"
-      onMainButtonClick={onSave}
+      onSubButtonClick={resetAndCloseModal}
+      mainButtonText={teamInfo ? '수정' : '생성'}
+      onMainButtonClick={teamInfo ? handleEditTeamButtonClick : handleAddTeamButtonClick}
     >
       <Flex direction="column" gap="10" w="100%">
         <Flex direction="column">
@@ -112,6 +152,7 @@ const TeamModal = ({ isOpen, setIsOpen }: TeamModalProps) => {
             onChange={(e) => {
               if (e.target.files && e.target.files[0]) {
                 setThumbnail(e.target.files[0]);
+                setThumbnailPath('');
               }
             }}
           />
@@ -121,7 +162,11 @@ const TeamModal = ({ isOpen, setIsOpen }: TeamModalProps) => {
             content={thumbnail ? thumbnail.name : '파일을 추가해주세요.'}
             handleClick={() => inputFileRef.current?.click()}
           />
-          {thumbnail && <Image w="40" alt="thumbnail" src={URL.createObjectURL(thumbnail)} />}
+          {thumbnailPath ? (
+            <Image w="40" alt="thumbnail" src={thumbnailPath} />
+          ) : (
+            thumbnail && <Image w="40" alt="thumbnail" src={URL.createObjectURL(thumbnail)} />
+          )}
         </Flex>
       </Flex>
     </ActionModal>

@@ -3,23 +3,23 @@
 import { Flex, Grid, useBreakpointValue } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import DocumentCard from '@/components/DocumentCard';
 import PageNavigator from '@/components/PageNavigator';
-import StudyAssetCard from '@/components/StudyAssetCard';
-import studyAssetCardDataAll from '@/mocks/studyAssetCardAll';
+import documentCardDataAll from '@/mocks/documentCardAll';
 
-const StudyAssets = () => {
+const Documents = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = useBreakpointValue({ base: 4, md: 8, xl: 10 })!;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = currentPage * itemsPerPage;
-  const currentData = studyAssetCardDataAll.slice(startIndex, endIndex);
+  const currentData = documentCardDataAll.slice(startIndex, endIndex);
   return (
     <Flex direction="column">
       <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns={`repeat(${itemsPerPage / 2}, 1fr)`} w="100%">
         {currentData.map((data) => (
-          <StudyAssetCard
+          <DocumentCard
             id={data.id}
             key={data.title}
             title={data.title}
@@ -33,11 +33,11 @@ const StudyAssets = () => {
       <PageNavigator
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        componentLength={studyAssetCardDataAll.length}
+        componentLength={documentCardDataAll.length}
         itemsPerPage={itemsPerPage}
       />
     </Flex>
   );
 };
 
-export default StudyAssets;
+export default Documents;

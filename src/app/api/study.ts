@@ -51,29 +51,31 @@ const leaveStudy = (studyId: number) =>
 const getStudyMembers = (studyId: number) => studyFetcher(`/studies/${studyId}/members`);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getCurriculum = (studyId: number): { participantId: number; curriculumItems: Curriculum[] } => {
+const getCurriculum = (studyId: number): { curriculumItems: Curriculum[] } => {
   // FIXME 추후 더미데이터 제거하고 Api 연결 필요.
-  // studyFetcher(`/curriculum/${studyId}`, {
-  //   method: 'GET',
+  // studyFetcher(`/studies/${studyId}/curriculums/all`, {
+  //   method: 'GET'
   // });
 
   const data = {
-    participantId: 1,
     curriculumItems: [
       {
         id: 1,
+        participantId: 1,
         name: '커리큘럼 1',
         itemOrder: 1,
         isCompleted: false,
       },
       {
         id: 2,
+        participantId: 1,
         name: '커리큘럼 2',
         itemOrder: 2,
         isCompleted: false,
       },
       {
         id: 3,
+        participantId: 1,
         name: '커리큘럼 3',
         itemOrder: 3,
         isCompleted: true,
@@ -82,13 +84,12 @@ const getCurriculum = (studyId: number): { participantId: number; curriculumItem
   };
 
   return {
-    participantId: data.participantId,
     curriculumItems: data.curriculumItems,
   };
 };
 
 const postCurriculum = (studyId: number, curriculumItems: Curriculum[], deletedCurriculumItems: Curriculum[]) =>
-  studyFetcher(`/curriculum/${studyId}`, {
+  studyFetcher(`/studies/${studyId}/curriculums`, {
     method: 'POST',
     body: {
       curriculumItems,

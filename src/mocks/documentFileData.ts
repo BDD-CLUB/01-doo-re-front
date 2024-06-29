@@ -1,6 +1,6 @@
-import { StudyAssetData } from '@/containers/study/StudyAssetModal/types';
+import { DocumentData } from '@/containers/study/DocumentModal/types';
 
-const studyAssetFileData: StudyAssetData[] = [
+const documentFileData: DocumentData[] = [
   {
     id: 1,
     type: 'pdf',
@@ -39,4 +39,4 @@ const studyAssetFileData: StudyAssetData[] = [
   },
 ];
 
-export default studyAssetFileData;
+export default documentFileData;
