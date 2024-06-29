@@ -1,9 +1,3 @@
-export interface CubeColorType {
-  ceil: string;
-  side1: string;
-  side2: string;
-}
-
 export interface ParticipantType {
   id: number;
   name: string;

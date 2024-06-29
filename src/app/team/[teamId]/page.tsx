@@ -6,6 +6,7 @@ import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
+import { getGarden } from '@/app/api/garden';
 import { postInviteTeam } from '@/app/api/team';
 import { DocumentCardProps } from '@/components/DocumentCard/types';
 import Garden3D from '@/components/Garden3D';
@@ -22,13 +23,15 @@ import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import documentCardData from '@/mocks/documentCard';
-import { gardenData } from '@/mocks/Garden3D';
 import studyCardData from '@/mocks/studyCard';
 import teamInfoData from '@/mocks/teamInfo';
+import { Garden } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
   // TODO 팀 조회 연결
   const teamInfo = teamInfoData;
+
+  const [garden, setGarden] = useState<Garden[]>([]);
 
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
@@ -57,6 +60,10 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
     setStudyLength(studyCardData.length);
     setDocumentLength(documentCardData.length);
+
+    getGarden(params.teamId).then((res) => {
+      setGarden(res.body);
+    });
   }, []);
 
   useEffect(() => {
@@ -125,7 +132,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         <TeamControlPanel teamInfo={teamInfo} />
 
         <Flex pos="relative" align="center" flex="1" gap="8">
-          {/* TODO  잔디 */}
           <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px', xl: '320px' }}>
             <Box pos="absolute" w="100%" h="100%">
               <Garden3D
@@ -133,7 +139,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
                 rotateY={0}
                 cubeGap={useBreakpointValue({ base: 3, xl: 4 }) || 3}
                 cubeSize={useBreakpointValue({ base: 20, md: 26, xl: 30 }) || 20}
-                garden={gardenData}
+                garden={garden}
               />
             </Box>
           </Box>

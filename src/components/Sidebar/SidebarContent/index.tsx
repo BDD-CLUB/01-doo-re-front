@@ -6,7 +6,7 @@ import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
-import { getMyTeamsWithStudy } from '@/app/api/team';
+import { getSidebarInfo } from '@/app/api/member';
 import TeamModal from '@/containers/team/TeamModal';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
@@ -18,7 +18,7 @@ import { SidebarContentProps, SidebarTeam } from '../type';
 const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
   const user = useGetUser();
-  const myTeams = useGetFetchWithToken(getMyTeamsWithStudy, [user?.memberId], user);
+  const sidebarInfo = useGetFetchWithToken(getSidebarInfo, [user?.memberId], user);
 
   return (
     <>
@@ -48,10 +48,10 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           />
         </Flex>
         <Flex align="center" direction="column" gap="4" mb="16">
-          <Avatar size={isOpen ? 'lg' : 'md'} src="" />
+          <Avatar size={isOpen ? 'lg' : 'md'} src={sidebarInfo?.imageUrl} />
           {isOpen && (
             <Text textStyle="bold_2xl" px="10" py="1" color="white" bg="green_dark" rounded="full">
-              {user?.isLogin ? '두레' : '비회원'}
+              {user?.isLogin ? sidebarInfo?.name : '비회원'}
             </Text>
           )}
           <Flex direction={isOpen ? 'row' : 'column'} gap="4">
@@ -87,7 +87,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
               bg="green_dark"
               roundedBottom="2xl"
             >
-              {myTeams?.map((team: SidebarTeam) => (
+              {sidebarInfo?.myTeamsAndStudies?.map((team: SidebarTeam) => (
                 <Category
                   key={`team-${team.teamId}`}
                   id={team.teamId}

@@ -42,7 +42,6 @@ export const fetcher = (options?: FetcherOptions) => {
 
       let fetchHeaders = {
         ...headers,
-        ...(config?.headers || {}),
       };
 
       if (config?.body && typeof config.body === 'object') {
@@ -52,15 +51,26 @@ export const fetcher = (options?: FetcherOptions) => {
           fetchHeaders = {};
         }
       }
+
+      fetchHeaders = {
+        ...fetchHeaders,
+        ...(config?.headers || {}),
+      };
+
       const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
       let response = await fetch(fullUrl, {
         ...(config as RequestInit),
         headers: fetchHeaders,
       });
+
       if (interceptors?.response) {
         response = await interceptors.response(response);
       }
-      return { ok: true, body: await response.json() };
+
+      if (response.status === 201) {
+        return { ok: true, body: { message: 'Created' } };
+      }
+      return { ok: true, body: await response?.json() };
     } catch (error) {
       let message = '';
       if (error instanceof Error) message = error.message;

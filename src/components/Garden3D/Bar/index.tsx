@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 
-import { colorInfo } from '@/mocks/Garden3D';
+import { gardenColor } from '@/constants/gardenColor';
 
 import { CubeProps } from '../types';
 
@@ -19,7 +19,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSizeHalf }: CubeProps
         style={{
           width: `${cubeSizeHalf * 2}px`,
           height: `${barHeight}px`,
-          background: `${colorInfo[barX].side1}`,
+          background: `${gardenColor[barX].side1}`,
           transform: `translateX(${currX}px) translateY(${offsetY - barHeight}px) translateZ(${currZ + cubeSizeHalf}px)`,
         }}
       />
@@ -30,7 +30,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSizeHalf }: CubeProps
         style={{
           width: `${cubeSizeHalf * 2}px`,
           height: `${barHeight}px`,
-          background: `${colorInfo[barX].side1}`,
+          background: `${gardenColor[barX].side1}`,
           transform: `translateX(${currX}px) translateY(${offsetY - barHeight}px) translateZ(${currZ}px) rotateY(180deg) translateZ(${cubeSizeHalf}px)`,
         }}
       />
@@ -41,7 +41,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSizeHalf }: CubeProps
         style={{
           width: `${cubeSizeHalf * 2}px`,
           height: `${barHeight}px`,
-          background: `${colorInfo[barX].side2}`,
+          background: `${gardenColor[barX].side2}`,
           transform: `translateX(${currX}px) translateY(${offsetY - barHeight}px) translateZ(${currZ}px) rotateY(90deg) translateZ(${cubeSizeHalf}px)`,
         }}
       />
@@ -52,7 +52,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSizeHalf }: CubeProps
         style={{
           width: `${cubeSizeHalf * 2}px`,
           height: `${barHeight}px`,
-          background: `${colorInfo[barX].side2}`,
+          background: `${gardenColor[barX].side2}`,
           transform: `translateX(${currX}px) translateY(${offsetY - barHeight}px) translateZ(${currZ}px) rotateY(270deg) translateZ(${cubeSizeHalf}px)`,
         }}
       />
@@ -63,7 +63,7 @@ const Bar = ({ count, maxCount, currX, currZ, offsetY, cubeSizeHalf }: CubeProps
         style={{
           width: `${cubeSizeHalf * 2}px`,
           height: `${cubeSizeHalf * 2}px`,
-          background: `${colorInfo[barX].ceil}`,
+          background: `${gardenColor[barX].ceil}`,
           transform: `translateX(${currX}px) translateY(${offsetY - barHeight}px) translateZ(${currZ}px) rotateX(90deg) translateZ(${cubeSizeHalf}px)`,
         }}
       />
