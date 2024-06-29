@@ -32,7 +32,7 @@ const Garden3D = ({ rotate = false, cubeSize, cubeGap, rotateY, garden }: Garden
   const gap = cubeSize + cubeGap;
   const standX = 8;
   const maxCount =
-    garden.reduce((prev, value) => {
+    gardenInfo.reduce((prev, value) => {
       return prev.contributeCount >= value.contributeCount ? prev : value;
     }).contributeCount / 4;
 
