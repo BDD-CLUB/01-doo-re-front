@@ -2,6 +2,7 @@
 
 import { Flex, Image, Card, useDisclosure, Text, IconButton } from '@chakra-ui/react';
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getCurriculum } from '@/app/api/study';
@@ -9,10 +10,9 @@ import { Curriculum } from '@/types';
 
 import CurriculumItem from './CurriculumItem';
 import CurriculumModal from '../CurriculumModal';
-import { useState } from 'react';
 
 const CurriculumCard = () => {
-  const [isStudyLeader, setIsStudyLeader] = useState<boolean>(true); // NOTE 추후 스터디장 여부 props로 받아올 예정
+  const [isStudyLeader] = useState<boolean>(true); // NOTE 추후 스터디장 여부 props로 받아올 예정
   const { studyId } = useParams<{ studyId: string }>();
 
   const { curriculumItems } = getCurriculum(Number(studyId));
