@@ -57,7 +57,7 @@ export const fetcher = (options?: FetcherOptions) => {
       if (interceptors?.response) {
         response = await interceptors.response(response);
       }
-      return await response.json();
+      return { ok: true, body: await response.json() };
     } catch (error) {
       let message = '';
       if (error instanceof Error) message = error.message;
