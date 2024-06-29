@@ -1,26 +1,3 @@
-export interface CubeColorType {
-  ceil: string;
-  side1: string;
-  side2: string;
-}
-
-export interface GardenInfoType {
-  date: number;
-  week: number;
-  count: number;
-  id: number;
-}
-
-export interface TeamRankInfoType {
-  id: number;
-  idx: number;
-  rank: number;
-  name: string;
-  description: string;
-  url: string;
-  gardenInfos: GardenInfoType[];
-}
-
 export interface ParticipantType {
   id: number;
   name: string;
@@ -71,11 +48,30 @@ export interface TeamDetail extends Team {
   attendanceRate: number;
 }
 
+export interface Member {
+  readonly id: number;
+  name: string;
+  imageUrl: string;
+}
+
 export interface Curriculum {
   id: number;
+  participantId?: number;
   name: string;
   itemOrder: number;
-  isCompleted?: boolean;
+  isChecked?: boolean;
+}
+
+export interface Garden {
+  contributeDate: string;
+  contributeCount: number;
+}
+
+export interface TeamRank {
+  point: number;
+  rank: number;
+  teamReferenceResponse: Team;
+  teamGardenResponse: Garden[];
 }
 
 export interface Document {

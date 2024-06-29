@@ -6,18 +6,14 @@ import { useState } from 'react';
 import { patchCurriculumCompleted } from '@/app/api/study';
 import { Curriculum } from '@/types';
 
-const CurriculumItem = ({
-  id,
-  name,
-  itemOrder,
-  isCompleted,
-  participantId,
-}: Curriculum & { participantId: number }) => {
-  const [isChecked, setIsChecked] = useState(isCompleted);
+const CurriculumItem = ({ id, name, itemOrder, isChecked: isCheckedProps, participantId }: Curriculum) => {
+  const [isChecked, setIsChecked] = useState(isCheckedProps);
 
   const handleCheckboxChange = () => {
-    setIsChecked((prev) => !prev);
-    patchCurriculumCompleted(id, participantId);
+    if (participantId) {
+      setIsChecked((prev) => !prev);
+      patchCurriculumCompleted(id, participantId);
+    }
   };
 
   return (

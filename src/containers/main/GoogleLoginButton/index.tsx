@@ -1,25 +1,12 @@
 import { Image, Button, Box } from '@chakra-ui/react';
-import { useAtomValue } from 'jotai';
-import { useEffect, useState } from 'react';
 
-import { userAtom } from '@/atom';
-
-const GOOGLE_LOGIN_URL =
-  'https://accounts.google.com/o/oauth2/v2/auth?' +
-  `client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL}&` +
-  `response_type=code&` +
-  `scope=${process.env.NEXT_PUBLIC_GOOGLE_SCOPE}`;
+import GOOGLE_LOGIN_URL from '@/constants/googleLoginUrl';
+import useGetUser from '@/hooks/useGetUser';
 
 const GoogleLoginButton = () => {
-  const user = useAtomValue(userAtom);
-  const [isMounted, setIsMounted] = useState(false);
+  const user = useGetUser();
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted || user.isLogin) {
+  if (!user || user.isLogin) {
     return <Box h={{ base: '8', lg: '10', '2xl': '14' }} />;
   }
   return (

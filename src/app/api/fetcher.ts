@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type AllowObjectBodyRequestInit = Omit<RequestInit, 'body'> & { body?: RequestInit['body'] | object | FormData };
 
 export type FetchProps = [string, AllowObjectBodyRequestInit?];
+
+export type FetchResult = { ok: boolean; body: any };
 
 export type FetcherOptions = {
   baseUrl?: string;
@@ -30,7 +33,7 @@ const defaultOptions: FetcherOptions = {
 export const fetcher = (options?: FetcherOptions) => {
   const { baseUrl, headers, interceptors } = { ...defaultOptions, ...options };
 
-  return async (...props: FetchProps) => {
+  return async (...props: FetchProps): Promise<FetchResult> => {
     try {
       let [url, config] = props;
       if (interceptors?.request) {
@@ -39,7 +42,6 @@ export const fetcher = (options?: FetcherOptions) => {
 
       let fetchHeaders = {
         ...headers,
-        ...(config?.headers || {}),
       };
 
       if (config?.body && typeof config.body === 'object') {
@@ -49,15 +51,26 @@ export const fetcher = (options?: FetcherOptions) => {
           fetchHeaders = {};
         }
       }
+
+      fetchHeaders = {
+        ...fetchHeaders,
+        ...(config?.headers || {}),
+      };
+
       const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
       let response = await fetch(fullUrl, {
         ...(config as RequestInit),
         headers: fetchHeaders,
       });
+
       if (interceptors?.response) {
         response = await interceptors.response(response);
       }
-      return { ok: true, body: await response.json() };
+
+      if (response.status === 201) {
+        return { ok: true, body: { message: 'Created' } };
+      }
+      return { ok: true, body: await response?.json() };
     } catch (error) {
       let message = '';
       if (error instanceof Error) message = error.message;

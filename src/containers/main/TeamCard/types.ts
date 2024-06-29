@@ -1,8 +1,8 @@
-import { GardenInfoType } from '@/types';
+import { Garden } from '@/types';
 
 export interface TeamCardProps {
   rank: number;
   name: string;
   description: string;
-  gardenInfos: GardenInfoType[];
+  garden: Garden[];
 }
