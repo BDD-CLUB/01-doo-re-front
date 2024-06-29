@@ -4,21 +4,16 @@ import { CreateStudyDto, Curriculum, EditStudyDto } from '@/types';
 const studyFetcher = fetcher();
 
 const postStudy = (teamId: number, study: CreateStudyDto) =>
-const postStudy = (teamId: number, study: CreateStudyDto) =>
   studyFetcher(`/teams/${teamId}/studies`, {
     method: 'POST',
     body: study,
   });
 const getStudyAll = (studyId: number) => studyFetcher(`/studies/${studyId}/all`);
-const getStudyAll = (studyId: number) => studyFetcher(`/studies/${studyId}/all`);
 
-const getStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`);
 const getStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`);
 
 const deleteStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`, { method: 'DELETE' });
-const deleteStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`, { method: 'DELETE' });
 
-const putEditStudy = (studyId: number, study: EditStudyDto) =>
 const putEditStudy = (studyId: number, study: EditStudyDto) =>
   studyFetcher(`/studies/${studyId}`, {
     method: 'PUT',
@@ -26,18 +21,15 @@ const putEditStudy = (studyId: number, study: EditStudyDto) =>
   });
 
 const patchTerminateStudy = (studyId: number) =>
-const patchTerminateStudy = (studyId: number) =>
   studyFetcher(`/studies/${studyId}/termination`, {
     method: 'PATCH',
   });
 
 const patchStudyStatus = (studyId: number, status: string) =>
-const patchStudyStatus = (studyId: number, status: string) =>
   studyFetcher(`/studies/${studyId}/status?status=${status}`, {
     method: 'PATCH',
   });
 
-const postStudyMember = (studyId: number, userId: number) =>
 const postStudyMember = (studyId: number, userId: number) =>
   studyFetcher(`/studies/${studyId}/members/${userId}`, {
     method: 'POST',
