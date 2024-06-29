@@ -4,11 +4,11 @@ import { Flex, Card, CardBody, CardFooter, Image, Text, IconButton } from '@chak
 import { useState } from 'react';
 import { BiBookmark } from 'react-icons/bi';
 
-import StudyAssetModal from '@/containers/study/StudyAssetModal';
+import DocumentModal from '@/containers/study/DocumentModal';
 
-import { StudyAssetCardProps } from './types';
+import { DocumentCardProps } from './types';
 
-const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardProps) => {
+const DocumentCard = ({ title, content, date, bookmark, img }: DocumentCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -20,13 +20,7 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
       onClick={() => setIsModalOpen(true)}
       rounded="xl"
     >
-      <StudyAssetModal
-        isOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        title={title}
-        content={content}
-        type="file"
-      />
+      <DocumentModal isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} title={title} content={content} type="file" />
       <Image objectFit="cover" alt="study card" rounded="sm" src={img} />
       <CardBody px="2">
         <Text textStyle="bold_md">{title}</Text>
@@ -52,4 +46,4 @@ const StudyAssetCard = ({ title, content, date, bookmark, img }: StudyAssetCardP
   );
 };
 
-export default StudyAssetCard;
+export default DocumentCard;
