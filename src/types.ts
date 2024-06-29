@@ -89,4 +89,4 @@ export interface Document {
 
 export type DocumentAccessType = 'TEAM' | 'STUDY' | 'ALL';
 
-export type DocumentType = 'FILE' | 'IMAGE' | 'URL';
+export type DocumentType = 'DOCUMENT' | 'IMAGE' | 'URL';
