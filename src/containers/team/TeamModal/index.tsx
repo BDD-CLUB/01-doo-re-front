@@ -7,9 +7,9 @@ import { BiEdit, BiFile } from 'react-icons/bi';
 import { patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { TeamModalProps } from './type';
-import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 const AlertContent = ({ message }: { message: string }) => {
   return (
@@ -85,10 +85,9 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
     teamForm.append('request', requestBlob);
     teamForm.append('file', thumbnail as Blob);
 
-    createTeam(teamForm).then((res: { ok: boolean }) => {
+    createTeam(teamForm).then((res) => {
       if (res.ok) {
         resetAndCloseModal();
-      } else {
       }
     });
   };

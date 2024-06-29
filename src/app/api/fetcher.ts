@@ -62,10 +62,15 @@ export const fetcher = (options?: FetcherOptions) => {
         ...(config as RequestInit),
         headers: fetchHeaders,
       });
+
       if (interceptors?.response) {
         response = await interceptors.response(response);
       }
-      return { ok: true, body: await response.json() };
+
+      if (response.status === 201) {
+        return { ok: true, body: { message: 'Created' } };
+      }
+      return { ok: true, body: await response?.json() };
     } catch (error) {
       let message = '';
       if (error instanceof Error) message = error.message;
