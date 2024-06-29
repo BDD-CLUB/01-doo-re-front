@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { postJoinTeam } from '@/app/api/team';
 import { loginBackPathAtom } from '@/atom';
 import GOOGLE_LOGIN_URL from '@/constants/googleLoginUrl';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
 
 const Page = ({ searchParams }: { searchParams: { code: string } }) => {
@@ -16,11 +17,12 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
   const router = useRouter();
   const user = useGetUser();
   const setLoginBackPath = useSetAtom(loginBackPathAtom);
+  const joinTeam = useMutateWithToken(postJoinTeam);
 
   useEffect(() => {
     if (user) {
       if (user.isLogin) {
-        postJoinTeam(teamId, code).then((res) => {
+        joinTeam(teamId, code).then((res) => {
           if (res?.ok) {
             router.replace(`/team/${teamId}`);
           } else {
@@ -33,7 +35,7 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
         window.location.href = GOOGLE_LOGIN_URL;
       }
     }
-  }, [user, teamId, code, router, setLoginBackPath]);
+  }, [user, teamId, code, router, setLoginBackPath, joinTeam]);
 
   return <div />;
 };

@@ -20,6 +20,7 @@ import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import documentCardData from '@/mocks/documentCard';
 import { gardenInfos1 } from '@/mocks/Garden3D';
 import studyCardData from '@/mocks/studyCard';
@@ -38,6 +39,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [documentLength, setDocumentLength] = useState<number>(0);
 
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
+
+  const inviteTeam = useMutateWithToken(postInviteTeam);
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
@@ -87,7 +90,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   };
 
   const handleInviteClick = () => {
-    postInviteTeam(params.teamId).then((res) => {
+    inviteTeam(params.teamId).then((res) => {
       if (res.ok) {
         navigator.clipboard.writeText(
           `${process.env.NEXT_PUBLIC_DEPLOY_URL}/team/${params.teamId}/join?code=${res.body.code}`,
