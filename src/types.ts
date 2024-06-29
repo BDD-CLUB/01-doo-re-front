@@ -77,3 +77,16 @@ export interface Curriculum {
   itemOrder: number;
   isCompleted?: boolean;
 }
+
+export interface Document {
+  title: string;
+  description: string;
+  accessType: DocumentAccessType;
+  type: DocumentType;
+  url: string;
+  uploaderId: number;
+}
+
+export type DocumentAccessType = 'TEAM' | 'STUDY' | 'ALL';
+
+export type DocumentType = 'DOCUMENT' | 'IMAGE' | 'URL';
