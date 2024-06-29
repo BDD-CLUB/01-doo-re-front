@@ -1,5 +1,6 @@
 import { Image, Button, Box } from '@chakra-ui/react';
 import { useAtomValue } from 'jotai';
+import { useEffect, useState } from 'react';
 
 import { userAtom } from '@/atom';
 
@@ -12,8 +13,13 @@ const GOOGLE_LOGIN_URL =
 
 const GoogleLoginButton = () => {
   const user = useAtomValue(userAtom);
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (user.isLogin) {
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted || user.isLogin) {
     return <Box h={{ base: '8', lg: '10', '2xl': '14' }} />;
   }
   return (
