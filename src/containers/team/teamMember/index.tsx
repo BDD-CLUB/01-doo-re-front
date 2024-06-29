@@ -59,6 +59,7 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
                       <Avatar key={member.id} mr="2" name={member.name} size="sm" src={member.imageUrl} />
                       {member.name}
                     </Box>
+                    {/* TODO: 팀장만 버튼 보이게 수정 */}
                     <IconButton
                       w="fit-content"
                       fontSize="16px"
