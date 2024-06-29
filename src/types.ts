@@ -81,10 +81,12 @@ export interface Curriculum {
 export interface Document {
   title: string;
   description: string;
-  accessType: string;
-  type: string;
+  accessType: DocumentAccessType;
+  type: DocumentType;
   url: string;
   uploaderId: number;
 }
 
-export type DocumentType = 'TEAM' | 'STUDY' | 'ALL';
+export type DocumentAccessType = 'TEAM' | 'STUDY' | 'ALL';
+
+export type DocumentType = 'FILE' | 'IMAGE' | 'URL';
