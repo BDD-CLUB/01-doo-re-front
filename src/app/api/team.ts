@@ -4,10 +4,13 @@ import { fetcher } from './fetcher';
 
 const teamFetcher = fetcher();
 
-const postCreateTeam = (team: FormData) =>
+const postCreateTeam = (token: string, team: FormData) =>
   teamFetcher('/teams', {
     method: 'POST',
     body: team,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
 const putEditTeam = (teamId: number, teamInfo: Pick<Team, 'name' | 'description'>) =>

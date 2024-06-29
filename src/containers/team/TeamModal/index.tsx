@@ -9,6 +9,7 @@ import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 
 import { TeamModalProps } from './type';
+import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 const AlertContent = ({ message }: { message: string }) => {
   return (
@@ -26,6 +27,8 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const [thumbnail, setThumbnail] = useState<File | null>();
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
+
+  const createTeam = useMutateWithToken(postCreateTeam);
 
   const resetState = () => {
     setName('');
@@ -82,8 +85,11 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
     teamForm.append('request', requestBlob);
     teamForm.append('file', thumbnail as Blob);
 
-    postCreateTeam(teamForm).then(() => {
-      resetAndCloseModal();
+    createTeam(teamForm).then((res: { ok: boolean }) => {
+      if (res.ok) {
+        resetAndCloseModal();
+      } else {
+      }
     });
   };
 

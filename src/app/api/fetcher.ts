@@ -42,7 +42,6 @@ export const fetcher = (options?: FetcherOptions) => {
 
       let fetchHeaders = {
         ...headers,
-        ...(config?.headers || {}),
       };
 
       if (config?.body && typeof config.body === 'object') {
@@ -52,6 +51,12 @@ export const fetcher = (options?: FetcherOptions) => {
           fetchHeaders = {};
         }
       }
+
+      fetchHeaders = {
+        ...fetchHeaders,
+        ...(config?.headers || {}),
+      };
+
       const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
       let response = await fetch(fullUrl, {
         ...(config as RequestInit),
