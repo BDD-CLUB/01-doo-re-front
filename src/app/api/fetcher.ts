@@ -67,10 +67,13 @@ export const fetcher = (options?: FetcherOptions) => {
         response = await interceptors.response(response);
       }
 
-      if (response.status === 201) {
-        return { ok: true, body: { message: 'Created' } };
+      const method = config?.method ?? 'GET';
+      let body = {};
+
+      if (response.ok && method === 'GET') {
+        body = await response.json();
       }
-      return { ok: true, body: await response?.json() };
+      return { ok: true, body };
     } catch (error) {
       let message = '';
       if (error instanceof Error) message = error.message;
