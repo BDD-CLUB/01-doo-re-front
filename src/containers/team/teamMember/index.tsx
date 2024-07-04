@@ -1,10 +1,11 @@
 'use client';
 
 import { Avatar, AvatarGroup, Box, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BiCrown, BiUserX } from 'react-icons/bi';
 
-import { teamMember } from '@/mocks/teamMember';
+import { getTeamMembers } from '@/app/api/team';
+import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import { Member } from '@/types';
 
 import FiredMemberModal from './FiredMemberModal';
@@ -40,14 +41,12 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
     setIsHovering(false);
   };
 
-  useEffect(() => {
-    // TODO: 팀원 목록 불러오기
-  }, [teamId]);
+  const members: Member[] = useGetFetchWithToken(getTeamMembers, [teamId]);
 
   return (
     <Box pos="relative" onMouseOut={handleMouseOut} onMouseOver={handleMouseOver}>
       <AvatarGroup max={useBreakpointValue({ base: 3, lg: 4 })} size="md">
-        {teamMember.map((member) => {
+        {members?.map((member) => {
           return <Avatar key={member.id} name={member.name} src={member.imageUrl} />;
         })}
       </AvatarGroup>
@@ -55,11 +54,11 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
         <Box pos="absolute" zIndex="40" right="0" w="220px" h="400px">
           <Box w="100%" h="100%" mt="2" p="4" pr="1" bg="white" borderRadius="xl" shadow="md">
             <Box overflow="scroll" w="100%" h="100%">
-              {teamMember.map((member) => {
+              {members?.map((member) => {
                 return (
-                  <Flex align="center" justify="space-between" gap="2" p="2">
+                  <Flex key={member.id} align="center" justify="space-between" gap="2" p="2">
                     <Box>
-                      <Avatar key={member.id} mr="2" name={member.name} size="sm" src={member.imageUrl} />
+                      <Avatar mr="2" name={member.name} size="sm" src={member.imageUrl} />
                       {member.name}
                     </Box>
                     {/* TODO: 팀장만 버튼 보이게 수정 */}
