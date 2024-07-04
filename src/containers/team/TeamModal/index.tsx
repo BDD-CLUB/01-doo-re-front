@@ -29,6 +29,8 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
 
   const createTeam = useMutateWithToken(postCreateTeam);
+  const editTeam = useMutateWithToken(putEditTeam);
+  const editTeamImage = useMutateWithToken(patchEditTeamImage);
 
   const resetState = () => {
     setName('');
@@ -57,17 +59,23 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
     if (!isTeamInfoValid()) return;
 
     if (teamInfo) {
-      putEditTeam(teamInfo.id, {
+      editTeam(teamInfo.id, {
         name,
         description,
-      }).then(() => {
-        if (thumbnail) {
-          const teamForm = new FormData();
-          teamForm.append('file', thumbnail as Blob);
+      }).then((res) => {
+        if (res.ok) {
+          if (thumbnail) {
+            const teamForm = new FormData();
+            teamForm.append('file', thumbnail as Blob);
 
-          patchEditTeamImage(teamInfo.id, teamForm).then(() => {});
+            editTeamImage(teamInfo.id, teamForm).then((res) => {
+              if (res.ok) {
+                resetAndCloseModal();
+              }
+            });
+          }
+          resetAndCloseModal();
         }
-        resetAndCloseModal();
       });
     }
   };
