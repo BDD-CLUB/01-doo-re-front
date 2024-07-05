@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { fetcher } from '@/app/api/fetcher';
 
 const memberFetcher = fetcher();
@@ -10,4 +9,12 @@ const getSidebarInfo = (token: string, memberId: number) =>
     },
   });
 
-export { getSidebarInfo };
+const patchStudyMandate = (token: string, studyId: number, newStudyLeaderId: number) =>
+  memberFetcher(`/study/${studyId}/mandate/${newStudyLeaderId}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export { getSidebarInfo, patchStudyMandate };

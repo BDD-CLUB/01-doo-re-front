@@ -26,8 +26,8 @@ export function useGetFetchWithToken(fetch: (token: string, ...props: any[]) => 
   return result;
 }
 
-export function useMutateWithToken(fetch: (token: string, ...props: any[]) => Promise<FetchResult>) {
-  const user = useGetUser();
+export function useMutateWithToken(fetch: (token: string, ...props: any[]) => Promise<FetchResult>, originUser?: any) {
+  const user = originUser !== undefined ? originUser : useGetUser();
 
   return (...props: any[]) => fetch(user?.token || '', ...props);
 }
