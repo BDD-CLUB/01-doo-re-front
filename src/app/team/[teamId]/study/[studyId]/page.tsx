@@ -13,6 +13,7 @@ import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
+import ParticipantMenu from '@/containers/study/ParticipantMenu';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import documentCardData from '@/mocks/documentCard';
@@ -74,7 +75,10 @@ const Page = ({ params }: { params: { studyId: number } }) => {
           </Flex>
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <Feed />
-            <Participant participantInfos={participantData} />
+            <Flex align="right" direction="column" rowGap="3">
+              <ParticipantMenu studyId={params.studyId} teamId={1} isOpen setIsOpen={() => {}} />
+              <Participant participantInfos={participantData} />
+            </Flex>
           </Flex>
         </Grid>
       </Flex>
