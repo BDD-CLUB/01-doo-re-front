@@ -67,12 +67,9 @@ export const fetcher = (options?: FetcherOptions) => {
         response = await interceptors.response(response);
       }
 
-      const method = config?.method ?? 'GET';
-      let body = {};
+      const bodyText = await response.text();
+      const body = bodyText ? JSON.parse(bodyText) : null;
 
-      if (response.ok && method === 'GET') {
-        body = await response.json();
-      }
       return { ok: true, body };
     } catch (error) {
       let message = '';
