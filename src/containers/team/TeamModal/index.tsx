@@ -7,6 +7,7 @@ import { BiEdit, BiFile } from 'react-icons/bi';
 import { patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
+import S3_URL from '@/constants/s3Url';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { TeamModalProps } from './type';
@@ -62,14 +63,14 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
       editTeam(teamInfo.id, {
         name,
         description,
-      }).then((res) => {
-        if (res.ok) {
+      }).then((editTeamResponse) => {
+        if (editTeamResponse.ok) {
           if (thumbnail) {
             const teamForm = new FormData();
             teamForm.append('file', thumbnail as Blob);
 
-            editTeamImage(teamInfo.id, teamForm).then((res) => {
-              if (res.ok) {
+            editTeamImage(teamInfo.id, teamForm).then((editTeamImageResponse) => {
+              if (editTeamImageResponse.ok) {
                 resetAndCloseModal();
               }
             });
@@ -176,7 +177,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
             handleClick={() => inputFileRef.current?.click()}
           />
           {thumbnailPath ? (
-            <Image w="40" alt="thumbnail" src={thumbnailPath} />
+            <Image w="40" alt="thumbnail" src={S3_URL(thumbnailPath)} />
           ) : (
             thumbnail && <Image w="40" alt="thumbnail" src={URL.createObjectURL(thumbnail)} />
           )}
