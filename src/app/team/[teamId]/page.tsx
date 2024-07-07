@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
 import { getGarden } from '@/app/api/garden';
-import { postInviteTeam } from '@/app/api/team';
+import { getTeamInfo, postInviteTeam } from '@/app/api/team';
 import { DocumentCardProps } from '@/components/DocumentCard/types';
 import Garden3D from '@/components/Garden3D';
 import { StudyCardProps } from '@/components/StudyCard/types';
@@ -21,15 +21,13 @@ import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
-import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 import documentCardData from '@/mocks/documentCard';
 import studyCardData from '@/mocks/studyCard';
-import teamInfoData from '@/mocks/teamInfo';
 import { Garden } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
-  // TODO 팀 조회 연결
-  const teamInfo = teamInfoData;
+  const teamInfo = useGetFetchWithToken(getTeamInfo, [params.teamId]);
 
   const [garden, setGarden] = useState<Garden[]>([]);
 
@@ -113,7 +111,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     <>
       <Flex direction="column" gap="8" w="100%" p="8">
         <Flex justify="space-between">
-          <Title isTeam imageUrl={teamInfo.imageUrl} name={teamInfo.name} description={teamInfo.description} />
+          <Title isTeam imageUrl={teamInfo?.imageUrl} name={teamInfo?.name} description={teamInfo?.description} />
           {/* TODO 팀원 목록, 초대링크 버튼 */}
           <Flex align="center" gap={{ base: '2', lg: '8' }}>
             <TeamMember teamId={params.teamId} />
@@ -145,7 +143,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           </Box>
 
           {/* TODO  진행도 */}
-          <AttendanceRate attendanceRate={teamInfo.attendanceRate} />
+          <AttendanceRate attendanceRate={teamInfo?.attendanceRatio} />
         </Flex>
 
         <Flex direction="column" flex="1" gap="4">

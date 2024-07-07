@@ -1,5 +1,7 @@
 import { Text, Flex, Avatar, Box } from '@chakra-ui/react';
 
+import S3_URL from '@/constants/s3Url';
+
 import { TitleProps } from './types';
 
 const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
@@ -11,7 +13,7 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           borderColor="gray.100"
           shadow="none"
           size="md"
-          src={imageUrl ?? '/images/doore_logo.png'}
+          src={imageUrl ? S3_URL(imageUrl) : '/images/doore_logo.png'}
         />
       )}
       <Text textStyle="bold_3xl">{name}</Text>
