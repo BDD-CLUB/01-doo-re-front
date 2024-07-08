@@ -7,6 +7,7 @@ import { BiEdit, BiFile } from 'react-icons/bi';
 import { patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
+import S3_URL from '@/constants/s3Url';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { TeamModalProps } from './type';
@@ -29,6 +30,8 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
 
   const createTeam = useMutateWithToken(postCreateTeam);
+  const editTeam = useMutateWithToken(putEditTeam);
+  const editTeamImage = useMutateWithToken(patchEditTeamImage);
 
   const resetState = () => {
     setName('');
@@ -57,17 +60,23 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
     if (!isTeamInfoValid()) return;
 
     if (teamInfo) {
-      putEditTeam(teamInfo.id, {
+      editTeam(teamInfo.id, {
         name,
         description,
-      }).then(() => {
-        if (thumbnail) {
-          const teamForm = new FormData();
-          teamForm.append('file', thumbnail as Blob);
+      }).then((editTeamResponse) => {
+        if (editTeamResponse.ok) {
+          if (thumbnail) {
+            const teamForm = new FormData();
+            teamForm.append('file', thumbnail as Blob);
 
-          patchEditTeamImage(teamInfo.id, teamForm).then(() => {});
+            editTeamImage(teamInfo.id, teamForm).then((editTeamImageResponse) => {
+              if (editTeamImageResponse.ok) {
+                resetAndCloseModal();
+              }
+            });
+          }
+          resetAndCloseModal();
         }
-        resetAndCloseModal();
       });
     }
   };
@@ -168,7 +177,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
             handleClick={() => inputFileRef.current?.click()}
           />
           {thumbnailPath ? (
-            <Image w="40" alt="thumbnail" src={thumbnailPath} />
+            <Image w="40" alt="thumbnail" src={S3_URL(thumbnailPath)} />
           ) : (
             thumbnail && <Image w="40" alt="thumbnail" src={URL.createObjectURL(thumbnail)} />
           )}

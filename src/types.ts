@@ -45,7 +45,7 @@ export interface Team {
 }
 
 export interface TeamDetail extends Team {
-  attendanceRate: number;
+  attendanceRatio: number;
 }
 
 export interface Member {

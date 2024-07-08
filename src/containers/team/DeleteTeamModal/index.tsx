@@ -1,14 +1,20 @@
 import { Text } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 
-import { deleteTeam } from '@/app/api/team';
+import { deleteTeam as deleteTeamApi } from '@/app/api/team';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { DeleteTeamModalProps } from './type';
 
 const DeleteTeamModal = ({ id, name, isOpen, onClose }: DeleteTeamModalProps) => {
+  const deleteTeam = useMutateWithToken(deleteTeamApi);
+  const router = useRouter();
+
   const handleDeleteTeamButtonClick = () => {
     deleteTeam(id).then(() => {
       onClose();
+      router.replace('/');
     });
   };
 
