@@ -47,6 +47,9 @@ const leaveStudy = (studyId: number) =>
 
 const getStudyMembers = (studyId: number) => studyFetcher(`/studies/${studyId}/members`);
 
+const getStudies = (studyId: number, page: number, size: number) =>
+  studyFetcher(`/teams/${studyId}/studies?page=${page}&size=${size}`);
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getCurriculum = (studyId: number): { curriculumItems: Curriculum[] } => {
   // FIXME 추후 더미데이터 제거하고 Api 연결 필요.
@@ -112,6 +115,7 @@ export {
   deleteStudyMember,
   leaveStudy,
   getStudyMembers,
+  getStudies,
   getCurriculum,
   postCurriculum,
   patchCurriculumCompleted,
