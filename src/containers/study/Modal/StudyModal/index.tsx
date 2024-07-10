@@ -12,6 +12,7 @@ import ActionModal from '@/components/Modal/ActionModal';
 import Selector from '@/components/Selector';
 import StyledDatePicker from '@/components/StyledDatePicker';
 import CROP from '@/constants/crop';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { StudyModalProps } from './types';
 
@@ -35,6 +36,9 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
   const [alertCropId, setAlertCropId] = useState<boolean>(false);
   const [alertStartDate, setAlertStartDate] = useState<boolean>(false);
+
+  const createStudy = useMutateWithToken(postStudy);
+  const editStudy = useMutateWithToken(putEditStudy);
 
   const onClose = () => {
     setStep(1);
@@ -62,25 +66,25 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
   const handleSaveButtonClick = () => {
     if (cropId === 0) setAlertCropId(true);
     if (startDate === null) setAlertStartDate(true);
-    else if (studyId && studyInfo) {
-      putEditStudy(studyId, {
-        name,
-        description,
-        startDate: dayjs(startDate).format('YYYY-MM-DD'),
-        endDate: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
-        status: startDate <= new Date() ? 'IN_PROGRESS' : 'UPCOMING',
-      }).then(() => {
-        onClose();
-      });
-    } else if (teamId) {
-      postStudy(teamId, {
+    else if (teamId) {
+      createStudy(teamId, {
         name,
         description,
         startDate: dayjs(startDate).format('YYYY-MM-DD'),
         endDate: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
         cropId,
-      }).then(() => {
-        onClose();
+      }).then((res) => {
+        if (res.ok) onClose();
+      });
+    } else if (studyId && studyInfo) {
+      editStudy(studyId, {
+        name,
+        description,
+        startDate: dayjs(startDate).format('YYYY-MM-DD'),
+        endDate: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
+        status: startDate <= new Date() ? 'IN_PROGRESS' : 'UPCOMING',
+      }).then((res) => {
+        if (res.ok) onClose();
       });
     }
   };

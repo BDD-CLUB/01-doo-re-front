@@ -3,24 +3,41 @@ import { Study, Curriculum } from '@/types';
 
 const studyFetcher = fetcher();
 
-const postStudy = (teamId: number, study: Pick<Study, 'name' | 'description' | 'startDate' | 'endDate' | 'cropId'>) =>
+const postStudy = (
+  token: string,
+  teamId: number,
+  study: Pick<Study, 'name' | 'description' | 'startDate' | 'endDate' | 'cropId'>,
+) =>
   studyFetcher(`/teams/${teamId}/studies`, {
     method: 'POST',
     body: study,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 const getStudyAll = (studyId: number) => studyFetcher(`/studies/${studyId}/all`);
 
 const getStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`);
 
-const deleteStudy = (studyId: number) => studyFetcher(`/studies/${studyId}`, { method: 'DELETE' });
+const deleteStudy = (token: string, studyId: number) =>
+  studyFetcher(`/studies/${studyId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 const putEditStudy = (
+  token: string,
   studyId: number,
   study: Pick<Study, 'name' | 'description' | 'startDate' | 'endDate' | 'status'>,
 ) =>
   studyFetcher(`/studies/${studyId}`, {
     method: 'PUT',
     body: study,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
 const patchTerminateStudy = (studyId: number) =>

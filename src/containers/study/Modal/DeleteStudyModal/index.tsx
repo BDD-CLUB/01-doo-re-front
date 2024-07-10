@@ -2,13 +2,18 @@ import { Text } from '@chakra-ui/react';
 
 import { deleteStudy } from '@/app/api/study';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { DeleteStudyModalProps } from '../types';
 
 const DeleteStudyModal = ({ id, name, isOpen, setIsOpen }: DeleteStudyModalProps) => {
+  const deletedStudy = useMutateWithToken(deleteStudy);
+
   const handleClickDelete = () => {
-    deleteStudy(id).then(() => {
-      setIsOpen(false);
+    deletedStudy(id).then((res) => {
+      if (res.ok) {
+        setIsOpen(false);
+      }
     });
   };
 
