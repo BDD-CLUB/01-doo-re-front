@@ -114,11 +114,11 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
     },
     DOCUMENT: (e: ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(e.target.files || []);
-      console.log('기존파일 : ', files);
-      console.log(
-        '기존파일 : ',
-        files.map((file) => file.name.toString()),
-      );
+      // console.log('기존파일 : ', files);
+      // console.log(
+      //   '기존파일 : ',
+      //   files.map((file) => file.name.toString()),
+      // );
       setDocList((prev) => ({
         ...prev,
         DOCUMENT: [
