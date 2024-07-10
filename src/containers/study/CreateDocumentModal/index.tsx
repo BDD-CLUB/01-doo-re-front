@@ -13,6 +13,7 @@ import StyledRadioGroup from '@/components/StyledRadioGroup';
 import color from '@/constants/color';
 import { DocumentModalProps, DocumentList } from '@/containers/study/CreateDocumentModal/type';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useGetUser from '@/hooks/useGetUser';
 import { Document, DocumentAccessType, DocumentType } from '@/types';
 
 const DocumentBoxIcon = {
@@ -48,6 +49,7 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
   const handleChange = (value: string) => {
     setSelectedValue(value as DocumentAccessType);
   };
+  const user = useGetUser();
 
   const onConfirmButtonClick = () => {
     const documentInfo: Document = {
@@ -56,7 +58,7 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
       accessType: selectedValue,
       type: doctype,
       url: (docList.URL[0]?.content as string) || '',
-      uploaderId: 0,
+      uploaderId: user?.memberId || 0,
     };
     const documentForm: FormData = new FormData();
     const requestBlob = new Blob([JSON.stringify(documentInfo)], { type: 'application/json' });
@@ -67,26 +69,17 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
       docList.IMAGE.forEach((img) => {
         documentForm.append('files', img.content as Blob);
       });
+      console.log('documentForm : ', documentForm.getAll('files'), 'documentInfo : ', documentInfo);
+
+      // console.log('docImg : ', docList.IMAGE);
     } else if (doctype === 'DOCUMENT') {
       docList.DOCUMENT.forEach((file) => {
         documentForm.append('files', file.content as Blob);
       });
-      console.log('documentForm : ', documentForm.getAll('files'));
+      // console.log('docList : ', docList.DOCUMENT);
+      console.log('documentForm : ', documentForm.getAll('files'), 'documentInfo : ', documentInfo);
     }
-    // if (doctype === 'IMAGE') {
-    //   docList.IMAGE.forEach((img) => {
-    //     documentForm.append('IMAGE', img.content);
-    //   });
-    // } else if (doctype === 'DOCUMENT') {
-    //   docList.DOCUMENT.forEach((file) => {
-    //     documentForm.append('DOCUMENT', file.content);
-    //   });
-    // } else {
-    //   docList.URL.forEach((url) => {
-    //     documentForm.append('URL', url.content);
-    //   });
-    // }
-    createDocs('studies', 1, documentForm).then((response) => {
+    createDocs('teams', 1, documentForm).then((response) => {
       if (response.ok) {
         onClose();
       } else {
