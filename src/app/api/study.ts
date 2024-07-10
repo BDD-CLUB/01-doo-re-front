@@ -40,9 +40,12 @@ const putEditStudy = (
     },
   });
 
-const patchTerminateStudy = (studyId: number) =>
+const patchTerminateStudy = (token: string, studyId: number) =>
   studyFetcher(`/studies/${studyId}/termination`, {
     method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
 const patchStudyStatus = (studyId: number, status: string) =>

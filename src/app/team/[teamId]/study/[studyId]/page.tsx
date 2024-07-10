@@ -95,7 +95,8 @@ const Page = ({ params }: { params: { studyId: number } }) => {
         setIsModalOpen={setIsEditModalOpen}
       />
       <TerminateStudyModal
-        studyName={studyData?.name || ''}
+        id={params.studyId}
+        name={studyData?.name || ''}
         isOpen={isTerminateModalOpen}
         setIsOpen={setIsTerminateModalOpen}
       />

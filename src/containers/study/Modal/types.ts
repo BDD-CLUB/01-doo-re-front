@@ -1,7 +1,6 @@
 import { Study } from '@/types';
 
-export interface TerminateStudyModalProps {
-  studyName: string;
+export interface TerminateStudyModalProps extends Pick<Study, 'id' | 'name'> {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
