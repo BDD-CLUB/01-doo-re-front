@@ -68,6 +68,10 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     getCardData(cardIdx);
   }, [cardIdx]);
 
+  useEffect(() => {
+    getCardData(0);
+  }, [category]);
+
   const handlePrevClick = () => {
     if (cardIdx - CARD_PER_PAGE < 0) return;
 

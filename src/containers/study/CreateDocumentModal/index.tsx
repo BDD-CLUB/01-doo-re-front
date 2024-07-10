@@ -86,7 +86,13 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
     //     documentForm.append('URL', url.content);
     //   });
     // }
-    createDocs('studies', 1, documentForm);
+    createDocs('studies', 1, documentForm).then((response) => {
+      if (response.ok) {
+        onClose();
+      } else {
+        console.log('response : ', response);
+      }
+    });
 
     onClose();
   };
