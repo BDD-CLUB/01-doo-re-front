@@ -1,14 +1,16 @@
 import { fetcher } from '@/app/api/fetcher';
-import { Document, DocumentType } from '@/types';
+import { DocumentType } from '@/types';
 
 const documentFetcher = fetcher();
 
-const postDocument = (groupType: string, groupId: number, document: Document, files: FormData) => {
+const postDocument = (token: string, groupType: string, groupId: number, request: FormData) =>
   documentFetcher(`/${groupType}/${groupId}/documents`, {
     method: 'POST',
-    body: { document, files },
+    body: request,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-};
 
 const getDocumentList = (groupType: string, groupId: number, page: number = 0, size: number = 4) => {
   documentFetcher(`/${groupType}/${groupId}/documents?page=${page}&size=${size}`, {

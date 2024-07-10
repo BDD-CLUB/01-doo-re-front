@@ -12,6 +12,7 @@ import StyledRadio from '@/components/StyledRadio';
 import StyledRadioGroup from '@/components/StyledRadioGroup';
 import color from '@/constants/color';
 import { DocumentModalProps, DocumentList } from '@/containers/study/CreateDocumentModal/type';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import { Document, DocumentAccessType, DocumentType } from '@/types';
 
 const DocumentBoxIcon = {
@@ -34,6 +35,8 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
   const [description, setDescription] = useState('');
   const [selectedValue, setSelectedValue] = useState<DocumentAccessType>('ALL');
 
+  const createDocs = useMutateWithToken(postDocument);
+
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -53,24 +56,37 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
       accessType: selectedValue,
       type: doctype,
       url: (docList.URL[0]?.content as string) || '',
-      uploaderId: 0, // uploaderId는 number 타입이어야 합니다.
+      uploaderId: 0,
     };
-    const DocumentFile: FormData = new FormData();
+    const documentForm: FormData = new FormData();
+    const requestBlob = new Blob([JSON.stringify(documentInfo)], { type: 'application/json' });
+
+    documentForm.append('request', requestBlob);
 
     if (doctype === 'IMAGE') {
       docList.IMAGE.forEach((img) => {
-        DocumentFile.append('IMAGE', img.content);
+        documentForm.append('files', img.content as Blob);
       });
     } else if (doctype === 'DOCUMENT') {
       docList.DOCUMENT.forEach((file) => {
-        DocumentFile.append('DOCUMENT', file.content);
+        documentForm.append('files', file.content as Blob);
       });
-    } else {
-      docList.URL.forEach((url) => {
-        DocumentFile.append('URL', url.content);
-      });
+      console.log('documentForm : ', documentForm.getAll('files'));
     }
-    postDocument('studies', 1, documentInfo, DocumentFile);
+    // if (doctype === 'IMAGE') {
+    //   docList.IMAGE.forEach((img) => {
+    //     documentForm.append('IMAGE', img.content);
+    //   });
+    // } else if (doctype === 'DOCUMENT') {
+    //   docList.DOCUMENT.forEach((file) => {
+    //     documentForm.append('DOCUMENT', file.content);
+    //   });
+    // } else {
+    //   docList.URL.forEach((url) => {
+    //     documentForm.append('URL', url.content);
+    //   });
+    // }
+    createDocs('studies', 1, documentForm);
 
     onClose();
   };
@@ -92,13 +108,17 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
     },
     DOCUMENT: (e: ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(e.target.files || []);
-      console.log('기존파일 : ', docList.DOCUMENT);
+      console.log('기존파일 : ', files);
+      console.log(
+        '기존파일 : ',
+        files.map((file) => file.name.toString()),
+      );
       setDocList((prev) => ({
         ...prev,
         DOCUMENT: [
           ...prev.DOCUMENT,
           ...files.map((file) => ({
-            key: file.name,
+            key: file.name.toString(),
             name: file.name,
             content: file,
           })),
@@ -192,7 +212,7 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
           {docList[doctype] &&
             docList[doctype].map((doc, index) => (
               <IconBox
-                key={`${doc}`}
+                key={doc.key}
                 leftIcon={DocumentBoxIcon[doctype]}
                 content={doc.name}
                 rightIcon={<BiTrash />}
