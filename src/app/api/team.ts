@@ -13,21 +13,39 @@ const postCreateTeam = (token: string, team: FormData) =>
     },
   });
 
-const putEditTeam = (teamId: number, teamInfo: Pick<Team, 'name' | 'description'>) =>
+const getTeamInfo = (token: string, teamId: number) =>
   teamFetcher(`/teams/${teamId}`, {
-    method: 'PUT',
-    body: teamInfo,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-const patchEditTeamImage = (teamId: number, file: FormData) =>
+const putEditTeam = (token: string, teamId: number, teamInfo: Pick<Team, 'name' | 'description'>) => {
+  return teamFetcher(`/teams/${teamId}`, {
+    method: 'PUT',
+    body: teamInfo,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const patchEditTeamImage = (token: string, teamId: number, file: FormData) =>
   teamFetcher(`/teams/${teamId}/image`, {
     method: 'PATCH',
     body: file,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-const deleteTeam = (teamId: number) =>
+const deleteTeam = (token: string, teamId: number) =>
   teamFetcher(`/teams/${teamId}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
 const postInviteTeam = (token: string, teamId: number) =>
@@ -49,12 +67,18 @@ const postJoinTeam = (token: string, teamId: number, code: string) =>
 
 const getTeams = () => teamFetcher(`/teams`);
 
-const getTeamMembers = (teamId: number) => teamFetcher(`/teams/${teamId}/members`);
+const getTeamMembers = (token: string, teamId: number) =>
+  teamFetcher(`/teams/${teamId}/members`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}`);
 
 export {
   postCreateTeam,
+  getTeamInfo,
   putEditTeam,
   patchEditTeamImage,
   deleteTeam,
