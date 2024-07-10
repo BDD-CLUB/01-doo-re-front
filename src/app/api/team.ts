@@ -67,7 +67,12 @@ const postJoinTeam = (token: string, teamId: number, code: string) =>
 
 const getTeams = () => teamFetcher(`/teams`);
 
-const getTeamMembers = (teamId: number) => teamFetcher(`/teams/${teamId}/members`);
+const getTeamMembers = (token: string, teamId: number) =>
+  teamFetcher(`/teams/${teamId}/members`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}`);
 
