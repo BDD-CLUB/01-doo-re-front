@@ -14,6 +14,7 @@ import { StudyCardProps } from '@/components/StudyCard/types';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
 import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
+import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import AttendanceRate from '@/containers/team/AttendanceRate';
 import DocumentGridView from '@/containers/team/DocumentGridView';
@@ -37,6 +38,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [documentLength, setDocumentLength] = useState<number>(0);
 
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
+  const [isCreateDocumentModalOoen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
+
   const documentCardData: DocumentList[] = useGetFetchWithToken(getDocumentList, [
     `teams/${params.teamId}/documents?page=0&size=4 `,
   ]);
@@ -88,7 +91,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     if (category === '스터디') {
       setIsCreateStudyModalOpen(true);
     } else if (category === '학습자료') {
-      // TODO: create study `asset` modal 띄우기
+      setIsCreateDocumentModalOpen(true);
     }
   };
 
@@ -166,6 +169,11 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         </Flex>
       </Flex>
       <StudyModal teamId={params.teamId} isOpen={isCreateStudyModalOpen} setIsModalOpen={setIsCreateStudyModalOpen} />
+      <CreateDocumentModal
+        isOpen={isCreateDocumentModalOoen}
+        onClose={() => setIsCreateDocumentModalOpen(false)}
+        teamId={params.teamId}
+      />
     </>
   );
 };
