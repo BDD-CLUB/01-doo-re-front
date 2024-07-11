@@ -8,12 +8,12 @@ import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
 import colors from '@/theme/foundations/colors';
 
-const ParticipantItem = ({ member, studyId }: ParticipantItemProps) => {
+const ParticipantItem = ({ member, studyId, type }: ParticipantItemProps) => {
   const user = useGetUser();
 
-  const isLeader = member.status === '스터디장';
-  const isStudyMember = member.status === '스터디원';
-  const isNonStudyMember = member.status === '';
+  const isLeader = type === '스터디장';
+  const isStudyMember = type === '스터디원';
+  const isNonStudyMember = type === '팀원';
 
   const addMember = useMutateWithToken(postStudyMember, user);
   const deleteMember = useMutateWithToken(deleteStudyMember, user);

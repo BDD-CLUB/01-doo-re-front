@@ -11,17 +11,29 @@ import ParticipantItem from '@/containers/study/ParticipantMenu/ParticipantItem'
 import { ParticipantMenuProps } from '@/containers/study/ParticipantMenu/type';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
-import participantData from '@/mocks/participant';
+import { studyMember } from '@/mocks/studyMember';
+import { teamMember } from '@/mocks/teamMember';
+import { Member } from '@/types';
 
-const ParticipantMenu = ({ studyId, teamId }: ParticipantMenuProps) => {
+const ParticipantMenu = ({ studyId, teamId, leaderId }: ParticipantMenuProps) => {
   const user = useGetUser();
-  const studyMembersa = useGetFetchWithToken(getStudyMembers, [studyId], user);
-  const teamMembersa = useGetFetchWithToken(getTeamMembers, [teamId], user);
+  const [search, setSearch] = useState('');
+  // const studyMembersData = useGetFetchWithToken(getStudyMembers, [studyId], user);
+  // const teamMembersData = useGetFetchWithToken(getTeamMembers, [teamId], user);
+  const studyMembersData = {
+    data: studyMember,
+  };
 
-  const members = participantData;
-  const leader = members.find((member) => member.status === '스터디장')!;
-  const studyMembers = members.filter((member) => member.status !== '스터디장' && member.status !== '');
-  const nonStudyMembers = members.filter((member) => member.status === '');
+  const teamMembersData = {
+    data: teamMember,
+  };
+
+  const studyMembers = studyMembersData?.data?.filter((member: Member) => !search || member.name.includes(search));
+  const leader = studyMembers?.find((member: Member) => member.id === leaderId);
+  const nonLeaderStudyMembers = studyMembers?.filter((member: Member) => member.id !== leaderId);
+  const nonStudyMembers = teamMembersData?.data
+    ?.filter((member: Member) => !studyMembers?.find((m) => m.id === member.id))
+    .filter((member: Member) => !search || member.name.includes(search));
 
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -74,17 +86,23 @@ const ParticipantMenu = ({ studyId, teamId }: ParticipantMenuProps) => {
             borderColor="#6c6c6c"
             borderRadius="full"
           >
-            <Input color="black" fontSize="16px" bg="transparent" />
+            <Input
+              color="black"
+              fontSize="16px"
+              bg="transparent"
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+            />
             <Flex as={BiSearch} my="auto" mr="1" color="#6c6c6c" size="26px" />
           </Flex>
-          <Flex direction="column" gap="2" overflowY="scroll" h="full">
-            <ParticipantItem key={leader.id} member={leader} studyId={studyId} />
-            {studyMembers.map((member) => (
-              <ParticipantItem key={member.id} member={member} studyId={studyId} />
+          <Flex className="scroll" direction="column" gap="2" overflowY="scroll" h="full">
+            {leader && <ParticipantItem key={leader.id} member={leader} studyId={studyId} type="스터디장" />}
+            {nonLeaderStudyMembers.map((member: Member) => (
+              <ParticipantItem key={member.id} member={member} studyId={studyId} type="스터디원" />
             ))}
             <Divider />
-            {nonStudyMembers.map((member) => (
-              <ParticipantItem key={member.id} member={member} studyId={studyId} />
+            {nonStudyMembers.map((member: Member) => (
+              <ParticipantItem key={member.id} member={member} studyId={studyId} type="팀원" />
             ))}
           </Flex>
         </Flex>

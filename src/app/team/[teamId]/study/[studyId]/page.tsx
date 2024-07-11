@@ -76,7 +76,7 @@ const Page = ({ params }: { params: { studyId: number } }) => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             <Feed />
             <Flex align="right" direction="column" rowGap="3">
-              <ParticipantMenu studyId={params.studyId} teamId={1} isOpen setIsOpen={() => {}} />
+              <ParticipantMenu studyId={params.studyId} teamId={1} leaderId={11} />
               <Participant participantInfos={participantData} />
             </Flex>
           </Flex>
