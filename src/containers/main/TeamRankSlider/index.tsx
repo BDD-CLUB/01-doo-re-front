@@ -28,6 +28,7 @@ const TeamRankSlider = () => {
 
   useEffect(() => {
     getTeams().then((res) => {
+      if (!res.ok) return;
       const teams = res.body.slice(0, 10).map((team: TeamRank, idx: number) => {
         return { ...team, rank: idx + 1 };
       });
