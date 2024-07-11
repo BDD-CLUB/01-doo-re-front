@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Documents from '@/containers/document/Documents';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 
-const Page = () => {
+const Page = ({ params }: { params: { teamId: number } }) => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   return (
     <Flex align="center" direction="column" gap="9" w="100%" p="8">
@@ -19,7 +19,7 @@ const Page = () => {
         </Button>
       </Flex>
       <Documents />
-      <CreateDocumentModal isOpen={openCreateModal} onClose={() => setOpenCreateModal(false)} />
+      <CreateDocumentModal isOpen={openCreateModal} onClose={() => setOpenCreateModal(false)} teamId={params.teamId} />
     </Flex>
   );
 };

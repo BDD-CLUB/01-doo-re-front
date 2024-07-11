@@ -22,7 +22,7 @@ const DocumentBoxIcon = {
   URL: <BsLink45Deg />,
 };
 
-const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
+const CreateDocumentModal = ({ isOpen, onClose, teamId }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
     IMAGE: [],
@@ -77,7 +77,7 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
       });
       // console.log('docList : ', docList.DOCUMENT);
     }
-    createDocs('teams', 1, documentForm).then((response) => {
+    createDocs('teams', teamId, documentForm).then((response) => {
       if (response.ok) {
         onClose();
       }
@@ -103,11 +103,6 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
     },
     DOCUMENT: (e: ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(e.target.files || []);
-      // console.log('기존파일 : ', files);
-      // console.log(
-      //   '기존파일 : ',
-      //   files.map((file) => file.name.toString()),
-      // );
       setDocList((prev) => ({
         ...prev,
         DOCUMENT: [

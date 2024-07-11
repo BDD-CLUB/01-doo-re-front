@@ -3,6 +3,7 @@ import { DocumentType } from '@/types';
 export interface DocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  teamId: number;
 }
 
 interface Document {
