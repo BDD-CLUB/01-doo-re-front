@@ -1,13 +1,20 @@
 import { Text } from '@chakra-ui/react';
 
+import { patchTerminateStudy } from '@/app/api/study';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { TerminateStudyModalProps } from '../types';
 
-const TerminateStudyModal = ({ studyName, isOpen, setIsOpen }: TerminateStudyModalProps) => {
+const TerminateStudyModal = ({ id, name, isOpen, setIsOpen }: TerminateStudyModalProps) => {
+  const terminatedStudy = useMutateWithToken(patchTerminateStudy);
+
   const handleClickTerminate = () => {
-    // TODO - API 연결
-    setIsOpen(false);
+    terminatedStudy(id).then((res) => {
+      if (res.ok) {
+        setIsOpen(false);
+      }
+    });
   };
 
   return (
@@ -23,7 +30,7 @@ const TerminateStudyModal = ({ studyName, isOpen, setIsOpen }: TerminateStudyMod
         <br />
         스터디 정보 수정 및 삭제가 불가능합니다.
         <br />
-        {`"${studyName}"을 종료하시겠습니까?`}
+        {`"${name}"을 종료하시겠습니까?`}
       </Text>
     </ConfirmModal>
   );
