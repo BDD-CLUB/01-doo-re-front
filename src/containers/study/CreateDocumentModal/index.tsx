@@ -69,7 +69,6 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
       docList.IMAGE.forEach((img) => {
         documentForm.append('files', img.content as Blob);
       });
-      console.log('documentForm : ', documentForm.getAll('files'), 'documentInfo : ', documentInfo);
 
       // console.log('docImg : ', docList.IMAGE);
     } else if (doctype === 'DOCUMENT') {
@@ -77,13 +76,10 @@ const CreateDocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
         documentForm.append('files', file.content as Blob);
       });
       // console.log('docList : ', docList.DOCUMENT);
-      console.log('documentForm : ', documentForm.getAll('files'), 'documentInfo : ', documentInfo);
     }
     createDocs('teams', 1, documentForm).then((response) => {
       if (response.ok) {
         onClose();
-      } else {
-        console.log('response : ', response);
       }
     });
 

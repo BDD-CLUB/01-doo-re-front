@@ -9,7 +9,7 @@ import { DocumentList } from '@/types';
 
 // import { DocumentCardProps } from './types';
 
-const DocumentCard = ({ title, description, date, img }: DocumentList) => {
+const DocumentCard = ({ title, description, date }: DocumentList) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -28,7 +28,7 @@ const DocumentCard = ({ title, description, date, img }: DocumentList) => {
         description={description}
         type="file"
       />
-      <Image objectFit="cover" alt="study card" rounded="sm" src={img} />
+      <Image objectFit="cover" alt="study card" rounded="sm" src="https://url.kr/MVKGTf" />
       <CardBody px="2">
         <Text textStyle="bold_md">{title}</Text>
         <Text textStyle="sm">{description}</Text>

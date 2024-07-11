@@ -12,11 +12,12 @@ const postDocument = (token: string, groupType: string, groupId: number, request
     },
   });
 
-const getDocumentList = (groupType: string, groupId: number, page: number = 0, size: number = 4) => {
-  documentFetcher(`/${groupType}/${groupId}/documents?page=${page}&size=${size}`, {
-    method: 'GET',
+const getDocumentList = (token: string, request: string) =>
+  documentFetcher(`/${request}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-};
 
 const getDocument = (documentId: number) => {
   documentFetcher(`/${documentId}`, {

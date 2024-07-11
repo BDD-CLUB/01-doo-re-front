@@ -67,7 +67,7 @@ const Page = ({ params }: { params: { studyId: number } }) => {
                     date={data.date}
                     uploaderName={data.uploaderName}
                     // bookmark={data.bookmark}
-                    img={data.img}
+                    // img={data.img}
                   />
                 ))}
               </Grid>
