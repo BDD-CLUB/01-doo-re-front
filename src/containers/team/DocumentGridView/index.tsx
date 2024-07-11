@@ -13,9 +13,10 @@ const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
             key={`${document.title}-${document.id}`}
             id={document.id}
             title={document.title}
-            content={document.content}
+            description={document.description}
             date={document.date}
-            bookmark={document.bookmark}
+            uploaderName={document.uploaderName}
+            // bookmark={document.bookmark}
             img={document.img}
           />
         );

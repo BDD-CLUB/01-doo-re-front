@@ -63,9 +63,10 @@ const Page = ({ params }: { params: { studyId: number } }) => {
                     id={data.id}
                     key={data.title}
                     title={data.title}
-                    content={data.content}
+                    description={data.description}
                     date={data.date}
-                    bookmark={data.bookmark}
+                    uploaderName={data.uploaderName}
+                    // bookmark={data.bookmark}
                     img={data.img}
                   />
                 ))}

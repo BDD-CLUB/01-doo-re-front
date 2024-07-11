@@ -83,6 +83,35 @@ export interface Document {
   uploaderId: number;
 }
 
+export interface DocumentList {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  uploaderName: string;
+  img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';
+}
+
+export interface DocumentFile {
+  id: number;
+  url: string;
+}
+
+export interface DocumenDetail extends DocumentList {
+  accessType: DocumentAccessType;
+  type: DocumentType;
+  files: DocumentFile[];
+}
+
+// export interface DocumentCardProps {
+//   id: number;
+//   title: string;
+//   content: string;
+//   date: string;
+//   // bookmark: number;
+//   img: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';
+// }
+
 export type DocumentAccessType = 'TEAM' | 'ALL'; // 'STUDY' 추가 가능성
 
 export type DocumentType = 'DOCUMENT' | 'IMAGE' | 'URL';

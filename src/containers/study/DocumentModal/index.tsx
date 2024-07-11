@@ -12,7 +12,7 @@ import colors from '@/theme/foundations/colors';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ isOpen, setIsModalOpen, title, content, type }: DocumentModalProps) => {
+const DocumentModal = ({ isOpen, setIsModalOpen, title, description, type }: DocumentModalProps) => {
   const linkData = documentLinkData;
   const imgData = documentImgData;
   const fileData = documentFileData;
@@ -28,7 +28,7 @@ const DocumentModal = ({ isOpen, setIsModalOpen, title, content, type }: Documen
     >
       <Flex textStyle="bold_md" gap="4">
         <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">
-          <Text>{content}</Text>
+          <Text>{description}</Text>
         </Box>
         <Flex justify="space-between" direction="column" w={2 / 5} p="4" bgColor={colors.orange_light} rounded="2xl">
           <Flex justify="space-between">

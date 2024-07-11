@@ -6,9 +6,10 @@ import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
+import { getDocumentList } from '@/app/api/document';
 import { getGarden } from '@/app/api/garden';
 import { getTeamInfo, postInviteTeam } from '@/app/api/team';
-import { DocumentCardProps } from '@/components/DocumentCard/types';
+// import { DocumentCardProps } from '@/components/DocumentCard/types';
 import Garden3D from '@/components/Garden3D';
 import { StudyCardProps } from '@/components/StudyCard/types';
 import TabButton from '@/components/TabButton';
@@ -22,9 +23,9 @@ import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
-import documentCardData from '@/mocks/documentCard';
+// import documentCardData from '@/mocks/documentCard';
 import studyCardData from '@/mocks/studyCard';
-import { Garden } from '@/types';
+import { DocumentList, Garden } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
   const teamInfo = useGetFetchWithToken(getTeamInfo, [params.teamId]);
@@ -36,10 +37,12 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const [studyArray, setStudyArray] = useState<StudyCardProps[]>([]);
   const [studyLength, setStudyLength] = useState<number>(0);
-  const [documentArray, setDocumentArray] = useState<DocumentCardProps[]>([]);
+  const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
 
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
+  const documentCardData: DocumentList[] = useGetFetchWithToken(getDocumentList, ['teams', params.teamId]);
+  // const members: Member[] = useGetFetchWithToken(getTeamMembers, [teamId]);
 
   const inviteTeam = useMutateWithToken(postInviteTeam);
 

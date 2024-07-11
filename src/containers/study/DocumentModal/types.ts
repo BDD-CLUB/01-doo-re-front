@@ -9,6 +9,6 @@ export interface DocumentModalProps {
   isOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
-  content: string;
+  description: string;
   type: string;
 }
