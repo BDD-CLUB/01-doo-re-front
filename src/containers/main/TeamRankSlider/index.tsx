@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 'use client';
 
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
@@ -8,6 +10,7 @@ import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
 import 'swiper/css';
 
 import { getTeams } from '@/app/api/team';
+import textStyles from '@/theme/foundations/textStyles';
 import { TeamRank } from '@/types';
 
 import TeamCard from '../TeamCard';
@@ -38,6 +41,22 @@ const TeamRankSlider = () => {
 
   return (
     <Flex align="center" direction="column" w="100%">
+      {teamRank.length === 0 && (
+        <Flex
+          align="center"
+          justify="center"
+          w={{ base: '450px', lg: '600px', '2xl': '720px' }}
+          h={{ base: '300px', lg: '360px', '2xl': '430px' }}
+          mt="20"
+          bg="rgba(255,255,255,0.1)"
+          border="1px solid white"
+          borderRadius="30"
+        >
+          <Text {...textStyles.bold_4xl} textColor="white">
+            아직 생성된 팀이 없습니다.
+          </Text>
+        </Flex>
+      )}
       <Box w="100%">
         <Swiper
           centeredSlides
@@ -66,7 +85,6 @@ const TeamRankSlider = () => {
           ))}
         </Swiper>
       </Box>
-
       <Flex justify="center" w="100%" h="10" mt="8">
         {teamRank.map((team, idx) => (
           <Box
