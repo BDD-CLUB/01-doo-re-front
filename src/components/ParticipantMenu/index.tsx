@@ -12,8 +12,8 @@ const defaultFunction = (member: Member) => {};
 
 const ParticipantMenu = ({
   leader,
-  includeMembers,
-  excludeMembers,
+  includeMembers = [],
+  excludeMembers = [],
   children,
   isOpen,
   setIsOpen,
@@ -90,7 +90,7 @@ const ParticipantMenu = ({
                 onMandateLeader={onMandateLeader}
               />
             ))}
-            <Divider />
+            {searchedExcludeMember && searchedExcludeMember.length > 0 && <Divider />}
             {searchedExcludeMember.map((member: Member) => (
               <ParticipantItem
                 key={member.id}

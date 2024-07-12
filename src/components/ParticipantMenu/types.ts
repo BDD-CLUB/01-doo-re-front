@@ -5,8 +5,8 @@ import { Member } from '@/types';
 
 export interface ParticipantMenuProps extends FlexProps {
   leader?: Member;
-  includeMembers: Member[];
-  excludeMembers: Member[];
+  includeMembers?: Member[];
+  excludeMembers?: Member[];
   children: ReactNode;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
