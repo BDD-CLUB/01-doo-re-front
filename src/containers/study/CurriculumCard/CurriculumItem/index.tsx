@@ -4,15 +4,17 @@ import { Box, Checkbox, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { patchCurriculumCompleted } from '@/app/api/study';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import { Curriculum } from '@/types';
 
 const CurriculumItem = ({ id, name, itemOrder, isChecked: isCheckedProps, participantId }: Curriculum) => {
   const [isChecked, setIsChecked] = useState(isCheckedProps);
+  const completeCurriculum = useMutateWithToken(patchCurriculumCompleted);
 
   const handleCheckboxChange = () => {
     if (participantId) {
       setIsChecked((prev) => !prev);
-      patchCurriculumCompleted(id, participantId);
+      completeCurriculum(id, participantId);
     }
   };
 
