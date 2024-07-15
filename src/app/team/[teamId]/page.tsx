@@ -162,7 +162,12 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           {category === '학습자료' && <DocumentGridView documentArray={documentArray} />}
         </Flex>
       </Flex>
-      <StudyModal teamId={params.teamId} isOpen={isCreateStudyModalOpen} setIsModalOpen={setIsCreateStudyModalOpen} />
+      <StudyModal
+        teamId={params.teamId}
+        isOpen={isCreateStudyModalOpen}
+        setIsModalOpen={setIsCreateStudyModalOpen}
+        studyInfo={null}
+      />
     </>
   );
 };
