@@ -70,58 +70,38 @@ const leaveStudy = (studyId: number) =>
 
 const getStudyMembers = (studyId: number) => studyFetcher(`/studies/${studyId}/members`);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getCurriculum = (studyId: number): { curriculumItems: Curriculum[] } => {
-  // FIXME 추후 더미데이터 제거하고 Api 연결 필요.
-  // studyFetcher(`/studies/${studyId}/curriculums/all`, {
-  //   method: 'GET'
-  // });
+const getCurriculum = (token: string, studyId: number) =>
+  studyFetcher(`/studies/${studyId}/curriculums`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-  const data = {
-    curriculumItems: [
-      {
-        id: 1,
-        participantId: 1,
-        name: '커리큘럼 1',
-        itemOrder: 1,
-        isCompleted: false,
-      },
-      {
-        id: 2,
-        participantId: 1,
-        name: '커리큘럼 2',
-        itemOrder: 2,
-        isCompleted: false,
-      },
-      {
-        id: 3,
-        participantId: 1,
-        name: '커리큘럼 3',
-        itemOrder: 3,
-        isCompleted: true,
-      },
-    ],
-  };
-
-  return {
-    curriculumItems: data.curriculumItems,
-  };
-};
-
-const postCurriculum = (studyId: number, curriculumItems: Curriculum[], deletedCurriculumItems: Curriculum[]) =>
+const postCurriculum = (
+  token: string,
+  studyId: number,
+  curriculumItems: Curriculum[],
+  deletedCurriculumItems: Curriculum[],
+) =>
   studyFetcher(`/studies/${studyId}/curriculums`, {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: {
       curriculumItems,
       deletedCurriculumItems,
     },
   });
 
-const patchCurriculumCompleted = (curriculumId: number, participantId: number) => {
+const patchCurriculumCompleted = (token: string, curriculumId: number, participantId: number) =>
   studyFetcher(`/curriculums/${curriculumId}/${participantId}/check`, {
     method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-};
 
 export {
   postStudy,

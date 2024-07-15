@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getCurriculum } from '@/app/api/study';
+import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import { Curriculum } from '@/types';
 
 import CurriculumItem from './CurriculumItem';
@@ -15,7 +16,7 @@ const CurriculumCard = () => {
   const [isStudyLeader] = useState<boolean>(true); // NOTE 추후 스터디장 여부 props로 받아올 예정
   const { studyId } = useParams<{ studyId: string }>();
 
-  const { curriculumItems } = getCurriculum(Number(studyId));
+  const curriculumItems = useGetFetchWithToken(getCurriculum, [Number(studyId)]);
 
   const { isOpen: isCurriculumModalOpen, onOpen: onActionModalOpen, onClose: onCurriculumModalClose } = useDisclosure();
 
@@ -50,7 +51,7 @@ const CurriculumCard = () => {
           borderBottomRightRadius="2xl"
         >
           <Flex className="scroll" direction="column" gap="3" overflowY="auto" w="100%">
-            {curriculumItems.length ? (
+            {curriculumItems?.length ? (
               curriculumItems?.map((curriculum: Curriculum) => {
                 return (
                   <CurriculumItem
