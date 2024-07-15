@@ -17,10 +17,8 @@ const StudyGridView = ({ studyArray }: StudyGridViewProps) => {
             startDate={study.startDate}
             endDate={study.endDate}
             status={study.status}
-            isDeleted={study.isDeleted}
             cropId={study.cropId}
-            teamId={study.teamId}
-            percent={study.percent}
+            studyProgressRatio={study.studyProgressRatio}
             rank={study.rank}
           />
         );
