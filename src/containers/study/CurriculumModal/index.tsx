@@ -12,6 +12,7 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { postCurriculum } from '@/app/api/study';
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { EditCurriculum, CurriculumModalProps } from './type';
 
@@ -22,9 +23,11 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
   const [deleteCurriculums, setDeleteCurriculums] = useState<EditCurriculum[]>([]);
 
   const [newCurriculum, setNewCurriculum] = useState<string>('');
-  const [newCurriculumId, setNewCurriculumId] = useState<number>((originCurriculums.at(-1)?.id ?? 0) + 1);
+  const [newCurriculumId, setNewCurriculumId] = useState<number>(1);
 
   const editCurriculumRef = React.useRef<HTMLTextAreaElement>();
+
+  const editCurriculum = useMutateWithToken(postCurriculum);
 
   const handleNewCurriculumChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewCurriculum(event.target.value);
@@ -93,7 +96,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
       itemOrder: curriculum.itemOrder,
     }));
 
-    postCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems);
+    editCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems);
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -122,13 +125,15 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
 
   useEffect(() => {
     setCurriculums(
-      originCurriculums.map((curriculum) => ({
+      originCurriculums?.map((curriculum) => ({
         id: curriculum.id,
         itemOrder: curriculum.itemOrder,
         name: curriculum.name,
         isEdit: false,
       })),
     );
+
+    setNewCurriculumId((originCurriculums?.at(-1)?.id ?? 0) + 1);
   }, [originCurriculums]);
 
   return (
