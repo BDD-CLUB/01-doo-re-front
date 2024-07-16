@@ -82,7 +82,7 @@ const deleteTeamMember = (token: string, teamId: number, memberId: number) =>
     },
   });
 
-const mandateTeamMember = (token: string, teamId: number, memberId: number) =>
+const mandateTeamLeader = (token: string, teamId: number, memberId: number) =>
   teamFetcher(`/teams/${teamId}/mandate/${memberId}`, {
     method: 'PATCH',
     headers: {
@@ -103,6 +103,6 @@ export {
   getTeams,
   getMyTeams,
   deleteTeamMember,
-  mandateTeamMember,
+  mandateTeamLeader,
   getTeamMembers,
 };
