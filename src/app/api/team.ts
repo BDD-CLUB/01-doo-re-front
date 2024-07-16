@@ -59,7 +59,7 @@ const postInviteTeam = (token: string, teamId: number) =>
 const postJoinTeam = (token: string, teamId: number, code: string) =>
   teamFetcher(`/teams/${teamId}/join`, {
     method: 'POST',
-    body: code,
+    body: { code },
     headers: {
       Authorization: `Bearer ${token}`,
     },
