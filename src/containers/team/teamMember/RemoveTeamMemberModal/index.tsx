@@ -1,12 +1,20 @@
 import { Text } from '@chakra-ui/react';
 
+import { deleteTeamMember } from '@/app/api/team';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { MemberModalProps } from '../types';
 
 const RemoveTeamMemberModal = ({ member, isOpen, teamId, teamName, onClose }: MemberModalProps) => {
+  const deleteMember = useMutateWithToken(deleteTeamMember);
+
   const handleFiredMemberClick = () => {
-    // TODO: 멤버 퇴출 api 연결
+    deleteMember(teamId, member.id).then((res) => {
+      if (!res.ok) {
+        alert('팀원을 삭제하는데 실패했습니다.');
+      }
+    });
     onClose();
   };
 
