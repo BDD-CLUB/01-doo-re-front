@@ -74,6 +74,22 @@ const getTeamMembers = (token: string, teamId: number) =>
     },
   });
 
+const deleteTeamMember = (token: string, teamId: number, memberId: number) =>
+  teamFetcher(`/teams/${teamId}/members/${memberId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+const mandateTeamMember = (token: string, teamId: number, memberId: number) =>
+  teamFetcher(`/teams/${teamId}/mandate/${memberId}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}`);
 
 export {
@@ -86,5 +102,7 @@ export {
   postJoinTeam,
   getTeams,
   getMyTeams,
+  deleteTeamMember,
+  mandateTeamMember,
   getTeamMembers,
 };
