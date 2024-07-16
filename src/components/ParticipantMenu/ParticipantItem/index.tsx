@@ -1,8 +1,13 @@
-import { Avatar, Flex, IconButton, Text } from '@chakra-ui/react';
+import { Avatar, Flex, IconButton, Text, keyframes } from '@chakra-ui/react';
 import { RiAddLine, RiCloseFill, RiVipCrownLine } from 'react-icons/ri';
 
 import { ParticipantItemProps } from '@/components/ParticipantMenu/types';
 import colors from '@/theme/foundations/colors';
+
+const textFlow = keyframes`
+  from { transform: translate(0%, 0) }
+  to { transform: translate(calc(-100% + 88px), 0); }
+`;
 
 const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: ParticipantItemProps) => {
   const handleDeleteMember = () => {
@@ -17,12 +22,28 @@ const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: Par
     onAdd(member);
   };
 
+  const textFlowAnimation = `${textFlow} 4s linear infinite`;
+
   return (
-    <Flex key={member.id} align="center" gap="4" role="group">
+    <Flex key={member.id} align="center" role="group">
       <Avatar size="sm" />
-      <Text textStyle="bold_sm" ml="2" textColor={type === 'LEADER' ? colors.orange_dark : 'black'}>
-        {member.name}
-      </Text>
+      <Flex flexGrow="1" overflow="hidden" ml="4">
+        <Text
+          textStyle="bold_sm"
+          overflow="hidden"
+          textColor={type === 'LEADER' ? colors.orange_dark : 'black'}
+          _groupHover={{
+            animation: textFlowAnimation,
+            w: '500px',
+            overflow: 'visible',
+            textOverflow: 'unset',
+          }}
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
+        >
+          {member.name}
+        </Text>
+      </Flex>
       {type === 'INCLUDE' && (
         <Flex
           gap="2"
