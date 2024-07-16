@@ -15,14 +15,13 @@ const StudyParticipantMenu = ({ studyId, teamId, leaderId }: StudyParticipantMen
   const user = useGetUser();
   const [isOpen, setIsOpen] = useState(false);
 
-  const studyMembersData = useGetFetchWithToken(getStudyMembers, [studyId], user);
-  const teamMembersData = useGetFetchWithToken(getTeamMembers, [teamId], user);
+  const studyMembers = useGetFetchWithToken(getStudyMembers, [studyId], user);
+  const teamMembers = useGetFetchWithToken(getTeamMembers, [teamId], user);
 
-  const studyMembers = studyMembersData?.data;
-  const leader = studyMembers?.find((member: Member) => member.id === leaderId);
-  const includeMembers = studyMembers?.filter((member: Member) => member.id !== leaderId);
-  const excludeMembers = teamMembersData?.data?.filter(
-    (member: Member) => !studyMembers?.find((m: Member) => m.id === member.id),
+  const leader = studyMembers?.find((data: { member: Member }) => data.member.id === leaderId).member;
+  const includeMembers = studyMembers?.filter((data: { member: Member }) => data.member.id !== leaderId);
+  const excludeMembers = teamMembers?.filter(
+    (member: Member) => !studyMembers?.find((studyData: { member: Member }) => studyData.member.id === member.id),
   );
 
   const addMember = useMutateWithToken(postStudyMember, user);

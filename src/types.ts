@@ -20,6 +20,13 @@ export interface CurriculumItemDto {
   isDeleted: boolean;
 }
 
+interface TeamReference {
+  readonly id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
 export interface Study {
   readonly id: number;
   name: string;
@@ -29,6 +36,8 @@ export interface Study {
   cropId: number;
   status: string;
   studyProgressRatio: number;
+  studyLeaderId: number;
+  teamReference: TeamReference;
 }
 
 export interface Team {
