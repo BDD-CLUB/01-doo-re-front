@@ -8,9 +8,9 @@ import { BsLink45Deg } from 'react-icons/bs';
 
 import { getDocumentList } from '@/app/api/document';
 import { getGarden } from '@/app/api/garden';
+import { getStudies } from '@/app/api/study';
 import { getTeamInfo, postInviteTeam } from '@/app/api/team';
 import Garden3D from '@/components/Garden3D';
-import { StudyCardProps } from '@/components/StudyCard/types';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
 import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
@@ -23,8 +23,7 @@ import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
-import studyCardData from '@/mocks/studyCard';
-import { DocumentList, Garden } from '@/types';
+import { DocumentList, Garden, StudyRank } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
   const teamInfo = useGetFetchWithToken(getTeamInfo, [params.teamId]);
@@ -32,7 +31,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
-  const [studyArray, setStudyArray] = useState<StudyCardProps[]>([]);
+  const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
   const [studyLength, setStudyLength] = useState<number>(0);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
@@ -47,8 +46,15 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
-      // TODO: 스터디 목록 조회하기.
-      setStudyArray(studyCardData.slice(start, start + CARD_PER_PAGE));
+      const page = Math.floor(start / CARD_PER_PAGE);
+      const size = CARD_PER_PAGE;
+
+      getStudies(params.teamId, page, size).then((res) => {
+        if (res.ok) {
+          setStudyArray(res.body);
+          setStudyLength(res.body.length);
+        }
+      });
     } else if (category === '학습자료') {
       // TODO: 학습자료 목록 조회하기.
       setDocumentArray(documentCardData?.slice(start, start + CARD_PER_PAGE) || []);
@@ -58,7 +64,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   useEffect(() => {
     // TODO: 아래의 handleNextClick의 조건문을 기능시키기 위해,
     //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
-    setStudyLength(studyCardData.length);
     setDocumentLength(documentCardData?.length || 0);
 
     getGarden(params.teamId).then((res) => {
@@ -81,10 +86,22 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   };
 
   const handleNextClick = () => {
-    if (category === '스터디' && cardIdx + CARD_PER_PAGE >= studyLength) return;
-    if (category === '학습자료' && cardIdx + CARD_PER_PAGE >= documentLength) return;
+    if (category === '스터디') {
+      if (cardIdx + CARD_PER_PAGE > studyLength) return;
 
-    setCardIdx((idx) => idx + CARD_PER_PAGE);
+      const nextPage = Math.floor((cardIdx + CARD_PER_PAGE) / CARD_PER_PAGE);
+      const size = CARD_PER_PAGE;
+
+      getStudies(params.teamId, nextPage, size).then((res) => {
+        if (res.ok) {
+          setCardIdx((idx) => idx + CARD_PER_PAGE);
+        }
+      });
+    } else if (category === '학습자료') {
+      if (cardIdx + CARD_PER_PAGE >= documentLength) return;
+
+      setCardIdx((idx) => idx + CARD_PER_PAGE);
+    }
   };
 
   const handlePlusClick = () => {
@@ -164,11 +181,23 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           )}
           {/* TODO 전체보기, 네비게이션 이동 버튼 */}
           {/* TODO 스터디 카드 */}
-          {category === '스터디' && <StudyGridView studyArray={studyArray} />}
+          {category === '스터디' && (
+            <StudyGridView
+              studyArray={studyArray.map((study, index) => ({
+                ...study.studyReferenceResponse,
+                rank: cardIdx + index + 1,
+              }))}
+            />
+          )}
           {category === '학습자료' && <DocumentGridView documentArray={documentArray} />}
         </Flex>
       </Flex>
-      <StudyModal teamId={params.teamId} isOpen={isCreateStudyModalOpen} setIsModalOpen={setIsCreateStudyModalOpen} />
+      <StudyModal
+        teamId={params.teamId}
+        isOpen={isCreateStudyModalOpen}
+        setIsModalOpen={setIsCreateStudyModalOpen}
+        studyInfo={null}
+      />
       <CreateDocumentModal
         isOpen={isCreateDocumentModalOoen}
         onClose={() => setIsCreateDocumentModalOpen(false)}

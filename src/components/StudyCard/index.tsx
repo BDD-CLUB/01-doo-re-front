@@ -1,8 +1,8 @@
 import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress } from '@chakra-ui/react';
 
-import { StudyCardProps } from '@/components/StudyCard/types';
+import { StudyCardProps } from './types';
 
-const StudyCard = ({ name, description, startDate, endDate, cropId, percent, rank }: StudyCardProps) => {
+const StudyCard = ({ name, description, startDate, endDate, cropId, studyProgressRatio, rank }: StudyCardProps) => {
   return (
     <Card
       alignItems="center"
@@ -29,8 +29,8 @@ const StudyCard = ({ name, description, startDate, endDate, cropId, percent, ran
         <Card textStyle="bold_md" alignItems="center" w="8" h="8" textAlign="center" shadow="md">
           {rank}
         </Card>
-        <Progress flex="1" h="1.5" colorScheme="blackAlpha" rounded="md" value={percent} />
-        <Text textStyle="sm">{percent}%</Text>
+        <Progress flex="1" h="1.5" colorScheme="blackAlpha" rounded="md" value={studyProgressRatio} />
+        <Text textStyle="sm">{studyProgressRatio}%</Text>
       </CardFooter>
     </Card>
   );

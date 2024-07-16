@@ -1,11 +1,11 @@
-export interface TerminateStudyModalProps {
-  studyName: string;
+import { Study } from '@/types';
+
+export interface TerminateStudyModalProps extends Pick<Study, 'id' | 'name'> {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface DeleteStudyModalProps {
-  studyName: string;
+export interface DeleteStudyModalProps extends Pick<Study, 'id' | 'name'> {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
