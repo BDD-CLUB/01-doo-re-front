@@ -9,7 +9,7 @@ import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import { teamMember } from '@/mocks/teamMember';
 import { Member } from '@/types';
 
-import MandateMemberModal from './MandateMemberModal';
+import MandateTeamLeaderModal from './MandateTeamLeaderModal';
 import RemoveTeamMemberModal from './RemoveTeamMemberModal';
 
 const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) => {
@@ -84,7 +84,7 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
         teamName={teamName}
         onClose={handleModalCloseClick}
       />
-      <MandateMemberModal
+      <MandateTeamLeaderModal
         member={modalMember}
         isOpen={mandateModalOpen}
         teamId={teamId}

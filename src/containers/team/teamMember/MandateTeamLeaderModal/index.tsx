@@ -1,8 +1,10 @@
+import { Text } from '@chakra-ui/react';
+
 import ConfirmModal from '@/components/Modal/ConfirmModal';
 
 import { MemberModalProps } from '../types';
 
-const MandateMemberModal = ({ member, isOpen, onClose }: MemberModalProps) => {
+const MandateTeamLeaderModal = ({ member, isOpen, teamId, teamName, onClose }: MemberModalProps) => {
   const handleMandateMemberClick = () => {
     // TODO: 팀장 권한 위임 api 연결
     onClose();
@@ -16,9 +18,16 @@ const MandateMemberModal = ({ member, isOpen, onClose }: MemberModalProps) => {
       confirmButtonText="위임"
       onConfirmButtonClick={handleMandateMemberClick}
     >
-      {member.name}에게 팀장을 위임하겠습니까?
+      <Text textStyle="bold_md" textAlign="center">
+        {`"${member.name}"를 "${teamName}" 팀의 팀장으로`}
+        <br />
+        <Text display="inline" color="orange_dark">
+          위임
+        </Text>
+        하시겠습니까?
+      </Text>
     </ConfirmModal>
   );
 };
 
-export default MandateMemberModal;
+export default MandateTeamLeaderModal;
