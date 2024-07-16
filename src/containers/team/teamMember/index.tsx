@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { getTeamMembers } from '@/app/api/team';
 import ParticipantMenu from '@/components/ParticipantMenu';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
-import { teamMember } from '@/mocks/teamMember';
 import { Member } from '@/types';
 
 import MandateTeamLeaderModal from './MandateTeamLeaderModal';
@@ -45,9 +44,6 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
     if (members && members.length > 1) {
       setTeamMembers(members.slice(1));
     }
-    /* TODO: mocks data 삭제 */
-    setTeamLeader(teamMember[0]);
-    setTeamMembers(teamMember);
   }, [members]);
 
   return (
