@@ -12,7 +12,7 @@ import { Member } from '@/types';
 import MandateMemberModal from './MandateMemberModal';
 import RemoveTeamMemberModal from './RemoveTeamMemberModal';
 
-const TeamMember = ({ teamId }: { teamId: number }) => {
+const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) => {
   const [teamLeader, setTeamLeader] = useState<Member>({ id: -1, name: '', imageUrl: '' });
   const [teamMembers, setTeamMembers] = useState<Member[]>([]);
   const [mandateModalOpen, setMandateModalOpen] = useState<boolean>(false);
@@ -81,12 +81,14 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
         member={modalMember}
         isOpen={firedModalOpen}
         teamId={teamId}
+        teamName={teamName}
         onClose={handleModalCloseClick}
       />
       <MandateMemberModal
         member={modalMember}
         isOpen={mandateModalOpen}
         teamId={teamId}
+        teamName={teamName}
         onClose={handleModalCloseClick}
       />
     </Box>
