@@ -1,26 +1,18 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { BiFile, BiLink } from 'react-icons/bi';
-// import { BsFolder2Open } from 'react-icons/bs';
 
 import { getDocument } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
-// import documentFileData from '@/mocks/documentFileData';
-// import documentImgData from '@/mocks/documentImgData';
-// import documentLinkData from '@/mocks/documentLinkData';
 import colors from '@/theme/foundations/colors';
 import { DocumentDetail } from '@/types';
 
 import { DocumentModalProps } from './types';
 
 const DocumentModal = ({ id, isOpen, setIsModalOpen }: DocumentModalProps) => {
-  // const linkData = documentLinkData;
-  // const imgData = documentImgData;
-  // const fileData = documentFileData;
-
   const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
   console.log(document);
 

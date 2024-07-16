@@ -16,8 +16,6 @@ const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
             description={document.description}
             date={document.date}
             uploaderName={document.uploaderName}
-            // bookmark={document.bookmark}
-            // img={document.img}
           />
         );
       }) || null}

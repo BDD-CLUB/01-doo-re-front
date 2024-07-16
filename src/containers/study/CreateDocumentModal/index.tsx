@@ -69,13 +69,10 @@ const CreateDocumentModal = ({ isOpen, onClose, teamId }: DocumentModalProps) =>
       docList.IMAGE.forEach((img) => {
         documentForm.append('files', img.content as Blob);
       });
-
-      // console.log('docImg : ', docList.IMAGE);
     } else if (doctype === 'DOCUMENT') {
       docList.DOCUMENT.forEach((file) => {
         documentForm.append('files', file.content as Blob);
       });
-      // console.log('docList : ', docList.DOCUMENT);
     }
     createDocs('teams', teamId, documentForm).then((response) => {
       if (response.ok) {

@@ -76,8 +76,6 @@ const Page = ({ params }: { params: { studyId: number } }) => {
                     description={data.description}
                     date={data.date}
                     uploaderName={data.uploaderName}
-                    // bookmark={data.bookmark}
-                    // img={data.img}
                   />
                 ))}
               </Grid>
