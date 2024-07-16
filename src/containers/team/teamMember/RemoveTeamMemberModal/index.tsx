@@ -9,7 +9,7 @@ import { MemberModalProps } from '../types';
 const RemoveTeamMemberModal = ({ member, isOpen, teamId, teamName, onClose }: MemberModalProps) => {
   const deleteMember = useMutateWithToken(deleteTeamMember);
 
-  const handleFiredMemberClick = () => {
+  const handleRemoveMemberClick = () => {
     deleteMember(teamId, member.id).then((res) => {
       if (!res.ok) {
         alert('팀원을 삭제하는데 실패했습니다.');
@@ -24,7 +24,7 @@ const RemoveTeamMemberModal = ({ member, isOpen, teamId, teamName, onClose }: Me
       onClose={onClose}
       title="팀원 삭제"
       confirmButtonText="삭제"
-      onConfirmButtonClick={handleFiredMemberClick}
+      onConfirmButtonClick={handleRemoveMemberClick}
     >
       <Text textStyle="bold_md" textAlign="center">
         {`"${member.name}"를 "${teamName}" 팀에서`}
