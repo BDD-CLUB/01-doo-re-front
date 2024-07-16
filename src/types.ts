@@ -68,6 +68,11 @@ export interface TeamRank {
   teamGardenResponse: Garden[];
 }
 
+export interface StudyRank {
+  point: number;
+  studyReferenceResponse: Study;
+}
+
 export interface Document {
   title: string;
   description: string;

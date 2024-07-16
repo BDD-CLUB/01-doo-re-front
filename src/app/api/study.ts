@@ -84,6 +84,9 @@ const getStudyMembers = (token: string, studyId: number) =>
     },
   });
 
+const getStudies = (studyId: number, page: number, size: number) =>
+  studyFetcher(`/teams/${studyId}/studies?page=${page}&size=${size}`);
+
 const getCurriculum = (token: string, studyId: number) =>
   studyFetcher(`/studies/${studyId}/curriculums`, {
     method: 'GET',
@@ -129,6 +132,7 @@ export {
   deleteStudyMember,
   leaveStudy,
   getStudyMembers,
+  getStudies,
   getCurriculum,
   postCurriculum,
   patchCurriculumCompleted,
