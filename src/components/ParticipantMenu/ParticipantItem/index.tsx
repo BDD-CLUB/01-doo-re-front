@@ -4,11 +4,6 @@ import { RiAddLine, RiCloseFill, RiVipCrownLine } from 'react-icons/ri';
 import { ParticipantItemProps } from '@/components/ParticipantMenu/types';
 import colors from '@/theme/foundations/colors';
 
-const textFlow = keyframes`
-  from { transform: translate(0%, 0) }
-  to { transform: translate(calc(-100% + 88px), 0); }
-`;
-
 const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: ParticipantItemProps) => {
   const handleDeleteMember = () => {
     onRemove(member);
@@ -22,6 +17,10 @@ const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: Par
     onAdd(member);
   };
 
+  const textFlow = keyframes`
+    from { transform: translate(0%, 0) }
+    to { transform: translate(calc(-100% + ${type === 'LEADER' ? '116px' : '68px'}), 0); }
+  `;
   const textFlowAnimation = `${textFlow} 4s linear infinite`;
 
   return (
