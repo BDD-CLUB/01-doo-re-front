@@ -2,14 +2,11 @@
 
 import { Card, CardBody, CardFooter, Image, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-// import { BiBookmark } from 'react-icons/bi';
 
 import DocumentModal from '@/containers/study/DocumentModal';
 import { DocumentList } from '@/types';
 
-// import { DocumentCardProps } from './types';
-
-const DocumentCard = ({ title, description, date }: DocumentList) => {
+const DocumentCard = ({ id, title, description, date }: DocumentList) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -21,13 +18,7 @@ const DocumentCard = ({ title, description, date }: DocumentList) => {
       onClick={() => setIsModalOpen(true)}
       rounded="xl"
     >
-      <DocumentModal
-        isOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        title={title}
-        description={description}
-        type="file"
-      />
+      <DocumentModal id={id} isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       <Image objectFit="cover" alt="study card" rounded="sm" src="https://url.kr/MVKGTf" />
       <CardBody px="2">
         <Text textStyle="bold_md">{title}</Text>

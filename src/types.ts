@@ -98,7 +98,7 @@ export interface DocumentFile {
   url: string;
 }
 
-export interface DocumenDetail extends DocumentList {
+export interface DocumentDetail extends DocumentList {
   accessType: DocumentAccessType;
   type: DocumentType;
   files: DocumentFile[];

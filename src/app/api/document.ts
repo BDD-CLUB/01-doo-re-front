@@ -19,11 +19,12 @@ const getDocumentList = (token: string, request: string) =>
     },
   });
 
-const getDocument = (documentId: number) => {
+const getDocument = (token: string, documentId: number) =>
   documentFetcher(`/${documentId}`, {
-    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-};
 
 const putDocument = (documentId: number, title: string, description: string, accessType: DocumentType) => {
   documentFetcher(`/${documentId}`, {

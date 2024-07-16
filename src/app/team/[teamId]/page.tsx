@@ -41,7 +41,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [isCreateDocumentModalOoen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
 
   const documentCardData: DocumentList[] = useGetFetchWithToken(getDocumentList, [
-    `teams/${params.teamId}/documents?page=0&size=4 `,
+    `teams/${params.teamId}/documents?page=0&size=8 `,
   ]);
   const inviteTeam = useMutateWithToken(postInviteTeam);
 
