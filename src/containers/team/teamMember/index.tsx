@@ -18,15 +18,7 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
   const [mandateModalOpen, setMandateModalOpen] = useState<boolean>(false);
   const [firedModalOpen, setFiredModalOpen] = useState<boolean>(false);
   const [modalMember, setModalMember] = useState<Member>({ id: -1, name: '', imageUrl: '' });
-  const [isHovering, setIsHovering] = useState<boolean>(false);
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleRemoveButtonClick = (member: Member) => {
     setModalMember(member);
@@ -41,7 +33,7 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
   const handleModalCloseClick = () => {
     setMandateModalOpen(false);
     setFiredModalOpen(false);
-    setIsHovering(false);
+    setIsOpen(false);
   };
 
   const members: Member[] = useGetFetchWithToken(getTeamMembers, [teamId]);
@@ -52,21 +44,29 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
     }
     if (members && members.length > 1) {
       setTeamMembers(members.slice(1));
-      /* TODO: mocks data 삭제 */
-      setTeamMembers(teamMember);
     }
+    /* TODO: mocks data 삭제 */
+    setTeamLeader(teamMember[0]);
+    setTeamMembers(teamMember);
   }, [members]);
 
   return (
-    <Box onMouseOut={handleMouseOut} onMouseOver={handleMouseOver}>
+    <Box
+      onMouseOut={() => {
+        setIsOpen(false);
+      }}
+      onMouseOver={() => {
+        setIsOpen(true);
+      }}
+    >
       <ParticipantMenu
         gap="3"
         w="fit-content"
         ml="auto"
         leader={teamLeader}
         includeMembers={teamMembers}
-        isOpen={isHovering}
-        setIsOpen={setIsHovering}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
         onRemove={handleRemoveButtonClick}
         onMandateLeader={handleMandateLeaderButtonClick}
       >
@@ -75,7 +75,6 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
             return <Avatar key={member.id} name={member.name} src={member.imageUrl} />;
           })}
         </AvatarGroup>
-        <Box>팀원</Box>
       </ParticipantMenu>
       <RemoveTeamMemberModal
         member={modalMember}
