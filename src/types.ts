@@ -88,7 +88,7 @@ export interface DocumentList {
   description: string;
   date: string;
   uploaderName: string;
-  // img: 'https://url.kr/MVKGTf';
+  // img: string;
 }
 
 export interface DocumentFile {
