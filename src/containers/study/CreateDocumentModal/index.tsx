@@ -22,7 +22,7 @@ const DocumentBoxIcon = {
   URL: <BsLink45Deg />,
 };
 
-const CreateDocumentModal = ({ isOpen, onClose, teamId }: DocumentModalProps) => {
+const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
     IMAGE: [],
@@ -74,7 +74,7 @@ const CreateDocumentModal = ({ isOpen, onClose, teamId }: DocumentModalProps) =>
         documentForm.append('files', file.content as Blob);
       });
     }
-    createDocs('teams', teamId, documentForm).then((response) => {
+    createDocs(groupType, groupId, documentForm).then((response) => {
       if (response.ok) {
         onClose();
       }

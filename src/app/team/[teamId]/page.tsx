@@ -39,9 +39,9 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
   const [isCreateDocumentModalOoen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
 
-  const documentCardData: DocumentList[] = useGetFetchWithToken(getDocumentList, [
-    `teams/${params.teamId}/documents?page=0&size=8 `,
-  ]);
+  // const documentCardData: DocumentList[] = useGetFetchWithToken(getDocumentList, [
+  //   `teams/${params.teamId}/documents?page=0&size=8 `,
+  // ]);
   const inviteTeam = useMutateWithToken(postInviteTeam);
 
   const getCardData = (start: number) => {
@@ -56,16 +56,23 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         }
       });
     } else if (category === '학습자료') {
+      const page = Math.floor(start / CARD_PER_PAGE);
+      const size = CARD_PER_PAGE;
+
       // TODO: 학습자료 목록 조회하기.
-      setDocumentArray(documentCardData?.slice(start, start + CARD_PER_PAGE) || []);
+      getDocumentList('teams', params.teamId, page, size).then((res) => {
+        if (res.ok) {
+          setDocumentArray(res.body);
+          setDocumentLength(res.body.length);
+        }
+      });
     }
   };
 
   useEffect(() => {
     // TODO: 아래의 handleNextClick의 조건문을 기능시키기 위해,
     //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
-    setDocumentLength(documentCardData?.length || 0);
-
+    // setDocumentLength(documentCardData?.length || 0);
     getGarden(params.teamId).then((res) => {
       setGarden(res.body);
     });
@@ -98,9 +105,16 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         }
       });
     } else if (category === '학습자료') {
-      if (cardIdx + CARD_PER_PAGE >= documentLength) return;
+      if (cardIdx + CARD_PER_PAGE > documentLength) return;
 
-      setCardIdx((idx) => idx + CARD_PER_PAGE);
+      const nextPage = Math.floor((cardIdx + CARD_PER_PAGE) / CARD_PER_PAGE);
+      const size = CARD_PER_PAGE;
+
+      getDocumentList('teams', params.teamId, nextPage, size).then((res) => {
+        if (res.ok) {
+          setCardIdx((idx) => idx + CARD_PER_PAGE);
+        }
+      });
     }
   };
 
@@ -201,7 +215,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       <CreateDocumentModal
         isOpen={isCreateDocumentModalOoen}
         onClose={() => setIsCreateDocumentModalOpen(false)}
-        teamId={params.teamId}
+        groupId={params.teamId}
+        groupType="teams"
       />
     </>
   );

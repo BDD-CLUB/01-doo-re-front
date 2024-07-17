@@ -14,7 +14,6 @@ import { DocumentModalProps } from './types';
 
 const DocumentModal = ({ id, isOpen, setIsModalOpen }: DocumentModalProps) => {
   const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
-  console.log(document);
 
   return (
     <ActionModal

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Documents from '@/containers/document/Documents';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 
-const Page = ({ params }: { params: { teamId: number } }) => {
+const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   return (
     <Flex align="center" direction="column" gap="9" w="100%" p="8">
@@ -18,8 +18,13 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           자료 등록
         </Button>
       </Flex>
-      <Documents />
-      <CreateDocumentModal isOpen={openCreateModal} onClose={() => setOpenCreateModal(false)} teamId={params.teamId} />
+      <Documents studyId={params.studyId} />
+      <CreateDocumentModal
+        isOpen={openCreateModal}
+        onClose={() => setOpenCreateModal(false)}
+        groupId={params.studyId}
+        groupType="studies"
+      />
     </Flex>
   );
 };

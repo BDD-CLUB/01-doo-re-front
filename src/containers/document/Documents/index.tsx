@@ -1,39 +1,63 @@
 'use client';
 
 import { Flex, Grid, useBreakpointValue } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { getDocumentList } from '@/app/api/document';
 import DocumentCard from '@/components/DocumentCard';
 import PageNavigator from '@/components/PageNavigator';
-import documentCardDataAll from '@/mocks/documentCardAll';
+import { DocumentList } from '@/types';
 
-const Documents = () => {
+import { DocumentPageProps } from './types';
+
+const Documents = ({ studyId }: DocumentPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
+  const [documentLength, setDocumentLength] = useState<number>(0);
 
   const itemsPerPage = useBreakpointValue({ base: 4, md: 8, xl: 10 })!;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = currentPage * itemsPerPage;
-  const currentData = documentCardDataAll.slice(startIndex, endIndex);
+  const currentData = documentArray.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    // getDocumentList('teams', teamId, 0, 8).then((res) => {
+    //   if (res.ok) {
+    //     setDocumentArray(res.body);
+    //     setDocumentLength(() => res.body.length);
+    //   }
+    // });
+    // if (documentLength < 8) {
+    getDocumentList('studies', studyId, 0, 8).then((res) => {
+      if (res.ok) {
+        setDocumentArray(res.body);
+        setDocumentLength((cur) => cur + res.body.length);
+      }
+    });
+    // }
+  }, [studyId]);
+
   return (
     <Flex direction="column">
       <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns={`repeat(${itemsPerPage / 2}, 1fr)`} w="100%">
         {currentData.map((data) => (
           <DocumentCard
             id={data.id}
-            key={data.title}
+            key={data.id}
             title={data.title}
-            content={data.content}
+            description={data.description}
             date={data.date}
-            bookmark={data.bookmark}
-            img={data.img}
+            uploaderName={data.uploaderName}
+            // bookmark={data.bookmark}
+            // img={data.img}
           />
         ))}
       </Grid>
       <PageNavigator
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        componentLength={documentCardDataAll.length}
+        componentLength={documentLength}
         itemsPerPage={itemsPerPage}
       />
     </Flex>
