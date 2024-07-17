@@ -14,10 +14,6 @@ const postDocument = (token: string, groupType: string, groupId: number, request
 
 const getDocumentList = (category: string, teamId: number, page: number, size: number) =>
   documentFetcher(`/${category}/${teamId}/documents?page=${page}&size=${size}`);
-// headers: {
-//   Authorization: `Bearer ${token}`,
-// },
-// });
 
 const getDocument = (token: string, documentId: number) =>
   documentFetcher(`/${documentId}`, {
@@ -37,10 +33,12 @@ const putDocument = (documentId: number, title: string, description: string, acc
   });
 };
 
-const deleteDocument = (documentId: number) => {
+const deleteDocument = (token: string, documentId: number) =>
   documentFetcher(`/${documentId}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-};
 
 export { postDocument, getDocumentList, getDocument, putDocument, deleteDocument };

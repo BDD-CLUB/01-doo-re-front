@@ -10,10 +10,10 @@ import { DocumentList } from '@/types';
 
 import { DocumentPageProps } from './types';
 
-const Documents = ({ studyId }: DocumentPageProps) => {
+const Documents = ({ groupId, category }: DocumentPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
-  const [documentLength, setDocumentLength] = useState<number>(0);
+  const [documentLength, setDocumentLength] = useState<number>(4);
 
   const itemsPerPage = useBreakpointValue({ base: 4, md: 8, xl: 10 })!;
 
@@ -29,14 +29,14 @@ const Documents = ({ studyId }: DocumentPageProps) => {
     //   }
     // });
     // if (documentLength < 8) {
-    getDocumentList('studies', studyId, 0, 8).then((res) => {
+    getDocumentList(category, groupId, 0, 12).then((res) => {
       if (res.ok) {
         setDocumentArray(res.body);
         setDocumentLength((cur) => cur + res.body.length);
       }
     });
     // }
-  }, [studyId]);
+  }, [groupId, category]);
 
   return (
     <Flex direction="column">

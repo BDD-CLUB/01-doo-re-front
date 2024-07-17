@@ -1,3 +1,4 @@
 export interface DocumentPageProps {
-  studyId: number;
+  category: 'studies' | 'teams';
+  groupId: number;
 }

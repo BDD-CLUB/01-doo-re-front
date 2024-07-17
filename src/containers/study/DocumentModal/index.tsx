@@ -2,11 +2,11 @@ import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { BiFile, BiLink } from 'react-icons/bi';
 
-import { getDocument } from '@/app/api/document';
+import { deleteDocument, getDocument, getDocumentList } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
-import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
+import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 import colors from '@/theme/foundations/colors';
 import { DocumentDetail } from '@/types';
 
@@ -14,6 +14,16 @@ import { DocumentModalProps } from './types';
 
 const DocumentModal = ({ id, isOpen, setIsModalOpen }: DocumentModalProps) => {
   const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
+  const deleteDocs = useMutateWithToken(deleteDocument);
+  const onDelete = () => {
+    deleteDocs(id).then(() => {
+      setIsModalOpen(false);
+
+      getDocumentList('teams', 1, 0, 12).then((res) => {
+        console.log(res.body);
+      });
+    });
+  };
 
   return (
     <ActionModal
@@ -22,7 +32,7 @@ const DocumentModal = ({ id, isOpen, setIsModalOpen }: DocumentModalProps) => {
       title={`[ ${document?.title} ]`}
       subButtonText="삭제"
       mainButtonText="수정"
-      onSubButtonClick={() => setIsModalOpen(false)}
+      onSubButtonClick={() => onDelete()}
       onMainButtonClick={() => setIsModalOpen(false)}
     >
       <Flex textStyle="bold_md" gap="4">

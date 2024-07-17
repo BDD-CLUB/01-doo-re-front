@@ -76,6 +76,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     getGarden(params.teamId).then((res) => {
       setGarden(res.body);
     });
+    TEAM_CATEGORY_INFOS[1].page = `/team/${params.teamId}/document`;
   }, []);
 
   useEffect(() => {
