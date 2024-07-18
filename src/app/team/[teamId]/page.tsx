@@ -62,8 +62,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       // TODO: 학습자료 목록 조회하기.
       getDocumentList('teams', params.teamId, page, size).then((res) => {
         if (res.ok) {
-          setDocumentArray(res.body);
-          setDocumentLength(res.body.length);
+          setDocumentArray(res.body.content);
+          setDocumentLength(res.body.numberOfElements);
         }
       });
     }

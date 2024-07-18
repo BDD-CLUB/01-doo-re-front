@@ -2,7 +2,7 @@ import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { BiFile, BiLink } from 'react-icons/bi';
 
-import { deleteDocument, getDocument, getDocumentList } from '@/app/api/document';
+import { deleteDocument, getDocument } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
@@ -19,9 +19,9 @@ const DocumentModal = ({ id, isOpen, setIsModalOpen }: DocumentModalProps) => {
     deleteDocs(id).then(() => {
       setIsModalOpen(false);
 
-      getDocumentList('teams', 1, 0, 12).then((res) => {
-        console.log(res.body);
-      });
+      // getDocumentList('teams', 1, 0, 12).then((res) => {
+      //   console.log(res.body.content);
+      // });
     });
   };
 

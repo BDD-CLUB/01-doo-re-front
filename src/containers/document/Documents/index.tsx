@@ -29,14 +29,14 @@ const Documents = ({ groupId, category }: DocumentPageProps) => {
     //   }
     // });
     // if (documentLength < 8) {
-    getDocumentList(category, groupId, 0, 12).then((res) => {
+    getDocumentList(category, groupId, 0, documentLength).then((res) => {
       if (res.ok) {
-        setDocumentArray(res.body);
-        setDocumentLength((cur) => cur + res.body.length);
+        setDocumentArray(res.body.content);
+        setDocumentLength(res.body.totalElements);
       }
     });
     // }
-  }, [groupId, category]);
+  }, [groupId, category, currentData, documentLength]);
 
   return (
     <Flex direction="column">

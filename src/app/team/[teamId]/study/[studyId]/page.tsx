@@ -33,7 +33,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
     });
     getDocumentList('studies', params.studyId, 0, 8).then((res) => {
       if (res.ok) {
-        setDocumentArray(res.body);
+        setDocumentArray(res.body.content);
       }
     });
   }, [params.studyId]);
