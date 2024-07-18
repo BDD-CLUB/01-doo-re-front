@@ -34,7 +34,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [cardIdx, setCardIdx] = useState<number>(0);
 
   const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
-  const [studyLength, setStudyLength] = useState<number>(0);
   const [documentArray, setDocumentArray] = useState<DocumentCardProps[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
 
@@ -50,7 +49,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       getStudies(params.teamId, page, size).then((res) => {
         if (res.ok) {
           setStudyArray(res.body);
-          setStudyLength(res.body.length);
         }
       });
     } else if (category === '학습자료') {
