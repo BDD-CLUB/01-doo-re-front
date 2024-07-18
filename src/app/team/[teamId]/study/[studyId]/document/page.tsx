@@ -5,9 +5,11 @@ import { useState } from 'react';
 
 import Documents from '@/containers/document/Documents';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
+import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const categoryData: CreateDocument = { groupId: params.studyId, groupType: 'studies' };
   return (
     <Flex align="center" direction="column" gap="9" w="100%" p="8">
       <Flex justify="space-between" w="100%">
@@ -22,8 +24,8 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
       <CreateDocumentModal
         isOpen={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
-        groupId={params.studyId}
-        groupType="studies"
+        categoryData={categoryData}
+        category="create"
       />
     </Flex>
   );

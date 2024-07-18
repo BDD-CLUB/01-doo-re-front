@@ -31,7 +31,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
     getStudy(params.studyId).then((data) => {
       setStudyData(data.body);
     });
-    getDocumentList('studies', params.studyId, 0, 8).then((res) => {
+    getDocumentList('studies', params.studyId, 0, 4).then((res) => {
       if (res.ok) {
         setDocumentArray(res.body.content);
       }

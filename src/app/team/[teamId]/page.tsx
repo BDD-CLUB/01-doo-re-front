@@ -15,6 +15,7 @@ import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
 import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
+import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import AttendanceRate from '@/containers/team/AttendanceRate';
 import DocumentGridView from '@/containers/team/DocumentGridView';
@@ -28,21 +29,17 @@ import { DocumentList, Garden, StudyRank } from '@/types';
 const Page = ({ params }: { params: { teamId: number } }) => {
   const teamInfo = useGetFetchWithToken(getTeamInfo, [params.teamId]);
   const [garden, setGarden] = useState<Garden[]>([]);
-
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
   const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
   const [studyLength, setStudyLength] = useState<number>(0);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
-
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
   const [isCreateDocumentModalOoen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
 
-  // const documentCardData: DocumentList[] = useGetFetchWithToken(getDocumentList, [
-  //   `teams/${params.teamId}/documents?page=0&size=8 `,
-  // ]);
   const inviteTeam = useMutateWithToken(postInviteTeam);
+  const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
@@ -216,8 +213,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       <CreateDocumentModal
         isOpen={isCreateDocumentModalOoen}
         onClose={() => setIsCreateDocumentModalOpen(false)}
-        groupId={params.teamId}
-        groupType="teams"
+        categoryData={categoryData}
+        category="create"
       />
     </>
   );

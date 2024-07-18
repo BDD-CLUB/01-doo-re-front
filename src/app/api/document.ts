@@ -1,5 +1,4 @@
 import { fetcher } from '@/app/api/fetcher';
-import { DocumentType } from '@/types';
 
 const documentFetcher = fetcher();
 
@@ -22,16 +21,14 @@ const getDocument = (token: string, documentId: number) =>
     },
   });
 
-const putDocument = (documentId: number, title: string, description: string, accessType: DocumentType) => {
+const putDocument = (token: string, documentId: number, response: FormData) =>
   documentFetcher(`/${documentId}`, {
     method: 'PUT',
-    body: {
-      title,
-      description,
-      accessType,
+    body: response,
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
-};
 
 const deleteDocument = (token: string, documentId: number) =>
   documentFetcher(`/${documentId}`, {

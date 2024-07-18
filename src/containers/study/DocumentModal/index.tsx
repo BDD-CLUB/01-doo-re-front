@@ -2,38 +2,38 @@ import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { BiFile, BiLink } from 'react-icons/bi';
 
-import { deleteDocument, getDocument } from '@/app/api/document';
+import { deleteDocument } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
-import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import colors from '@/theme/foundations/colors';
-import { DocumentDetail } from '@/types';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ id, isOpen, setIsModalOpen }: DocumentModalProps) => {
-  const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
+const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setIsCreateDocsModalOpen, document }: DocumentModalProps) => {
   const deleteDocs = useMutateWithToken(deleteDocument);
   const onDelete = () => {
     deleteDocs(id).then(() => {
-      setIsModalOpen(false);
-
-      // getDocumentList('teams', 1, 0, 12).then((res) => {
-      //   console.log(res.body.content);
-      // });
+      setIsDocsModalOpen(false);
+      // Todo : delete document 후에 페이지 리로드 필요
     });
+  };
+
+  const EditDocs = () => {
+    setIsDocsModalOpen(false);
+    setIsCreateDocsModalOpen(true);
   };
 
   return (
     <ActionModal
       isOpen={isOpen}
-      onClose={() => setIsModalOpen(false)}
+      onClose={() => setIsDocsModalOpen(false)}
       title={`[ ${document?.title} ]`}
       subButtonText="삭제"
       mainButtonText="수정"
       onSubButtonClick={() => onDelete()}
-      onMainButtonClick={() => setIsModalOpen(false)}
+      onMainButtonClick={() => EditDocs()}
     >
       <Flex textStyle="bold_md" gap="4">
         <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">

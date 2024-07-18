@@ -1,10 +1,21 @@
-import { DocumentType } from '@/types';
+import { DocumentDetail, DocumentType } from '@/types';
+
+export interface CreateDocument {
+  groupId: number;
+  groupType: 'teams' | 'studies';
+}
+
+export interface UpdateDocument {
+  title: string;
+  description: string;
+  accessType: string;
+}
 
 export interface DocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  groupId: number;
-  groupType: 'teams' | 'studies';
+  categoryData: CreateDocument | DocumentDetail;
+  category: 'create' | 'update';
 }
 
 interface Document {

@@ -5,16 +5,21 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { BiFile, BiImage, BiTrash } from 'react-icons/bi';
 import { BsLink45Deg } from 'react-icons/bs';
 
-import { postDocument } from '@/app/api/document';
+import { postDocument, putDocument } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import StyledRadio from '@/components/StyledRadio';
 import StyledRadioGroup from '@/components/StyledRadioGroup';
 import color from '@/constants/color';
-import { DocumentModalProps, DocumentList } from '@/containers/study/CreateDocumentModal/type';
+import {
+  DocumentModalProps,
+  DocumentList,
+  CreateDocument,
+  UpdateDocument,
+} from '@/containers/study/CreateDocumentModal/type';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
-import { Document, DocumentAccessType, DocumentType } from '@/types';
+import { Document, DocumentAccessType, DocumentDetail, DocumentType } from '@/types';
 
 const DocumentBoxIcon = {
   IMAGE: <BiImage />,
@@ -22,7 +27,7 @@ const DocumentBoxIcon = {
   URL: <BsLink45Deg />,
 };
 
-const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentModalProps) => {
+const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
     IMAGE: [],
@@ -37,6 +42,7 @@ const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentMo
   const [selectedValue, setSelectedValue] = useState<DocumentAccessType>('ALL');
 
   const createDocs = useMutateWithToken(postDocument);
+  const postDocs = useMutateWithToken(putDocument);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -52,7 +58,7 @@ const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentMo
   const user = useGetUser();
 
   const onConfirmButtonClick = () => {
-    const documentInfo: Document = {
+    const createDocumentInfo: Document = {
       title,
       description,
       accessType: selectedValue,
@@ -60,25 +66,45 @@ const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentMo
       url: (docList.URL[0]?.content as string) || '',
       uploaderId: user?.memberId || 0,
     };
+    const UpdateDocumentInfo: UpdateDocument = {
+      title,
+      description,
+      accessType: selectedValue,
+    };
     const documentForm: FormData = new FormData();
-    const requestBlob = new Blob([JSON.stringify(documentInfo)], { type: 'application/json' });
 
-    documentForm.append('request', requestBlob);
+    if (category === 'create') {
+      const requestBlob = new Blob([JSON.stringify(createDocumentInfo)], { type: 'application/json' });
+      documentForm.append('request', requestBlob);
+    } else if (category === 'update') {
+      const requestBlob = new Blob([JSON.stringify(UpdateDocumentInfo)], { type: 'application/json' });
+      documentForm.append('request', requestBlob);
+    }
 
-    if (doctype === 'IMAGE') {
+    if (doctype === 'IMAGE' && category === 'create') {
       docList.IMAGE.forEach((img) => {
         documentForm.append('files', img.content as Blob);
       });
-    } else if (doctype === 'DOCUMENT') {
+    } else if (doctype === 'DOCUMENT' && category === 'create') {
       docList.DOCUMENT.forEach((file) => {
         documentForm.append('files', file.content as Blob);
       });
     }
-    createDocs(groupType, groupId, documentForm).then((response) => {
-      if (response.ok) {
-        onClose();
-      }
-    });
+    if (category === 'create') {
+      const categoryDatas = categoryData as CreateDocument;
+      createDocs(categoryDatas.groupType, categoryDatas.groupId, documentForm).then((response) => {
+        if (response.ok) {
+          onClose();
+        }
+      });
+    } else if (category === 'update') {
+      const categoryDatas = categoryData as DocumentDetail;
+      postDocs(categoryDatas.id, documentForm).then((response) => {
+        if (response.ok) {
+          onClose();
+        }
+      });
+    }
 
     onClose();
   };
@@ -164,10 +190,24 @@ const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentMo
     >
       <Flex direction="column" gap="4">
         <Text textStyle="bold_xl">학습자료 제목</Text>
-        <Input onChange={handleTitleChange} placeholder="학습자료 제목을 입력해주세요." value={title} />
+        <Input
+          onChange={handleTitleChange}
+          placeholder={category === 'create' ? '학습자료 제목을 입력해주세요.' : (categoryData as DocumentDetail).title}
+          value={title}
+        />
         <Text textStyle="bold_xl">학습자료 소개</Text>
-        <Textarea onChange={handleDescriptionChange} placeholder="학습자료 소개를 입력해주세요." value={description} />
-        <StyledRadioGroup title="파일 유형" value={doctype} onChange={(v) => setDocType(v as DocumentType)}>
+        <Textarea
+          onChange={handleDescriptionChange}
+          placeholder={
+            category === 'create' ? '학습자료 소개를 입력해주세요.' : (categoryData as DocumentDetail).description
+          }
+          value={description}
+        />
+        <StyledRadioGroup
+          title="파일 유형"
+          value={category === 'create' ? doctype : (categoryData as DocumentDetail).type}
+          onChange={category === 'create' ? (v) => setDocType(v as DocumentType) : () => {}}
+        >
           <StyledRadio value="IMAGE">이미지</StyledRadio>
           <StyledRadio value="DOCUMENT">파일</StyledRadio>
           <StyledRadio value="URL">URL 링크</StyledRadio>
@@ -181,7 +221,13 @@ const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentMo
             hidden={doctype !== 'URL'}
             placeholder="URL 링크를 입력해주세요."
           />
-          <Button w="28" h="7" shadow="md" onClick={() => handleAddDoc[doctype]()} variant="orange">
+          <Button
+            w="28"
+            h="7"
+            shadow="md"
+            onClick={category === 'create' ? () => handleAddDoc[doctype]() : () => {}}
+            variant="orange"
+          >
             추가하기
           </Button>
         </Flex>
@@ -203,11 +249,15 @@ const CreateDocumentModal = ({ isOpen, onClose, groupId, groupType }: DocumentMo
                 leftIcon={DocumentBoxIcon[doctype]}
                 content={doc.name}
                 rightIcon={<BiTrash />}
-                handleClick={() => handleRemoveDoc(index)}
+                handleClick={category === 'create' ? () => handleRemoveDoc(index) : () => {}}
               />
             ))}
         </Flex>
-        <StyledRadioGroup title="공개 범위" defaultValue="ALL" onChange={handleChange}>
+        <StyledRadioGroup
+          title="공개 범위"
+          defaultValue={category === 'create' ? 'ALL' : (categoryData as DocumentDetail).accessType}
+          onChange={handleChange}
+        >
           <StyledRadio value="ALL">전체 공개</StyledRadio>
           <StyledRadio value="TEAM">팀 공개</StyledRadio>
         </StyledRadioGroup>

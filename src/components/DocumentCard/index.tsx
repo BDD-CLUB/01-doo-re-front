@@ -3,11 +3,16 @@
 import { Card, CardBody, CardFooter, Image, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { getDocument } from '@/app/api/document';
+import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import DocumentModal from '@/containers/study/DocumentModal';
-import { DocumentList } from '@/types';
+import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
+import { DocumentDetail, DocumentList } from '@/types';
 
 const DocumentCard = ({ id, title, description, date }: DocumentList) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [docsModalOpen, setIsDocsModalOpen] = useState(false);
+  const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState(false);
+  const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
 
   return (
     <Card
@@ -15,10 +20,22 @@ const DocumentCard = ({ id, title, description, date }: DocumentList) => {
       p="2"
       shadow="md"
       _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}
-      onClick={() => setIsModalOpen(true)}
+      onClick={() => setIsDocsModalOpen(true)}
       rounded="xl"
     >
-      <DocumentModal id={id} isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <DocumentModal
+        id={id}
+        isOpen={docsModalOpen}
+        setIsDocsModalOpen={setIsDocsModalOpen}
+        setIsCreateDocsModalOpen={setIsCreateDocsModalOpen}
+        document={document}
+      />
+      <CreateDocumentModal
+        isOpen={createDocsModalOpen}
+        onClose={() => setIsCreateDocsModalOpen(false)}
+        categoryData={document}
+        category="update"
+      />
       <Image objectFit="cover" alt="study card" rounded="sm" src="https://url.kr/MVKGTf" />
       <CardBody px="2">
         <Text textStyle="bold_md">{title}</Text>
