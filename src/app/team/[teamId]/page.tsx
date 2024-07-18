@@ -81,14 +81,14 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const handleNextClick = () => {
     if (category === '스터디') {
-      if (cardIdx + CARD_PER_PAGE > studyLength) return;
-
       const nextPage = Math.floor((cardIdx + CARD_PER_PAGE) / CARD_PER_PAGE);
       const size = CARD_PER_PAGE;
 
       getStudies(params.teamId, nextPage, size).then((res) => {
         if (res.ok) {
-          setCardIdx((idx) => idx + CARD_PER_PAGE);
+          if (res.body.length > 0) {
+            setCardIdx((idx) => idx + CARD_PER_PAGE);
+          }
         }
       });
     } else if (category === '학습자료') {
