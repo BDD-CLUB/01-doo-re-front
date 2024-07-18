@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { getTeamMembers } from '@/app/api/team';
 import ParticipantMenu from '@/components/ParticipantMenu';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
-import { Member } from '@/types';
+import { Member, TeamMemberDetail } from '@/types';
 
 import MandateTeamLeaderModal from './MandateTeamLeaderModal';
 import RemoveTeamMemberModal from './RemoveTeamMemberModal';
@@ -35,15 +35,14 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
     setIsOpen(false);
   };
 
-  const members: Member[] = useGetFetchWithToken(getTeamMembers, [teamId]);
+  const members: TeamMemberDetail[] = useGetFetchWithToken(getTeamMembers, [teamId]);
 
   useEffect(() => {
-    if (members && members.length !== 0) {
-      setTeamLeader(members[0]);
-    }
-    if (members && members.length > 1) {
-      setTeamMembers(members.slice(1));
-    }
+    const filteredLeader = members?.filter((member) => member.teamRole === 'ROLE_팀장')[0] ?? null;
+    setTeamLeader(filteredLeader);
+
+    const filteredTeamMembers = members?.filter((member) => member.teamRole === 'ROLE_팀원');
+    setTeamMembers(filteredTeamMembers);
   }, [members]);
 
   return (
@@ -67,7 +66,7 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
         onMandateLeader={handleMandateLeaderButtonClick}
       >
         <AvatarGroup max={useBreakpointValue({ base: 3, lg: 4 })} size="md">
-          {teamMembers?.map((member) => {
+          {members?.map((member) => {
             return <Avatar key={member.id} name={member.name} src={member.imageUrl} />;
           })}
         </AvatarGroup>
