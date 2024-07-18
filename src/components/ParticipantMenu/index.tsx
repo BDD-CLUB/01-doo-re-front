@@ -5,6 +5,7 @@ import { BiSearch } from 'react-icons/bi';
 
 import ParticipantItem from '@/components/ParticipantMenu/ParticipantItem';
 import { ParticipantMenuProps } from '@/components/ParticipantMenu/types';
+import useGetUser from '@/hooks/useGetUser';
 import { Member } from '@/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,6 +25,7 @@ const ParticipantMenu = ({
 }: ParticipantMenuProps) => {
   const [search, setSearch] = useState('');
   const menuRef = useRef<HTMLDivElement>(null);
+  const user = useGetUser();
 
   const searchedLeader = leader?.name.includes(search) ? leader : null;
   const searchedIncludeMember = includeMembers.filter((member) => member.name.includes(search));
@@ -88,6 +90,7 @@ const ParticipantMenu = ({
                 key={member.id}
                 member={member}
                 type="INCLUDE"
+                isLeader={user?.memberId === searchedLeader?.id}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}
@@ -99,6 +102,7 @@ const ParticipantMenu = ({
                 key={member.id}
                 member={member}
                 type="EXCLUDE"
+                isLeader={user?.memberId === searchedLeader?.id}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}

@@ -18,6 +18,7 @@ export interface ParticipantMenuProps extends FlexProps {
 export interface ParticipantItemProps {
   member: Member;
   type: 'LEADER' | 'INCLUDE' | 'EXCLUDE';
+  isLeader?: boolean;
   onRemove: (member: Member) => void;
   onAdd: (member: Member) => void;
   onMandateLeader: (member: Member) => void;

@@ -4,7 +4,7 @@ import { RiAddLine, RiCloseFill, RiVipCrownLine } from 'react-icons/ri';
 import { ParticipantItemProps } from '@/components/ParticipantMenu/types';
 import colors from '@/theme/foundations/colors';
 
-const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: ParticipantItemProps) => {
+const ParticipantItem = ({ member, type, isLeader, onAdd, onMandateLeader, onRemove }: ParticipantItemProps) => {
   const handleDeleteMember = () => {
     onRemove(member);
   };
@@ -19,7 +19,7 @@ const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: Par
 
   const textFlow = keyframes`
     from { transform: translate(0%, 0) }
-    to { transform: translate(calc(-100% + ${type === 'LEADER' ? '116px' : '68px'}), 0); }
+    to { transform: translate(calc(-100% + ${type === 'LEADER' || !isLeader ? '116px' : '68px'}), 0); }
   `;
   const textFlowAnimation = `${textFlow} 4s linear infinite`;
 
@@ -43,7 +43,7 @@ const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: Par
           {member.name}
         </Text>
       </Flex>
-      {type === 'INCLUDE' && (
+      {isLeader && type === 'INCLUDE' && (
         <Flex
           gap="2"
           ml="auto"
@@ -72,7 +72,7 @@ const ParticipantItem = ({ member, type, onAdd, onMandateLeader, onRemove }: Par
           />
         </Flex>
       )}
-      {type === 'EXCLUDE' && (
+      {isLeader && type === 'EXCLUDE' && (
         <Flex
           gap="2"
           ml="auto"
