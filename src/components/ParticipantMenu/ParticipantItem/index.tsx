@@ -25,7 +25,7 @@ const ParticipantItem = ({ member, type, isLeader, onAdd, onMandateLeader, onRem
 
   return (
     <Flex key={member.id} align="center" role="group">
-      <Avatar size="sm" />
+      <Avatar size="sm" src={member.imageUrl} />
       <Flex flexGrow="1" overflow="hidden" ml="4">
         <Text
           textStyle="bold_sm"
