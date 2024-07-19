@@ -1,5 +1,7 @@
 import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress } from '@chakra-ui/react';
 
+import CROP from '@/constants/crop';
+
 import { StudyCardProps } from './types';
 
 const StudyCard = ({ name, description, startDate, endDate, cropId, studyProgressRatio, rank }: StudyCardProps) => {
@@ -19,7 +21,9 @@ const StudyCard = ({ name, description, startDate, endDate, cropId, studyProgres
         <Text textStyle="bold_md">{name}</Text>
       </CardHeader>
       <CardBody py="0" textAlign="center" id={cropId.toString()}>
-        <Image w="16" mx="auto" py="4" alt="crops" id="cropId" src="\png\circle.png" />
+        {CROP.filter((crop) => crop.id === cropId).map((crop) => (
+          <Image key={crop.id} w="16" mx="auto" py="4" alt="crops" src={crop.imageUrl} />
+        ))}
         <Text textStyle="sm">{description}</Text>
         <Text textStyle="sm">
           {startDate} ~ {endDate}
