@@ -5,18 +5,20 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { BiFile, BiLink } from 'react-icons/bi';
 
-import { deleteDocument } from '@/app/api/document';
+import { deleteDocument, getDocument } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
-import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 import colors from '@/theme/foundations/colors';
+import { DocumentDetail } from '@/types';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, document }: DocumentModalProps) => {
+const DocumentModal = ({ id, isOpen, setIsDocsModalOpen }: DocumentModalProps) => {
   const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
+  const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
 
   const deleteDocs = useMutateWithToken(deleteDocument);
   const onDelete = () => {

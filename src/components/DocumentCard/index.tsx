@@ -3,14 +3,11 @@
 import { Card, CardBody, CardFooter, Image, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { getDocument } from '@/app/api/document';
 import DocumentModal from '@/containers/study/DocumentModal';
-import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import { DocumentList } from '@/types';
 
 const DocumentCard = ({ id, title, description, date }: DocumentList) => {
   const [docsModalOpen, setIsDocsModalOpen] = useState<boolean>(false);
-  const document = useGetFetchWithToken(getDocument, [id]);
 
   return (
     <Card
@@ -21,14 +18,7 @@ const DocumentCard = ({ id, title, description, date }: DocumentList) => {
       onClick={() => setIsDocsModalOpen(true)}
       rounded="xl"
     >
-      <DocumentModal
-        id={id}
-        isOpen={docsModalOpen}
-        setIsDocsModalOpen={setIsDocsModalOpen}
-        // setIsCreateDocsModalOpen={() => setIsCreateDocsModalOpen(true)}
-        // setIsCreateDocsModalOpen={setIsCreateDocsModalOpen}
-        document={document}
-      />
+      <DocumentModal id={id} isOpen={docsModalOpen} setIsDocsModalOpen={setIsDocsModalOpen} />
 
       <Image objectFit="cover" alt="study card" rounded="sm" src="https://url.kr/MVKGTf" />
       <CardBody px="2">

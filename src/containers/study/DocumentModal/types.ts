@@ -1,5 +1,3 @@
-import { DocumentDetail } from '@/types';
-
 export interface DocumentData {
   id: number;
   type: string;
@@ -12,5 +10,5 @@ export interface DocumentModalProps {
   isOpen: boolean;
   setIsDocsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   // setIsCreateDocsModalOpen: () => void;
-  document: DocumentDetail;
+  // document: DocumentDetail;
 }
