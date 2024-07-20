@@ -1,7 +1,7 @@
 'use client';
 
 import { Divider, Flex, Input, Text, Textarea, Button } from '@chakra-ui/react';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { BiFile, BiImage, BiTrash } from 'react-icons/bi';
 import { BsLink45Deg } from 'react-icons/bs';
 
@@ -175,15 +175,6 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       return newList;
     });
   };
-
-  useEffect(() => {
-    if (category === 'update' && categoryData) {
-      setTitle((categoryData as DocumentDetail).title || '');
-      setDescription((categoryData as DocumentDetail).description || '');
-      setDocType((categoryData as DocumentDetail).type || 'IMAGE');
-      setSelectedValue((categoryData as DocumentDetail).accessType || 'ALL');
-    }
-  }, [category, categoryData, isOpen]);
 
   return (
     <ActionModal

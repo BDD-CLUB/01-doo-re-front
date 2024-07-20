@@ -8,7 +8,6 @@ const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
   return (
     <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
       {documentArray?.map((document) => {
-        console.log('document : ', document);
         return (
           <DocumentCard
             key={document.id}

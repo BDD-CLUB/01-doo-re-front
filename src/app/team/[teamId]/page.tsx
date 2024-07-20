@@ -65,9 +65,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   };
 
   useEffect(() => {
-    // TODO: 아래의 handleNextClick의 조건문을 기능시키기 위해,
-    //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
-    // setDocumentLength(documentCardData?.length || 0);
     getGarden(params.teamId).then((res) => {
       setGarden(res.body);
     });

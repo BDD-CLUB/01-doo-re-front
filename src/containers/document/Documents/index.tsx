@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, Grid, useBreakpointValue } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { getDocumentList } from '@/app/api/document';
 import DocumentCard from '@/components/DocumentCard';
@@ -11,7 +11,6 @@ import { DocumentList } from '@/types';
 import { DocumentPageProps } from './types';
 
 const Documents = ({ groupId, category }: DocumentPageProps) => {
-  console.log('groupId : ', groupId);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(4);
@@ -22,12 +21,14 @@ const Documents = ({ groupId, category }: DocumentPageProps) => {
   const endIndex = currentPage * itemsPerPage;
   const currentData = documentArray.slice(startIndex, endIndex);
 
-  getDocumentList(category, groupId, 0, documentLength).then((res) => {
-    if (res.ok) {
-      setDocumentArray(res.body.content);
-      setDocumentLength(res.body.totalElements);
-    }
-  });
+  useEffect(() => {
+    getDocumentList(category, groupId, 0, documentLength).then((res) => {
+      if (res.ok) {
+        setDocumentArray(res.body.content);
+        setDocumentLength(res.body.totalElements);
+      }
+    });
+  }, [documentLength, category, groupId]);
 
   return (
     <Flex direction="column">
