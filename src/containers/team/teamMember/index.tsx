@@ -1,36 +1,30 @@
 'use client';
 
-import { Avatar, AvatarGroup, Box, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
-import { useState } from 'react';
-import { BiCrown, BiUserX } from 'react-icons/bi';
+import { Avatar, AvatarGroup, Box, useBreakpointValue } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 import { getTeamMembers } from '@/app/api/team';
+import ParticipantMenu from '@/components/ParticipantMenu';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
-import { Member } from '@/types';
+import { Member, TeamMemberDetail } from '@/types';
 
-import FiredMemberModal from './FiredMemberModal';
-import MandateMemberModal from './MandateMemberModal';
+import MandateTeamLeaderModal from './MandateTeamLeaderModal';
+import RemoveTeamMemberModal from './RemoveTeamMemberModal';
 
-const TeamMember = ({ teamId }: { teamId: number }) => {
+const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) => {
+  const [teamLeader, setTeamLeader] = useState<Member>({ id: -1, name: '', imageUrl: '' });
+  const [teamMembers, setTeamMembers] = useState<Member[]>([]);
   const [mandateModalOpen, setMandateModalOpen] = useState<boolean>(false);
   const [firedModalOpen, setFiredModalOpen] = useState<boolean>(false);
   const [modalMember, setModalMember] = useState<Member>({ id: -1, name: '', imageUrl: '' });
-  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleFiredButtonClick = (member: Member) => {
+  const handleRemoveButtonClick = (member: Member) => {
     setModalMember(member);
     setFiredModalOpen(true);
   };
 
-  const handleMandateButtonClick = (member: Member) => {
+  const handleMandateLeaderButtonClick = (member: Member) => {
     setModalMember(member);
     setMandateModalOpen(true);
   };
@@ -38,63 +32,59 @@ const TeamMember = ({ teamId }: { teamId: number }) => {
   const handleModalCloseClick = () => {
     setMandateModalOpen(false);
     setFiredModalOpen(false);
-    setIsHovering(false);
+    setIsOpen(false);
   };
 
-  const members: Member[] = useGetFetchWithToken(getTeamMembers, [teamId]);
+  const members: TeamMemberDetail[] = useGetFetchWithToken(getTeamMembers, [teamId]);
+
+  useEffect(() => {
+    const filteredLeader = members?.filter((member) => member.teamRole === 'ROLE_팀장')[0] ?? null;
+    setTeamLeader(filteredLeader);
+
+    const filteredTeamMembers = members?.filter((member) => member.teamRole === 'ROLE_팀원');
+    setTeamMembers(filteredTeamMembers);
+  }, [members]);
 
   return (
-    <Box pos="relative" onMouseOut={handleMouseOut} onMouseOver={handleMouseOver}>
-      <AvatarGroup max={useBreakpointValue({ base: 3, lg: 4 })} size="md">
-        {members?.map((member) => {
-          return <Avatar key={member.id} name={member.name} src={member.imageUrl} />;
-        })}
-      </AvatarGroup>
-      {isHovering && (
-        <Box pos="absolute" zIndex="40" right="0" w="220px" h="400px">
-          <Box w="100%" h="100%" mt="2" p="4" pr="1" bg="white" borderRadius="xl" shadow="md">
-            <Box overflow="scroll" w="100%" h="100%">
-              {members?.map((member) => {
-                return (
-                  <Flex key={member.id} align="center" justify="space-between" gap="2" p="2">
-                    <Box>
-                      <Avatar mr="2" name={member.name} size="sm" src={member.imageUrl} />
-                      {member.name}
-                    </Box>
-                    {/* TODO: 팀장만 버튼 보이게 수정 */}
-                    <Box>
-                      <IconButton
-                        fontSize="20px"
-                        aria-label=""
-                        icon={<BiCrown />}
-                        isRound
-                        onClick={() => {
-                          handleMandateButtonClick(member);
-                        }}
-                        size="icon_md"
-                        variant="icon_orange"
-                      />
-                      <IconButton
-                        fontSize="20px"
-                        aria-label=""
-                        icon={<BiUserX />}
-                        isRound
-                        onClick={() => {
-                          handleFiredButtonClick(member);
-                        }}
-                        size="icon_md"
-                        variant="icon_white"
-                      />
-                    </Box>
-                  </Flex>
-                );
-              })}
-            </Box>
-          </Box>
-        </Box>
-      )}
-      <FiredMemberModal member={modalMember} isOpen={firedModalOpen} onClose={handleModalCloseClick} />
-      <MandateMemberModal member={modalMember} isOpen={mandateModalOpen} onClose={handleModalCloseClick} />
+    <Box
+      onMouseOut={() => {
+        setIsOpen(false);
+      }}
+      onMouseOver={() => {
+        setIsOpen(true);
+      }}
+    >
+      <ParticipantMenu
+        gap="3"
+        w="fit-content"
+        ml="auto"
+        leader={teamLeader}
+        includeMembers={teamMembers}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onRemove={handleRemoveButtonClick}
+        onMandateLeader={handleMandateLeaderButtonClick}
+      >
+        <AvatarGroup max={useBreakpointValue({ base: 3, lg: 4 })} size="md">
+          {members?.map((member) => {
+            return <Avatar key={member.id} name={member.name} src={member.imageUrl} />;
+          })}
+        </AvatarGroup>
+      </ParticipantMenu>
+      <RemoveTeamMemberModal
+        member={modalMember}
+        isOpen={firedModalOpen}
+        teamId={teamId}
+        teamName={teamName}
+        onClose={handleModalCloseClick}
+      />
+      <MandateTeamLeaderModal
+        member={modalMember}
+        isOpen={mandateModalOpen}
+        teamId={teamId}
+        teamName={teamName}
+        onClose={handleModalCloseClick}
+      />
     </Box>
   );
 };

@@ -48,6 +48,10 @@ export interface Member {
   imageUrl: string;
 }
 
+export interface TeamMemberDetail extends Member {
+  teamRole: string;
+}
+
 export interface Curriculum {
   id: number;
   participantId?: number;
