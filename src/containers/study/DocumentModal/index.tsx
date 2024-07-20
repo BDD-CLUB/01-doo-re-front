@@ -1,17 +1,23 @@
+'use client';
+
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { BiFile, BiLink } from 'react-icons/bi';
 
 import { deleteDocument } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
+import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import colors from '@/theme/foundations/colors';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setIsCreateDocsModalOpen, document }: DocumentModalProps) => {
+const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, document }: DocumentModalProps) => {
+  const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
+
   const deleteDocs = useMutateWithToken(deleteDocument);
   const onDelete = () => {
     deleteDocs(id).then(() => {
@@ -22,7 +28,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setIsCreateDocsModalOpe
 
   const EditDocs = () => {
     setIsDocsModalOpen(false);
-    setIsCreateDocsModalOpen(true);
+    setIsCreateDocsModalOpen(false);
   };
 
   return (
@@ -33,7 +39,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setIsCreateDocsModalOpe
       subButtonText="삭제"
       mainButtonText="수정"
       onSubButtonClick={() => onDelete()}
-      onMainButtonClick={() => EditDocs()}
+      onMainButtonClick={() => setIsCreateDocsModalOpen(true)}
     >
       <Flex textStyle="bold_md" gap="4">
         <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">
@@ -79,6 +85,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setIsCreateDocsModalOpe
             ))}
         </Flex>
       </Box>
+      <CreateDocumentModal isOpen={createDocsModalOpen} onClose={EditDocs} categoryData={document} category="update" />
     </ActionModal>
   );
 };

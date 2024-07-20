@@ -1,34 +1,34 @@
 'use client';
 
 import { Button, Flex, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import Documents from '@/containers/document/Documents';
-import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
-import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
+// import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
+// import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
-  const [openCreateModal, setOpenCreateModal] = useState(false);
-  const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
+  // const [openCreateModal, setOpenCreateModal] = useState(false);
+  // const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
   return (
     <Flex align="center" direction="column" gap="9" w="100%" p="8">
       <Flex justify="space-between" w="100%">
         <Flex direction="row" gap="2">
           <Text textStyle="bold_2xl">학습자료 갤러리</Text>
         </Flex>
-        <Button color="white" bg="orange_dark" onClick={() => setOpenCreateModal(true)} rounded="full">
+        <Button color="white" bg="orange_dark" onClick={() => {}} rounded="full">
           자료 등록
         </Button>
       </Flex>
       <Documents groupId={params.teamId} category="teams" />
-      <CreateDocumentModal
+      {/* <CreateDocumentModal
         isOpen={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
         categoryData={categoryData}
         // groupId={params.teamId}
         // groupType="teams"
         category="create"
-      />
+      /> */}
     </Flex>
   );
 };
