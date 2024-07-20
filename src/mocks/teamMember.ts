@@ -2,7 +2,7 @@
 import { Member } from '@/types';
 
 export const teamMember: Member[] = [
-  { id: 1, name: '김철수1', imageUrl: '' },
+  { id: 1, name: '박하늘별님구름햇님보다사랑스러우리', imageUrl: '' },
   { id: 2, name: '김철수2', imageUrl: '' },
   { id: 3, name: '김철수3', imageUrl: '' },
   { id: 4, name: '김철수4', imageUrl: '' },

@@ -34,7 +34,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [cardIdx, setCardIdx] = useState<number>(0);
 
   const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
-  const [studyLength, setStudyLength] = useState<number>(0);
   const [documentArray, setDocumentArray] = useState<DocumentCardProps[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
 
@@ -50,7 +49,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       getStudies(params.teamId, page, size).then((res) => {
         if (res.ok) {
           setStudyArray(res.body);
-          setStudyLength(res.body.length);
         }
       });
     } else if (category === '학습자료') {
@@ -81,14 +79,14 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
   const handleNextClick = () => {
     if (category === '스터디') {
-      if (cardIdx + CARD_PER_PAGE > studyLength) return;
-
       const nextPage = Math.floor((cardIdx + CARD_PER_PAGE) / CARD_PER_PAGE);
       const size = CARD_PER_PAGE;
 
       getStudies(params.teamId, nextPage, size).then((res) => {
         if (res.ok) {
-          setCardIdx((idx) => idx + CARD_PER_PAGE);
+          if (res.body.length > 0) {
+            setCardIdx((idx) => idx + CARD_PER_PAGE);
+          }
         }
       });
     } else if (category === '학습자료') {
@@ -131,7 +129,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           <Title isTeam imageUrl={teamInfo?.imageUrl} name={teamInfo?.name} description={teamInfo?.description} />
           {/* TODO 팀원 목록, 초대링크 버튼 */}
           <Flex align="center" gap={{ base: '2', lg: '8' }}>
-            <TeamMember teamId={params.teamId} />
+            <TeamMember teamId={params.teamId} teamName={teamInfo?.name} />
             <Button
               color="white"
               bg="orange_dark"
