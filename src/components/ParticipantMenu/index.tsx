@@ -5,6 +5,7 @@ import { BiSearch } from 'react-icons/bi';
 
 import ParticipantItem from '@/components/ParticipantMenu/ParticipantItem';
 import { ParticipantMenuProps } from '@/components/ParticipantMenu/types';
+import useGetUser from '@/hooks/useGetUser';
 import { Member } from '@/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,6 +25,7 @@ const ParticipantMenu = ({
 }: ParticipantMenuProps) => {
   const [search, setSearch] = useState('');
   const menuRef = useRef<HTMLDivElement>(null);
+  const user = useGetUser();
 
   const searchedLeader = leader?.name.includes(search) ? leader : null;
   const searchedIncludeMember = includeMembers.filter((member) => member.name.includes(search));
@@ -50,16 +52,19 @@ const ParticipantMenu = ({
       >
         {children}
       </Flex>
-      <Flex pos="absolute" zIndex="10" top="9" right="0" hidden={!isOpen}>
-        <Flex ref={menuRef} direction="column" gap="2" maxH="30vh" p="4" bg="white" borderRadius="16" shadow="md">
-          <Flex
-            alignContent="center"
-            justify="center"
-            w="full"
-            borderWidth="1px"
-            borderColor="#6c6c6c"
-            borderRadius="full"
-          >
+      <Flex pos="absolute" zIndex="25" top="9" right="0" hidden={!isOpen}>
+        <Flex
+          ref={menuRef}
+          direction="column"
+          gap="2"
+          w="230px"
+          maxH="30vh"
+          p="4"
+          bg="white"
+          borderRadius="16"
+          shadow="md"
+        >
+          <Flex alignContent="center" justify="center" borderWidth="1px" borderColor="#6c6c6c" borderRadius="full">
             <Input
               color="black"
               fontSize="16px"
@@ -69,7 +74,7 @@ const ParticipantMenu = ({
             />
             <Flex as={BiSearch} my="auto" mr="1" color="#6c6c6c" size="26px" />
           </Flex>
-          <Flex className="scroll" direction="column" gap="2" overflowY="scroll" h="full">
+          <Flex className="scroll" direction="column" gap="2" overflowY="scroll" h="full" m="2">
             {searchedLeader && (
               <ParticipantItem
                 key={searchedLeader.id}
@@ -85,6 +90,7 @@ const ParticipantMenu = ({
                 key={member.id}
                 member={member}
                 type="INCLUDE"
+                isLeader={user?.memberId === searchedLeader?.id}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}
@@ -96,6 +102,7 @@ const ParticipantMenu = ({
                 key={member.id}
                 member={member}
                 type="EXCLUDE"
+                isLeader={user?.memberId === searchedLeader?.id}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}

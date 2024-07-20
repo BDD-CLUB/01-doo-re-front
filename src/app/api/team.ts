@@ -59,7 +59,7 @@ const postInviteTeam = (token: string, teamId: number) =>
 const postJoinTeam = (token: string, teamId: number, code: string) =>
   teamFetcher(`/teams/${teamId}/join`, {
     method: 'POST',
-    body: code,
+    body: { code },
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -69,6 +69,22 @@ const getTeams = () => teamFetcher(`/teams`);
 
 const getTeamMembers = (token: string, teamId: number) =>
   teamFetcher(`/teams/${teamId}/members`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+const deleteTeamMember = (token: string, teamId: number, memberId: number) =>
+  teamFetcher(`/teams/${teamId}/members/${memberId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+const mandateTeamLeader = (token: string, teamId: number, memberId: number) =>
+  teamFetcher(`/teams/${teamId}/mandate/${memberId}`, {
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -86,5 +102,7 @@ export {
   postJoinTeam,
   getTeams,
   getMyTeams,
+  deleteTeamMember,
+  mandateTeamLeader,
   getTeamMembers,
 };
