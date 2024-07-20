@@ -11,12 +11,7 @@ import ActionModal from '@/components/Modal/ActionModal';
 import StyledRadio from '@/components/StyledRadio';
 import StyledRadioGroup from '@/components/StyledRadioGroup';
 import color from '@/constants/color';
-import {
-  DocumentModalProps,
-  DocumentList,
-  CreateDocument,
-  UpdateDocument,
-} from '@/containers/study/CreateDocumentModal/type';
+import { DocumentModalProps, DocumentList, CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
 import { Document, DocumentAccessType, DocumentDetail, DocumentType } from '@/types';
@@ -37,8 +32,8 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
   const imgInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const urlInputRef = useRef<HTMLInputElement>(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<DocumentAccessType>('ALL');
 
   const createDocs = useMutateWithToken(postDocument);
@@ -66,18 +61,11 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       url: (docList.URL[0]?.content as string) || '',
       uploaderId: user?.memberId || 0,
     };
-    const UpdateDocumentInfo: UpdateDocument = {
-      title,
-      description,
-      accessType: selectedValue,
-    };
+
     const documentForm: FormData = new FormData();
 
     if (category === 'create') {
       const requestBlob = new Blob([JSON.stringify(createDocumentInfo)], { type: 'application/json' });
-      documentForm.append('request', requestBlob);
-    } else if (category === 'update') {
-      const requestBlob = new Blob([JSON.stringify(UpdateDocumentInfo)], { type: 'application/json' });
       documentForm.append('request', requestBlob);
     }
 
@@ -90,6 +78,7 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
         documentForm.append('files', file.content as Blob);
       });
     }
+
     if (category === 'create') {
       const categoryDatas = categoryData as CreateDocument;
       createDocs(categoryDatas.groupType, categoryDatas.groupId, documentForm).then((response) => {
@@ -99,7 +88,7 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       });
     } else if (category === 'update') {
       const categoryDatas = categoryData as DocumentDetail;
-      postDocs(categoryDatas.id, documentForm).then((response) => {
+      postDocs(categoryDatas.id, { title, description, accessType: selectedValue }).then((response) => {
         if (response.ok) {
           onClose();
         }

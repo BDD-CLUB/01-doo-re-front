@@ -1,4 +1,5 @@
 import { fetcher } from '@/app/api/fetcher';
+import { UpdateDocument } from '@/containers/study/CreateDocumentModal/type';
 
 const documentFetcher = fetcher();
 
@@ -21,10 +22,14 @@ const getDocument = (token: string, documentId: number) =>
     },
   });
 
-const putDocument = (token: string, documentId: number, response: FormData) =>
+const putDocument = (
+  token: string,
+  documentId: number,
+  request: Pick<UpdateDocument, 'title' | 'description' | 'accessType'>,
+) =>
   documentFetcher(`/${documentId}`, {
     method: 'PUT',
-    body: response,
+    body: request,
     headers: {
       Authorization: `Bearer ${token}`,
     },
