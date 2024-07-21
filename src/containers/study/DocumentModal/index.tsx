@@ -16,14 +16,15 @@ import { DocumentDetail } from '@/types';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ id, isOpen, setIsDocsModalOpen }: DocumentModalProps) => {
+const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentModalProps) => {
   const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
-  const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
 
+  const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
   const deleteDocs = useMutateWithToken(deleteDocument);
   const onDelete = () => {
     deleteDocs(id).then(() => {
       setIsDocsModalOpen(false);
+      setReload((prev: boolean) => !prev);
       // Todo : delete document 후에 페이지 리로드 필요
     });
   };
@@ -31,6 +32,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen }: DocumentModalProps) =
   const EditDocs = () => {
     setIsDocsModalOpen(false);
     setIsCreateDocsModalOpen(false);
+    setReload((prev: boolean) => !prev);
   };
 
   return (

@@ -92,7 +92,10 @@ export interface DocumentList {
   description: string;
   date: string;
   uploaderName: string;
-  // img: string;
+  type: 'IMAGE' | 'DOCUMENT' | 'URL';
+  // docsModalOpen: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+  files: DocumentFile[];
 }
 
 export interface DocumentFile {

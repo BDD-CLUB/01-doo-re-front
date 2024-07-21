@@ -16,6 +16,9 @@ const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
             description={document.description}
             date={document.date}
             uploaderName={document.uploaderName}
+            setReload={() => {}}
+            type={document.type}
+            files={document.files}
             // bookmark={document.bookmark}
             // img={document.img}
           />

@@ -14,9 +14,9 @@ const Documents = ({ groupId, category }: DocumentPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(4);
+  const [reload, setReload] = useState<boolean>(false);
 
   const itemsPerPage = useBreakpointValue({ base: 4, md: 8, xl: 10 })!;
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = currentPage * itemsPerPage;
   const currentData = documentArray.slice(startIndex, endIndex);
@@ -28,7 +28,7 @@ const Documents = ({ groupId, category }: DocumentPageProps) => {
         setDocumentLength(res.body.totalElements);
       }
     });
-  }, [documentLength, category, groupId]);
+  }, [documentLength, category, groupId, reload]);
 
   return (
     <Flex direction="column">
@@ -41,8 +41,9 @@ const Documents = ({ groupId, category }: DocumentPageProps) => {
             description={data.description}
             date={data.date}
             uploaderName={data.uploaderName}
-            // bookmark={data.bookmark}
-            // img={data.img}
+            setReload={setReload}
+            files={data.files}
+            type={data.type}
           />
         ))}
       </Grid>

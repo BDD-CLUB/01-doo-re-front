@@ -89,6 +89,9 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                     description={data.description}
                     date={data.date}
                     uploaderName={data.uploaderName}
+                    setReload={() => {}}
+                    files={data.files}
+                    type={data.type}
                   />
                 ))}
               </Grid>

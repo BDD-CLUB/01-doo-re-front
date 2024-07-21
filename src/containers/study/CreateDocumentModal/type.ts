@@ -14,7 +14,7 @@ export interface UpdateDocument {
 export interface DocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  categoryData: CreateDocument | DocumentDetail;
+  categoryData: CreateDocument | DocumentDetail | undefined;
   category: 'create' | 'update';
 }
 

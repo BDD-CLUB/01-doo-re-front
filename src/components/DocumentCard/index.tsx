@@ -3,11 +3,31 @@
 import { Card, CardBody, CardFooter, Image, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import S3_URL from '@/constants/s3Url';
 import DocumentModal from '@/containers/study/DocumentModal';
 import { DocumentList } from '@/types';
 
-const DocumentCard = ({ id, title, description, date }: DocumentList) => {
+const DocumentCard = ({ id, title, description, date, setReload, files, type }: DocumentList) => {
   const [docsModalOpen, setIsDocsModalOpen] = useState<boolean>(false);
+
+  const firstImg = () => {
+    if (files.length === 0) return '/png/noImg.png';
+    if (type === 'IMAGE') {
+      return S3_URL(files[0].url);
+    }
+    if (type === 'URL') {
+      return files[0]?.url;
+    }
+    if (type === 'DOCUMENT') {
+      if (files.length === 1) {
+        return '/png/file.png';
+      }
+      if (files.length > 1) {
+        return 'png/folder.png';
+      }
+    }
+    return '';
+  };
 
   return (
     <Card
@@ -18,9 +38,9 @@ const DocumentCard = ({ id, title, description, date }: DocumentList) => {
       onClick={() => setIsDocsModalOpen(true)}
       rounded="xl"
     >
-      <DocumentModal id={id} isOpen={docsModalOpen} setIsDocsModalOpen={setIsDocsModalOpen} />
+      <DocumentModal id={id} isOpen={docsModalOpen} setIsDocsModalOpen={setIsDocsModalOpen} setReload={setReload} />
 
-      <Image objectFit="cover" alt="study card" rounded="sm" src="https://url.kr/MVKGTf" />
+      <Image h="60" objectFit="cover" alt="study card" rounded="sm" src={firstImg()} />
       <CardBody px="2">
         <Text textStyle="bold_md">{title}</Text>
         <Text textStyle="sm">{description}</Text>
