@@ -51,6 +51,12 @@ export interface TeamDetail extends Team {
   attendanceRatio: number;
 }
 
+export interface StudyMember {
+  readonly memberId: number;
+  name: string;
+  imageUrl: string;
+}
+
 export interface Member {
   readonly id: number;
   name: string;

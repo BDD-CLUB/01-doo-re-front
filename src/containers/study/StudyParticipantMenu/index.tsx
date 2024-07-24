@@ -9,19 +9,26 @@ import ParticipantMenu from '@/components/ParticipantMenu';
 import { StudyParticipantMenuProps } from '@/containers/study/StudyParticipantMenu/types';
 import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
-import { Member } from '@/types';
+import { Member, StudyMember } from '@/types';
 
 const StudyParticipantMenu = ({ studyId, teamId, leaderId }: StudyParticipantMenuProps) => {
   const user = useGetUser();
   const [isOpen, setIsOpen] = useState(false);
 
-  const studyMembers = useGetFetchWithToken(getStudyMembers, [studyId], user);
+  const studyMembers = useGetFetchWithToken(getStudyMembers, [studyId], user)?.map(
+    (data: StudyMember) =>
+      ({
+        id: data.memberId,
+        name: data.name,
+        imageUrl: data.imageUrl,
+      }) as Member,
+  );
   const teamMembers = useGetFetchWithToken(getTeamMembers, [teamId], user);
 
-  const leader = studyMembers?.find((data: { member: Member }) => data.member.id === leaderId).member;
-  const includeMembers = studyMembers?.filter((data: { member: Member }) => data.member.id !== leaderId);
+  const leader = studyMembers?.find((member: Member) => member.id === leaderId);
+  const includeMembers = studyMembers?.filter((member: Member) => member.id !== leaderId);
   const excludeMembers = teamMembers?.filter(
-    (member: Member) => !studyMembers?.find((studyData: { member: Member }) => studyData.member.id === member.id),
+    (member: Member) => !studyMembers?.find((studyData: Member) => studyData.id === member.id),
   );
 
   const addMember = useMutateWithToken(postStudyMember, user);
