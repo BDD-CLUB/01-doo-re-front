@@ -6,14 +6,16 @@ import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
+import { getDocumentList } from '@/app/api/document';
 import { getGarden } from '@/app/api/garden';
 import { getStudies } from '@/app/api/study';
 import { getTeamInfo, postInviteTeam } from '@/app/api/team';
-import { DocumentCardProps } from '@/components/DocumentCard/types';
 import Garden3D from '@/components/Garden3D';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
 import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
+import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
+import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import AttendanceRate from '@/containers/team/AttendanceRate';
 import DocumentGridView from '@/containers/team/DocumentGridView';
@@ -22,24 +24,21 @@ import StudyGridView from '@/containers/team/StudyGridView';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
-import documentCardData from '@/mocks/documentCard';
-import { Garden, StudyRank } from '@/types';
+import { DocumentList, Garden, StudyRank } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
   const teamInfo = useGetFetchWithToken(getTeamInfo, [params.teamId]);
-
   const [garden, setGarden] = useState<Garden[]>([]);
-
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
-
   const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
-  const [documentArray, setDocumentArray] = useState<DocumentCardProps[]>([]);
+  const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
-
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
+  const [isCreateDocumentModalOoen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
 
   const inviteTeam = useMutateWithToken(postInviteTeam);
+  const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
 
   const getCardData = (start: number) => {
     if (category === '스터디') {
@@ -52,24 +51,33 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         }
       });
     } else if (category === '학습자료') {
+      const page = Math.floor(start / CARD_PER_PAGE);
+      const size = CARD_PER_PAGE;
+
       // TODO: 학습자료 목록 조회하기.
-      setDocumentArray(documentCardData.slice(start, start + CARD_PER_PAGE));
+      getDocumentList('teams', params.teamId, page, size).then((res) => {
+        if (res.ok) {
+          setDocumentArray(res.body.content);
+          setDocumentLength(res.body.numberOfElements);
+        }
+      });
     }
   };
 
   useEffect(() => {
-    // TODO: 아래의 handleNextClick의 조건문을 기능시키기 위해,
-    //       팀 상세 정보 조회 api에서 팀의 스터디와 학습자료 갯수를 받아와야할 것 같습니다.
-    setDocumentLength(documentCardData.length);
-
     getGarden(params.teamId).then((res) => {
       setGarden(res.body);
     });
+    TEAM_CATEGORY_INFOS[1].page = `/team/${params.teamId}/document`;
   }, []);
 
   useEffect(() => {
     getCardData(cardIdx);
   }, [cardIdx]);
+
+  useEffect(() => {
+    getCardData(0);
+  }, [category]);
 
   const handlePrevClick = () => {
     if (cardIdx - CARD_PER_PAGE < 0) return;
@@ -90,9 +98,16 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         }
       });
     } else if (category === '학습자료') {
-      if (cardIdx + CARD_PER_PAGE >= documentLength) return;
+      if (cardIdx + CARD_PER_PAGE > documentLength) return;
 
-      setCardIdx((idx) => idx + CARD_PER_PAGE);
+      const nextPage = Math.floor((cardIdx + CARD_PER_PAGE) / CARD_PER_PAGE);
+      const size = CARD_PER_PAGE;
+
+      getDocumentList('teams', params.teamId, nextPage, size).then((res) => {
+        if (res.ok) {
+          setCardIdx((idx) => idx + CARD_PER_PAGE);
+        }
+      });
     }
   };
 
@@ -100,7 +115,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     if (category === '스터디') {
       setIsCreateStudyModalOpen(true);
     } else if (category === '학습자료') {
-      // TODO: create study `asset` modal 띄우기
+      setIsCreateDocumentModalOpen(true);
     }
   };
 
@@ -189,6 +204,12 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         isOpen={isCreateStudyModalOpen}
         setIsModalOpen={setIsCreateStudyModalOpen}
         studyInfo={null}
+      />
+      <CreateDocumentModal
+        isOpen={isCreateDocumentModalOoen}
+        onClose={() => setIsCreateDocumentModalOpen(false)}
+        categoryData={categoryData}
+        category="create"
       />
     </>
   );

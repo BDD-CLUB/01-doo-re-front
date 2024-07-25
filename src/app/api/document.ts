@@ -1,42 +1,46 @@
 import { fetcher } from '@/app/api/fetcher';
-import { Document, DocumentType } from '@/types';
+import { UpdateDocument } from '@/containers/study/CreateDocumentModal/type';
 
 const documentFetcher = fetcher();
 
-const postDocument = (groupType: number, groupId: number, document: Document, files: FormData) => {
+const postDocument = (token: string, groupType: string, groupId: number, request: FormData) =>
   documentFetcher(`/${groupType}/${groupId}/documents`, {
     method: 'POST',
-    body: { document, files },
-  });
-};
-
-const getDocumentList = (groupType: number, groupId: number, page: number = 0, size: number = 4) => {
-  documentFetcher(`/${groupType}/${groupId}/documents?page=${page}&size=${size}`, {
-    method: 'GET',
-  });
-};
-
-const getDocument = (documentId: number) => {
-  documentFetcher(`/${documentId}`, {
-    method: 'GET',
-  });
-};
-
-const putDocument = (documentId: number, title: string, description: string, accessType: DocumentType) => {
-  documentFetcher(`/${documentId}`, {
-    method: 'PUT',
-    body: {
-      title,
-      description,
-      accessType,
+    body: request,
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
-};
 
-const deleteDocument = (documentId: number) => {
+const getDocumentList = (category: string, teamId: number, page: number, size: number) =>
+  documentFetcher(`/${category}/${teamId}/documents?page=${page}&size=${size}`);
+
+const getDocument = (token: string, documentId: number) =>
+  documentFetcher(`/${documentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+const putDocument = (
+  token: string,
+  documentId: number,
+  request: Pick<UpdateDocument, 'title' | 'description' | 'accessType'>,
+) =>
+  documentFetcher(`/${documentId}`, {
+    method: 'PUT',
+    body: request,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+const deleteDocument = (token: string, documentId: number) =>
   documentFetcher(`/${documentId}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-};
 
 export { postDocument, getDocumentList, getDocument, putDocument, deleteDocument };

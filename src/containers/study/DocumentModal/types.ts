@@ -6,9 +6,10 @@ export interface DocumentData {
 }
 
 export interface DocumentModalProps {
+  id: number;
   isOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  title: string;
-  content: string;
-  type: string;
+  setIsDocsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsCreateDocsModalOpen: () => void;
+  // document: DocumentDetail;
 }

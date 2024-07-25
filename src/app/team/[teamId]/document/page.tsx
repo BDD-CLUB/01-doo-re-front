@@ -7,9 +7,9 @@ import Documents from '@/containers/document/Documents';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 
-const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
+const Page = ({ params }: { params: { teamId: number } }) => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
-  const categoryData: CreateDocument = { groupId: params.studyId, groupType: 'studies' };
+  const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
   return (
     <Flex align="center" direction="column" gap="9" w="100%" p="8">
       <Flex justify="space-between" w="100%">
@@ -20,11 +20,13 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           자료 등록
         </Button>
       </Flex>
-      <Documents groupId={params.studyId} category="studies" />
+      <Documents groupId={params.teamId} category="teams" />
       <CreateDocumentModal
         isOpen={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
         categoryData={categoryData}
+        // groupId={params.teamId}
+        // groupType="teams"
         category="create"
       />
     </Flex>
