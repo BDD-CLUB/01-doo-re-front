@@ -1,12 +1,14 @@
 'use client';
 
 import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useSetAtom } from 'jotai';
+import { useEffect, useState } from 'react';
 import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
 import { getSidebarInfo } from '@/app/api/member';
+import { myTeamAtom } from '@/atom';
 import TeamModal from '@/containers/team/TeamModal';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
@@ -19,6 +21,12 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
   const user = useGetUser();
   const sidebarInfo = useGetFetchWithToken(getSidebarInfo, [user?.memberId], user);
+  const setMyTeam = useSetAtom(myTeamAtom);
+
+  useEffect(() => {
+    const teams = sidebarInfo?.myTeamsAndStudies.map((team: SidebarTeam) => team.teamId);
+    setMyTeam({ teams });
+  }, [sidebarInfo, setMyTeam]);
 
   return (
     <>

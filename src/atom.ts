@@ -7,4 +7,8 @@ export const userAtom = atomWithStorage('user', {
   isLogin: false,
 });
 
+export const myTeamAtom = atomWithStorage<{ teams: number[] }>('myTeam', {
+  teams: [],
+});
+
 export const loginBackPathAtom = atomWithStorage('loginBackPath', '/');

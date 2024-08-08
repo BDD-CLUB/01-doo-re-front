@@ -3,6 +3,7 @@
 'use client';
 
 import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
 import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 
@@ -10,6 +11,7 @@ import { getDocumentList } from '@/app/api/document';
 import { getGarden } from '@/app/api/garden';
 import { getStudies } from '@/app/api/study';
 import { getTeamInfo, postInviteTeam } from '@/app/api/team';
+import { myTeamAtom } from '@/atom';
 import Garden3D from '@/components/Garden3D';
 import TabButton from '@/components/TabButton';
 import Title from '@/components/Title';
@@ -137,25 +139,36 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     });
   };
 
+  const myTeam = useAtomValue(myTeamAtom);
+  const [isMyTeam, setIsMyTeam] = useState<boolean>(false);
+  useEffect(() => {
+    if (myTeam.teams !== undefined) {
+      const res = myTeam.teams.filter((teamId) => teamId === params.teamId);
+      setIsMyTeam(res.length === 1);
+    }
+  }, [myTeam, params.teamId]);
+
   return (
     <>
       <Flex direction="column" gap="8" w="100%" p="8">
         <Flex justify="space-between">
           <Title isTeam imageUrl={teamInfo?.imageUrl} name={teamInfo?.name} description={teamInfo?.description} />
-          {/* TODO 팀원 목록, 초대링크 버튼 */}
-          <Flex align="center" gap={{ base: '2', lg: '8' }}>
-            <TeamMember teamId={params.teamId} teamName={teamInfo?.name} />
-            <Button
-              color="white"
-              bg="orange_dark"
-              onClick={handleInviteClick}
-              rightIcon={<BsLink45Deg size="24px" />}
-              rounded="full"
-              size="sm"
-            >
-              초대
-            </Button>
-          </Flex>
+          {/* TODO 자신의 팀일때만 보이도록 수정 */}
+          {isMyTeam && (
+            <Flex align="center" gap={{ base: '2', lg: '8' }}>
+              <TeamMember teamId={params.teamId} teamName={teamInfo?.name} />
+              <Button
+                color="white"
+                bg="orange_dark"
+                onClick={handleInviteClick}
+                rightIcon={<BsLink45Deg size="24px" />}
+                rounded="full"
+                size="sm"
+              >
+                초대
+              </Button>
+            </Flex>
+          )}
         </Flex>
         <TeamControlPanel teamInfo={teamInfo} />
 
@@ -184,6 +197,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
               handlePrevClick={handlePrevClick}
               handleNextClick={handleNextClick}
               handlePlusClick={handlePlusClick}
+              isMyTeam={isMyTeam}
             />
           )}
           {/* TODO 전체보기, 네비게이션 이동 버튼 */}
