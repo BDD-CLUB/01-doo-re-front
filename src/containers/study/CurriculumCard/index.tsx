@@ -65,7 +65,7 @@ const CurriculumCard = () => {
                 );
               })
             ) : (
-              <Flex h="100%" justify="center" alignItems="center">
+              <Flex align="center" justify="center" h="100%">
                 <Text textStyle="lg">커리큘럼이 존재하지 않습니다.</Text>
               </Flex>
             )}

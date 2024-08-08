@@ -7,19 +7,23 @@ import { DocumentGridViewProps } from './types';
 const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
   return (
     <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-      {documentArray.map((document) => {
+      {documentArray?.map((document) => {
         return (
           <DocumentCard
-            key={`${document.title}-${document.id}`}
+            key={document.id}
             id={document.id}
             title={document.title}
-            content={document.content}
+            description={document.description}
             date={document.date}
-            bookmark={document.bookmark}
-            img={document.img}
+            uploaderName={document.uploaderName}
+            setReload={() => {}}
+            type={document.type}
+            files={document.files}
+            // bookmark={document.bookmark}
+            // img={document.img}
           />
         );
-      })}
+      }) || null}
     </Grid>
   );
 };

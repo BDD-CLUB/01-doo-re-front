@@ -1,15 +1,33 @@
 'use client';
 
-import { Flex, Card, CardBody, CardFooter, Image, Text, IconButton } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, Image, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { BiBookmark } from 'react-icons/bi';
 
+import S3_URL from '@/constants/s3Url';
 import DocumentModal from '@/containers/study/DocumentModal';
+import { DocumentList } from '@/types';
 
-import { DocumentCardProps } from './types';
+const DocumentCard = ({ id, title, description, date, setReload, files, type }: DocumentList) => {
+  const [docsModalOpen, setIsDocsModalOpen] = useState<boolean>(false);
 
-const DocumentCard = ({ title, content, date, bookmark, img }: DocumentCardProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const firstImg = () => {
+    if (files.length === 0) return '/png/noImg.png';
+    if (type === 'IMAGE') {
+      return S3_URL(files[0].url);
+    }
+    if (type === 'URL') {
+      return files[0]?.url;
+    }
+    if (type === 'DOCUMENT') {
+      if (files.length === 1) {
+        return '/png/file.png';
+      }
+      if (files.length > 1) {
+        return 'png/folder.png';
+      }
+    }
+    return '';
+  };
 
   return (
     <Card
@@ -17,20 +35,22 @@ const DocumentCard = ({ title, content, date, bookmark, img }: DocumentCardProps
       p="2"
       shadow="md"
       _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}
-      onClick={() => setIsModalOpen(true)}
+      onClick={() => setIsDocsModalOpen(true)}
       rounded="xl"
     >
-      <DocumentModal isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} title={title} content={content} type="file" />
-      <Image objectFit="cover" alt="study card" rounded="sm" src={img} />
+      <DocumentModal id={id} isOpen={docsModalOpen} setIsDocsModalOpen={setIsDocsModalOpen} setReload={setReload} />
+
+      <Image h="60" objectFit="cover" alt="study card" rounded="sm" src={firstImg()} />
       <CardBody px="2">
         <Text textStyle="bold_md">{title}</Text>
-        <Text textStyle="sm">{content}</Text>
+        <Text textStyle="sm">{description}</Text>
       </CardBody>
       <CardFooter alignItems="center" justify="space-between" px="2" py="0">
         <Text textStyle="sm" color="gray.200">
           {date}
         </Text>
-        <Flex align="center">
+        {/* Todo : 북마크 - 배포 후 추가 필요 */}
+        {/* <Flex align="center">
           <IconButton
             color="black"
             bg="transparent"
@@ -40,7 +60,7 @@ const DocumentCard = ({ title, content, date, bookmark, img }: DocumentCardProps
             size="icon_sm"
           />
           <Text textStyle="sm">{bookmark}</Text>
-        </Flex>
+        </Flex> */}
       </CardFooter>
     </Card>
   );

@@ -5,69 +5,136 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { BiFile, BiImage, BiTrash } from 'react-icons/bi';
 import { BsLink45Deg } from 'react-icons/bs';
 
+import { postDocument, putDocument } from '@/app/api/document';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import StyledRadio from '@/components/StyledRadio';
 import StyledRadioGroup from '@/components/StyledRadioGroup';
 import color from '@/constants/color';
-import { DocumentModalProps, DocumentType, DocumentList } from '@/containers/study/CreateDocumentModal/type';
+import { DocumentModalProps, DocumentList, CreateDocument } from '@/containers/study/CreateDocumentModal/type';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useGetUser from '@/hooks/useGetUser';
+import { Document, DocumentAccessType, DocumentDetail, DocumentType } from '@/types';
 
 const DocumentBoxIcon = {
-  img: <BiImage />,
-  file: <BiFile />,
-  url: <BsLink45Deg />,
+  IMAGE: <BiImage />,
+  DOCUMENT: <BiFile />,
+  URL: <BsLink45Deg />,
 };
 
-const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
-  const [doctype, setDocType] = useState<DocumentType>('img');
+const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: DocumentModalProps) => {
+  const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
-    img: [],
-    file: [],
-    url: [],
+    IMAGE: [],
+    DOCUMENT: [],
+    URL: [],
   });
   const imgInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const urlInputRef = useRef<HTMLInputElement>(null);
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<DocumentAccessType>('ALL');
+
+  const createDocs = useMutateWithToken(postDocument);
+  const postDocs = useMutateWithToken(putDocument);
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
+
+  const handleChange = (value: string) => {
+    setSelectedValue(value as DocumentAccessType);
+  };
+  const user = useGetUser();
 
   const onConfirmButtonClick = () => {
+    const createDocumentInfo: Document = {
+      title,
+      description,
+      accessType: selectedValue,
+      type: doctype,
+      url: (docList.URL[0]?.content as string) || '',
+      uploaderId: user?.memberId || 0,
+    };
+
+    const documentForm: FormData = new FormData();
+
+    if (category === 'create') {
+      const requestBlob = new Blob([JSON.stringify(createDocumentInfo)], { type: 'application/json' });
+      documentForm.append('request', requestBlob);
+    }
+
+    if (doctype === 'IMAGE' && category === 'create') {
+      docList.IMAGE.forEach((img) => {
+        documentForm.append('files', img.content as Blob);
+      });
+    } else if (doctype === 'DOCUMENT' && category === 'create') {
+      docList.DOCUMENT.forEach((file) => {
+        documentForm.append('files', file.content as Blob);
+      });
+    }
+
+    if (category === 'create') {
+      const categoryDatas = categoryData as CreateDocument;
+      createDocs(categoryDatas.groupType, categoryDatas.groupId, documentForm).then((response) => {
+        if (response.ok) {
+          onClose();
+        }
+      });
+    } else if (category === 'update') {
+      const categoryDatas = categoryData as DocumentDetail;
+      postDocs(categoryDatas.id, { title, description, accessType: selectedValue }).then((response) => {
+        if (response.ok) {
+          onClose();
+        }
+      });
+    }
     onClose();
   };
 
   const handleGetDoc = {
-    img: (e: ChangeEvent<HTMLInputElement>) => {
+    IMAGE: (e: ChangeEvent<HTMLInputElement>) => {
       const imgs = Array.from(e.target.files || []);
       setDocList((prev) => ({
         ...prev,
-        img: [
-          ...prev.img,
+        IMAGE: [
+          ...prev.IMAGE,
           ...imgs.map((img) => ({
+            key: img.name,
             name: img.name,
             content: img,
           })),
         ],
       }));
     },
-    file: (e: ChangeEvent<HTMLInputElement>) => {
+    DOCUMENT: (e: ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(e.target.files || []);
       setDocList((prev) => ({
         ...prev,
-        file: [
-          ...prev.file,
+        DOCUMENT: [
+          ...prev.DOCUMENT,
           ...files.map((file) => ({
+            key: file.name.toString(),
             name: file.name,
             content: file,
           })),
         ],
       }));
     },
-    url: () => {
+    URL: () => {
       if (urlInputRef.current?.value) {
         const url = urlInputRef.current.value;
         setDocList((prev) => ({
           ...prev,
-          url: [
-            ...prev.url,
+          URL: [
+            ...prev.URL,
             {
+              key: url,
               name: url,
               content: url,
             },
@@ -79,14 +146,14 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
   };
 
   const handleAddDoc = {
-    img: () => {
+    IMAGE: () => {
       imgInputRef.current?.click();
     },
-    file: () => {
+    DOCUMENT: () => {
       fileInputRef.current?.click();
     },
-    url: () => {
-      handleGetDoc.url();
+    URL: () => {
+      handleGetDoc.URL();
     },
   };
 
@@ -111,13 +178,27 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
     >
       <Flex direction="column" gap="4">
         <Text textStyle="bold_xl">학습자료 제목</Text>
-        <Input placeholder="학습자료 제목을 입력해주세요." />
+        <Input
+          onChange={handleTitleChange}
+          placeholder={category === 'create' ? '학습자료 제목을 입력해주세요.' : (categoryData as DocumentDetail).title}
+          value={title}
+        />
         <Text textStyle="bold_xl">학습자료 소개</Text>
-        <Textarea placeholder="학습자료 소개를 입력해주세요." />
-        <StyledRadioGroup title="파일 유형" value={doctype} onChange={(v) => setDocType(v as DocumentType)}>
-          <StyledRadio value="img">이미지</StyledRadio>
-          <StyledRadio value="file">파일</StyledRadio>
-          <StyledRadio value="url">URL 링크</StyledRadio>
+        <Textarea
+          onChange={handleDescriptionChange}
+          placeholder={
+            category === 'create' ? '학습자료 소개를 입력해주세요.' : (categoryData as DocumentDetail).description
+          }
+          value={description}
+        />
+        <StyledRadioGroup
+          title="파일 유형"
+          value={category === 'create' ? doctype : (categoryData as DocumentDetail).type}
+          onChange={category === 'create' ? (v) => setDocType(v as DocumentType) : () => {}}
+        >
+          <StyledRadio value="IMAGE">이미지</StyledRadio>
+          <StyledRadio value="DOCUMENT">파일</StyledRadio>
+          <StyledRadio value="URL">URL 링크</StyledRadio>
         </StyledRadioGroup>
         <Flex justify="end" direction="row" gap="4" shrink="0">
           <Input
@@ -125,10 +206,16 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
             flex="1"
             h="7"
             shadow="md"
-            hidden={doctype !== 'url'}
+            hidden={doctype !== 'URL'}
             placeholder="URL 링크를 입력해주세요."
           />
-          <Button w="28" h="7" shadow="md" onClick={() => handleAddDoc[doctype]()} variant="orange">
+          <Button
+            w="28"
+            h="7"
+            shadow="md"
+            onClick={category === 'create' ? () => handleAddDoc[doctype]() : () => {}}
+            variant="orange"
+          >
             추가하기
           </Button>
         </Flex>
@@ -139,27 +226,32 @@ const DocumentModal = ({ isOpen, onClose }: DocumentModalProps) => {
           multiple
           accept="image/jpg,image/png,image/jpeg,image/gif"
           ref={imgInputRef}
-          onChange={handleGetDoc.img}
+          onChange={handleGetDoc.IMAGE}
         />
-        <input hidden type="file" multiple ref={fileInputRef} onChange={handleGetDoc.file} />
+        <input hidden type="file" multiple ref={fileInputRef} onChange={handleGetDoc.DOCUMENT} />
         <Flex direction="column" gap="4" overflow="scroll" maxH="52" shrink="0">
-          {docList[doctype].map((doc, index) => (
-            <IconBox
-              key={`${doc}`}
-              leftIcon={DocumentBoxIcon[doctype]}
-              content={doc.name}
-              rightIcon={<BiTrash />}
-              handleClick={() => handleRemoveDoc(index)}
-            />
-          ))}
+          {docList[doctype] &&
+            docList[doctype].map((doc, index) => (
+              <IconBox
+                key={doc.key}
+                leftIcon={DocumentBoxIcon[doctype]}
+                content={doc.name}
+                rightIcon={<BiTrash />}
+                handleClick={category === 'create' ? () => handleRemoveDoc(index) : () => {}}
+              />
+            ))}
         </Flex>
-        <StyledRadioGroup title="공개 범위" defaultValue="all">
-          <StyledRadio value="all">전체 공개</StyledRadio>
-          <StyledRadio value="only_study">스터디 공개</StyledRadio>
+        <StyledRadioGroup
+          title="공개 범위"
+          defaultValue={category === 'create' ? 'ALL' : (categoryData as DocumentDetail).accessType}
+          onChange={handleChange}
+        >
+          <StyledRadio value="ALL">전체 공개</StyledRadio>
+          <StyledRadio value="TEAM">팀 공개</StyledRadio>
         </StyledRadioGroup>
       </Flex>
     </ActionModal>
   );
 };
 
-export default DocumentModal;
+export default CreateDocumentModal;

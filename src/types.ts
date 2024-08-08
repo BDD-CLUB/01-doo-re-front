@@ -101,6 +101,29 @@ export interface Document {
   uploaderId: number;
 }
 
-export type DocumentAccessType = 'TEAM' | 'STUDY' | 'ALL';
+export interface DocumentList {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  uploaderName: string;
+  type: 'IMAGE' | 'DOCUMENT' | 'URL';
+  // docsModalOpen: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+  files: DocumentFile[];
+}
+
+export interface DocumentFile {
+  id: number;
+  url: string;
+}
+
+export interface DocumentDetail extends DocumentList {
+  accessType: DocumentAccessType;
+  type: DocumentType;
+  files: DocumentFile[];
+}
+
+export type DocumentAccessType = 'TEAM' | 'ALL'; // 'STUDY' 추가 가능성
 
 export type DocumentType = 'DOCUMENT' | 'IMAGE' | 'URL';
