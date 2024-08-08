@@ -75,6 +75,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
         cropId,
       }).then((res) => {
         if (res.ok) onClose();
+        else alert(res.body.message);
       });
     } else if (studyId && studyInfo) {
       editStudy(studyId, {
