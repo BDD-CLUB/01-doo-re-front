@@ -194,6 +194,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
                 ...study.studyReferenceResponse,
                 rank: cardIdx + index + 1,
               }))}
+              teamId={params.teamId}
             />
           )}
           {category === '학습자료' && <DocumentGridView documentArray={documentArray} />}
