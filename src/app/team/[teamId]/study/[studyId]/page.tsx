@@ -18,7 +18,6 @@ import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
-import documentCardData from '@/mocks/documentCard';
 import participantData from '@/mocks/participant';
 import { DocumentList, Study } from '@/types';
 
