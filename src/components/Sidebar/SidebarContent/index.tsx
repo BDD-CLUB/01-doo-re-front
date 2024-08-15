@@ -1,12 +1,14 @@
 'use client';
 
 import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
+import { useSetAtom } from 'jotai';
 import { useState } from 'react';
 import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
 import { useGetSideBarInfoQuery } from '@/app/api/member';
+import { defaultUserAtom, userAtom } from '@/atom';
 import TeamModal from '@/containers/team/TeamModal';
 import useGetUser from '@/hooks/useGetUser';
 
@@ -17,6 +19,7 @@ import { SidebarContentProps, SidebarTeam } from '../type';
 const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
   const user = useGetUser();
+  const setUser = useSetAtom(userAtom);
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
 
   return (
@@ -56,7 +59,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           <Flex direction={isOpen ? 'row' : 'column'} gap="4">
             <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
             <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
-            <SidebarIconButton icon={<MdOutlineLogout />} onClick={() => {}} />
+            <SidebarIconButton icon={<MdOutlineLogout />} onClick={() => setUser(defaultUserAtom)} />
           </Flex>
         </Flex>
         {isOpen && user?.isLogin && (
