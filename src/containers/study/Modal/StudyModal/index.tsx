@@ -13,6 +13,7 @@ import Selector from '@/components/Selector';
 import StyledDatePicker from '@/components/StyledDatePicker';
 import CROP from '@/constants/crop';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 
 import { StudyModalProps } from './types';
 
@@ -39,6 +40,8 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
 
   const createStudy = useMutateWithToken(postStudy);
   const editStudy = useMutateWithToken(putEditStudy);
+
+  const refetchSidebar = useRefetchSideBar();
 
   const onClose = () => {
     setStep(1);
@@ -74,7 +77,10 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
         endDate: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
         cropId,
       }).then((res) => {
-        if (res.ok) onClose();
+        if (res.ok) {
+          refetchSidebar();
+          onClose();
+        }
       });
     } else if (studyId && studyInfo) {
       editStudy(studyId, {
@@ -84,6 +90,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
         endDate: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
         status: startDate <= new Date() ? 'IN_PROGRESS' : 'UPCOMING',
       }).then((res) => {
+        refetchSidebar();
         if (res.ok) onClose();
       });
     }
