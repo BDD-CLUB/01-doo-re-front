@@ -16,7 +16,7 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
 
   useEffect(() => {
     if (code) {
-      postGoogleLogin(code).then((res) => {
+      postGoogleLogin(code, process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL).then((res) => {
         if (res?.ok) {
           setUser({
             memberId: res.body?.memberId,
