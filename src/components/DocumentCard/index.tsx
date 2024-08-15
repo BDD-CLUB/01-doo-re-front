@@ -16,7 +16,7 @@ const DocumentCard = ({ id, title, description, date, setReload, files, type }: 
       return S3_URL(files[0].url);
     }
     if (type === 'URL') {
-      return files[0]?.url;
+      return '/png/link.png';
     }
     if (type === 'DOCUMENT') {
       if (files.length === 1) {
