@@ -29,7 +29,11 @@ const Sidebar = () => {
           setIsOpen(false);
         }}
       >
-        <Box pos="absolute" w={isOpen ? { base: '215px', lg: '230px', '2xl': '240px' } : '52px'}>
+        <Box
+          pos="absolute"
+          w={isOpen ? { base: '215px', lg: '230px', '2xl': '240px' } : '52px'}
+          onClick={(e) => e.stopPropagation()}
+        >
           <SidebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
       </Box>
