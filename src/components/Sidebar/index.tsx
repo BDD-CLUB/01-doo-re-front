@@ -25,6 +25,9 @@ const Sidebar = () => {
         w={!isDesktop && isOpen ? '100%' : '0'}
         h="100%"
         bg={!isDesktop && isOpen ? 'rgba(0,0,0,0.5)' : ''}
+        onClick={() => {
+          setIsOpen(false);
+        }}
       >
         <Box pos="absolute" w={isOpen ? { base: '215px', lg: '230px', '2xl': '240px' } : '52px'}>
           <SidebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
