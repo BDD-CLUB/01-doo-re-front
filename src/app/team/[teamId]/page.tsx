@@ -23,6 +23,7 @@ import AttendanceRate from '@/containers/team/AttendanceRate';
 import DocumentGridView from '@/containers/team/DocumentGridView';
 import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
+import SuggestionCreate from '@/containers/team/SuggestionCreate';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
@@ -190,7 +191,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         </Flex>
 
         <Flex direction="column" flex="1" gap="4">
-          {/* TODO 스터디, 학습자료, 작물창고 버튼 */}
           <TabButton currentTab={category} changeTab={handleCategoryChange} categoryInfos={TEAM_CATEGORY_INFOS} />
           {category !== '작물창고' && (
             <NavigationButton
@@ -200,9 +200,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
               isMyTeam={isMyTeam}
             />
           )}
-          {/* TODO 전체보기, 네비게이션 이동 버튼 */}
-          {/* TODO 스터디 카드 */}
-          {category === '스터디' && (
+          {category === '스터디' && studyArray.length === 0 && <SuggestionCreate category="스터디" />}
+          {category === '스터디' && studyArray.length !== 0 && (
             <StudyGridView
               studyArray={studyArray.map((study, index) => ({
                 ...study.studyReferenceResponse,
@@ -211,6 +210,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
               teamId={params.teamId}
             />
           )}
+          {category === '학습자료' && documentArray.length === 0 && <SuggestionCreate category="학습자료" />}
           {category === '학습자료' && <DocumentGridView documentArray={documentArray} />}
         </Flex>
       </Flex>
