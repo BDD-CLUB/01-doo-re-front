@@ -10,7 +10,7 @@ import { getStudy } from '@/app/api/study';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
-import Feed from '@/containers/study/Feed';
+// import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
@@ -98,7 +98,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </Flex>
           </Flex>
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-            <Feed />
+            {/* <Feed /> */}
             <Participant participantInfos={participantData} />
           </Flex>
         </Grid>

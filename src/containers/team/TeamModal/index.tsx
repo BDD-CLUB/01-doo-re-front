@@ -9,6 +9,7 @@ import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 
 import { TeamModalProps } from './type';
 
@@ -32,6 +33,8 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const createTeam = useMutateWithToken(postCreateTeam);
   const editTeam = useMutateWithToken(putEditTeam);
   const editTeamImage = useMutateWithToken(patchEditTeamImage);
+
+  const refetchSideBar = useRefetchSideBar();
 
   const resetState = () => {
     setName('');
@@ -75,6 +78,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
               }
             });
           }
+          refetchSideBar();
           resetAndCloseModal();
         }
       });
@@ -96,6 +100,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
 
     createTeam(teamForm).then((res) => {
       if (res.ok) {
+        refetchSideBar();
         resetAndCloseModal();
       }
     });
