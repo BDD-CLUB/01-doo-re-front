@@ -60,7 +60,10 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         />
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-            <CurriculumCard />
+            {studyData && (
+              <CurriculumCard cropId={studyData.cropId} studyProgressRatio={studyData.studyProgressRatio} />
+            )}
+
             <Flex align="right" direction="column" rowGap="3">
               <Link
                 as={NextLink}
