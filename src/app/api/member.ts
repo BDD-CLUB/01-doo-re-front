@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { useQuery } from '@tanstack/react-query';
+
 import { fetcher } from '@/app/api/fetcher';
 import useGetUser from '@/hooks/useGetUser';
 
