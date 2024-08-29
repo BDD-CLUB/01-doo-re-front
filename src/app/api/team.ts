@@ -1,3 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
+
+import useGetUser from '@/hooks/useGetUser';
 import { Team } from '@/types';
 
 import { fetcher } from './fetcher';
@@ -20,6 +23,14 @@ const getTeamInfo = (token: string, teamId: number) =>
       Authorization: `Bearer ${token}`,
     },
   });
+
+const useGetTeamInfoQuery = (teamId: number) => {
+  const user = useGetUser();
+  return useQuery({
+    queryFn: () => getTeamInfo(user?.token || '', teamId).then((res) => res.body),
+    queryKey: ['teamInfo', teamId],
+  });
+};
 
 const putEditTeam = (token: string, teamId: number, teamInfo: Pick<Team, 'name' | 'description'>) => {
   return teamFetcher(`/teams/${teamId}`, {
@@ -95,6 +106,7 @@ const getMyTeams = (memberId: number) => teamFetcher(`/teams/members/${memberId}
 export {
   postCreateTeam,
   getTeamInfo,
+  useGetTeamInfoQuery,
   putEditTeam,
   patchEditTeamImage,
   deleteTeam,

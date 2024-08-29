@@ -10,7 +10,7 @@ import { BsLink45Deg } from 'react-icons/bs';
 import { getDocumentList } from '@/app/api/document';
 import { getGarden } from '@/app/api/garden';
 import { getStudies } from '@/app/api/study';
-import { getTeamInfo, postInviteTeam } from '@/app/api/team';
+import { postInviteTeam, useGetTeamInfoQuery } from '@/app/api/team';
 import { myTeamAtom } from '@/atom';
 import Garden3D from '@/components/Garden3D';
 import TabButton from '@/components/TabButton';
@@ -26,11 +26,11 @@ import StudyGridView from '@/containers/team/StudyGridView';
 import SuggestionCreate from '@/containers/team/SuggestionCreate';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
-import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import { DocumentList, Garden, StudyRank } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
-  const teamInfo = useGetFetchWithToken(getTeamInfo, [params.teamId]);
+  const { data: teamInfo } = useGetTeamInfoQuery(params.teamId);
   const [garden, setGarden] = useState<Garden[]>([]);
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);

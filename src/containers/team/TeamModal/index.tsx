@@ -10,6 +10,7 @@ import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useRefetchSideBar from '@/hooks/useRefetchSideBar';
+import useRefetchTeamInfo from '@/hooks/useRefetchTeamInfo';
 
 import { TeamModalProps } from './type';
 
@@ -35,6 +36,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const editTeamImage = useMutateWithToken(patchEditTeamImage);
 
   const refetchSideBar = useRefetchSideBar();
+  const refetchTeamInfo = useRefetchTeamInfo();
 
   const resetState = () => {
     setName('');
@@ -79,6 +81,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
             });
           }
           refetchSideBar();
+          refetchTeamInfo(teamInfo.id);
           resetAndCloseModal();
         }
       });
