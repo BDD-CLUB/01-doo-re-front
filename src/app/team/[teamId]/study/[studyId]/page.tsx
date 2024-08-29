@@ -10,7 +10,7 @@ import { getStudy } from '@/app/api/study';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
-import Feed from '@/containers/study/Feed';
+// import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
@@ -61,7 +61,10 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         />
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-            <CurriculumCard />
+            {studyData && (
+              <CurriculumCard cropId={studyData.cropId} studyProgressRatio={studyData.studyProgressRatio} />
+            )}
+
             <Flex align="right" direction="column" rowGap="3">
               <Link
                 as={NextLink}
@@ -99,7 +102,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </Flex>
           </Flex>
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-            <Feed />
+            {/* <Feed /> */}
             <Flex align="right" direction="column" rowGap="3">
               {studyData && (
                 <StudyParticipantMenu
