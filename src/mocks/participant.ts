@@ -31,6 +31,22 @@ const participantData: ParticipantType[] = [
   { id: 28, name: '황철수', status: '스터디원', profileImg: 'profile6.png', myPageUrl: '/' },
   { id: 29, name: '진철수', status: '스터디원', profileImg: 'profile5.png', myPageUrl: '/' },
   { id: 30, name: '황철수', status: '스터디장', profileImg: 'profile6.png', myPageUrl: '/' },
+  { id: 31, name: '김철수', status: '', profileImg: 'profile1.png', myPageUrl: '/' },
+  { id: 32, name: '윤철수', status: '', profileImg: 'profile2.png', myPageUrl: '/' },
+  { id: 33, name: '박철수', status: '', profileImg: 'profile3.png', myPageUrl: '/' },
+  { id: 34, name: '이철수', status: '', profileImg: 'profile4.png', myPageUrl: '/' },
+  { id: 35, name: '진철수', status: '', profileImg: 'profile5.png', myPageUrl: '/' },
+  { id: 36, name: '황철수', status: '', profileImg: 'profile6.png', myPageUrl: '/' },
+  { id: 37, name: '진철수', status: '', profileImg: 'profile5.png', myPageUrl: '/' },
+  { id: 38, name: '황철수', status: '', profileImg: 'profile6.png', myPageUrl: '/' },
+  { id: 39, name: '진철수', status: '', profileImg: 'profile5.png', myPageUrl: '/' },
+  { id: 40, name: '황철수', status: '', profileImg: 'profile6.png', myPageUrl: '/' },
+  { id: 41, name: '진철수', status: '', profileImg: 'profile5.png', myPageUrl: '/' },
+  { id: 42, name: '황철수', status: '', profileImg: 'profile6.png', myPageUrl: '/' },
+  { id: 43, name: '진철수', status: '', profileImg: 'profile5.png', myPageUrl: '/' },
+  { id: 44, name: '황철수', status: '', profileImg: 'profile6.png', myPageUrl: '/' },
+  { id: 45, name: '진철수', status: '', profileImg: 'profile5.png', myPageUrl: '/' },
+  { id: 46, name: '황철수', status: '', profileImg: 'profile6.png', myPageUrl: '/' },
 ];
 
 export default participantData;

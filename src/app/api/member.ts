@@ -13,6 +13,14 @@ const getSidebarInfo = (token: string, memberId: number) =>
     },
   });
 
+const patchStudyMandate = (token: string, studyId: number, newStudyLeaderId: number) =>
+  memberFetcher(`/study/${studyId}/mandate/${newStudyLeaderId}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const useGetSideBarInfoQuery = () => {
   const user = useGetUser();
   return useQuery({
@@ -21,4 +29,4 @@ const useGetSideBarInfoQuery = () => {
   });
 };
 
-export { getSidebarInfo, useGetSideBarInfoQuery };
+export { getSidebarInfo, useGetSideBarInfoQuery, patchStudyMandate };

@@ -17,6 +17,7 @@ import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
+import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
 import participantData from '@/mocks/participant';
 import { DocumentList, Study } from '@/types';
 
@@ -102,7 +103,16 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           </Flex>
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {/* <Feed /> */}
-            <Participant participantInfos={participantData} />
+            <Flex align="right" direction="column" rowGap="3">
+              {studyData && (
+                <StudyParticipantMenu
+                  studyId={params.studyId}
+                  teamId={studyData?.teamReference.id}
+                  leaderId={studyData?.studyLeaderId}
+                />
+              )}
+              <Participant participantInfos={participantData} />
+            </Flex>
           </Flex>
         </Grid>
       </Flex>
