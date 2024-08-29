@@ -2,15 +2,14 @@
 
 import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import { useSetAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
-import { getSidebarInfo } from '@/app/api/member';
-import { myTeamAtom } from '@/atom';
+import { useGetSideBarInfoQuery } from '@/app/api/member';
+import { defaultUserAtom, userAtom } from '@/atom';
 import TeamModal from '@/containers/team/TeamModal';
-import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
 
 import SidebarIconButton from '../Button/SidebarIconButton';
@@ -20,13 +19,8 @@ import { SidebarContentProps, SidebarTeam } from '../type';
 const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
   const user = useGetUser();
-  const sidebarInfo = useGetFetchWithToken(getSidebarInfo, [user?.memberId], user);
-  const setMyTeam = useSetAtom(myTeamAtom);
-
-  useEffect(() => {
-    const teams = sidebarInfo?.myTeamsAndStudies.map((team: SidebarTeam) => team.teamId);
-    setMyTeam({ teams });
-  }, [sidebarInfo, setMyTeam]);
+  const setUser = useSetAtom(userAtom);
+  const { data: sidebarInfo } = useGetSideBarInfoQuery();
 
   return (
     <>
@@ -56,16 +50,16 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           />
         </Flex>
         <Flex align="center" direction="column" gap="4" mb="16">
-          <Avatar size={isOpen ? 'lg' : 'md'} src={sidebarInfo?.imageUrl} />
+          <Avatar size={isOpen ? 'lg' : 'md'} src={sidebarInfo?.body?.imageUrl} />
           {isOpen && (
             <Text textStyle="bold_2xl" px="10" py="1" color="white" bg="green_dark" rounded="full">
-              {user?.isLogin ? sidebarInfo?.name : '비회원'}
+              {user?.isLogin ? sidebarInfo?.body?.name : '비회원'}
             </Text>
           )}
           <Flex direction={isOpen ? 'row' : 'column'} gap="4">
             <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
             <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
-            <SidebarIconButton icon={<MdOutlineLogout />} onClick={() => {}} />
+            <SidebarIconButton icon={<MdOutlineLogout />} onClick={() => setUser(defaultUserAtom)} />
           </Flex>
         </Flex>
         {isOpen && user?.isLogin && (
@@ -95,7 +89,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
               bg="green_dark"
               roundedBottom="2xl"
             >
-              {sidebarInfo?.myTeamsAndStudies?.map((team: SidebarTeam) => (
+              {sidebarInfo?.body?.myTeamsAndStudies?.map((team: SidebarTeam) => (
                 <Category
                   key={`team-${team.teamId}`}
                   id={team.teamId}

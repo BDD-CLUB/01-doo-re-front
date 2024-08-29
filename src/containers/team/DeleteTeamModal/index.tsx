@@ -4,15 +4,18 @@ import { useRouter } from 'next/navigation';
 import { deleteTeam as deleteTeamApi } from '@/app/api/team';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 
 import { DeleteTeamModalProps } from './type';
 
 const DeleteTeamModal = ({ id, name, isOpen, onClose }: DeleteTeamModalProps) => {
   const deleteTeam = useMutateWithToken(deleteTeamApi);
+  const refetchSidebar = useRefetchSideBar();
   const router = useRouter();
 
   const handleDeleteTeamButtonClick = () => {
     deleteTeam(id).then(() => {
+      refetchSidebar();
       onClose();
       router.replace('/');
     });

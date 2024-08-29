@@ -9,6 +9,7 @@ import { loginBackPathAtom } from '@/atom';
 import GOOGLE_LOGIN_URL from '@/constants/googleLoginUrl';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
+import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 
 const Page = ({ searchParams }: { searchParams: { code: string } }) => {
   const params = useParams<{ teamId: string }>();
@@ -18,12 +19,14 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
   const user = useGetUser();
   const setLoginBackPath = useSetAtom(loginBackPathAtom);
   const joinTeam = useMutateWithToken(postJoinTeam);
+  const refetchSidebar = useRefetchSideBar();
 
   useEffect(() => {
     if (user) {
       if (user.isLogin) {
         joinTeam(teamId, code).then((res) => {
           if (res?.ok) {
+            refetchSidebar();
             router.replace(`/team/${teamId}`);
           } else {
             alert('유효하지 않은 초대링크입니다.');
@@ -35,7 +38,7 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
         window.location.href = GOOGLE_LOGIN_URL;
       }
     }
-  }, [user, teamId, code, router, setLoginBackPath, joinTeam]);
+  }, [user, teamId, code, router, setLoginBackPath, joinTeam, refetchSidebar]);
 
   return <div />;
 };
