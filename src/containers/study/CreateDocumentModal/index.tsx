@@ -1,7 +1,7 @@
 'use client';
 
 import { Divider, Flex, Input, Text, Textarea, Button } from '@chakra-ui/react';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { BiFile, BiImage, BiTrash } from 'react-icons/bi';
 import { BsLink45Deg } from 'react-icons/bs';
 
@@ -14,6 +14,7 @@ import color from '@/constants/color';
 import { DocumentModalProps, DocumentList, CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
+import textStyles from '@/theme/foundations/textStyles';
 import { Document, DocumentAccessType, DocumentDetail, DocumentType } from '@/types';
 
 const DocumentBoxIcon = {
@@ -165,6 +166,14 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
     });
   };
 
+  useEffect(() => {
+    if (isOpen && category === 'update') {
+      setTitle((categoryData as DocumentDetail).title);
+      setDescription((categoryData as DocumentDetail).description);
+      setSelectedValue((categoryData as DocumentDetail).accessType);
+    }
+  }, [isOpen, category, categoryData]);
+
   return (
     <ActionModal
       isOpen={isOpen}
@@ -179,12 +188,28 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       <Flex direction="column" gap="4">
         <Text textStyle="bold_xl">학습자료 제목</Text>
         <Input
+          sx={{
+            color: 'white',
+            ...textStyles.bold_md,
+            '::placeholder': {
+              color: 'white',
+              ...textStyles.bold_md,
+            },
+          }}
           onChange={handleTitleChange}
           placeholder={category === 'create' ? '학습자료 제목을 입력해주세요.' : (categoryData as DocumentDetail).title}
           value={title}
         />
         <Text textStyle="bold_xl">학습자료 소개</Text>
         <Textarea
+          sx={{
+            color: 'white',
+            ...textStyles.bold_md,
+            '::placeholder': {
+              color: 'white',
+              ...textStyles.bold_md,
+            },
+          }}
           onChange={handleDescriptionChange}
           placeholder={
             category === 'create' ? '학습자료 소개를 입력해주세요.' : (categoryData as DocumentDetail).description
@@ -228,7 +253,28 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
           ref={imgInputRef}
           onChange={handleGetDoc.IMAGE}
         />
-        <input hidden type="file" multiple ref={fileInputRef} onChange={handleGetDoc.DOCUMENT} />
+        <input
+          hidden
+          type="file"
+          multiple
+          ref={fileInputRef}
+          accept="text/plain,
+                  application/zip,
+                  application/pdf,
+                  application/vnd.ms-powerpoint,
+                  application/vnd.openxmlformats-officedocument.presentationml.presentation,
+                  video/mp4,
+                  video/x-msvideo,
+                  video/webm,
+                  audio/mpeg,
+                  audio/wav,
+                  audio/webm,
+                  image/jpeg,
+                  image/png,
+                  image/gif,
+                  image/webp"
+          onChange={handleGetDoc.DOCUMENT}
+        />
         <Flex direction="column" gap="4" overflow="scroll" maxH="52" shrink="0">
           {docList[doctype] &&
             docList[doctype].map((doc, index) => (
