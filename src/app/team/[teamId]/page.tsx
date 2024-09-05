@@ -155,11 +155,16 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     <>
       <Flex direction="column" gap="8" w="100%" p="8">
         <Flex justify="space-between">
-          <Title isTeam imageUrl={teamInfo?.imageUrl} name={teamInfo?.name} description={teamInfo?.description} />
+          <Title
+            isTeam
+            imageUrl={teamInfo?.body.imageUrl}
+            name={teamInfo?.body.name}
+            description={teamInfo?.body.description}
+          />
           {/* TODO 자신의 팀일때만 보이도록 수정 */}
           {isMyTeam && (
             <Flex align="center" gap={{ base: '2', lg: '8' }}>
-              <TeamMember teamId={params.teamId} teamName={teamInfo?.name} />
+              <TeamMember teamId={params.teamId} teamName={teamInfo?.body.name} />
               <Button
                 color="white"
                 bg="orange_dark"
@@ -173,7 +178,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
             </Flex>
           )}
         </Flex>
-        <TeamControlPanel teamInfo={teamInfo} />
+        <TeamControlPanel teamInfo={teamInfo?.body} />
 
         <Flex pos="relative" align="center" flex="1" gap="8">
           <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px', xl: '320px' }}>
@@ -189,7 +194,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           </Box>
 
           {/* TODO  진행도 */}
-          <AttendanceRate attendanceRate={teamInfo?.attendanceRatio} />
+          <AttendanceRate attendanceRate={teamInfo?.body.attendanceRatio} />
         </Flex>
 
         <Flex direction="column" flex="1" gap="4">

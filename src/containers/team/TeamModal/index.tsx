@@ -81,7 +81,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
             });
           }
           refetchSideBar();
-          refetchTeamInfo(teamInfo.id);
+          refetchTeamInfo();
           resetAndCloseModal();
         }
       });
