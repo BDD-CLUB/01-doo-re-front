@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getStudies } from '@/app/api/study';
 import PageNavigator from '@/components/PageNavigator';
 import StudyCard from '@/components/StudyCard';
+import SuggestionCreate from '@/containers/team/SuggestionCreate';
 import { StudyRank } from '@/types';
 
 const StudyGallery = ({ teamId }: { teamId: number }) => {
@@ -12,18 +13,23 @@ const StudyGallery = ({ teamId }: { teamId: number }) => {
   const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
   const [cardIdx, setCardIdx] = useState<number>(0);
 
+  const [maxPage, setMaxPage] = useState<number>(0);
+
   const itemsPerPage = useBreakpointValue({ base: 4, md: 8, xl: 10 })!;
 
   useEffect(() => {
     getStudies(teamId, currentPage, itemsPerPage).then((res) => {
       if (res.ok) {
-        setStudyArray(res.body);
+        setStudyArray(res.body.content);
+        setMaxPage(res.body.totalPages);
       }
     });
     setCardIdx((currentPage - 1) * itemsPerPage);
   }, [currentPage, itemsPerPage]);
 
-  // TODO: study length === 0 이면 스터디 생성해달라는 문구 추가하기
+  if (studyArray.length === 0) {
+    return <SuggestionCreate category="스터디" />;
+  }
 
   return (
     <Flex direction="column">
@@ -49,11 +55,10 @@ const StudyGallery = ({ teamId }: { teamId: number }) => {
             />
           ))}
       </Grid>
-      {/* TODO: component length 수정 */}
       <PageNavigator
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        componentLength={100}
+        componentLength={maxPage}
         itemsPerPage={itemsPerPage}
       />
     </Flex>
