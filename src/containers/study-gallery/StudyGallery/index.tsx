@@ -13,15 +13,15 @@ const StudyGallery = ({ teamId }: { teamId: number }) => {
   const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
   const [cardIdx, setCardIdx] = useState<number>(0);
 
-  const [maxPage, setMaxPage] = useState<number>(0);
+  const [studyLength, setStudyLength] = useState<number>(0);
 
   const itemsPerPage = useBreakpointValue({ base: 4, md: 8, xl: 10 })!;
 
   useEffect(() => {
-    getStudies(teamId, currentPage, itemsPerPage).then((res) => {
+    getStudies(teamId, currentPage - 1, itemsPerPage).then((res) => {
       if (res.ok) {
         setStudyArray(res.body.content);
-        setMaxPage(res.body.totalPages);
+        setStudyLength(res.body.totalElements);
       }
     });
     setCardIdx((currentPage - 1) * itemsPerPage);
@@ -58,7 +58,7 @@ const StudyGallery = ({ teamId }: { teamId: number }) => {
       <PageNavigator
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        componentLength={maxPage}
+        componentLength={studyLength}
         itemsPerPage={itemsPerPage}
       />
     </Flex>

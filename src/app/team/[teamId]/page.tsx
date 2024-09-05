@@ -50,7 +50,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
       getStudies(params.teamId, page, size).then((res) => {
         if (res.ok) {
-          setStudyArray(res.body);
+          setStudyArray(res.body.content);
         }
       });
     } else if (category === '학습자료') {
@@ -96,7 +96,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
 
       getStudies(params.teamId, nextPage, size).then((res) => {
         if (res.ok) {
-          if (res.body.length > 0) {
+          if (res.body.content.length > 0) {
+            setStudyArray(res.body.content);
             setCardIdx((idx) => idx + CARD_PER_PAGE);
           }
         }
