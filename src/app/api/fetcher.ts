@@ -21,12 +21,7 @@ const defaultOptions: FetcherOptions = {
   },
   interceptors: {
     request: async (config) => config,
-    response: async (response) => {
-      if (response.ok) {
-        return response;
-      }
-      throw new Error(response.statusText);
-    },
+    response: async (response) => response,
   },
 };
 
@@ -70,7 +65,7 @@ export const fetcher = (options?: FetcherOptions) => {
       const bodyText = await response.text();
       const body = bodyText ? JSON.parse(bodyText) : null;
 
-      return { ok: true, body };
+      return { ok: response.ok, body };
     } catch (error) {
       let message = '';
       if (error instanceof Error) message = error.message;

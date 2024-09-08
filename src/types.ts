@@ -29,6 +29,7 @@ interface TeamReference {
 
 export interface Study {
   readonly id: number;
+  teamId: number;
   name: string;
   description: string;
   startDate: string;

@@ -4,7 +4,7 @@ import { BsPlus } from 'react-icons/bs';
 
 import { NavigationButtonProps } from './types';
 
-const NavigationButton = ({ handlePrevClick, handleNextClick, handlePlusClick }: NavigationButtonProps) => {
+const NavigationButton = ({ handlePrevClick, handleNextClick, handlePlusClick, isMyTeam }: NavigationButtonProps) => {
   return (
     <Flex align="center" justify="flex-end" gap="4" w="100%">
       <IconButton
@@ -23,14 +23,16 @@ const NavigationButton = ({ handlePrevClick, handleNextClick, handlePlusClick }:
         size="icon_sm"
         variant="icon_white"
       />
-      <IconButton
-        shadow="base"
-        aria-label=""
-        icon={<BsPlus />}
-        onClick={handlePlusClick}
-        size="icon_md"
-        variant="icon_orange_dark"
-      />
+      {isMyTeam && (
+        <IconButton
+          shadow="base"
+          aria-label=""
+          icon={<BsPlus />}
+          onClick={handlePlusClick}
+          size="icon_md"
+          variant="icon_orange_dark"
+        />
+      )}
     </Flex>
   );
 };

@@ -4,13 +4,14 @@ import StudyCard from '@/components/StudyCard';
 
 import { StudyGridViewProps } from './types';
 
-const StudyGridView = ({ studyArray }: StudyGridViewProps) => {
+const StudyGridView = ({ studyArray, teamId }: StudyGridViewProps) => {
   return (
     <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
       {studyArray.map((study) => {
         return (
           <StudyCard
             key={study.id}
+            teamId={teamId}
             id={study.id}
             name={study.name}
             description={study.description}
