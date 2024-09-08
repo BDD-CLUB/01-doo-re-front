@@ -2,9 +2,9 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const useRefetchTeamInfo = () => {
   const queryClient = useQueryClient();
-  const refetchTeamInfo = () => {
+  const refetchTeamInfo = (teamId: number) => {
     queryClient.invalidateQueries({
-      queryKey: ['teamInfo'],
+      queryKey: ['teamInfo', teamId.toString()],
     });
   };
   return refetchTeamInfo;

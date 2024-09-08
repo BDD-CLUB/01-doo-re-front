@@ -28,7 +28,7 @@ const useGetTeamInfoQuery = (teamId: number) => {
   const user = useGetUser();
   return useQuery({
     queryFn: () => getTeamInfo(user?.token || '', teamId),
-    queryKey: ['teamInfo'],
+    queryKey: ['teamInfo', teamId.toString()],
   });
 };
 
