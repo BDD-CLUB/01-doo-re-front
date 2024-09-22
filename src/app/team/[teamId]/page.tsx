@@ -145,8 +145,8 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const myTeam = useAtomValue(myTeamAtom);
   const [isMyTeam, setIsMyTeam] = useState<boolean>(false);
   useEffect(() => {
-    if (myTeam.teams !== undefined) {
-      const res = myTeam.teams.filter((teamId) => teamId === params.teamId);
+    if (myTeam !== undefined) {
+      const res = myTeam.filter((teamId) => teamId === Number(params.teamId));
       setIsMyTeam(res.length === 1);
     }
   }, [myTeam, params.teamId]);
