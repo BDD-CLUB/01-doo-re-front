@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getDocumentList } from '@/app/api/document';
-import { getStudy } from '@/app/api/study';
+import { getStudy, getStudyMembers } from '@/app/api/study';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
@@ -18,8 +18,8 @@ import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
-import participantData from '@/mocks/participant';
-import { DocumentList, Study } from '@/types';
+import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
+import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [studyData, setStudyData] = useState<Study>();
@@ -27,6 +27,16 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
+
+  const participantData = useGetFetchWithToken(getStudyMembers, [params?.studyId])?.map(
+    (data: StudyMember) =>
+      ({
+        id: data.memberId,
+        name: data.name,
+        status: data.memberId === studyData?.studyLeaderId ? '스터디장' : '스터디원',
+        profileImg: data.imageUrl,
+      }) as ParticipantType,
+  );
 
   useEffect(() => {
     getStudy(params.studyId).then((data) => {
@@ -111,7 +121,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   leaderId={studyData?.studyLeaderId}
                 />
               )}
-              <Participant participantInfos={participantData} />
+              <Participant participantInfos={participantData || []} />
             </Flex>
           </Flex>
         </Grid>
