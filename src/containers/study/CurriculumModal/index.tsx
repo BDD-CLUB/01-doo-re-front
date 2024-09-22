@@ -9,10 +9,10 @@ import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautif
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 
-import { postCurriculum } from '@/app/api/study';
+import { getCurriculum, postCurriculum } from '@/app/api/study';
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
-import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { EditCurriculum, CurriculumModalProps } from './type';
 
@@ -24,14 +24,20 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
 
   const [newCurriculum, setNewCurriculum] = useState<string>('');
   const [newCurriculumId, setNewCurriculumId] = useState<number>(1);
+  const [firstNewCurriculumId, setFirstNewCurriculumId] = useState<number>(1);
 
   const editCurriculumRef = React.useRef<HTMLTextAreaElement>();
+  const getCurriculumItems = useGetFetchWithToken(getCurriculum, [Number(studyId)]);
 
   const editCurriculum = useMutateWithToken(postCurriculum);
 
   const handleNewCurriculumChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewCurriculum(event.target.value);
   };
+
+  useEffect(() => {
+    console.log('getCurriculumItems', originCurriculums);
+  }, [originCurriculums]);
 
   const handleCurriculumChange = (index: number) => (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
@@ -85,18 +91,19 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
     const deletedCurriculumItems = deleteCurriculums
       .filter((curriculum) => originCurriculums.some((origin) => origin.id === curriculum.id))
       .map((curriculum) => ({
-        id: curriculum.id,
+        id: null,
         name: curriculum.name,
         itemOrder: curriculum.itemOrder,
       }));
 
     const curriculumItems = curriculums.map((curriculum) => ({
-      id: curriculum.id,
+      id: curriculum.id !== null && curriculum.id > firstNewCurriculumId ? null : curriculum.id,
       name: curriculum.name,
       itemOrder: curriculum.itemOrder,
     }));
 
     editCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems);
+    console.log('curriculumItems', getCurriculumItems, ' 22 : ', curriculumItems);
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -134,6 +141,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
     );
 
     setNewCurriculumId((originCurriculums?.at(-1)?.id ?? 0) + 1);
+    setFirstNewCurriculumId(originCurriculums?.at(-1)?.id ?? 0);
   }, [originCurriculums]);
 
   return (
@@ -152,53 +160,56 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
         <Droppable droppableId="DropLand">
           {(provided) => (
             <Flex direction="column" gap="4" m="4" {...provided.droppableProps} ref={provided.innerRef}>
-              {curriculums.map((curriculum, index) => (
-                <Draggable key={curriculum.id} draggableId={curriculum.id.toString()} index={index}>
-                  {(innerProvided) => (
-                    <Flex
-                      ref={innerProvided.innerRef}
-                      align="center"
-                      gap="2"
-                      {...innerProvided.draggableProps}
-                      {...innerProvided.dragHandleProps}
-                    >
-                      <Text textStyle="bold_xl" color={curriculum.isEdit ? 'orange' : 'orange_light'}>
-                        {curriculum.itemOrder.toString().padStart(2, '0')}
-                      </Text>
+              {curriculums.map(
+                (curriculum, index) =>
+                  curriculum.id && (
+                    <Draggable key={curriculum.id} draggableId={curriculum.id.toString()} index={index}>
+                      {(innerProvided) => (
+                        <Flex
+                          ref={innerProvided.innerRef}
+                          align="center"
+                          gap="2"
+                          {...innerProvided.draggableProps}
+                          {...innerProvided.dragHandleProps}
+                        >
+                          <Text textStyle="bold_xl" color={curriculum.isEdit ? 'orange' : 'orange_light'}>
+                            {curriculum.itemOrder.toString().padStart(2, '0')}
+                          </Text>
 
-                      <AutoResizeTextarea
-                        ref={editCurriculumRef.current}
-                        bg={curriculum.isEdit ? 'orange' : 'orange_light'}
-                        zIndex={!curriculum.isEdit ? '-1' : '1'}
-                        value={curriculum.name}
-                        onChange={handleCurriculumChange(index)}
-                        RightIconButton={
-                          <>
-                            <IconButton
-                              aria-label="edit curriculum"
-                              icon={<BiEdit />}
-                              onClick={() => {
-                                handleEditButtonClick(index);
-                              }}
-                              size="icon_md"
-                              variant="transparent"
-                            />
-                            <IconButton
-                              aria-label="delete curriculum"
-                              icon={<BiTrash />}
-                              onClick={() => {
-                                handleDeleteButtonClick(index);
-                              }}
-                              size="icon_md"
-                              variant="transparent"
-                            />
-                          </>
-                        }
-                      />
-                    </Flex>
-                  )}
-                </Draggable>
-              ))}
+                          <AutoResizeTextarea
+                            ref={editCurriculumRef.current}
+                            bg={curriculum.isEdit ? 'orange' : 'orange_light'}
+                            zIndex={!curriculum.isEdit ? '-1' : '1'}
+                            value={curriculum.name}
+                            onChange={handleCurriculumChange(index)}
+                            RightIconButton={
+                              <>
+                                <IconButton
+                                  aria-label="edit curriculum"
+                                  icon={<BiEdit />}
+                                  onClick={() => {
+                                    handleEditButtonClick(index);
+                                  }}
+                                  size="icon_md"
+                                  variant="transparent"
+                                />
+                                <IconButton
+                                  aria-label="delete curriculum"
+                                  icon={<BiTrash />}
+                                  onClick={() => {
+                                    handleDeleteButtonClick(index);
+                                  }}
+                                  size="icon_md"
+                                  variant="transparent"
+                                />
+                              </>
+                            }
+                          />
+                        </Flex>
+                      )}
+                    </Draggable>
+                  ),
+              )}
               {provided.placeholder}
             </Flex>
           )}
