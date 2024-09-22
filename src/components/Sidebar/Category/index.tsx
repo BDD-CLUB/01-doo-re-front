@@ -15,7 +15,7 @@ const Category = ({ id, name, subCategory }: CategoryProps) => {
         text={name}
         isSelected={currentPath === teamPath}
         isTeam
-        isTeamMatch={currentPath.includes(teamPath)}
+        isTeamMatch={currentPath.startsWith(`${teamPath}/`)}
       />
       {subCategory.map((study) => {
         const studyPath = `${teamPath}/study/${study.id}`;
