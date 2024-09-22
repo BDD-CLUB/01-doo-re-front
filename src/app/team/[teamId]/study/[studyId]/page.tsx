@@ -18,6 +18,7 @@ import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
+import useGetUser from '@/hooks/useGetUser';
 import participantData from '@/mocks/participant';
 import { DocumentList, Study } from '@/types';
 
@@ -27,6 +28,8 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
+
+  const user = useGetUser();
 
   useEffect(() => {
     getStudy(params.studyId).then((data) => {
@@ -54,11 +57,13 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        <StudyControlPanel
-          editModalOpen={setIsEditModalOpen}
-          terminateModalOpen={setIsTerminateModalOpen}
-          deleteModalOpen={setIsDeleteModalOpen}
-        />
+        {user?.memberId === studyData?.studyLeaderId && (
+          <StudyControlPanel
+            editModalOpen={setIsEditModalOpen}
+            terminateModalOpen={setIsTerminateModalOpen}
+            deleteModalOpen={setIsDeleteModalOpen}
+          />
+        )}
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {studyData && (
