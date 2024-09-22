@@ -9,10 +9,10 @@ import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautif
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 
-import { getCurriculum, postCurriculum } from '@/app/api/study';
+import { postCurriculum } from '@/app/api/study';
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
-import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
+import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 
 import { EditCurriculum, CurriculumModalProps } from './type';
 
@@ -27,17 +27,13 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
   const [firstNewCurriculumId, setFirstNewCurriculumId] = useState<number>(1);
 
   const editCurriculumRef = React.useRef<HTMLTextAreaElement>();
-  const getCurriculumItems = useGetFetchWithToken(getCurriculum, [Number(studyId)]);
+  // const getCurriculumItems = useGetFetchWithToken(getCurriculum, [Number(studyId)]);
 
   const editCurriculum = useMutateWithToken(postCurriculum);
 
   const handleNewCurriculumChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewCurriculum(event.target.value);
   };
-
-  useEffect(() => {
-    console.log('getCurriculumItems', originCurriculums);
-  }, [originCurriculums]);
 
   const handleCurriculumChange = (index: number) => (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
@@ -91,7 +87,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
     const deletedCurriculumItems = deleteCurriculums
       .filter((curriculum) => originCurriculums.some((origin) => origin.id === curriculum.id))
       .map((curriculum) => ({
-        id: null,
+        id: curriculum.id,
         name: curriculum.name,
         itemOrder: curriculum.itemOrder,
       }));
@@ -103,7 +99,6 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
     }));
 
     editCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems);
-    console.log('curriculumItems', getCurriculumItems, ' 22 : ', curriculumItems);
   };
 
   const onDragEnd = (result: DropResult) => {
