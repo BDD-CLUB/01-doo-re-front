@@ -16,21 +16,23 @@ const Participant = ({ participantInfos }: ParticipantProps) => {
   // Feed 없을때 임시로 maxH="45vh"로 설정 원래는 maxH="30vh"
   return (
     <Card className="scroll" overflowY="auto" w="100%" h="100%" maxH="45vh" borderRadius="2xl" shadow="lg">
-      <Grid templateColumns="repeat(3, 1fr)" px="5" pt="5" pb="2">
-        {[
-          { data: leader, color: colors.orange_dark },
-          ...otherParticipants.map((data) => ({ data, color: 'inherit' })),
-        ].map(({ data, color }) => (
-          <Flex key={data.id} justify="center" mb="3">
-            <Avatar size="sm" src={data.profileImg} />
-            <Link href={data.myPageUrl}>
-              <Text textStyle="bold_sm" ml="2" color={color}>
-                {data.name}
-              </Text>
-            </Link>
-          </Flex>
-        ))}
-      </Grid>
+      {participantInfos.length > 0 && (
+        <Grid templateColumns="repeat(3, 1fr)" px="5" pt="5" pb="2">
+          {[
+            { data: leader, color: colors.orange_dark },
+            ...otherParticipants.map((data) => ({ data, color: 'inherit' })),
+          ].map(({ data, color }) => (
+            <Flex key={data.id} justify="center" mb="3">
+              <Avatar size="sm" src={data.profileImg} />
+              <Link href={data.myPageUrl}>
+                <Text textStyle="bold_sm" ml="2" color={color}>
+                  {data.name}
+                </Text>
+              </Link>
+            </Flex>
+          ))}
+        </Grid>
+      )}
     </Card>
   );
 };
