@@ -2,13 +2,13 @@
 
 import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import { useSetAtom } from 'jotai';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
 import { useGetSideBarInfoQuery } from '@/app/api/member';
-import { defaultUserAtom, userAtom } from '@/atom';
+import { defaultUserAtom, myTeamAtom, userAtom } from '@/atom';
 import TeamModal from '@/containers/team/TeamModal';
 import useGetUser from '@/hooks/useGetUser';
 
@@ -20,7 +20,15 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
   const user = useGetUser();
   const setUser = useSetAtom(userAtom);
+  const setMyTeams = useSetAtom(myTeamAtom);
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
+
+  useEffect(() => {
+    const myTeams = sidebarInfo
+      ? sidebarInfo.body.myTeamsAndStudies.map((team: { teamId: number }) => team.teamId)
+      : [];
+    setMyTeams(myTeams);
+  }, [setMyTeams, sidebarInfo]);
 
   return (
     <>
