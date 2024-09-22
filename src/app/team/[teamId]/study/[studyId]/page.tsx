@@ -18,10 +18,12 @@ import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
+import useGetUser from '@/hooks/useGetUser';
 import participantData from '@/mocks/participant';
 import { DocumentList, Study } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
+  const user = useGetUser();
   const [studyData, setStudyData] = useState<Study>();
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -104,7 +106,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {/* <Feed /> */}
             <Flex align="right" direction="column" rowGap="3">
-              {studyData && (
+              {studyData && studyData.studyLeaderId === user?.memberId && (
                 <StudyParticipantMenu
                   studyId={params.studyId}
                   teamId={studyData?.teamReference.id}
