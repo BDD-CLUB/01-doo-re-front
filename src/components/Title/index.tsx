@@ -17,7 +17,7 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
         />
       )}
       <Text textStyle="bold_3xl">{name}</Text>
-      <Box pos="relative" display={{ base: 'none', lg: 'block' }} w="10" h="12" px="2">
+      <Box pos="relative" display={{ base: isTeam ? 'block' : 'none', lg: 'block' }} w="10" h="12" px="2">
         <Box pos="absolute" zIndex="1" top="50%" w="5" h="5" bg="white" transform="translate(0%, -50%) rotate(45deg)" />
         <Flex
           pos="absolute"
