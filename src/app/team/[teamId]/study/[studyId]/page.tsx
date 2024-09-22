@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Grid, IconButton, Text, Link } from '@chakra-ui/react';
+import { Flex, Grid, IconButton, Text, Link, Card } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useEffect, useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
@@ -10,7 +10,6 @@ import { getStudy } from '@/app/api/study';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
-// import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
@@ -47,6 +46,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             <>
               <Title name={studyData.name} description={studyData.description} />
               <StudyInfoCard
+                status={studyData.status}
                 progress={studyData.studyProgressRatio}
                 startAt={new Date(studyData.startDate)}
                 endAt={new Date(studyData.endDate)}
@@ -54,18 +54,20 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        <StudyControlPanel
-          editModalOpen={setIsEditModalOpen}
-          terminateModalOpen={setIsTerminateModalOpen}
-          deleteModalOpen={setIsDeleteModalOpen}
-        />
+        {studyData?.status !== 'ENDED' && (
+          <StudyControlPanel
+            editModalOpen={setIsEditModalOpen}
+            terminateModalOpen={setIsTerminateModalOpen}
+            deleteModalOpen={setIsDeleteModalOpen}
+          />
+        )}
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {studyData && (
               <CurriculumCard cropId={studyData.cropId} studyProgressRatio={studyData.studyProgressRatio} />
             )}
 
-            <Flex align="right" direction="column" rowGap="3">
+            <Flex align="right" direction="column" rowGap="3" w="100%" h={{ base: '25vh', lg: '30vh', '2xl': '35vh' }}>
               <Link
                 as={NextLink}
                 gap="3"
@@ -84,21 +86,27 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                 />
                 <Text>전체 보기</Text>
               </Link>
-              <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-                {documentArray.map((data) => (
-                  <DocumentCard
-                    id={data.id}
-                    key={data.title}
-                    title={data.title}
-                    description={data.description}
-                    date={data.date}
-                    uploaderName={data.uploaderName}
-                    setReload={() => {}}
-                    files={data.files}
-                    type={data.type}
-                  />
-                ))}
-              </Grid>
+              {documentArray && documentArray.length > 0 ? (
+                <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
+                  {documentArray.map((data) => (
+                    <DocumentCard
+                      id={data.id}
+                      key={data.title}
+                      title={data.title}
+                      description={data.description}
+                      date={data.date}
+                      uploaderName={data.uploaderName}
+                      setReload={() => {}}
+                      files={data.files}
+                      type={data.type}
+                    />
+                  ))}
+                </Grid>
+              ) : (
+                <Card alignItems="center" justifyContent="center" w="100%" h="100%" borderRadius={{ base: '2xl' }}>
+                  <Text textStyle="lg">학습 자료가 존재하지 않습니다.</Text>
+                </Card>
+              )}
             </Flex>
           </Flex>
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
