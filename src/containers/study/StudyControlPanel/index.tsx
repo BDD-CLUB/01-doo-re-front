@@ -4,7 +4,7 @@ import { StudyControlPanelProps } from './types';
 
 const StudyControlPanel = ({ editModalOpen, terminateModalOpen, deleteModalOpen }: StudyControlPanelProps) => {
   return (
-    <Flex gap="2" mb="8">
+    <Flex gap="2">
       <Button
         w="fit-content"
         px="4"

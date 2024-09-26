@@ -64,7 +64,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             deleteModalOpen={setIsDeleteModalOpen}
           />
         )}
-        <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
+        <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%" my="4">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {studyData && (
               <CurriculumCard
