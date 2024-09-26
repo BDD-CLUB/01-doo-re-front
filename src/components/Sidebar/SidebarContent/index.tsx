@@ -18,9 +18,15 @@ import { SidebarContentProps, SidebarTeam } from '../type';
 
 const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
+
   const user = useGetUser();
   const setUser = useSetAtom(userAtom);
+
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
+
+  const handleLogOutButtonClick = () => {
+    setUser(defaultUserAtom);
+  };
 
   return (
     <>
@@ -59,7 +65,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           <Flex direction={isOpen ? 'row' : 'column'} gap="4">
             <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
             <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
-            <SidebarIconButton icon={<MdOutlineLogout />} onClick={() => setUser(defaultUserAtom)} />
+            <SidebarIconButton icon={<MdOutlineLogout />} onClick={handleLogOutButtonClick} />
           </Flex>
         </Flex>
         {isOpen && user?.isLogin && (
