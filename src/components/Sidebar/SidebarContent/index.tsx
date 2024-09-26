@@ -2,6 +2,7 @@
 
 import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import { useSetAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
@@ -22,10 +23,13 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const user = useGetUser();
   const setUser = useSetAtom(userAtom);
 
+  const router = useRouter();
+
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
 
   const handleLogOutButtonClick = () => {
     setUser(defaultUserAtom);
+    router.push('/');
   };
 
   return (
