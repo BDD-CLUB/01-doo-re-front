@@ -61,21 +61,17 @@ const StudyParticipantMenu = ({ studyId, teamId, leaderId }: StudyParticipantMen
       onRemove={handleDeleteMember}
       onMandateLeader={handleMandateLeader}
     >
-      {user?.memberId === leaderId && (
-        <>
-          <IconButton
-            fontSize="16px"
-            transform={isOpen ? 'rotate(90deg)' : 'rotate(0deg)'}
-            transition="all 0.2s"
-            aria-label=""
-            icon={<MdOutlineArrowForwardIos />}
-            isRound
-            size="icon_sm"
-            variant="icon_orange"
-          />
-          <Text>관리</Text>
-        </>
-      )}
+      <IconButton
+        fontSize="16px"
+        transform={isOpen ? 'rotate(90deg)' : 'rotate(0deg)'}
+        transition="all 0.2s"
+        aria-label=""
+        icon={<MdOutlineArrowForwardIos />}
+        isRound
+        size="icon_sm"
+        variant="icon_orange"
+      />
+      <Text>관리</Text>
     </ParticipantMenu>
   );
 };
