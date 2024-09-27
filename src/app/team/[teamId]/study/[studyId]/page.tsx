@@ -59,6 +59,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             <>
               <Title name={studyData.name} description={studyData.description} />
               <StudyInfoCard
+                status={studyData.status}
                 progress={studyData.studyProgressRatio}
                 startAt={new Date(studyData.startDate)}
                 endAt={new Date(studyData.endDate)}
@@ -66,7 +67,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        {studyData && user?.memberId === studyData.studyLeaderId && (
+        {studyData && studyData?.status !== 'ENDED' && user?.memberId === studyData?.studyLeaderId && (
           <StudyControlPanel
             editModalOpen={setIsEditModalOpen}
             terminateModalOpen={setIsTerminateModalOpen}
