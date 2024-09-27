@@ -1,16 +1,15 @@
 'use client';
 
-import { Flex, Grid, IconButton, Text, Link } from '@chakra-ui/react';
+import { Flex, Grid, IconButton, Text, Link, Card } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useEffect, useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getDocumentList } from '@/app/api/document';
-import { getStudy } from '@/app/api/study';
+import { getStudy, getStudyMembers } from '@/app/api/study';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
-// import Feed from '@/containers/study/Feed';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
@@ -18,9 +17,9 @@ import Participant from '@/containers/study/Participant';
 import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
+import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
-import participantData from '@/mocks/participant';
-import { DocumentList, Study } from '@/types';
+import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [studyData, setStudyData] = useState<Study>();
@@ -30,6 +29,16 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
 
   const user = useGetUser();
+
+  const participantData = useGetFetchWithToken(getStudyMembers, [params?.studyId])?.map(
+    (data: StudyMember) =>
+      ({
+        id: data.memberId,
+        name: data.name,
+        status: data.memberId === studyData?.studyLeaderId ? '스터디장' : '스터디원',
+        profileImg: data.imageUrl,
+      }) as ParticipantType,
+  );
 
   useEffect(() => {
     getStudy(params.studyId).then((data) => {
@@ -74,7 +83,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
               />
             )}
 
-            <Flex align="right" direction="column" rowGap="3">
+            <Flex align="right" direction="column" rowGap="3" w="100%" h={{ base: '25vh', lg: '30vh', '2xl': '35vh' }}>
               <Link
                 as={NextLink}
                 gap="3"
@@ -93,21 +102,27 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                 />
                 <Text>전체 보기</Text>
               </Link>
-              <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
-                {documentArray.map((data) => (
-                  <DocumentCard
-                    id={data.id}
-                    key={data.title}
-                    title={data.title}
-                    description={data.description}
-                    date={data.date}
-                    uploaderName={data.uploaderName}
-                    setReload={() => {}}
-                    files={data.files}
-                    type={data.type}
-                  />
-                ))}
-              </Grid>
+              {documentArray && documentArray.length > 0 ? (
+                <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
+                  {documentArray.map((data) => (
+                    <DocumentCard
+                      id={data.id}
+                      key={data.title}
+                      title={data.title}
+                      description={data.description}
+                      date={data.date}
+                      uploaderName={data.uploaderName}
+                      setReload={() => {}}
+                      files={data.files}
+                      type={data.type}
+                    />
+                  ))}
+                </Grid>
+              ) : (
+                <Card alignItems="center" justifyContent="center" w="100%" h="100%" borderRadius={{ base: '2xl' }}>
+                  <Text textStyle="lg">학습 자료가 존재하지 않습니다.</Text>
+                </Card>
+              )}
             </Flex>
           </Flex>
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
@@ -120,7 +135,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   leaderId={studyData?.studyLeaderId}
                 />
               )}
-              <Participant participantInfos={participantData} />
+              <Participant participantInfos={participantData || []} />
             </Flex>
           </Flex>
         </Grid>
