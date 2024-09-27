@@ -90,13 +90,15 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
           } else {
             updateTeamInfo();
           }
+        } else {
+          alert('팀 수정에 실패했습니다.');
         }
       });
     }
   };
 
   const handleAddTeamButtonClick = () => {
-    if (!isTeamInfoValid) return;
+    if (!isTeamInfoValid()) return;
 
     const teamForm = new FormData();
     const request = {
@@ -112,6 +114,8 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
       if (res.ok) {
         refetchSideBar();
         resetAndCloseModal();
+      } else {
+        alert('팀 생성에 실패했습니다.');
       }
     });
   };
