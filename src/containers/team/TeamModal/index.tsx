@@ -89,7 +89,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   };
 
   const handleAddTeamButtonClick = () => {
-    if (!isTeamInfoValid) return;
+    if (!isTeamInfoValid()) return;
 
     const teamForm = new FormData();
     const request = {
