@@ -18,6 +18,7 @@ import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
+import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
@@ -26,6 +27,8 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
+
+  const user = useGetUser();
 
   const participantData = useGetFetchWithToken(getStudyMembers, [params?.studyId])?.map(
     (data: StudyMember) =>
@@ -63,15 +66,21 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        <StudyControlPanel
-          editModalOpen={setIsEditModalOpen}
-          terminateModalOpen={setIsTerminateModalOpen}
-          deleteModalOpen={setIsDeleteModalOpen}
-        />
-        <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%">
+        {studyData && user?.memberId === studyData.studyLeaderId && (
+          <StudyControlPanel
+            editModalOpen={setIsEditModalOpen}
+            terminateModalOpen={setIsTerminateModalOpen}
+            deleteModalOpen={setIsDeleteModalOpen}
+          />
+        )}
+        <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%" my="4">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {studyData && (
-              <CurriculumCard cropId={studyData.cropId} studyProgressRatio={studyData.studyProgressRatio} />
+              <CurriculumCard
+                cropId={studyData.cropId}
+                studyProgressRatio={studyData.studyProgressRatio}
+                isStudyLeader={user?.memberId === studyData?.studyLeaderId}
+              />
             )}
 
             <Flex align="right" direction="column" rowGap="3" w="100%" h={{ base: '25vh', lg: '30vh', '2xl': '35vh' }}>
@@ -119,7 +128,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {/* <Feed /> */}
             <Flex align="right" direction="column" rowGap="3">
-              {studyData && (
+              {studyData && user?.memberId === studyData.studyLeaderId && (
                 <StudyParticipantMenu
                   studyId={params.studyId}
                   teamId={studyData?.teamReference.id}
