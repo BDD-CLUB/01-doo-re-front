@@ -2,6 +2,7 @@
 
 import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import { useSetAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
@@ -18,10 +19,19 @@ import { SidebarContentProps, SidebarTeam } from '../type';
 
 const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState<boolean>(false);
+
   const user = useGetUser();
   const setUser = useSetAtom(userAtom);
   const setMyTeams = useSetAtom(myTeamAtom);
+
+  const router = useRouter();
+
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
+
+  const handleLogOutButtonClick = () => {
+    setUser(defaultUserAtom);
+    router.push('/');
+  };
 
   useEffect(() => {
     const myTeams = sidebarInfo?.body.myTeamsAndStudies
@@ -67,7 +77,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           <Flex direction={isOpen ? 'row' : 'column'} gap="4">
             <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
             <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
-            <SidebarIconButton icon={<MdOutlineLogout />} onClick={() => setUser(defaultUserAtom)} />
+            <SidebarIconButton icon={<MdOutlineLogout />} onClick={handleLogOutButtonClick} />
           </Flex>
         </Flex>
         {isOpen && user?.isLogin && (
