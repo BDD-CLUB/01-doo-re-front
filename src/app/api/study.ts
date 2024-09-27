@@ -1,5 +1,5 @@
 import { fetcher } from '@/app/api/fetcher';
-import { Study, Curriculum } from '@/types';
+import { Study, Curriculum, PostCurriculum } from '@/types';
 
 const studyFetcher = fetcher();
 
@@ -98,7 +98,7 @@ const getCurriculum = (token: string, studyId: number) =>
 const postCurriculum = (
   token: string,
   studyId: number,
-  curriculumItems: Curriculum[],
+  curriculumItems: PostCurriculum[],
   deletedCurriculumItems: Curriculum[],
 ) =>
   studyFetcher(`/studies/${studyId}/curriculums`, {

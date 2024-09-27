@@ -15,8 +15,6 @@ export const defaultUserAtom = {
 
 export const userAtom = atomWithStorage('user', defaultUserAtom as UserAtomType);
 
-export const myTeamAtom = atomWithStorage<{ teams: number[] }>('myTeam', {
-  teams: [],
-});
+export const myTeamAtom = atomWithStorage('myTeam', []);
 
 export const loginBackPathAtom = atomWithStorage('loginBackPath', '/');

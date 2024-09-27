@@ -2,7 +2,6 @@
 
 import { Flex, Image, Card, useDisclosure, Text, IconButton } from '@chakra-ui/react';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getCurriculum } from '@/app/api/study';
@@ -14,8 +13,7 @@ import CurriculumItem from './CurriculumItem';
 import { CurriculumCardProps } from './types';
 import CurriculumModal from '../CurriculumModal';
 
-const CurriculumCard = ({ cropId, studyProgressRatio }: CurriculumCardProps) => {
-  const [isStudyLeader] = useState<boolean>(true); // NOTE 추후 스터디장 여부 props로 받아올 예정
+const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: CurriculumCardProps) => {
   const { studyId } = useParams<{ studyId: string }>();
 
   const curriculumItems = useGetFetchWithToken(getCurriculum, [Number(studyId)]);
