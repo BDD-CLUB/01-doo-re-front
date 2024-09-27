@@ -24,7 +24,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
 
   useEffect(() => {
-    const myTeams = sidebarInfo
+    const myTeams = sidebarInfo?.body.myTeamsAndStudies
       ? sidebarInfo.body.myTeamsAndStudies.map((team: { teamId: number }) => team.teamId)
       : [];
     setMyTeams(myTeams);
