@@ -83,6 +83,8 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
           refetchSideBar();
           refetchTeamInfo(teamInfo.id);
           resetAndCloseModal();
+        } else {
+          alert('팀 수정에 실패했습니다.');
         }
       });
     }
