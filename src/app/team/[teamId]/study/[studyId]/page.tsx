@@ -22,7 +22,6 @@ import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
-  const user = useGetUser();
   const [studyData, setStudyData] = useState<Study>();
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
