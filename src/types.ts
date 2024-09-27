@@ -69,7 +69,15 @@ export interface TeamMemberDetail extends Member {
 }
 
 export interface Curriculum {
-  id: number;
+  id: number | null;
+  participantId?: number;
+  name: string;
+  itemOrder: number;
+  isChecked?: boolean;
+}
+
+export interface PostCurriculum {
+  id: null;
   participantId?: number;
   name: string;
   itemOrder: number;

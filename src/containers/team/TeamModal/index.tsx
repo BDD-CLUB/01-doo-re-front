@@ -61,6 +61,14 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
     return isValidName && isValidDescription;
   };
 
+  const updateTeamInfo = () => {
+    if (teamInfo) {
+      refetchSideBar();
+      refetchTeamInfo(teamInfo.id);
+      resetAndCloseModal();
+    }
+  };
+
   const handleEditTeamButtonClick = () => {
     if (!isTeamInfoValid()) return;
 
@@ -76,13 +84,12 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
 
             editTeamImage(teamInfo.id, teamForm).then((editTeamImageResponse) => {
               if (editTeamImageResponse.ok) {
-                resetAndCloseModal();
+                updateTeamInfo();
               }
             });
+          } else {
+            updateTeamInfo();
           }
-          refetchSideBar();
-          refetchTeamInfo(teamInfo.id);
-          resetAndCloseModal();
         } else {
           alert('팀 수정에 실패했습니다.');
         }

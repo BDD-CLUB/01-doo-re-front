@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Grid, useBreakpointValue } from '@chakra-ui/react';
+import { Flex, Grid, useBreakpointValue, Card, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { getDocumentList } from '@/app/api/document';
@@ -31,28 +31,36 @@ const Documents = ({ groupId, category }: DocumentPageProps) => {
   }, [documentLength, category, groupId, reload]);
 
   return (
-    <Flex direction="column">
-      <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns={`repeat(${itemsPerPage / 2}, 1fr)`} w="100%">
-        {currentData.map((data) => (
-          <DocumentCard
-            id={data.id}
-            key={data.id}
-            title={data.title}
-            description={data.description}
-            date={data.date}
-            uploaderName={data.uploaderName}
-            setReload={setReload}
-            files={data.files}
-            type={data.type}
+    <Flex direction="column" w="100%" h="100%">
+      {documentArray && documentArray.length > 0 ? (
+        <>
+          <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns={`repeat(${itemsPerPage / 2}, 1fr)`} w="100%">
+            {currentData.map((data) => (
+              <DocumentCard
+                id={data.id}
+                key={data.id}
+                title={data.title}
+                description={data.description}
+                date={data.date}
+                uploaderName={data.uploaderName}
+                setReload={setReload}
+                files={data.files}
+                type={data.type}
+              />
+            ))}
+          </Grid>
+          <PageNavigator
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            componentLength={documentLength}
+            itemsPerPage={itemsPerPage}
           />
-        ))}
-      </Grid>
-      <PageNavigator
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        componentLength={documentLength}
-        itemsPerPage={itemsPerPage}
-      />
+        </>
+      ) : (
+        <Card alignItems="center" justifyContent="center" w="100%" h="50%" borderRadius={{ base: '2xl' }}>
+          <Text textStyle="lg">학습 자료가 존재하지 않습니다.</Text>
+        </Card>
+      )}
     </Flex>
   );
 };
