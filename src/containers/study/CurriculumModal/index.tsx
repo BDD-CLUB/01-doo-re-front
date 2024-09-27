@@ -24,10 +24,9 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
 
   const [newCurriculum, setNewCurriculum] = useState<string>('');
   const [newCurriculumId, setNewCurriculumId] = useState<number>(1);
-  const [firstNewCurriculumId, setFirstNewCurriculumId] = useState<number>(1);
+  const [firstNewCurriculumId, setFirstNewCurriculumId] = useState<number>(0);
 
   const editCurriculumRef = React.useRef<HTMLTextAreaElement>();
-  // const getCurriculumItems = useGetFetchWithToken(getCurriculum, [Number(studyId)]);
 
   const editCurriculum = useMutateWithToken(postCurriculum);
 
