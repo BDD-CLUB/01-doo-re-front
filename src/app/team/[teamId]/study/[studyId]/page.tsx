@@ -37,7 +37,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         setDocumentArray(res.body.content);
       }
     });
-  }, [params.studyId]);
+  }, [params.studyId, isEditModalOpen]);
 
   return (
     <>
