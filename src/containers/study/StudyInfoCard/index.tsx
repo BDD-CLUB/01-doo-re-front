@@ -11,10 +11,9 @@ const StudyInfoCard = ({ progress, startAt, endAt, status }: StudyInfoCardProps)
     <Card p="4" bg="white" borderRadius="lg">
       <Flex columnGap="4" fontWeight="bold">
         {status === 'ENDED' ? (
-          <Text color="orange"> &quot; 종료된 스터디 입니다. &quot;</Text>
+          <Text color="orange"> {' 종료된 스터디 입니다. '} </Text>
         ) : (
           <>
-            {' '}
             <Text display={{ base: 'none', '2xl': 'block' }}>스터디 진행률</Text>
             <StudyProgress progress={progress} />
           </>
