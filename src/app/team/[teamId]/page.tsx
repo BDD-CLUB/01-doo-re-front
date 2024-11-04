@@ -83,6 +83,18 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     getCardData(0);
   }, [category]);
 
+  useEffect(() => {
+    if (isCreateDocumentModalOoen === false) {
+      getCardData(cardIdx);
+    }
+  }, [isCreateDocumentModalOoen]);
+
+  useEffect(() => {
+    if (isCreateStudyModalOpen === false) {
+      getCardData(cardIdx);
+    }
+  }, [isCreateStudyModalOpen]);
+
   const handlePrevClick = () => {
     if (cardIdx - CARD_PER_PAGE < 0) return;
 
