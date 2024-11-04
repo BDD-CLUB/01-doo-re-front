@@ -16,6 +16,7 @@ const DeleteStudyModal = ({ id, name, isOpen, setIsOpen }: DeleteStudyModalProps
       if (res.ok) {
         refetchSidebar();
         setIsOpen(false);
+        window.history.back();
       }
     });
   };
