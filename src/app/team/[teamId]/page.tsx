@@ -58,7 +58,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       const page = Math.floor(start / CARD_PER_PAGE);
       const size = CARD_PER_PAGE;
 
-      // TODO: 학습자료 목록 조회하기.
       getDocumentList('teams', params.teamId, page, size).then((res) => {
         if (res.ok) {
           setDocumentArray(res.body.content);
@@ -170,20 +169,21 @@ const Page = ({ params }: { params: { teamId: number } }) => {
             name={teamInfo?.body.name}
             description={teamInfo?.body.description}
           />
-          {/* TODO 자신의 팀일때만 보이도록 수정 */}
           {isMyTeam && (
             <Flex align="center" gap={{ base: '2', lg: '8' }}>
               <TeamMember teamId={params.teamId} teamName={teamInfo?.body.name} />
-              <Button
-                color="white"
-                bg="orange_dark"
-                onClick={handleInviteClick}
-                rightIcon={<BsLink45Deg size="24px" />}
-                rounded="full"
-                size="sm"
-              >
-                초대
-              </Button>
+              {isTeamLeader && (
+                <Button
+                  color="white"
+                  bg="orange_dark"
+                  onClick={handleInviteClick}
+                  rightIcon={<BsLink45Deg size="24px" />}
+                  rounded="full"
+                  size="sm"
+                >
+                  초대
+                </Button>
+              )}
             </Flex>
           )}
         </Flex>
