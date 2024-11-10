@@ -1,10 +1,12 @@
 'use client';
 
 import { Flex, Image, Card, useDisclosure, Text, IconButton } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
 import { useParams } from 'next/navigation';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { useGetCurriculumInfoQuery } from '@/app/api/study';
+import { userAtom } from '@/atom';
 import CROP from '@/constants/crop';
 import { Curriculum } from '@/types';
 
@@ -15,7 +17,8 @@ import CurriculumModal from '../CurriculumModal';
 const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: CurriculumCardProps) => {
   const { studyId } = useParams<{ studyId: string }>();
 
-  const { data: curriculumItems } = useGetCurriculumInfoQuery(+studyId);
+  const user = useAtomValue(userAtom);
+  const { data: curriculumItems } = useGetCurriculumInfoQuery(user.token, +studyId);
 
   const { isOpen: isCurriculumModalOpen, onOpen: onActionModalOpen, onClose: onCurriculumModalClose } = useDisclosure();
 
