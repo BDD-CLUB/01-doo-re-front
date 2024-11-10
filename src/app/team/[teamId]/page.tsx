@@ -27,6 +27,7 @@ import SuggestionCreate from '@/containers/team/SuggestionCreate';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, Garden, StudyRank } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
@@ -143,7 +144,14 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   };
 
   const myTeam = useAtomValue(myTeamAtom);
+  const user = useGetUser();
+  const [isTeamLeader, setIsTeamLeader] = useState<boolean>(false);
   const [isMyTeam, setIsMyTeam] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!user || !teamInfo) return;
+    setIsTeamLeader(user.memberId === teamInfo.body.teamLeaderId);
+  }, [user, teamInfo]);
 
   useEffect(() => {
     if (myTeam !== undefined) {
@@ -179,7 +187,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
             </Flex>
           )}
         </Flex>
-        <TeamControlPanel teamInfo={teamInfo?.body} />
+        {isTeamLeader && <TeamControlPanel teamInfo={teamInfo?.body} />}
 
         <Flex pos="relative" align="center" flex="1" gap="8">
           <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px', xl: '320px' }}>
