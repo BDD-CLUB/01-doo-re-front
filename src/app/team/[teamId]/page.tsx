@@ -38,7 +38,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
-  const [isCreateDocumentModalOoen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
+  const [isCreateDocumentModalOpen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
 
   const inviteTeam = useMutateWithToken(postInviteTeam);
   const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
@@ -229,7 +229,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         studyInfo={null}
       />
       <CreateDocumentModal
-        isOpen={isCreateDocumentModalOoen}
+        isOpen={isCreateDocumentModalOpen}
         onClose={() => setIsCreateDocumentModalOpen(false)}
         categoryData={categoryData}
         category="create"
