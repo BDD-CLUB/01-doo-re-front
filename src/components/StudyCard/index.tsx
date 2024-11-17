@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link, Flex } from '@chakra-ui/react';
 
 import CROP from '@/constants/crop';
 
@@ -39,11 +39,11 @@ const StudyCard = ({
             <Image key={crop.id} w="16" mx="auto" py="4" alt="crops" src={crop.imageUrl} />
           ))}
           <Text textStyle="sm">{description}</Text>
-          <Text textStyle="sm">
-            {startDate} ~ {endDate}
-          </Text>
+          <Flex textStyle="sm" justify="center" wrap="wrap" columnGap="2">
+            <Text>{startDate}</Text>~<Text>{endDate}</Text>
+          </Flex>
         </CardBody>
-        <CardFooter alignItems="center" justifyContent="center" gap="4" display="flex" w="100%" pt="0">
+        <CardFooter alignItems="center" justifyContent="center" gap="4" display="flex" w="100%" py="0">
           <Card textStyle="bold_md" alignItems="center" w="8" h="8" textAlign="center" shadow="md">
             {rank}
           </Card>
