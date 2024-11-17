@@ -84,10 +84,10 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   }, [category]);
 
   useEffect(() => {
-    if (isCreateDocumentModalOoen === false) {
+    if (isCreateDocumentModalOpen === false) {
       getCardData(cardIdx);
     }
-  }, [isCreateDocumentModalOoen]);
+  }, [isCreateDocumentModalOpen]);
 
   useEffect(() => {
     if (isCreateStudyModalOpen === false) {
