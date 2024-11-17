@@ -21,7 +21,7 @@ const GoogleLoginButton = () => {
       bgColor="transparent"
       href={GOOGLE_LOGIN_URL}
     >
-      <Image h="100%" alt="google_sign_in" src="/images/google_sign_in.png" />
+      <Image h="100%" objectFit="contain" alt="google_sign_in" src="/images/google_sign_in.png" />
     </Button>
   );
 };
