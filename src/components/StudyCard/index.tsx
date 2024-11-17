@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link, Flex } from '@chakra-ui/react';
 
 import CROP from '@/constants/crop';
 
@@ -22,25 +22,28 @@ const StudyCard = ({
       display="flex"
       w="100%"
       h="100%"
-      pt="6"
+      p="24px 16px"
       shadow="lg"
       _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}
+      boxSizing="border-box"
       rounded="2xl"
     >
-      <Link href={`/team/${teamId}/study/${id}`}>
+      <Link w="100%" href={`/team/${teamId}/study/${id}`}>
         <CardHeader py="2">
-          <Text textStyle="bold_md">{name}</Text>
+          <Text textStyle="bold_md" overflow="hidden" textAlign="center" whiteSpace="nowrap" textOverflow="ellipsis">
+            {name}
+          </Text>
         </CardHeader>
         <CardBody py="0" textAlign="center" id={cropId.toString()}>
           {CROP.filter((crop) => crop.id === cropId).map((crop) => (
             <Image key={crop.id} w="16" mx="auto" py="4" alt="crops" src={crop.imageUrl} />
           ))}
           <Text textStyle="sm">{description}</Text>
-          <Text textStyle="sm">
-            {startDate} ~ {endDate}
-          </Text>
+          <Flex textStyle="sm" justify="center" wrap="wrap" columnGap="2">
+            <Text>{startDate}</Text>~<Text>{endDate}</Text>
+          </Flex>
         </CardBody>
-        <CardFooter alignItems="center" justifyContent="center" gap="4" display="flex" w="100%" pt="0">
+        <CardFooter alignItems="center" justifyContent="center" gap="4" display="flex" w="100%" py="0">
           <Card textStyle="bold_md" alignItems="center" w="8" h="8" textAlign="center" shadow="md">
             {rank}
           </Card>
