@@ -7,5 +7,6 @@ export interface TerminateStudyModalProps extends Pick<Study, 'id' | 'name'> {
 
 export interface DeleteStudyModalProps extends Pick<Study, 'id' | 'name'> {
   isOpen: boolean;
+  teamId: number;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
