@@ -155,6 +155,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
       />
       <DeleteStudyModal
         id={params.studyId}
+        teamId={params.teamId}
         name={studyData?.name || ''}
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}

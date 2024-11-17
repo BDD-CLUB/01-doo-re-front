@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Flex, Grid, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
@@ -8,7 +9,7 @@ import StudyCard from '@/components/StudyCard';
 import SuggestionCreate from '@/containers/team/SuggestionCreate';
 import { StudyRank } from '@/types';
 
-const StudyGallery = ({ teamId }: { teamId: number }) => {
+const StudyGallery = ({ teamId, refetchTrigger = false }: { teamId: number; refetchTrigger?: boolean }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [studyArray, setStudyArray] = useState<StudyRank[]>([]);
   const [cardIdx, setCardIdx] = useState<number>(0);
@@ -25,7 +26,7 @@ const StudyGallery = ({ teamId }: { teamId: number }) => {
       }
     });
     setCardIdx((currentPage - 1) * itemsPerPage);
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, refetchTrigger]);
 
   if (studyArray.length === 0) {
     return <SuggestionCreate category="스터디" />;

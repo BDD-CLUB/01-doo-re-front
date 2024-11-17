@@ -94,8 +94,9 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
           onClose();
         }
       });
+    } else {
+      onClose();
     }
-    onClose();
   };
 
   const handleGetDoc = {

@@ -10,7 +10,7 @@ import { DocumentList } from '@/types';
 
 import { DocumentPageProps } from './types';
 
-const Documents = ({ groupId, category }: DocumentPageProps) => {
+const Documents = ({ groupId, category, refetchTrigger = false }: DocumentPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(4);
@@ -28,7 +28,7 @@ const Documents = ({ groupId, category }: DocumentPageProps) => {
         setDocumentLength(res.body.totalElements);
       }
     });
-  }, [documentLength, category, groupId, reload]);
+  }, [documentLength, category, groupId, reload, refetchTrigger]);
 
   return (
     <Flex direction="column" w="100%" h="100%">
