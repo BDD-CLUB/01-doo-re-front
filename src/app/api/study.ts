@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { fetcher } from '@/app/api/fetcher';
 import { Study, Curriculum, PostCurriculum } from '@/types';
 
@@ -95,6 +97,13 @@ const getCurriculum = (token: string, studyId: number) =>
     },
   });
 
+const useGetCurriculumInfoQuery = (token: string, studyId: number) => {
+  return useQuery({
+    queryFn: () => getCurriculum(token, studyId),
+    queryKey: ['curriculum', studyId],
+  });
+};
+
 const postCurriculum = (
   token: string,
   studyId: number,
@@ -134,6 +143,7 @@ export {
   getStudyMembers,
   getStudies,
   getCurriculum,
+  useGetCurriculumInfoQuery,
   postCurriculum,
   patchCurriculumCompleted,
 };

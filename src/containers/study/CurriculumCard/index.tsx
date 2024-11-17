@@ -1,12 +1,13 @@
 'use client';
 
 import { Flex, Image, Card, useDisclosure, Text, IconButton } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
 import { useParams } from 'next/navigation';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
-import { getCurriculum } from '@/app/api/study';
+import { useGetCurriculumInfoQuery } from '@/app/api/study';
+import { userAtom } from '@/atom';
 import CROP from '@/constants/crop';
-import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import { Curriculum } from '@/types';
 
 import CurriculumItem from './CurriculumItem';
@@ -16,7 +17,8 @@ import CurriculumModal from '../CurriculumModal';
 const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: CurriculumCardProps) => {
   const { studyId } = useParams<{ studyId: string }>();
 
-  const curriculumItems = useGetFetchWithToken(getCurriculum, [Number(studyId)]);
+  const user = useAtomValue(userAtom);
+  const { data: curriculumItems } = useGetCurriculumInfoQuery(user.token, +studyId);
 
   const { isOpen: isCurriculumModalOpen, onOpen: onActionModalOpen, onClose: onCurriculumModalClose } = useDisclosure();
 
@@ -59,8 +61,8 @@ const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: Curriculu
           borderBottomRightRadius="2xl"
         >
           <Flex className="scroll" direction="column" gap="3" overflowY="auto" w="100%">
-            {curriculumItems?.length ? (
-              curriculumItems?.map((curriculum: Curriculum) => {
+            {curriculumItems?.body.length ? (
+              curriculumItems?.body.map((curriculum: Curriculum) => {
                 return (
                   <CurriculumItem
                     key={curriculum.id}
@@ -84,7 +86,7 @@ const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: Curriculu
       <CurriculumModal
         isOpen={isCurriculumModalOpen}
         onClose={onCurriculumModalClose}
-        originCurriculums={curriculumItems}
+        originCurriculums={curriculumItems?.body}
       />
     </Flex>
   );
