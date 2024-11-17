@@ -82,7 +82,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
               <SidebarIconButton icon={<MdOutlineLogout />} onClick={handleLogOutButtonClick} />
             </Flex>
           ) : (
-            <GoogleLoginButton />
+            isOpen && <GoogleLoginButton />
           )}
         </Flex>
         {isOpen && user?.isLogin && (
