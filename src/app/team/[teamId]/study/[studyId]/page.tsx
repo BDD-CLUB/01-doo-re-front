@@ -120,7 +120,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   ))}
                 </Grid>
               ) : (
-                <Card alignItems="center" justifyContent="center" w="100%" h="100%" borderRadius={{ base: '2xl' }}>
+                <Card alignItems="center" justifyContent="center" w="100%" p="8" borderRadius={{ base: '2xl' }}>
                   <Text textStyle="lg">학습 자료가 존재하지 않습니다.</Text>
                 </Card>
               )}
