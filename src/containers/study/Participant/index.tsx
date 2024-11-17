@@ -13,6 +13,10 @@ const Participant = ({ participantInfos }: ParticipantProps) => {
     return 0;
   });
 
+  if (!leader) {
+    return <div />;
+  }
+
   // Feed 없을때 임시로 maxH="45vh"로 설정 원래는 maxH="30vh"
   return (
     <Card className="scroll" overflowY="auto" w="100%" h="100%" maxH="45vh" borderRadius="2xl" shadow="lg">

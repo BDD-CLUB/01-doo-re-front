@@ -8,7 +8,7 @@ type UserAtomType = {
 };
 
 export const defaultUserAtom = {
-  memberId: 0,
+  memberId: -1,
   token: '',
   isLogin: false,
 } as const;
