@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link, Flex } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link, Flex, Badge } from '@chakra-ui/react';
 
 import CROP from '@/constants/crop';
 
@@ -30,6 +30,9 @@ const StudyCard = ({
       boxSizing="border-box"
       rounded="2xl"
     >
+      <Badge pos="absolute" top="3" right="3" colorScheme={isOngoing ? 'purple' : 'red'} rounded="2xl">
+        {isOngoing ? '진행 중' : '종료'}
+      </Badge>
       <Link w="100%" href={`/team/${teamId}/study/${id}`}>
         <CardHeader py="2">
           <Text textStyle="bold_md" overflow="hidden" textAlign="center" whiteSpace="nowrap" textOverflow="ellipsis">
