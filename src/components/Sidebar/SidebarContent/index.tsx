@@ -4,12 +4,13 @@ import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import { useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { BiBell, BiUser } from 'react-icons/bi';
+// import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
 import { useGetSideBarInfoQuery } from '@/app/api/member';
 import { defaultUserAtom, myTeamAtom, userAtom } from '@/atom';
+import GoogleLoginButton from '@/containers/main/GoogleLoginButton';
 import TeamModal from '@/containers/team/TeamModal';
 import useGetUser from '@/hooks/useGetUser';
 
@@ -74,11 +75,16 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
               {user?.isLogin ? sidebarInfo?.body?.name : '비회원'}
             </Text>
           )}
-          <Flex direction={isOpen ? 'row' : 'column'} gap="4">
-            <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
-            <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
-            <SidebarIconButton icon={<MdOutlineLogout />} onClick={handleLogOutButtonClick} />
-          </Flex>
+          {user?.isLogin ? (
+            <Flex direction={isOpen ? 'row' : 'column'} gap="4">
+              {/* TODO: 기능 완료하고 주석 풀기 */}
+              {/* <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
+              <SidebarIconButton icon={<BiUser />} onClick={() => {}} /> */}
+              <SidebarIconButton icon={<MdOutlineLogout />} onClick={handleLogOutButtonClick} />
+            </Flex>
+          ) : (
+            isOpen && <GoogleLoginButton />
+          )}
         </Flex>
         {isOpen && user?.isLogin && (
           <>

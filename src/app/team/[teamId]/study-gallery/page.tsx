@@ -19,7 +19,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           스터디 추가
         </Button>
       </Flex>
-      <StudyGallery teamId={params.teamId} />
+      <StudyGallery teamId={params.teamId} refetchTrigger={isOpenModal} />
       <StudyModal teamId={params.teamId} isOpen={isOpenModal} setIsModalOpen={setIsOpenModal} studyInfo={null} />
     </Flex>
   );

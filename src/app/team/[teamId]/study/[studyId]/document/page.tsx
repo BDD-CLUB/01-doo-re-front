@@ -20,7 +20,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           자료 등록
         </Button>
       </Flex>
-      <Documents groupId={params.studyId} category="studies" />
+      <Documents groupId={params.studyId} category="studies" refetchTrigger={openCreateModal} />
       <CreateDocumentModal
         isOpen={openCreateModal}
         onClose={() => setOpenCreateModal(false)}

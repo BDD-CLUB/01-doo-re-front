@@ -27,6 +27,7 @@ import SuggestionCreate from '@/containers/team/SuggestionCreate';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, Garden, StudyRank } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
@@ -38,7 +39,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(0);
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
-  const [isCreateDocumentModalOoen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
+  const [isCreateDocumentModalOpen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
 
   const inviteTeam = useMutateWithToken(postInviteTeam);
   const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
@@ -57,7 +58,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       const page = Math.floor(start / CARD_PER_PAGE);
       const size = CARD_PER_PAGE;
 
-      // TODO: 학습자료 목록 조회하기.
       getDocumentList('teams', params.teamId, page, size).then((res) => {
         if (res.ok) {
           setDocumentArray(res.body.content);
@@ -82,6 +82,18 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   useEffect(() => {
     getCardData(0);
   }, [category]);
+
+  useEffect(() => {
+    if (isCreateDocumentModalOpen === false) {
+      getCardData(cardIdx);
+    }
+  }, [isCreateDocumentModalOpen]);
+
+  useEffect(() => {
+    if (isCreateStudyModalOpen === false) {
+      getCardData(cardIdx);
+    }
+  }, [isCreateStudyModalOpen]);
 
   const handlePrevClick = () => {
     if (cardIdx - CARD_PER_PAGE < 0) return;
@@ -143,7 +155,14 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   };
 
   const myTeam = useAtomValue(myTeamAtom);
+  const user = useGetUser();
+  const [isTeamLeader, setIsTeamLeader] = useState<boolean>(false);
   const [isMyTeam, setIsMyTeam] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!user || !teamInfo) return;
+    setIsTeamLeader(user.memberId === teamInfo.body.teamLeaderId);
+  }, [user, teamInfo]);
 
   useEffect(() => {
     if (myTeam !== undefined) {
@@ -162,24 +181,25 @@ const Page = ({ params }: { params: { teamId: number } }) => {
             name={teamInfo?.body.name}
             description={teamInfo?.body.description}
           />
-          {/* TODO 자신의 팀일때만 보이도록 수정 */}
           {isMyTeam && (
             <Flex align="center" gap={{ base: '2', lg: '8' }}>
               <TeamMember teamId={params.teamId} teamName={teamInfo?.body.name} />
-              <Button
-                color="white"
-                bg="orange_dark"
-                onClick={handleInviteClick}
-                rightIcon={<BsLink45Deg size="24px" />}
-                rounded="full"
-                size="sm"
-              >
-                초대
-              </Button>
+              {isTeamLeader && (
+                <Button
+                  color="white"
+                  bg="orange_dark"
+                  onClick={handleInviteClick}
+                  rightIcon={<BsLink45Deg size="24px" />}
+                  rounded="full"
+                  size="sm"
+                >
+                  초대
+                </Button>
+              )}
             </Flex>
           )}
         </Flex>
-        <TeamControlPanel teamInfo={teamInfo?.body} />
+        {isTeamLeader && <TeamControlPanel teamInfo={teamInfo?.body} />}
 
         <Flex pos="relative" align="center" flex="1" gap="8">
           <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px', xl: '320px' }}>
@@ -229,7 +249,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         studyInfo={null}
       />
       <CreateDocumentModal
-        isOpen={isCreateDocumentModalOoen}
+        isOpen={isCreateDocumentModalOpen}
         onClose={() => setIsCreateDocumentModalOpen(false)}
         categoryData={categoryData}
         category="create"

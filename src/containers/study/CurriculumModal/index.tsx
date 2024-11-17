@@ -13,6 +13,7 @@ import { postCurriculum } from '@/app/api/study';
 import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useRefetchCurriculum from '@/hooks/useRefetchCurriculum';
 
 import { EditCurriculum, CurriculumModalProps } from './type';
 
@@ -21,6 +22,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
 
   const [curriculums, setCurriculums] = useState<EditCurriculum[]>([]);
   const [deleteCurriculums, setDeleteCurriculums] = useState<EditCurriculum[]>([]);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const [newCurriculum, setNewCurriculum] = useState<string>('');
   const [newCurriculumId, setNewCurriculumId] = useState<number>(1);
@@ -29,6 +31,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
   const editCurriculumRef = React.useRef<HTMLTextAreaElement>();
 
   const editCurriculum = useMutateWithToken(postCurriculum);
+  const refetchCurriculum = useRefetchCurriculum(+studyId);
 
   const handleNewCurriculumChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewCurriculum(event.target.value);
@@ -82,7 +85,15 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
     setDeleteCurriculums((prevCurriculums) => [...prevCurriculums, curriculums[index]]);
   };
 
+  const handleModalClose = () => {
+    setIsSaved(false);
+    onClose();
+  };
+
   const handleSaveButtonClick = () => {
+    if (isSaved) return;
+    setIsSaved(true);
+
     const deletedCurriculumItems = deleteCurriculums
       .filter((curriculum) => originCurriculums.some((origin) => origin.id === curriculum.id))
       .map((curriculum) => ({
@@ -97,7 +108,10 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
       itemOrder: curriculum.itemOrder,
     }));
 
-    editCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems);
+    editCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems).then(() => {
+      refetchCurriculum();
+      handleModalClose();
+    });
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -134,19 +148,20 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
       })),
     );
 
-    setNewCurriculumId((originCurriculums?.at(-1)?.id ?? 0) + 1);
-    setFirstNewCurriculumId(originCurriculums?.at(-1)?.id ?? 0);
+    let maxCurriculumId = 0;
+    if (originCurriculums) maxCurriculumId = originCurriculums.reduce((maxV, v) => (v.id > maxV ? v.id : maxV), 0);
+
+    setNewCurriculumId(maxCurriculumId + 1);
+    setFirstNewCurriculumId(maxCurriculumId);
   }, [originCurriculums]);
 
   return (
     <ActionModal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleModalClose}
       title="커리큘럼"
       subButtonText="취소"
-      onSubButtonClick={() => {
-        onClose();
-      }}
+      onSubButtonClick={handleModalClose}
       mainButtonText="저장"
       onMainButtonClick={handleSaveButtonClick}
     >

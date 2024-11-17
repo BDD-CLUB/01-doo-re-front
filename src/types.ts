@@ -69,7 +69,7 @@ export interface TeamMemberDetail extends Member {
 }
 
 export interface Curriculum {
-  id: number | null;
+  id: number;
   participantId?: number;
   name: string;
   itemOrder: number;

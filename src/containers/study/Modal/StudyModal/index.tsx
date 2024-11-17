@@ -36,7 +36,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
   const [alertCropId, setAlertCropId] = useState<boolean>(false);
-  const [alertStartDate, setAlertStartDate] = useState<boolean>(false);
+  const [alertStartMsg, setAlertStartMsg] = useState<string>('');
 
   const createStudy = useMutateWithToken(postStudy);
   const editStudy = useMutateWithToken(putEditStudy);
@@ -54,7 +54,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
     setAlertName(false);
     setAlertDescription(false);
     setAlertCropId(false);
-    setAlertStartDate(false);
+    setAlertStartMsg('');
     setIsModalOpen(false);
   };
 
@@ -68,7 +68,9 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
   };
   const handleSaveButtonClick = () => {
     if (cropId === 0) setAlertCropId(true);
-    if (startDate === null) setAlertStartDate(true);
+    if (startDate === null) setAlertStartMsg('시작 날짜를 선택해주세요.');
+    else if (endDate && new Date(startDate) > new Date(endDate))
+      setAlertStartMsg('시작 날짜가 종료 날짜보다 늦습니다.');
     else if (teamId) {
       createStudy(teamId, {
         name,
@@ -199,7 +201,7 @@ const StudyModal = ({ teamId, studyId, studyInfo, isOpen, setIsModalOpen }: Stud
             <Text textStyle="bold_xl" mt="8" mb="2">
               날짜 선택 *
             </Text>
-            {alertStartDate && <AlertContent message="필수 입력 란입니다." />}
+            {alertStartMsg && <AlertContent message={alertStartMsg} />}
             <VStack spacing="3">
               <StyledDatePicker label="시작 날짜" selectedDate={startDate} onChange={handleStartDateChange} />
               <StyledDatePicker label="종료 날짜" selectedDate={endDate} onChange={handleEndDateChange} />

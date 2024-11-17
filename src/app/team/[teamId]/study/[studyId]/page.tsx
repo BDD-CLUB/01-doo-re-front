@@ -84,7 +84,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
               />
             )}
 
-            <Flex align="right" direction="column" rowGap="3" w="100%" h={{ base: '25vh', lg: '30vh', '2xl': '35vh' }}>
+            <Flex align="right" direction="column" rowGap="3" w="100%">
               <Link
                 as={NextLink}
                 gap="3"
@@ -155,6 +155,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
       />
       <DeleteStudyModal
         id={params.studyId}
+        teamId={params.teamId}
         name={studyData?.name || ''}
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
