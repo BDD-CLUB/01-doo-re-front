@@ -47,6 +47,7 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
         zIndex="2"
         top="100%"
         left={isTeam ? '10' : '0'}
+        alignContent="center"
         display={{ base: isHovered ? 'block' : 'none', lg: 'none' }}
         w={{ base: '72', '2xl': '96' }}
         h="100%"
