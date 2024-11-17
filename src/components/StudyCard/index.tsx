@@ -22,14 +22,17 @@ const StudyCard = ({
       display="flex"
       w="100%"
       h="100%"
-      pt="6"
+      p="24px 16px"
       shadow="lg"
       _hover={{ bg: 'gray.100', transition: '0.5s ease-in-out' }}
+      boxSizing="border-box"
       rounded="2xl"
     >
-      <Link href={`/team/${teamId}/study/${id}`}>
+      <Link w="100%" href={`/team/${teamId}/study/${id}`}>
         <CardHeader py="2">
-          <Text textStyle="bold_md">{name}</Text>
+          <Text textStyle="bold_md" overflow="hidden" textAlign="center" whiteSpace="nowrap" textOverflow="ellipsis">
+            {name}
+          </Text>
         </CardHeader>
         <CardBody py="0" textAlign="center" id={cropId.toString()}>
           {CROP.filter((crop) => crop.id === cropId).map((crop) => (
