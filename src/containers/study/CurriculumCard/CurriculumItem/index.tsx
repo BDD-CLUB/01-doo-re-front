@@ -19,7 +19,7 @@ const CurriculumItem = ({ id, name, itemOrder, isChecked: isCheckedProps, partic
   };
 
   return (
-    <Flex key={id?.toString()} align="center" gap="4" px="4">
+    <Flex key={id.toString()} align="center" gap="4" px="4">
       <Text textStyle="bold_xl" color={isChecked ? 'orange' : 'orange_light'}>
         {itemOrder.toString().padStart(2, '0')}
       </Text>

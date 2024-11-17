@@ -148,8 +148,11 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
       })),
     );
 
-    setNewCurriculumId((originCurriculums?.at(-1)?.id ?? 0) + 1);
-    setFirstNewCurriculumId(originCurriculums?.at(-1)?.id ?? 0);
+    let maxCurriculumId = 0;
+    if (originCurriculums) maxCurriculumId = originCurriculums.reduce((maxV, v) => (v.id > maxV ? v.id : maxV), 0);
+
+    setNewCurriculumId(maxCurriculumId + 1);
+    setFirstNewCurriculumId(maxCurriculumId);
   }, [originCurriculums]);
 
   return (
