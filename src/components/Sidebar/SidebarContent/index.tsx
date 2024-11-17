@@ -4,7 +4,7 @@ import { Avatar, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import { useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { BiBell, BiUser } from 'react-icons/bi';
+// import { BiBell, BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
@@ -75,8 +75,9 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
             </Text>
           )}
           <Flex direction={isOpen ? 'row' : 'column'} gap="4">
-            <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
-            <SidebarIconButton icon={<BiUser />} onClick={() => {}} />
+            {/* TODO: 기능 완료하고 주석 풀기 */}
+            {/* <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
+            <SidebarIconButton icon={<BiUser />} onClick={() => {}} /> */}
             <SidebarIconButton icon={<MdOutlineLogout />} onClick={handleLogOutButtonClick} />
           </Flex>
         </Flex>
