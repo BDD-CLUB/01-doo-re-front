@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link, Badge } from '@chakra-ui/react';
 
 import CROP from '@/constants/crop';
 
@@ -15,6 +15,8 @@ const StudyCard = ({
   studyProgressRatio,
   rank,
 }: StudyCardProps) => {
+  const isOngoing = new Date() >= new Date(startDate) && (new Date() <= new Date(endDate) || !endDate);
+
   return (
     <Card
       alignItems="center"
@@ -28,8 +30,9 @@ const StudyCard = ({
       rounded="2xl"
     >
       <Link href={`/team/${teamId}/study/${id}`}>
-        <CardHeader py="2">
+        <CardHeader alignItems="center" gap="2" display="flex" py="2">
           <Text textStyle="bold_md">{name}</Text>
+          <Badge colorScheme={isOngoing ? 'purple' : 'red'}>{isOngoing ? '진행 중' : '종료'}</Badge>
         </CardHeader>
         <CardBody py="0" textAlign="center" id={cropId.toString()}>
           {CROP.filter((crop) => crop.id === cropId).map((crop) => (
