@@ -1,4 +1,5 @@
-import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link, Flex } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Text, Image, Progress, Link, Flex, Badge } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 
 import CROP from '@/constants/crop';
 
@@ -15,6 +16,24 @@ const StudyCard = ({
   studyProgressRatio,
   rank,
 }: StudyCardProps) => {
+  const currentDate = dayjs().format('YYYY-MM-DD');
+  const isOngoing =
+    currentDate >= dayjs(startDate).format('YYYY-MM-DD') &&
+    (currentDate <= dayjs(endDate).format('YYYY-MM-DD') || !endDate);
+  const isNotStarted = currentDate < dayjs(startDate).format('YYYY-MM-DD');
+
+  const getColorScheme = () => {
+    if (isNotStarted) return 'gray';
+    if (isOngoing) return 'purple';
+    return 'red';
+  };
+
+  const getBadgeText = () => {
+    if (isNotStarted) return '진행 전';
+    if (isOngoing) return '진행 중';
+    return '종료';
+  };
+
   return (
     <Card
       alignItems="center"
@@ -28,6 +47,9 @@ const StudyCard = ({
       boxSizing="border-box"
       rounded="2xl"
     >
+      <Badge pos="absolute" top="3" right="3" colorScheme={getColorScheme()} rounded="2xl">
+        {getBadgeText()}
+      </Badge>
       <Link w="100%" href={`/team/${teamId}/study/${id}`}>
         <CardHeader py="2">
           <Text textStyle="bold_md" overflow="hidden" textAlign="center" whiteSpace="nowrap" textOverflow="ellipsis">
