@@ -23,7 +23,7 @@ const DocumentCard = ({ id, title, description, date, setReload, files, type }: 
         return '/png/file.png';
       }
       if (files.length > 1) {
-        return 'png/folder.png';
+        return '/png/folder.png';
       }
     }
     return '';
