@@ -117,47 +117,47 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
 
   const handleGetDoc = {
     IMAGE: (e: ChangeEvent<HTMLInputElement>) => {
-      const imgs = Array.from(e.target.files || []);
+      const images = Array.from(e.target.files || []);
+      let alertFlag = false;
+      const filteredImages = images.reduce(
+        (r, img) => {
+          if (img.size >= MAX_FILE_SIZE) alertFlag = true;
+          else
+            r.push({
+              key: img.name,
+              name: img.name,
+              content: img,
+            });
+          return r;
+        },
+        [] as { key: string; name: string; content: File }[],
+      );
+      if (alertFlag) alert('10MB 이내의 파일을 첨부해주세요.');
       setDocList((prev) => ({
         ...prev,
-        IMAGE: [
-          ...prev.IMAGE,
-          ...imgs
-            .map((img) => {
-              if (img.size >= MAX_FILE_SIZE) {
-                alert('10MB 이내의 파일을 첨부해주세요.');
-                return null;
-              }
-              return {
-                key: img.name,
-                name: img.name,
-                content: img,
-              };
-            })
-            .filter((v) => v !== null),
-        ],
+        IMAGE: [...prev.IMAGE, ...filteredImages],
       }));
     },
     DOCUMENT: (e: ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(e.target.files || []);
+      let alertFlag = false;
+      const filteredFiles = files.reduce(
+        (r, file) => {
+          if (file.size >= MAX_FILE_SIZE) alertFlag = true;
+          else
+            r.push({
+              key: file.name,
+              name: file.name,
+              content: file,
+            });
+          return r;
+        },
+        [] as { key: string; name: string; content: File }[],
+      );
+      if (alertFlag) alert('10MB 이내의 파일을 첨부해주세요.');
       setDocList((prev) => ({
         ...prev,
-        DOCUMENT: [
-          ...prev.DOCUMENT,
-          ...files
-            .map((file) => {
-              if (file.size >= MAX_FILE_SIZE) {
-                alert('10MB 이내의 파일을 첨부해주세요.');
-                return null;
-              }
-              return {
-                key: file.name.toString(),
-                name: file.name,
-                content: file,
-              };
-            })
-            .filter((v) => v !== null),
-        ],
+        DOCUMENT: [...prev.DOCUMENT, ...filteredFiles],
       }));
     },
     URL: () => {
