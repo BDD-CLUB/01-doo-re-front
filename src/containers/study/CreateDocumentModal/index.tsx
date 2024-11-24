@@ -51,6 +51,20 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
   const handleChange = (value: string) => {
     setSelectedValue(value as DocumentAccessType);
   };
+
+  const handleCloseModal = () => {
+    onClose();
+    setTitle('');
+    setDescription('');
+    setSelectedValue('ALL');
+    setDocList({
+      IMAGE: [],
+      DOCUMENT: [],
+      URL: [],
+    });
+    setDocType('IMAGE');
+  };
+
   const user = useGetUser();
 
   const onConfirmButtonClick = () => {
@@ -84,18 +98,18 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       const categoryDatas = categoryData as CreateDocument;
       createDocs(categoryDatas.groupType, categoryDatas.groupId, documentForm).then((response) => {
         if (response.ok) {
-          onClose();
+          handleCloseModal();
         }
       });
     } else if (category === 'update') {
       const categoryDatas = categoryData as DocumentDetail;
       postDocs(categoryDatas.id, { title, description, accessType: selectedValue }).then((response) => {
         if (response.ok) {
-          onClose();
+          handleCloseModal();
         }
       });
     } else {
-      onClose();
+      handleCloseModal();
     }
   };
 
@@ -179,10 +193,10 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
     <ActionModal
       isOpen={isOpen}
       size="xl"
-      onClose={onClose}
+      onClose={handleCloseModal}
       title="학습자료 등록"
       subButtonText="취소"
-      onSubButtonClick={onClose}
+      onSubButtonClick={handleCloseModal}
       mainButtonText="등록"
       onMainButtonClick={onConfirmButtonClick}
     >
