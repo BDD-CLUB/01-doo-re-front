@@ -23,6 +23,8 @@ const DocumentBoxIcon = {
   URL: <BsLink45Deg />,
 };
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
 const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
@@ -120,11 +122,19 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
         ...prev,
         IMAGE: [
           ...prev.IMAGE,
-          ...imgs.map((img) => ({
-            key: img.name,
-            name: img.name,
-            content: img,
-          })),
+          ...imgs
+            .map((img) => {
+              if (img.size >= MAX_FILE_SIZE) {
+                alert('10MB 이내의 파일을 첨부해주세요.');
+                return null;
+              }
+              return {
+                key: img.name,
+                name: img.name,
+                content: img,
+              };
+            })
+            .filter((v) => v !== null),
         ],
       }));
     },
@@ -134,11 +144,19 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
         ...prev,
         DOCUMENT: [
           ...prev.DOCUMENT,
-          ...files.map((file) => ({
-            key: file.name.toString(),
-            name: file.name,
-            content: file,
-          })),
+          ...files
+            .map((file) => {
+              if (file.size >= MAX_FILE_SIZE) {
+                alert('10MB 이내의 파일을 첨부해주세요.');
+                return null;
+              }
+              return {
+                key: file.name.toString(),
+                name: file.name,
+                content: file,
+              };
+            })
+            .filter((v) => v !== null),
         ],
       }));
     },
