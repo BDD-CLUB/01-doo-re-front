@@ -19,6 +19,14 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
   const [modalMember, setModalMember] = useState<Member>({ id: -1, name: '', imageUrl: '' });
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const {
+    result: members,
+    refetch: memberRefetch,
+  }: {
+    result: TeamMemberDetail[];
+    refetch: () => void;
+  } = useGetFetchWithToken(getTeamMembers, [teamId]);
+
   const handleRemoveButtonClick = (member: Member) => {
     setModalMember(member);
     setFiredModalOpen(true);
@@ -33,9 +41,8 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
     setMandateModalOpen(false);
     setFiredModalOpen(false);
     setIsOpen(false);
+    memberRefetch();
   };
-
-  const members: TeamMemberDetail[] = useGetFetchWithToken(getTeamMembers, [teamId]);
 
   useEffect(() => {
     const filteredLeader = members?.filter((member) => member.teamRole === 'ROLE_팀장')[0] ?? null;

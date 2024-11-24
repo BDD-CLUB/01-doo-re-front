@@ -4,7 +4,7 @@ import DocumentCard from '@/components/DocumentCard';
 
 import { DocumentGridViewProps } from './types';
 
-const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
+const DocumentGridView = ({ documentArray, setReload = () => {} }: DocumentGridViewProps) => {
   return (
     <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
       {documentArray?.map((document) => {
@@ -16,7 +16,7 @@ const DocumentGridView = ({ documentArray }: DocumentGridViewProps) => {
             description={document.description}
             date={document.date}
             uploaderName={document.uploaderName}
-            setReload={() => {}}
+            setReload={setReload}
             type={document.type}
             files={document.files}
             // bookmark={document.bookmark}

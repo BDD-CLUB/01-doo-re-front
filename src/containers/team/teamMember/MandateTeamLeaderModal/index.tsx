@@ -13,9 +13,10 @@ const MandateTeamLeaderModal = ({ member, isOpen, teamId, teamName, onClose }: M
     mandateLeader(teamId, member.id).then((res) => {
       if (!res.ok) {
         alert('팀장을 위임하는데 실패했습니다.');
+      } else {
+        onClose();
       }
     });
-    onClose();
   };
 
   return (
