@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { patchStudyMandate } from '@/app/api/member';
-import { deleteStudyMember, getStudyMembers, postStudyMember } from '@/app/api/study';
+import { deleteStudyMember, postStudyMember } from '@/app/api/study';
 import { getTeamMembers } from '@/app/api/team';
 import ParticipantMenu from '@/components/ParticipantMenu';
 import { StudyParticipantMenuProps } from '@/containers/study/StudyParticipantMenu/types';
@@ -11,11 +11,17 @@ import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithTo
 import useGetUser from '@/hooks/useGetUser';
 import { Member, StudyMember } from '@/types';
 
-const StudyParticipantMenu = ({ studyId, teamId, leaderId }: StudyParticipantMenuProps) => {
+const StudyParticipantMenu = ({
+  studyId,
+  teamId,
+  leaderId,
+  studyMembers: originStudyMembers,
+  refetchMembers = () => {},
+}: StudyParticipantMenuProps) => {
   const user = useGetUser();
   const [isOpen, setIsOpen] = useState(false);
 
-  const studyMembers = useGetFetchWithToken(getStudyMembers, [studyId], user)?.map(
+  const studyMembers = originStudyMembers?.map(
     (data: StudyMember) =>
       ({
         id: data.memberId,
@@ -23,7 +29,7 @@ const StudyParticipantMenu = ({ studyId, teamId, leaderId }: StudyParticipantMen
         imageUrl: data.imageUrl,
       }) as Member,
   );
-  const teamMembers = useGetFetchWithToken(getTeamMembers, [teamId], user);
+  const { result: teamMembers } = useGetFetchWithToken(getTeamMembers, [teamId], user);
 
   const leader = studyMembers?.find((member: Member) => member.id === leaderId);
   const includeMembers = studyMembers?.filter((member: Member) => member.id !== leaderId);
@@ -36,15 +42,21 @@ const StudyParticipantMenu = ({ studyId, teamId, leaderId }: StudyParticipantMen
   const mandateLeader = useMutateWithToken(patchStudyMandate, user);
 
   const handleAddMember = (member: Member) => {
-    addMember(studyId, member.id);
+    addMember(studyId, member.id).then(() => {
+      refetchMembers();
+    });
   };
 
   const handleDeleteMember = (member: Member) => {
-    deleteMember(studyId, member.id);
+    deleteMember(studyId, member.id).then(() => {
+      refetchMembers();
+    });
   };
 
   const handleMandateLeader = (member: Member) => {
-    mandateLeader(studyId, member.id);
+    mandateLeader(studyId, member.id).then(() => {
+      refetchMembers();
+    });
   };
 
   return (

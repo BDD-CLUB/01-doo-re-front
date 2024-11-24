@@ -19,7 +19,11 @@ import { DocumentModalProps } from './types';
 const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentModalProps) => {
   const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
 
-  const document: DocumentDetail = useGetFetchWithToken(getDocument, [id]);
+  const {
+    result: document,
+  }: {
+    result: DocumentDetail;
+  } = useGetFetchWithToken(getDocument, [id]);
   const deleteDocs = useMutateWithToken(deleteDocument);
   const onDelete = () => {
     deleteDocs(id).then(() => {
