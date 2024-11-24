@@ -212,7 +212,7 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       isOpen={isOpen}
       size="xl"
       onClose={handleCloseModal}
-      title="학습자료 등록"
+      title={`학습자료 ${category === 'create' ? '생성' : '수정'}`}
       subButtonText="취소"
       onSubButtonClick={handleCloseModal}
       mainButtonText="등록"
