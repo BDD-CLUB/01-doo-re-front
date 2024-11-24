@@ -67,13 +67,20 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
         <Flex direction="column" gap="2">
           {document?.type === 'IMAGE' &&
             document?.files.map((data) => (
-              <Link key={data.url} href={S3_URL(data.url)} download>
+              <Link key={data.url} href={S3_URL(data.url)} download target="_blank" rel="noopener noreferrer">
                 <Image alt={data.id.toString()} id={data.id.toString()} rounded="2xl" src={S3_URL(data.url)} />
               </Link>
             ))}
           {document?.type === 'DOCUMENT' &&
             document?.files.map((data) => (
-              <Link key={data.url} href={S3_URL(data.url)} download id={data.id.toString()}>
+              <Link
+                key={data.url}
+                href={S3_URL(data.url)}
+                download
+                id={data.id.toString()}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <IconBox
                   // leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
                   leftIcon={<BiFile size={30} />}
@@ -83,7 +90,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
             ))}
           {document?.type === 'URL' &&
             document.files.map((data) => (
-              <Link key={data.url} href={data.url}>
+              <Link key={data.url} href={data.url} target="_blank" rel="noopener noreferrer">
                 <IconBox leftIcon={<BiLink size="30" />} content={data.url} />
               </Link>
             ))}
