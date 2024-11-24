@@ -11,6 +11,16 @@ export function useGetFetchWithToken(fetch: (token: string, ...props: any[]) => 
   const [result, setResult] = useState<any>();
   const propsStr = Object.entries(props).toString();
 
+  const refetch = () => {
+    fetch(user?.token, props).then((res: any) => {
+      if (res?.ok) {
+        setResult(res.body);
+      } else {
+        setResult(null);
+      }
+    });
+  };
+
   useEffect(() => {
     if (user?.isLogin) {
       fetch(user?.token, props).then((res: any) => {
@@ -23,7 +33,7 @@ export function useGetFetchWithToken(fetch: (token: string, ...props: any[]) => 
     }
   }, [user, fetch, propsStr]);
 
-  return result;
+  return { result, refetch };
 }
 
 export function useMutateWithToken(fetch: (token: string, ...props: any[]) => Promise<FetchResult>, originUser?: any) {

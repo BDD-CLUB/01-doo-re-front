@@ -37,7 +37,9 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
   if (user && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
-  const participantData = useGetFetchWithToken(getStudyMembers, [params?.studyId])?.map(
+  const { result, refetch: refetchStudyMembers } = useGetFetchWithToken(getStudyMembers, [params?.studyId]);
+
+  const participantData = result?.map(
     (data: StudyMember) =>
       ({
         id: data.memberId,
@@ -57,6 +59,21 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
       }
     });
   }, [params.studyId, isEditModalOpen]);
+
+  useEffect(() => {
+    if (!isTerminateModalOpen) {
+      getStudy(params.studyId).then((data) => {
+        setStudyData(data.body);
+      });
+    }
+  }, [params.studyId, isTerminateModalOpen]);
+
+  const handleRefetchMembers = () => {
+    getStudy(params.studyId).then((data) => {
+      setStudyData(data.body);
+    });
+    refetchStudyMembers();
+  };
 
   return (
     <>
@@ -141,6 +158,8 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   studyId={params.studyId}
                   teamId={studyData?.teamReference.id}
                   leaderId={studyData?.studyLeaderId}
+                  studyMembers={result || []}
+                  refetchMembers={handleRefetchMembers}
                 />
               )}
               <Participant participantInfos={participantData || []} />

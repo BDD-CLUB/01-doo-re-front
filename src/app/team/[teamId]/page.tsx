@@ -40,6 +40,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const [documentLength, setDocumentLength] = useState<number>(0);
   const [isCreateStudyModalOpen, setIsCreateStudyModalOpen] = useState<boolean>(false);
   const [isCreateDocumentModalOpen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
+  const [reloadTrigger, setReloadTrigger] = useState<boolean>(false);
 
   const inviteTeam = useMutateWithToken(postInviteTeam);
   const categoryData: CreateDocument = { groupId: params.teamId, groupType: 'teams' };
@@ -83,7 +84,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     if (isCreateDocumentModalOpen === false) {
       getCardData(cardIdx);
     }
-  }, [isCreateDocumentModalOpen]);
+  }, [isCreateDocumentModalOpen, reloadTrigger]);
 
   useEffect(() => {
     if (isCreateStudyModalOpen === false) {
@@ -238,7 +239,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
             />
           )}
           {category === '학습자료' && documentArray.length === 0 && <SuggestionCreate category="학습자료" />}
-          {category === '학습자료' && <DocumentGridView documentArray={documentArray} />}
+          {category === '학습자료' && <DocumentGridView setReload={setReloadTrigger} documentArray={documentArray} />}
         </Flex>
       </Flex>
       <StudyModal
