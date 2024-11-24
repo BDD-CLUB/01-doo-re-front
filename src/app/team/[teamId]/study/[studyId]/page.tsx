@@ -1,12 +1,15 @@
 'use client';
 
 import { Flex, Grid, IconButton, Text, Link, Card } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
 import NextLink from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getDocumentList } from '@/app/api/document';
 import { getStudy, getStudyMembers } from '@/app/api/study';
+import { myTeamAtom } from '@/atom';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
@@ -28,7 +31,11 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
 
+  const router = useRouter();
   const user = useGetUser();
+  const myTeam = useAtomValue(myTeamAtom);
+  if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
+  if (user && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
   const participantData = useGetFetchWithToken(getStudyMembers, [params?.studyId])?.map(
     (data: StudyMember) =>
@@ -67,7 +74,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        {studyData && studyData?.status !== 'ENDED' && user?.memberId === studyData?.studyLeaderId && (
+        {studyData && studyData?.status !== 'ENDED' && user && user.memberId === studyData?.studyLeaderId && (
           <StudyControlPanel
             editModalOpen={setIsEditModalOpen}
             terminateModalOpen={setIsTerminateModalOpen}
@@ -76,11 +83,11 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         )}
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%" my="4">
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
-            {studyData && (
+            {studyData && user && user.memberId !== -1 && (
               <CurriculumCard
                 cropId={studyData.cropId}
                 studyProgressRatio={studyData.studyProgressRatio}
-                isStudyLeader={user?.memberId === studyData?.studyLeaderId}
+                isStudyLeader={user.memberId === studyData.studyLeaderId}
               />
             )}
 
@@ -129,7 +136,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {/* <Feed /> */}
             <Flex align="right" direction="column" rowGap="3">
-              {studyData && user?.memberId === studyData.studyLeaderId && (
+              {studyData && user && user.memberId === studyData.studyLeaderId && (
                 <StudyParticipantMenu
                   studyId={params.studyId}
                   teamId={studyData?.teamReference.id}

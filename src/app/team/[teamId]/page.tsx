@@ -61,7 +61,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       getDocumentList('teams', params.teamId, page, size).then((res) => {
         if (res.ok) {
           setDocumentArray(res.body.content);
-          setDocumentLength(res.body.numberOfElements);
+          setDocumentLength(res.body.totalElements);
         }
       });
     }
@@ -74,10 +74,6 @@ const Page = ({ params }: { params: { teamId: number } }) => {
     TEAM_CATEGORY_INFOS[0].page = `/team/${params.teamId}/study-gallery`;
     TEAM_CATEGORY_INFOS[1].page = `/team/${params.teamId}/document`;
   }, []);
-
-  useEffect(() => {
-    getCardData(cardIdx);
-  }, [cardIdx]);
 
   useEffect(() => {
     getCardData(0);
@@ -98,6 +94,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
   const handlePrevClick = () => {
     if (cardIdx - CARD_PER_PAGE < 0) return;
 
+    getCardData(cardIdx - CARD_PER_PAGE);
     setCardIdx((idx) => idx - CARD_PER_PAGE);
   };
 
@@ -115,13 +112,15 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         }
       });
     } else if (category === '학습자료') {
-      if (cardIdx + CARD_PER_PAGE > documentLength) return;
+      if (cardIdx + CARD_PER_PAGE >= documentLength) return;
 
       const nextPage = Math.floor((cardIdx + CARD_PER_PAGE) / CARD_PER_PAGE);
       const size = CARD_PER_PAGE;
 
       getDocumentList('teams', params.teamId, nextPage, size).then((res) => {
         if (res.ok) {
+          setDocumentArray(res.body.content);
+          setDocumentLength(res.body.totalElements);
           setCardIdx((idx) => idx + CARD_PER_PAGE);
         }
       });

@@ -23,6 +23,8 @@ const DocumentBoxIcon = {
   URL: <BsLink45Deg />,
 };
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
 const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
@@ -51,6 +53,20 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
   const handleChange = (value: string) => {
     setSelectedValue(value as DocumentAccessType);
   };
+
+  const handleCloseModal = () => {
+    onClose();
+    setTitle('');
+    setDescription('');
+    setSelectedValue('ALL');
+    setDocList({
+      IMAGE: [],
+      DOCUMENT: [],
+      URL: [],
+    });
+    setDocType('IMAGE');
+  };
+
   const user = useGetUser();
 
   const onConfirmButtonClick = () => {
@@ -84,48 +100,64 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       const categoryDatas = categoryData as CreateDocument;
       createDocs(categoryDatas.groupType, categoryDatas.groupId, documentForm).then((response) => {
         if (response.ok) {
-          onClose();
+          handleCloseModal();
         }
       });
     } else if (category === 'update') {
       const categoryDatas = categoryData as DocumentDetail;
       postDocs(categoryDatas.id, { title, description, accessType: selectedValue }).then((response) => {
         if (response.ok) {
-          onClose();
+          handleCloseModal();
         }
       });
     } else {
-      onClose();
+      handleCloseModal();
     }
   };
 
   const handleGetDoc = {
     IMAGE: (e: ChangeEvent<HTMLInputElement>) => {
-      const imgs = Array.from(e.target.files || []);
+      const images = Array.from(e.target.files || []);
+      let alertFlag = false;
+      const filteredImages = images.reduce(
+        (r, img) => {
+          if (img.size >= MAX_FILE_SIZE) alertFlag = true;
+          else
+            r.push({
+              key: img.name,
+              name: img.name,
+              content: img,
+            });
+          return r;
+        },
+        [] as { key: string; name: string; content: File }[],
+      );
+      if (alertFlag) alert('10MB 이내의 파일을 첨부해주세요.');
       setDocList((prev) => ({
         ...prev,
-        IMAGE: [
-          ...prev.IMAGE,
-          ...imgs.map((img) => ({
-            key: img.name,
-            name: img.name,
-            content: img,
-          })),
-        ],
+        IMAGE: [...prev.IMAGE, ...filteredImages],
       }));
     },
     DOCUMENT: (e: ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(e.target.files || []);
+      let alertFlag = false;
+      const filteredFiles = files.reduce(
+        (r, file) => {
+          if (file.size >= MAX_FILE_SIZE) alertFlag = true;
+          else
+            r.push({
+              key: file.name,
+              name: file.name,
+              content: file,
+            });
+          return r;
+        },
+        [] as { key: string; name: string; content: File }[],
+      );
+      if (alertFlag) alert('10MB 이내의 파일을 첨부해주세요.');
       setDocList((prev) => ({
         ...prev,
-        DOCUMENT: [
-          ...prev.DOCUMENT,
-          ...files.map((file) => ({
-            key: file.name.toString(),
-            name: file.name,
-            content: file,
-          })),
-        ],
+        DOCUMENT: [...prev.DOCUMENT, ...filteredFiles],
       }));
     },
     URL: () => {
@@ -179,10 +211,10 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
     <ActionModal
       isOpen={isOpen}
       size="xl"
-      onClose={onClose}
+      onClose={handleCloseModal}
       title="학습자료 등록"
       subButtonText="취소"
-      onSubButtonClick={onClose}
+      onSubButtonClick={handleCloseModal}
       mainButtonText="등록"
       onMainButtonClick={onConfirmButtonClick}
     >
