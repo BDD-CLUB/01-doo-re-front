@@ -249,49 +249,45 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
           }
           value={description}
         />
-        <StyledRadioGroup
-          title="파일 유형"
-          value={category === 'create' ? doctype : (categoryData as DocumentDetail).type}
-          onChange={category === 'create' ? (v) => setDocType(v as DocumentType) : () => {}}
-        >
-          <StyledRadio value="IMAGE">이미지</StyledRadio>
-          <StyledRadio value="DOCUMENT">파일</StyledRadio>
-          <StyledRadio value="URL">URL 링크</StyledRadio>
-        </StyledRadioGroup>
-        <Flex justify="end" direction="row" gap="4" shrink="0">
-          <Input
-            ref={urlInputRef}
-            flex="1"
-            h="7"
-            shadow="md"
-            hidden={doctype !== 'URL'}
-            placeholder="URL 링크를 입력해주세요."
-          />
-          <Button
-            w="28"
-            h="7"
-            shadow="md"
-            onClick={category === 'create' ? () => handleAddDoc[doctype]() : () => {}}
-            variant="orange"
-          >
-            추가하기
-          </Button>
-        </Flex>
-        <Divider borderWidth="2px" borderColor={color.orange_dark} />
-        <input
-          hidden
-          type="file"
-          multiple
-          accept="image/jpg,image/png,image/jpeg,image/gif"
-          ref={imgInputRef}
-          onChange={handleGetDoc.IMAGE}
-        />
-        <input
-          hidden
-          type="file"
-          multiple
-          ref={fileInputRef}
-          accept="text/plain,
+        {category === 'create' && (
+          <>
+            <StyledRadioGroup
+              title="파일 유형"
+              value={category === 'create' ? doctype : (categoryData as DocumentDetail).type}
+              onChange={category === 'create' ? (v) => setDocType(v as DocumentType) : () => {}}
+            >
+              <StyledRadio value="IMAGE">이미지</StyledRadio>
+              <StyledRadio value="DOCUMENT">파일</StyledRadio>
+              <StyledRadio value="URL">URL 링크</StyledRadio>
+            </StyledRadioGroup>
+            <Flex justify="end" direction="row" gap="4" shrink="0">
+              <Input
+                ref={urlInputRef}
+                flex="1"
+                h="7"
+                shadow="md"
+                hidden={doctype !== 'URL'}
+                placeholder="URL 링크를 입력해주세요."
+              />
+              <Button w="28" h="7" shadow="md" onClick={() => handleAddDoc[doctype]()} variant="orange">
+                추가하기
+              </Button>
+            </Flex>
+            <Divider borderWidth="2px" borderColor={color.orange_dark} />
+            <input
+              hidden
+              type="file"
+              multiple
+              accept="image/jpg,image/png,image/jpeg,image/gif"
+              ref={imgInputRef}
+              onChange={handleGetDoc.IMAGE}
+            />
+            <input
+              hidden
+              type="file"
+              multiple
+              ref={fileInputRef}
+              accept="text/plain,
                   application/zip,
                   application/pdf,
                   application/vnd.ms-powerpoint,
@@ -306,20 +302,22 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
                   image/png,
                   image/gif,
                   image/webp"
-          onChange={handleGetDoc.DOCUMENT}
-        />
-        <Flex direction="column" gap="4" overflow="scroll" maxH="52" shrink="0">
-          {docList[doctype] &&
-            docList[doctype].map((doc, index) => (
-              <IconBox
-                key={doc.key}
-                leftIcon={DocumentBoxIcon[doctype]}
-                content={doc.name}
-                rightIcon={<BiTrash />}
-                handleClick={category === 'create' ? () => handleRemoveDoc(index) : () => {}}
-              />
-            ))}
-        </Flex>
+              onChange={handleGetDoc.DOCUMENT}
+            />
+            <Flex direction="column" gap="4" overflow="scroll" maxH="52" shrink="0">
+              {docList[doctype] &&
+                docList[doctype].map((doc, index) => (
+                  <IconBox
+                    key={doc.key}
+                    leftIcon={DocumentBoxIcon[doctype]}
+                    content={doc.name}
+                    rightIcon={<BiTrash />}
+                    handleClick={category === 'create' ? () => handleRemoveDoc(index) : () => {}}
+                  />
+                ))}
+            </Flex>
+          </>
+        )}
         <StyledRadioGroup
           title="공개 범위"
           defaultValue={category === 'create' ? 'ALL' : (categoryData as DocumentDetail).accessType}
