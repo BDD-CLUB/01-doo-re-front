@@ -176,7 +176,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   refetchMembers={handleRefetchMembers}
                 />
               )}
-              <Participant participantInfos={participantData || []} />
+              {participantData && <Participant participantInfos={participantData} />}
             </Flex>
           </Flex>
         </Grid>
