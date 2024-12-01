@@ -9,7 +9,7 @@ import { myStudyAtom } from '@/atom';
 import Documents from '@/containers/document/Documents';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
-import useGetMyTeam from '@/hooks/useGetMyTeam';
+// import useGetMyTeam from '@/hooks/useGetMyTeam';
 import useGetUser from '@/hooks/useGetUser';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
@@ -20,9 +20,9 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const router = useRouter();
 
   const myStudies = useAtomValue(myStudyAtom);
-  const myTeam = useGetMyTeam();
+  // const myTeam = useGetMyTeam();
   if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
-  if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
+  // if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
   const auth = useMemo(() => {
     if (!user || !user.isLogin) return false;
