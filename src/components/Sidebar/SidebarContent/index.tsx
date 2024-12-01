@@ -9,7 +9,7 @@ import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
 import { useGetSideBarInfoQuery } from '@/app/api/member';
-import { defaultUserAtom, myStudyAtom, myTeamAtom, userAtom } from '@/atom';
+import { defaultUserAtom, myTeamAtom, userAtom } from '@/atom';
 import GoogleLoginButton from '@/containers/main/GoogleLoginButton';
 import TeamModal from '@/containers/team/TeamModal';
 import useGetUser from '@/hooks/useGetUser';
@@ -24,8 +24,6 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const user = useGetUser();
   const setUser = useSetAtom(userAtom);
   const setMyTeams = useSetAtom(myTeamAtom);
-  const setMyStudies = useSetAtom(myStudyAtom);
-
   const router = useRouter();
 
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
@@ -39,15 +37,8 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
     const myTeams = sidebarInfo?.body.myTeamsAndStudies
       ? sidebarInfo.body.myTeamsAndStudies.map((team: SidebarTeam) => team.teamId)
       : [];
-    const myStudies = sidebarInfo?.body.myTeamsAndStudies
-      ? sidebarInfo.body.myTeamsAndStudies.reduce((r: number[], team: SidebarTeam) => {
-          team.teamStudies.forEach((study) => r.push(study.id));
-          return r;
-        }, [])
-      : [];
     setMyTeams(myTeams);
-    setMyStudies(myStudies);
-  }, [setMyTeams, setMyStudies, sidebarInfo]);
+  }, [setMyTeams, sidebarInfo]);
 
   return (
     <>
