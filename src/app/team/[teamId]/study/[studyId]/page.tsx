@@ -19,7 +19,7 @@ import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
-// import useGetMyTeam from '@/hooks/useGetMyTeam';
+import useGetMyTeam from '@/hooks/useGetMyTeam';
 import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
 
@@ -32,9 +32,9 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
 
   const router = useRouter();
   const user = useGetUser();
-  // const myTeam = useGetMyTeam();
+  const myTeam = useGetMyTeam();
   if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
-  // if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
+  if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
   const { result, refetch: refetchStudyMembers } = useGetFetchWithToken(getStudyMembers, [params?.studyId]);
 

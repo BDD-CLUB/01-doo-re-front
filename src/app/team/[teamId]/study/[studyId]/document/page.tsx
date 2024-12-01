@@ -8,7 +8,7 @@ import { getMyStudies } from '@/app/api/study';
 import Documents from '@/containers/document/Documents';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
-// import useGetMyTeam from '@/hooks/useGetMyTeam';
+import useGetMyTeam from '@/hooks/useGetMyTeam';
 import useGetUser from '@/hooks/useGetUser';
 import { Study } from '@/types';
 
@@ -17,12 +17,12 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [myStudies, setMyStudies] = useState<number[]>([]);
   const categoryData: CreateDocument = { groupId: params.studyId, groupType: 'studies' };
 
-  const user = useGetUser();
   const router = useRouter();
 
-  // const myTeam = useGetMyTeam();
+  const myTeam = useGetMyTeam();
+  const user = useGetUser();
   if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
-  // if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
+  if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
   const auth = useMemo(() => {
     if (!user || !user.isLogin) return false;
