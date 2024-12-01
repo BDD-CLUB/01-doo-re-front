@@ -5,6 +5,7 @@ import { useAtomValue } from 'jotai';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { BsPlus } from 'react-icons/bs';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getDocumentList } from '@/app/api/document';
@@ -12,6 +13,8 @@ import { getStudy, getStudyMembers } from '@/app/api/study';
 import { myTeamAtom } from '@/atom';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
+import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
+import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import CurriculumCard from '@/containers/study/CurriculumCard';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
@@ -30,6 +33,8 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
+  const [isCreateDocumentModalOpen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
+  const categoryData: CreateDocument = { groupId: params.studyId, groupType: 'studies' };
 
   const router = useRouter();
   const user = useGetUser();
@@ -58,7 +63,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         setDocumentArray(res.body.content);
       }
     });
-  }, [params.studyId, isEditModalOpen]);
+  }, [params.studyId, isEditModalOpen, isCreateDocumentModalOpen]);
 
   useEffect(() => {
     if (!isTerminateModalOpen) {
@@ -108,25 +113,34 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
               />
             )}
 
-            <Flex align="right" direction="column" rowGap="3" w="100%">
-              <Link
-                as={NextLink}
-                gap="3"
-                display="flex"
-                w="fit-content"
-                ml="auto"
-                href={`/team/${params.teamId}/study/${params.studyId}/document`}
-              >
+            <Flex direction="column" rowGap="3" w="100%">
+              <Flex align="center" justify="space-between">
+                <Link
+                  as={NextLink}
+                  gap="3"
+                  display="flex"
+                  w="fit-content"
+                  href={`/team/${params.teamId}/study/${params.studyId}/document`}
+                >
+                  <IconButton
+                    fontSize="16px"
+                    aria-label=""
+                    icon={<MdOutlineArrowForwardIos />}
+                    isRound
+                    size="icon_sm"
+                    variant="icon_orange"
+                  />
+                  <Text>전체 보기</Text>
+                </Link>
                 <IconButton
-                  fontSize="16px"
+                  shadow="base"
                   aria-label=""
-                  icon={<MdOutlineArrowForwardIos />}
-                  isRound
-                  size="icon_sm"
-                  variant="icon_orange"
+                  icon={<BsPlus />}
+                  onClick={() => setIsCreateDocumentModalOpen(true)}
+                  size="icon_md"
+                  variant="icon_orange_dark"
                 />
-                <Text>전체 보기</Text>
-              </Link>
+              </Flex>
               {documentArray && documentArray.length > 0 ? (
                 <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
                   {documentArray.map((data) => (
@@ -185,6 +199,13 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         name={studyData?.name || ''}
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
+      />
+
+      <CreateDocumentModal
+        isOpen={isCreateDocumentModalOpen}
+        onClose={() => setIsCreateDocumentModalOpen(false)}
+        categoryData={categoryData}
+        category="create"
       />
     </>
   );
