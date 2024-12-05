@@ -266,10 +266,20 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
                 flex="1"
                 h="7"
                 shadow="md"
+                _disabled={{ cursor: 'not-allowed', bg: 'orange_light', _hover: { bg: 'orange_light' } }}
                 hidden={doctype !== 'URL'}
-                placeholder="URL 링크를 입력해주세요."
+                isDisabled={docList.URL.length > 0}
+                placeholder={docList.URL.length > 0 ? '링크는 1개만 첨부 가능합니다.' : 'URL 링크를 입력해주세요.'}
               />
-              <Button w="28" h="7" shadow="md" onClick={() => handleAddDoc[doctype]()} variant="orange">
+              <Button
+                w="28"
+                h="7"
+                shadow="md"
+                _disabled={{ cursor: 'not-allowed', bg: 'orange_light', _hover: { bg: 'orange_light' } }}
+                isDisabled={doctype === 'URL' && docList.URL.length > 0}
+                onClick={category === 'create' ? () => handleAddDoc[doctype]() : () => {}}
+                variant="orange"
+              >
                 추가하기
               </Button>
             </Flex>
