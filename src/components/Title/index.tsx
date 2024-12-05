@@ -19,7 +19,12 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           src={imageUrl ? S3_URL(imageUrl) : '/images/doore_logo.png'}
         />
       )}
-      <Text textStyle="bold_3xl" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <Text
+        textStyle="bold_3xl"
+        cursor="default"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         {name}
       </Text>
 
@@ -35,8 +40,24 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           bg="white"
           borderRadius="base"
           shadow="md"
+          _hover={{
+            h: 'auto',
+          }}
+          role="group"
         >
-          <Text zIndex="2" w="100%" h="6">
+          <Text
+            zIndex="2"
+            w="100%"
+            h="6"
+            _groupHover={{
+              h: '100%',
+              py: 3,
+              overflow: 'visible',
+              WebkitLineClamp: 'unset',
+            }}
+            whiteSpace="pre-wrap"
+            noOfLines={1}
+          >
             {description}
           </Text>
         </Flex>
