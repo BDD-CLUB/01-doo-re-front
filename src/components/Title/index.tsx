@@ -40,8 +40,24 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           bg="white"
           borderRadius="base"
           shadow="md"
+          _hover={{
+            h: 'auto',
+          }}
+          role="group"
         >
-          <Text zIndex="2" w="100%" h="6" whiteSpace="pre-line" noOfLines={1}>
+          <Text
+            zIndex="2"
+            w="100%"
+            h="6"
+            _groupHover={{
+              h: '100%',
+              py: 3,
+              overflow: 'visible',
+              WebkitLineClamp: 'unset',
+            }}
+            whiteSpace="pre-wrap"
+            noOfLines={1}
+          >
             {description}
           </Text>
         </Flex>
