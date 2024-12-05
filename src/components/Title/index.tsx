@@ -41,7 +41,7 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           borderRadius="base"
           shadow="md"
         >
-          <Text zIndex="2" w="100%" h="6">
+          <Text zIndex="2" w="100%" h="6" whiteSpace="pre-line" noOfLines={1}>
             {description}
           </Text>
         </Flex>
