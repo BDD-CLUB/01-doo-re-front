@@ -1,7 +1,6 @@
 'use client';
 
 import { Flex, Grid, IconButton, Text, Link, Card } from '@chakra-ui/react';
-import { useAtomValue } from 'jotai';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,6 @@ import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getDocumentList } from '@/app/api/document';
 import { getStudy, getStudyMembers } from '@/app/api/study';
-import { myTeamAtom } from '@/atom';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CurriculumCard from '@/containers/study/CurriculumCard';
@@ -21,6 +19,7 @@ import StudyControlPanel from '@/containers/study/StudyControlPanel';
 import StudyInfoCard from '@/containers/study/StudyInfoCard';
 import StudyParticipantMenu from '@/containers/study/StudyParticipantMenu';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
+import useGetMyTeam from '@/hooks/useGetMyTeam';
 import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
 
@@ -33,9 +32,9 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
 
   const router = useRouter();
   const user = useGetUser();
-  const myTeam = useAtomValue(myTeamAtom);
+  const myTeam = useGetMyTeam();
   if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
-  if (user && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
+  if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
   const { result, refetch: refetchStudyMembers } = useGetFetchWithToken(getStudyMembers, [params?.studyId]);
 
@@ -132,7 +131,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   {documentArray.map((data) => (
                     <DocumentCard
                       id={data.id}
-                      key={data.title}
+                      key={data.id}
                       title={data.title}
                       description={data.description}
                       date={data.date}
