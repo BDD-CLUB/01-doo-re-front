@@ -19,7 +19,12 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           src={imageUrl ? S3_URL(imageUrl) : '/images/doore_logo.png'}
         />
       )}
-      <Text textStyle="bold_3xl" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <Text
+        textStyle="bold_3xl"
+        cursor="default"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         {name}
       </Text>
 
