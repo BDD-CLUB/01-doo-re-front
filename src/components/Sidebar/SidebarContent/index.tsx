@@ -24,7 +24,6 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const user = useGetUser();
   const setUser = useSetAtom(userAtom);
   const setMyTeams = useSetAtom(myTeamAtom);
-
   const router = useRouter();
 
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
@@ -35,10 +34,10 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   };
 
   useEffect(() => {
-    const myTeams = sidebarInfo?.body.myTeamsAndStudies
-      ? sidebarInfo.body.myTeamsAndStudies.map((team: { teamId: number }) => team.teamId)
-      : [];
-    setMyTeams(myTeams);
+    if (sidebarInfo?.body.myTeamsAndStudies) {
+      const myTeams = sidebarInfo.body.myTeamsAndStudies.map((team: SidebarTeam) => team.teamId);
+      setMyTeams(myTeams);
+    }
   }, [setMyTeams, sidebarInfo]);
 
   return (

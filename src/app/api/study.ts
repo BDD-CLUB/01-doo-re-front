@@ -129,10 +129,14 @@ const patchCurriculumCompleted = (token: string, curriculumId: number, participa
     },
   });
 
+const getMyStudies = (token: string, memberId: number) =>
+  studyFetcher(`/studies/members/${memberId}`, { headers: { Authorization: `Bearer ${token}` } });
+
 export {
   postStudy,
   getStudyAll,
   getStudy,
+  getMyStudies,
   deleteStudy,
   putEditStudy,
   patchTerminateStudy,
