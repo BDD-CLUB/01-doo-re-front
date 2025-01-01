@@ -21,14 +21,17 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
 
   const {
     result: document,
+    refetch,
   }: {
     result: DocumentDetail;
+    refetch: () => void;
   } = useGetFetchWithToken(getDocument, [id]);
   const deleteDocs = useMutateWithToken(deleteDocument);
   const onDelete = () => {
     deleteDocs(id).then(() => {
       setIsDocsModalOpen(false);
       setReload((prev: boolean) => !prev);
+      refetch();
       // Todo : delete document 후에 페이지 리로드 필요
     });
   };
@@ -37,6 +40,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
     setIsDocsModalOpen(false);
     setIsCreateDocsModalOpen(false);
     setReload((prev: boolean) => !prev);
+    refetch();
   };
 
   return (
