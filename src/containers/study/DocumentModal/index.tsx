@@ -42,6 +42,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
   return (
     <ActionModal
       isOpen={isOpen}
+      needCloseButton
       onClose={() => setIsDocsModalOpen(false)}
       title={`[ ${document?.title} ]`}
       subButtonText="삭제"
