@@ -1,5 +1,6 @@
 export interface ActionModalProps {
   isOpen: boolean;
+  needCloseButton?: boolean;
   onClose: () => void;
   title: string;
   children: React.ReactNode;
