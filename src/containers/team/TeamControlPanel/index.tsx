@@ -2,8 +2,8 @@ import { Button, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { TeamControlPanelProps } from './types';
-import TeamActionModal from '../TeamActionModal';
-import TeamModal from '../TeamModal';
+import TeamActionModal from '../Modal/TeamActionModal';
+import TeamModal from '../Modal/TeamModal';
 
 const TeamControlPanel = ({ isTeamLeader, isMyTeam, teamInfo }: TeamControlPanelProps) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
