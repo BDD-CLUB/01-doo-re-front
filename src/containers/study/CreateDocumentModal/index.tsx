@@ -70,6 +70,16 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
   const user = useGetUser();
 
   const onConfirmButtonClick = () => {
+    if (
+      category === 'create' &&
+      ((doctype === 'IMAGE' && docList.IMAGE.length === 0) ||
+        (doctype === 'DOCUMENT' && docList.DOCUMENT.length === 0) ||
+        (doctype === 'URL' && docList.URL.length === 0))
+    ) {
+      alert('학습 자료를 업로드해주세요.');
+      return;
+    }
+
     const createDocumentInfo: Document = {
       title,
       description,
