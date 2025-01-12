@@ -2,8 +2,9 @@ import { Button, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { TeamControlPanelProps } from './types';
-import TeamActionModal from '../Modal/TeamActionModal';
 import TeamModal from '../Modal/TeamModal';
+import DeleteTeamModal from '../Modal/DeleteTeamModal';
+import LeaveTeamModal from '../Modal/LeaveTeamModal';
 
 const TeamControlPanel = ({ isTeamLeader, isMyTeam, teamInfo }: TeamControlPanelProps) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
@@ -64,21 +65,19 @@ const TeamControlPanel = ({ isTeamLeader, isMyTeam, teamInfo }: TeamControlPanel
         <TeamModal teamInfo={teamInfo} isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} />
       )}
       {isDeleteModalOpen && (
-        <TeamActionModal
+        <DeleteTeamModal
           id={teamInfo?.id}
           name={teamInfo?.name}
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
-          actionType="delete"
         />
       )}
       {isLeaveModalOpen && (
-        <TeamActionModal
+        <LeaveTeamModal
           id={teamInfo?.id}
           name={teamInfo?.name}
           isOpen={isLeaveModalOpen}
           onClose={() => setIsLeaveModalOpen(false)}
-          actionType="leave"
         />
       )}
     </Flex>

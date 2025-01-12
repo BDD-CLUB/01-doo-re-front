@@ -6,8 +6,12 @@ export interface TeamModalProps {
   onClose: () => void;
 }
 
-export interface TeamActionModalProps extends Pick<Team, 'id' | 'name'> {
+export interface DeleteTeamModalProps extends Pick<Team, 'id' | 'name'> {
   isOpen: boolean;
   onClose: () => void;
-  actionType: 'delete' | 'leave';
+}
+
+export interface LeaveTeamModalProps extends Pick<Team, 'id' | 'name'> {
+  isOpen: boolean;
+  onClose: () => void;
 }
