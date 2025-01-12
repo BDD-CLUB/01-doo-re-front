@@ -111,6 +111,7 @@ export interface Document {
 }
 
 export interface DocumentList {
+  readonly teamId: number;
   id: number;
   title: string;
   description: string;

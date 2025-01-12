@@ -10,6 +10,7 @@ const DocumentGridView = ({ documentArray, setReload = () => {} }: DocumentGridV
       {documentArray?.map((document) => {
         return (
           <DocumentCard
+            teamId={document.teamId}
             key={document.id}
             id={document.id}
             title={document.title}
