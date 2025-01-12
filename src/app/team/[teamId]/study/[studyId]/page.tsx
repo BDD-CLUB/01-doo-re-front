@@ -15,6 +15,7 @@ import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import CurriculumCard from '@/containers/study/CurriculumCard';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
+import LeaveStudyModal from '@/containers/study/Modal/LeaveStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
@@ -25,7 +26,6 @@ import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import useGetMyTeam from '@/hooks/useGetMyTeam';
 import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
-import LeaveStudyModal from '@/containers/study/Modal/LeaveStudyModal';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [studyData, setStudyData] = useState<Study>();
