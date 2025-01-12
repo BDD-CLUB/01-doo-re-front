@@ -2,11 +2,11 @@ import { Flex, IconButton, Text } from '@chakra-ui/react';
 
 import { IconBoxProps } from './type';
 
-const IconBox = ({ leftIcon, content, rightIcon, handleClick }: IconBoxProps) => {
+const IconBox = ({ leftIcon, content, rightIcon, handleClick, cursor = 'default' }: IconBoxProps) => {
   return (
     <Flex align="center" gap="1" w="100%" h="40px" minH="40px" color="white" bg="orange_light" borderRadius="2xl">
       <IconButton as="div" flexShrink="0" aria-label="" icon={leftIcon} size="icon_md" variant="transparent" />
-      <Text textStyle="bold_md" flex="auto" cursor="default" isTruncated>
+      <Text textStyle="bold_md" flex="auto" cursor={cursor} isTruncated>
         {content}
       </Text>
       {rightIcon && (
