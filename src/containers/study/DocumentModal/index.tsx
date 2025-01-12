@@ -89,13 +89,14 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
                   // leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
                   leftIcon={<BiFile size={30} />}
                   content={data.url.toString()}
+                  cursor="pointer"
                 />
               </Link>
             ))}
           {document?.type === 'URL' &&
             document.files.map((data) => (
               <Link key={data.url} href={data.url} target="_blank" rel="noopener noreferrer">
-                <IconBox leftIcon={<BiLink size="30" />} content={data.url} />
+                <IconBox leftIcon={<BiLink size="30" />} content={data.url} cursor="pointer" />
               </Link>
             ))}
         </Flex>
