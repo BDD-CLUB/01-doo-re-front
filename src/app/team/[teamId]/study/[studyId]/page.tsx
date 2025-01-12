@@ -25,12 +25,14 @@ import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import useGetMyTeam from '@/hooks/useGetMyTeam';
 import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
+import LeaveStudyModal from '@/containers/study/Modal/LeaveStudyModal';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [studyData, setStudyData] = useState<Study>();
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
+  const [isLeaveModalOpen, setIsLeaveModalOpen] = useState<boolean>(false);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [isCreateDocumentModalOpen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
   const categoryData: CreateDocument = { groupId: params.studyId, groupType: 'studies' };
@@ -97,9 +99,11 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         </Flex>
         {studyData && studyData?.status !== 'ENDED' && user && user.memberId === studyData?.studyLeaderId && (
           <StudyControlPanel
+            isStudyLeader={user.memberId === studyData.studyLeaderId}
             editModalOpen={setIsEditModalOpen}
             terminateModalOpen={setIsTerminateModalOpen}
             deleteModalOpen={setIsDeleteModalOpen}
+            leaveModalOpen={setIsLeaveModalOpen}
           />
         )}
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%" my="4">
@@ -199,7 +203,13 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
       />
-
+      <LeaveStudyModal
+        id={params.studyId}
+        name={studyData?.name || ''}
+        teamId={params.teamId}
+        isOpen={isLeaveModalOpen}
+        setIsOpen={setIsLeaveModalOpen}
+      />
       <CreateDocumentModal
         isOpen={isCreateDocumentModalOpen}
         onClose={() => setIsCreateDocumentModalOpen(false)}
