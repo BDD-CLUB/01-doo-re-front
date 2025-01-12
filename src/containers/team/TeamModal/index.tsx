@@ -1,8 +1,8 @@
 'use client';
 
-import { Flex, Text, Textarea, Image } from '@chakra-ui/react';
+import { Flex, Text, Textarea, Image, IconButton, Box } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
-import { BiEdit, BiFile } from 'react-icons/bi';
+import { BiEdit, BiFile, BiTrash } from 'react-icons/bi';
 
 import { patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
@@ -189,12 +189,30 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
               }
             }}
           />
-          <IconBox
-            leftIcon={<BiFile />}
-            rightIcon={<BiEdit />}
-            content={thumbnail ? thumbnail.name : '파일을 추가해주세요.'}
-            handleClick={() => inputFileRef.current?.click()}
-          />
+          <Flex align="center" gap={2} w="100%">
+            <Box w="368px">
+              <IconBox
+                leftIcon={<BiFile />}
+                rightIcon={<BiEdit />}
+                content={thumbnail ? thumbnail.name : '파일을 추가해주세요.'}
+                handleClick={() => inputFileRef.current?.click()}
+              />
+            </Box>
+            <IconButton
+              flexShrink="0"
+              minW="40px"
+              h="40px"
+              borderRadius="2xl"
+              aria-label=""
+              icon={<BiTrash />}
+              onClick={() => {
+                setThumbnail(null);
+                setThumbnailPath('');
+              }}
+              size="icon_md"
+              variant="orange_light"
+            />
+          </Flex>
           {thumbnailPath ? (
             <Image w="40" alt="thumbnail" src={S3_URL(thumbnailPath)} />
           ) : (
