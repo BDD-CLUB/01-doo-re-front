@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
-import { leaveStudy } from '@/app/api/study';
+import { leaveStudy as leaveStudyApi } from '@/app/api/study';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useRefetchSideBar from '@/hooks/useRefetchSideBar';
@@ -9,16 +9,16 @@ import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 import { LeaveStudyModalProps } from '../types';
 
 const LeaveStudyModal = ({ id, name, teamId, isOpen, setIsOpen }: LeaveStudyModalProps) => {
-  const leaveStudyAction = useMutateWithToken(leaveStudy);
+  const leaveStudy = useMutateWithToken(leaveStudyApi);
   const refetchSidebar = useRefetchSideBar();
   const router = useRouter();
 
   const handleClickLeave = () => {
-    leaveStudyAction(id).then((res) => {
+    leaveStudy(id).then((res) => {
       if (res.ok) {
         refetchSidebar();
         setIsOpen(false);
-        router.replace(`/team/${teamId}/studies`);
+        router.replace(`/team/${teamId}`);
       }
     });
   };
