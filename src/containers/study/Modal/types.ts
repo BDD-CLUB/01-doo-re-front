@@ -10,3 +10,9 @@ export interface DeleteStudyModalProps extends Pick<Study, 'id' | 'name'> {
   teamId: number;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface LeaveStudyModalProps extends Pick<Study, 'id' | 'name'> {
+  isOpen: boolean;
+  teamId: number;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
