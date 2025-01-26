@@ -10,7 +10,7 @@ import { DocumentList } from '@/types';
 
 import { DocumentPageProps } from './types';
 
-const Documents = ({ groupId, category, refetchTrigger = false }: DocumentPageProps) => {
+const Documents = ({ teamId, groupId, category, refetchTrigger = false }: DocumentPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(4);
@@ -37,7 +37,7 @@ const Documents = ({ groupId, category, refetchTrigger = false }: DocumentPagePr
           <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns={`repeat(${itemsPerPage / 2}, 1fr)`} w="100%">
             {currentData.map((data) => (
               <DocumentCard
-                teamId={data.teamId}
+                teamId={teamId}
                 id={data.id}
                 key={data.id}
                 title={data.title}

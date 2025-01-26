@@ -6,6 +6,7 @@ export interface DocumentData {
 }
 
 export interface DocumentModalProps {
+  readonly teamId: number;
   id: number;
   isOpen: boolean;
   setIsDocsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;

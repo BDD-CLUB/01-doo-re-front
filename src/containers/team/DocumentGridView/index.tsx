@@ -4,13 +4,13 @@ import DocumentCard from '@/components/DocumentCard';
 
 import { DocumentGridViewProps } from './types';
 
-const DocumentGridView = ({ documentArray, setReload = () => {} }: DocumentGridViewProps) => {
+const DocumentGridView = ({ teamId, documentArray, setReload = () => {} }: DocumentGridViewProps) => {
   return (
     <Grid gap="4" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
       {documentArray?.map((document) => {
         return (
           <DocumentCard
-            teamId={document.teamId}
+            teamId={teamId}
             key={document.id}
             id={document.id}
             title={document.title}

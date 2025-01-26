@@ -7,7 +7,7 @@ import S3_URL from '@/constants/s3Url';
 import DocumentModal from '@/containers/study/DocumentModal';
 import { DocumentList } from '@/types';
 
-const DocumentCard = ({ id, title, description, date, setReload, files, type }: DocumentList) => {
+const DocumentCard = ({ teamId, id, title, description, date, setReload, files, type }: DocumentList) => {
   const [docsModalOpen, setIsDocsModalOpen] = useState<boolean>(false);
 
   const firstImg = () => {
@@ -38,7 +38,13 @@ const DocumentCard = ({ id, title, description, date, setReload, files, type }: 
       onClick={() => setIsDocsModalOpen(true)}
       rounded="xl"
     >
-      <DocumentModal id={id} isOpen={docsModalOpen} setIsDocsModalOpen={setIsDocsModalOpen} setReload={setReload} />
+      <DocumentModal
+        teamId={teamId}
+        id={id}
+        isOpen={docsModalOpen}
+        setIsDocsModalOpen={setIsDocsModalOpen}
+        setReload={setReload}
+      />
 
       <Image h="60" objectFit="cover" alt="study card" rounded="sm" src={firstImg()} />
       <CardBody px="2">

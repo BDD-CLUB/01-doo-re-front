@@ -19,7 +19,7 @@ import { DocumentDetail, Member } from '@/types';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentModalProps) => {
+const DocumentModal = ({ teamId, id, isOpen, setIsDocsModalOpen, setReload }: DocumentModalProps) => {
   const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
 
   const {
@@ -44,7 +44,7 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
 
   const user = useGetUser();
   const [isMember, setIsMember] = useState<boolean>(false);
-  const { result: teamMembers } = useGetFetchWithToken(getTeamMembers, [document?.teamId], user);
+  const { result: teamMembers } = useGetFetchWithToken(getTeamMembers, [teamId], user);
 
   useEffect(() => {
     if (user?.isLogin) {

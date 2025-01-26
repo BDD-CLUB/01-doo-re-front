@@ -52,7 +52,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           </Button>
         )}
       </Flex>
-      <Documents groupId={params.studyId} category="studies" refetchTrigger={openCreateModal} />
+      <Documents teamId={params.teamId} groupId={params.studyId} category="studies" refetchTrigger={openCreateModal} />
       <CreateDocumentModal
         isOpen={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
