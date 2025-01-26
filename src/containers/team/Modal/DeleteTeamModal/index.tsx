@@ -6,7 +6,7 @@ import ConfirmModal from '@/components/Modal/ConfirmModal';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 
-import { DeleteTeamModalProps } from './type';
+import { DeleteTeamModalProps } from '../type';
 
 const DeleteTeamModal = ({ id, name, isOpen, onClose }: DeleteTeamModalProps) => {
   const deleteTeam = useMutateWithToken(deleteTeamApi);

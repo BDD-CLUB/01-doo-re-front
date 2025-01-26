@@ -11,7 +11,7 @@ import { MdOutlineLogout } from 'react-icons/md';
 import { useGetSideBarInfoQuery } from '@/app/api/member';
 import { defaultUserAtom, myTeamAtom, userAtom } from '@/atom';
 import GoogleLoginButton from '@/containers/main/GoogleLoginButton';
-import TeamModal from '@/containers/team/TeamModal';
+import TeamModal from '@/containers/team/Modal/TeamModal';
 import useGetUser from '@/hooks/useGetUser';
 
 import SidebarIconButton from '../Button/SidebarIconButton';

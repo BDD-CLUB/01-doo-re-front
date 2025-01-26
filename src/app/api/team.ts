@@ -101,6 +101,14 @@ const deleteTeamMember = (token: string, teamId: number, memberId: number) =>
     },
   });
 
+const leaveTeam = (token: string, teamId: number) =>
+  teamFetcher(`/teams/${teamId}/members`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const mandateTeamLeader = (token: string, teamId: number, memberId: number) =>
   teamFetcher(`/teams/${teamId}/mandate/${memberId}`, {
     method: 'PATCH',
@@ -124,6 +132,7 @@ export {
   getTeams,
   getMyTeams,
   deleteTeamMember,
+  leaveTeam,
   mandateTeamLeader,
   getTeamMembers,
 };

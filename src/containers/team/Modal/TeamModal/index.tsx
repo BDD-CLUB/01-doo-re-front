@@ -12,7 +12,7 @@ import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 import useRefetchTeamInfo from '@/hooks/useRefetchTeamInfo';
 
-import { TeamModalProps } from './type';
+import { TeamModalProps } from '../type';
 
 const AlertContent = ({ message }: { message: string }) => {
   return (
