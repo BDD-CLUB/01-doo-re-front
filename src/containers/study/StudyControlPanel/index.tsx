@@ -4,6 +4,7 @@ import { StudyControlPanelProps } from './types';
 
 const StudyControlPanel = ({
   isStudyLeader,
+  isStudyMember,
   editModalOpen,
   terminateModalOpen,
   deleteModalOpen,
@@ -57,7 +58,7 @@ const StudyControlPanel = ({
           </Button>
         </>
       )}
-      {!isStudyLeader && (
+      {!isStudyLeader && isStudyMember && (
         <Button
           w="fit-content"
           px="4"

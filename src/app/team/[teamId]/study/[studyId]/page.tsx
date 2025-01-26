@@ -100,6 +100,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         {studyData && studyData?.status !== 'ENDED' && user && (
           <StudyControlPanel
             isStudyLeader={user.memberId === studyData.studyLeaderId}
+            isStudyMember={result?.some((data: { memberId: number }) => data.memberId === user.memberId)}
             editModalOpen={setIsEditModalOpen}
             terminateModalOpen={setIsTerminateModalOpen}
             deleteModalOpen={setIsDeleteModalOpen}
