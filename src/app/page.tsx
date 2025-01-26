@@ -40,8 +40,8 @@ const Page = () => {
                     community for developer
                   </Text>
                   <Text textStyle="title_sm" mb="4">
-                    Investigators have raided the home of the teenage suspect behind the physical attack on ruling party
-                    lawmaker Bae Hyun-jin as police are trying to determine the exact motive of the...
+                    Plant the seeds of knowledge, record your learning journey, and wholeheartedly support and encourage
+                    each other&apos;s efforts as we grow together to cultivate a flourishing forest of achievements.
                   </Text>
                   <GoogleLoginButton />
                 </Flex>

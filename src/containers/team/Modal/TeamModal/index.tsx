@@ -1,10 +1,10 @@
 'use client';
 
-import { Flex, Text, Textarea, Image } from '@chakra-ui/react';
+import { Flex, Text, Textarea, Image, IconButton, Box } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
-import { BiEdit, BiFile } from 'react-icons/bi';
+import { BiEdit, BiFile, BiTrash } from 'react-icons/bi';
 
-import { patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
+import { deleteTeamImage, patchEditTeamImage, postCreateTeam, putEditTeam } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
 import S3_URL from '@/constants/s3Url';
@@ -30,10 +30,12 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
   const [thumbnail, setThumbnail] = useState<File | null>();
   const [alertName, setAlertName] = useState<boolean>(false);
   const [alertDescription, setAlertDescription] = useState<boolean>(false);
+  const [isImageDeleted, setIsImageDeleted] = useState<boolean>(false);
 
   const createTeam = useMutateWithToken(postCreateTeam);
   const editTeam = useMutateWithToken(putEditTeam);
   const editTeamImage = useMutateWithToken(patchEditTeamImage);
+  const removeTeamImage = useMutateWithToken(deleteTeamImage);
 
   const refetchSideBar = useRefetchSideBar();
   const refetchTeamInfo = useRefetchTeamInfo();
@@ -69,6 +71,12 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
     }
   };
 
+  const handleDeleteImage = () => {
+    setThumbnail(null);
+    setThumbnailPath('');
+    setIsImageDeleted(true);
+  };
+
   const handleEditTeamButtonClick = () => {
     if (!isTeamInfoValid()) return;
 
@@ -85,6 +93,16 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
             editTeamImage(teamInfo.id, teamForm).then((editTeamImageResponse) => {
               if (editTeamImageResponse.ok) {
                 updateTeamInfo();
+              } else {
+                alert('팀 이미지 수정에 실패했습니다.');
+              }
+            });
+          } else if (isImageDeleted) {
+            removeTeamImage(teamInfo.id).then((deleteImageResponse) => {
+              if (deleteImageResponse.ok) {
+                updateTeamInfo();
+              } else {
+                alert('팀 이미지 삭제에 실패했습니다.');
               }
             });
           } else {
@@ -189,12 +207,27 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
               }
             }}
           />
-          <IconBox
-            leftIcon={<BiFile />}
-            rightIcon={<BiEdit />}
-            content={thumbnail ? thumbnail.name : '파일을 추가해주세요.'}
-            handleClick={() => inputFileRef.current?.click()}
-          />
+          <Flex align="center" gap={2} w="100%">
+            <Box w="368px">
+              <IconBox
+                leftIcon={<BiFile />}
+                rightIcon={<BiEdit />}
+                content={thumbnail ? thumbnail.name : '파일을 추가해주세요.'}
+                handleClick={() => inputFileRef.current?.click()}
+              />
+            </Box>
+            <IconButton
+              flexShrink="0"
+              minW="40px"
+              h="40px"
+              borderRadius="2xl"
+              aria-label=""
+              icon={<BiTrash />}
+              onClick={handleDeleteImage}
+              size="icon_md"
+              variant="orange_light"
+            />
+          </Flex>
           {thumbnailPath ? (
             <Image w="40" alt="thumbnail" src={S3_URL(thumbnailPath)} />
           ) : (

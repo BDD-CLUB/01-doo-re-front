@@ -51,6 +51,14 @@ const patchEditTeamImage = (token: string, teamId: number, file: FormData) =>
     },
   });
 
+const deleteTeamImage = (token: string, teamId: number) =>
+  teamFetcher(`/teams/${teamId}/image`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const deleteTeam = (token: string, teamId: number) =>
   teamFetcher(`/teams/${teamId}`, {
     method: 'DELETE',
@@ -117,6 +125,7 @@ export {
   useGetTeamInfoQuery,
   putEditTeam,
   patchEditTeamImage,
+  deleteTeamImage,
   deleteTeam,
   postInviteTeam,
   postJoinTeam,
