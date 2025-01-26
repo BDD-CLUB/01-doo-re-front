@@ -97,7 +97,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        {studyData && studyData?.status !== 'ENDED' && user && user.memberId === studyData?.studyLeaderId && (
+        {studyData && studyData?.status !== 'ENDED' && user && (
           <StudyControlPanel
             isStudyLeader={user.memberId === studyData.studyLeaderId}
             editModalOpen={setIsEditModalOpen}
