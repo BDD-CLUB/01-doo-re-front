@@ -41,7 +41,7 @@ const Page = () => {
                   </Text>
                   <Text textStyle="title_sm" mb="4">
                     Plant the seeds of knowledge, record your learning journey, and wholeheartedly support and encourage
-                    each other's efforts as we grow together to cultivate a flourishing forest of achievements.
+                    each other&apos;s efforts as we grow together to cultivate a flourishing forest of achievements.
                   </Text>
                   <GoogleLoginButton />
                 </Flex>
