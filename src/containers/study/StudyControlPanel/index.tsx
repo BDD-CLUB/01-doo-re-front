@@ -62,10 +62,10 @@ const StudyControlPanel = ({
           w="fit-content"
           px="4"
           py="1"
-          color="black"
-          bg="white"
+          color="white"
+          bg="orange"
           shadow="md"
-          _hover={{ bg: 'white' }}
+          _hover={{ bg: 'orange' }}
           aria-label=""
           onClick={() => leaveModalOpen(true)}
           size="xs"
