@@ -73,7 +73,6 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
 
   const onConfirmButtonClick = () => {
     if (confirmPending) return;
-    setConfirmPending(true);
     if (
       category === 'create' &&
       ((doctype === 'IMAGE' && docList.IMAGE.length === 0) ||
@@ -83,6 +82,7 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       alert('학습 자료를 업로드해주세요.');
       return;
     }
+    setConfirmPending(true);
 
     const createDocumentInfo: Document = {
       title,
