@@ -111,6 +111,7 @@ export interface Document {
 }
 
 export interface DocumentList {
+  isTeam?: boolean;
   id: number;
   title: string;
   description: string;

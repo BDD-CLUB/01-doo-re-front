@@ -37,6 +37,7 @@ const Documents = ({ groupId, category, refetchTrigger = false }: DocumentPagePr
           <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns={`repeat(${itemsPerPage / 2}, 1fr)`} w="100%">
             {currentData.map((data) => (
               <DocumentCard
+                isTeam={category === 'teams'}
                 id={data.id}
                 key={data.id}
                 title={data.title}

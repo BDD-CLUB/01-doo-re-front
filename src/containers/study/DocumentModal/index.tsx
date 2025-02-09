@@ -16,7 +16,7 @@ import { DocumentDetail } from '@/types';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentModalProps) => {
+const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setReload }: DocumentModalProps) => {
   const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
 
   const {
@@ -101,7 +101,13 @@ const DocumentModal = ({ id, isOpen, setIsDocsModalOpen, setReload }: DocumentMo
             ))}
         </Flex>
       </Box>
-      <CreateDocumentModal isOpen={createDocsModalOpen} onClose={EditDocs} categoryData={document} category="update" />
+      <CreateDocumentModal
+        isTeam={isTeam}
+        isOpen={createDocsModalOpen}
+        onClose={EditDocs}
+        categoryData={document}
+        category="update"
+      />
     </ActionModal>
   );
 };

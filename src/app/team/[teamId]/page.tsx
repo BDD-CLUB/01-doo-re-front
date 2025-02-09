@@ -249,6 +249,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
         studyInfo={null}
       />
       <CreateDocumentModal
+        isTeam
         isOpen={isCreateDocumentModalOpen}
         onClose={() => setIsCreateDocumentModalOpen(false)}
         categoryData={categoryData}
