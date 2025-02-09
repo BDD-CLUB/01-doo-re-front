@@ -136,14 +136,16 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   />
                   <Text>전체 보기</Text>
                 </Link>
-                <IconButton
-                  shadow="base"
-                  aria-label=""
-                  icon={<BsPlus />}
-                  onClick={() => setIsCreateDocumentModalOpen(true)}
-                  size="icon_md"
-                  variant="icon_orange_dark"
-                />
+                {participantData && (
+                  <IconButton
+                    shadow="base"
+                    aria-label=""
+                    icon={<BsPlus />}
+                    onClick={() => setIsCreateDocumentModalOpen(true)}
+                    size="icon_md"
+                    variant="icon_orange_dark"
+                  />
+                )}
               </Flex>
               {documentArray && documentArray.length > 0 ? (
                 <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
