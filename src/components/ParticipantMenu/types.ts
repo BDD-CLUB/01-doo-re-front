@@ -9,6 +9,8 @@ export interface ParticipantMenuProps extends FlexProps {
   excludeMembers?: Member[];
   children: ReactNode;
   isOpen: boolean;
+  isTeamLeader?: boolean;
+  category: 'teams' | 'studies';
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onRemove?: (member: Member) => void;
   onAdd?: (member: Member) => void;
@@ -19,6 +21,8 @@ export interface ParticipantItemProps {
   member: Member;
   type: 'LEADER' | 'INCLUDE' | 'EXCLUDE';
   isLeader?: boolean;
+  isTeamLeader?: boolean;
+  category: 'teams' | 'studies';
   onRemove: (member: Member) => void;
   onAdd: (member: Member) => void;
   onMandateLeader: (member: Member) => void;

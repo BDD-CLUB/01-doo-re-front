@@ -68,6 +68,7 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
         leader={teamLeader}
         includeMembers={teamMembers}
         isOpen={isOpen}
+        category="teams"
         setIsOpen={setIsOpen}
         onRemove={handleRemoveButtonClick}
         onMandateLeader={handleMandateLeaderButtonClick}
