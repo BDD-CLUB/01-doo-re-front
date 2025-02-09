@@ -82,6 +82,8 @@ const ParticipantMenu = ({
                 key={searchedLeader.id}
                 member={searchedLeader}
                 type="LEADER"
+                isLeader={user?.memberId === searchedLeader?.id}
+                isTeamLeader={isTeamLeader}
                 category={category}
                 onRemove={onRemove}
                 onAdd={onAdd}
@@ -108,6 +110,7 @@ const ParticipantMenu = ({
                 member={member}
                 type="EXCLUDE"
                 isLeader={user?.memberId === searchedLeader?.id}
+                isTeamLeader={isTeamLeader}
                 category={category}
                 onRemove={onRemove}
                 onAdd={onAdd}
