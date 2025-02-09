@@ -38,6 +38,7 @@ const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, ca
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<DocumentAccessType>('ALL');
+  const [confirmPending, setConfirmPending] = useState<boolean>(false);
 
   const createDocs = useMutateWithToken(postDocument);
   const postDocs = useMutateWithToken(putDocument);
@@ -65,11 +66,24 @@ const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, ca
       URL: [],
     });
     setDocType('IMAGE');
+    setConfirmPending(false);
   };
 
   const user = useGetUser();
 
   const onConfirmButtonClick = () => {
+    if (confirmPending) return;
+    if (
+      category === 'create' &&
+      ((doctype === 'IMAGE' && docList.IMAGE.length === 0) ||
+        (doctype === 'DOCUMENT' && docList.DOCUMENT.length === 0) ||
+        (doctype === 'URL' && docList.URL.length === 0))
+    ) {
+      alert('학습 자료를 업로드해주세요.');
+      return;
+    }
+    setConfirmPending(true);
+
     const createDocumentInfo: Document = {
       title,
       description,
