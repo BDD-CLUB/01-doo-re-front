@@ -17,6 +17,8 @@ const ParticipantMenu = ({
   excludeMembers = [],
   children,
   isOpen,
+  isTeamLeader,
+  category,
   setIsOpen,
   onRemove = defaultFunction,
   onAdd = defaultFunction,
@@ -80,6 +82,7 @@ const ParticipantMenu = ({
                 key={searchedLeader.id}
                 member={searchedLeader}
                 type="LEADER"
+                category={category}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}
@@ -91,6 +94,8 @@ const ParticipantMenu = ({
                 member={member}
                 type="INCLUDE"
                 isLeader={user?.memberId === searchedLeader?.id}
+                isTeamLeader={isTeamLeader}
+                category={category}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}
@@ -103,6 +108,7 @@ const ParticipantMenu = ({
                 member={member}
                 type="EXCLUDE"
                 isLeader={user?.memberId === searchedLeader?.id}
+                category={category}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}
