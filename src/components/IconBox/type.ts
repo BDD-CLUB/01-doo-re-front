@@ -3,4 +3,5 @@ export interface IconBoxProps {
   content: string;
   rightIcon?: React.ReactElement;
   handleClick?: () => void;
+  cursor?: React.CSSProperties['cursor'];
 }
