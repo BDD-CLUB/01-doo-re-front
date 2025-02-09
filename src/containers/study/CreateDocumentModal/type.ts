@@ -12,6 +12,7 @@ export interface UpdateDocument {
 }
 
 export interface DocumentModalProps {
+  isTeam?: boolean;
   isOpen: boolean;
   onClose: () => void;
   categoryData: CreateDocument | DocumentDetail | undefined;

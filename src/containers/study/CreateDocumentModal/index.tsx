@@ -25,7 +25,7 @@ const DocumentBoxIcon = {
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: DocumentModalProps) => {
+const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, category }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
     IMAGE: [],
@@ -328,14 +328,16 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
             </Flex>
           </>
         )}
-        <StyledRadioGroup
-          title="공개 범위"
-          defaultValue={category === 'create' ? 'ALL' : (categoryData as DocumentDetail).accessType}
-          onChange={handleChange}
-        >
-          <StyledRadio value="ALL">전체 공개</StyledRadio>
-          <StyledRadio value="TEAM">팀 공개</StyledRadio>
-        </StyledRadioGroup>
+        {isTeam && (
+          <StyledRadioGroup
+            title="공개 범위"
+            defaultValue={category === 'create' ? 'ALL' : (categoryData as DocumentDetail).accessType}
+            onChange={handleChange}
+          >
+            <StyledRadio value="ALL">전체 공개</StyledRadio>
+            <StyledRadio value="TEAM">팀 공개</StyledRadio>
+          </StyledRadioGroup>
+        )}
       </Flex>
     </ActionModal>
   );
