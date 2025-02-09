@@ -16,6 +16,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -32,6 +33,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -48,6 +50,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -64,6 +67,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -80,6 +84,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -96,6 +101,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -112,6 +118,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -128,6 +135,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -144,6 +152,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -160,6 +169,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -176,6 +186,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
     teamId: 1,
@@ -192,6 +203,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
 ];
 
