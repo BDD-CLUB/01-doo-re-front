@@ -112,12 +112,14 @@ export interface Document {
 
 export interface DocumentList {
   readonly teamId: number;
+  readonly studyId?: number;
   id: number;
   title: string;
   description: string;
   date: string;
   uploaderName: string;
   type: 'IMAGE' | 'DOCUMENT' | 'URL';
+  category: 'studies' | 'teams';
   // docsModalOpen: boolean;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
   files: DocumentFile[];

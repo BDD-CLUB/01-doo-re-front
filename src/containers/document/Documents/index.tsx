@@ -47,6 +47,7 @@ const Documents = ({ teamId, groupId, category, refetchTrigger = false }: Docume
                 setReload={setReload}
                 files={data.files}
                 type={data.type}
+                category={category}
               />
             ))}
           </Grid>

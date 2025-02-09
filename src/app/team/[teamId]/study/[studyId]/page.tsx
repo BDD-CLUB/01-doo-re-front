@@ -152,6 +152,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   {documentArray.map((data) => (
                     <DocumentCard
                       teamId={params.teamId}
+                      studyId={params.studyId}
                       id={data.id}
                       key={data.id}
                       title={data.title}
@@ -161,6 +162,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                       setReload={() => {}}
                       files={data.files}
                       type={data.type}
+                      category="studies"
                     />
                   ))}
                 </Grid>
