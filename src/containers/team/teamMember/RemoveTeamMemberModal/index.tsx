@@ -12,10 +12,9 @@ const RemoveTeamMemberModal = ({ member, isOpen, teamId, teamName, onClose }: Me
   const handleRemoveMemberClick = () => {
     deleteMember(teamId, member.id).then((res) => {
       if (!res.ok) {
-        alert('팀원을 삭제하는데 실패했습니다.');
-      } else {
-        onClose();
+        alert(res.body.message || '팀원을 삭제하는데 실패했습니다.');
       }
+      onClose();
     });
   };
 

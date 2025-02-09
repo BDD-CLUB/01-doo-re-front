@@ -199,7 +199,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
             </Flex>
           )}
         </Flex>
-        {isTeamLeader && <TeamControlPanel teamInfo={teamInfo?.body} />}
+        <TeamControlPanel isTeamLeader={isTeamLeader} teamInfo={teamInfo?.body} isMyTeam={isMyTeam} />
 
         <Flex pos="relative" align="center" flex="1" gap="8">
           <Box pos="relative" overflow="hidden" w="100%" h={{ base: '250px', md: '300px', xl: '320px' }}>

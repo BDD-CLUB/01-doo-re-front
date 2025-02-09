@@ -51,6 +51,14 @@ const patchEditTeamImage = (token: string, teamId: number, file: FormData) =>
     },
   });
 
+const deleteTeamImage = (token: string, teamId: number) =>
+  teamFetcher(`/teams/${teamId}/image`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const deleteTeam = (token: string, teamId: number) =>
   teamFetcher(`/teams/${teamId}`, {
     method: 'DELETE',
@@ -93,6 +101,14 @@ const deleteTeamMember = (token: string, teamId: number, memberId: number) =>
     },
   });
 
+const leaveTeam = (token: string, teamId: number) =>
+  teamFetcher(`/teams/${teamId}/members`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const mandateTeamLeader = (token: string, teamId: number, memberId: number) =>
   teamFetcher(`/teams/${teamId}/mandate/${memberId}`, {
     method: 'PATCH',
@@ -109,12 +125,14 @@ export {
   useGetTeamInfoQuery,
   putEditTeam,
   patchEditTeamImage,
+  deleteTeamImage,
   deleteTeam,
   postInviteTeam,
   postJoinTeam,
   getTeams,
   getMyTeams,
   deleteTeamMember,
+  leaveTeam,
   mandateTeamLeader,
   getTeamMembers,
 };

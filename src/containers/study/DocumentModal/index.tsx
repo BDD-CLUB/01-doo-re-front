@@ -72,20 +72,20 @@ const DocumentModal = ({ teamId, id, isOpen, setIsDocsModalOpen, setReload }: Do
     >
       <Flex textStyle="bold_md" gap="4">
         <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">
-          <Text>{document?.description}</Text>
+          <Text cursor="default">{document?.description}</Text>
         </Box>
         <Flex justify="space-between" direction="column" w={2 / 5} p="4" bgColor={colors.orange_light} rounded="2xl">
           <Flex justify="space-between">
-            <Text> 작성자</Text>
-            <Text> {document?.uploaderName} </Text>
+            <Text cursor="default"> 작성자</Text>
+            <Text cursor="default"> {document?.uploaderName} </Text>
           </Flex>
           <Flex justify="space-between">
-            <Text> 공개범위</Text>
-            <Text> {document?.accessType === 'ALL' ? '전체 공개' : '팀 공개'} </Text>
+            <Text cursor="default"> 공개범위</Text>
+            <Text cursor="default"> {document?.accessType === 'ALL' ? '전체 공개' : '팀 공개'} </Text>
           </Flex>
         </Flex>
       </Flex>
-      <Text textStyle="bold_xl" mt="8">
+      <Text textStyle="bold_xl" mt="8" cursor="default">
         첨부파일
       </Text>
       <Box className="scroll" overflowY="auto" maxH="72" mt="4">
@@ -110,13 +110,14 @@ const DocumentModal = ({ teamId, id, isOpen, setIsDocsModalOpen, setReload }: Do
                   // leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
                   leftIcon={<BiFile size={30} />}
                   content={data.url.toString()}
+                  cursor="pointer"
                 />
               </Link>
             ))}
           {document?.type === 'URL' &&
             document.files.map((data) => (
               <Link key={data.url} href={data.url} target="_blank" rel="noopener noreferrer">
-                <IconBox leftIcon={<BiLink size="30" />} content={data.url} />
+                <IconBox leftIcon={<BiLink size="30" />} content={data.url} cursor="pointer" />
               </Link>
             ))}
         </Flex>

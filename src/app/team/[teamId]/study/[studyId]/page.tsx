@@ -15,6 +15,7 @@ import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import CurriculumCard from '@/containers/study/CurriculumCard';
 import DeleteStudyModal from '@/containers/study/Modal/DeleteStudyModal';
+import LeaveStudyModal from '@/containers/study/Modal/LeaveStudyModal';
 import StudyModal from '@/containers/study/Modal/StudyModal';
 import TerminateStudyModal from '@/containers/study/Modal/TerminateStudyModal';
 import Participant from '@/containers/study/Participant';
@@ -31,6 +32,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState<boolean>(false);
+  const [isLeaveModalOpen, setIsLeaveModalOpen] = useState<boolean>(false);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [isCreateDocumentModalOpen, setIsCreateDocumentModalOpen] = useState<boolean>(false);
   const categoryData: CreateDocument = { groupId: params.studyId, groupType: 'studies' };
@@ -95,11 +97,14 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        {studyData && studyData?.status !== 'ENDED' && user && user.memberId === studyData?.studyLeaderId && (
+        {studyData && studyData?.status !== 'ENDED' && user && (
           <StudyControlPanel
+            isStudyLeader={user.memberId === studyData.studyLeaderId}
+            isStudyMember={result?.some((data: { memberId: number }) => data.memberId === user.memberId)}
             editModalOpen={setIsEditModalOpen}
             terminateModalOpen={setIsTerminateModalOpen}
             deleteModalOpen={setIsDeleteModalOpen}
+            leaveModalOpen={setIsLeaveModalOpen}
           />
         )}
         <Grid gap="4" templateColumns={{ base: '', xl: '2fr 1fr' }} w="100%" my="4">
@@ -131,14 +136,16 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   />
                   <Text>전체 보기</Text>
                 </Link>
-                <IconButton
-                  shadow="base"
-                  aria-label=""
-                  icon={<BsPlus />}
-                  onClick={() => setIsCreateDocumentModalOpen(true)}
-                  size="icon_md"
-                  variant="icon_orange_dark"
-                />
+                {participantData && (
+                  <IconButton
+                    shadow="base"
+                    aria-label=""
+                    icon={<BsPlus />}
+                    onClick={() => setIsCreateDocumentModalOpen(true)}
+                    size="icon_md"
+                    variant="icon_orange_dark"
+                  />
+                )}
               </Flex>
               {documentArray && documentArray.length > 0 ? (
                 <Grid gap="2" templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}>
@@ -200,7 +207,13 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
       />
-
+      <LeaveStudyModal
+        id={params.studyId}
+        name={studyData?.name || ''}
+        teamId={params.teamId}
+        isOpen={isLeaveModalOpen}
+        setIsOpen={setIsLeaveModalOpen}
+      />
       <CreateDocumentModal
         isOpen={isCreateDocumentModalOpen}
         onClose={() => setIsCreateDocumentModalOpen(false)}
