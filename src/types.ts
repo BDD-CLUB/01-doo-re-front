@@ -113,6 +113,7 @@ export interface Document {
 export interface DocumentList {
   readonly teamId: number;
   readonly studyId?: number;
+  isTeam?: boolean;
   id: number;
   title: string;
   description: string;

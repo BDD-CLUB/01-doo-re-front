@@ -10,6 +10,7 @@ const DocumentGridView = ({ teamId, documentArray, setReload = () => {} }: Docum
       {documentArray?.map((document) => {
         return (
           <DocumentCard
+            isTeam
             teamId={teamId}
             key={document.id}
             id={document.id}

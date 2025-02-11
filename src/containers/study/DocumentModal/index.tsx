@@ -21,6 +21,7 @@ import { DocumentDetail, Member } from '@/types';
 import { DocumentModalProps } from './types';
 
 const DocumentModal = ({
+  isTeam = false,
   teamId,
   studyId,
   id,
@@ -142,7 +143,13 @@ const DocumentModal = ({
             ))}
         </Flex>
       </Box>
-      <CreateDocumentModal isOpen={createDocsModalOpen} onClose={EditDocs} categoryData={document} category="update" />
+      <CreateDocumentModal
+        isTeam={isTeam}
+        isOpen={createDocsModalOpen}
+        onClose={EditDocs}
+        categoryData={document}
+        category="update"
+      />
     </ActionModal>
   );
 };

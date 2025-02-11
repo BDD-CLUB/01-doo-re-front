@@ -17,6 +17,8 @@ const ParticipantMenu = ({
   excludeMembers = [],
   children,
   isOpen,
+  isTeamLeader,
+  category,
   setIsOpen,
   onRemove = defaultFunction,
   onAdd = defaultFunction,
@@ -30,6 +32,7 @@ const ParticipantMenu = ({
   const searchedLeader = leader?.name.includes(search) ? leader : null;
   const searchedIncludeMember = includeMembers.filter((member) => member.name.includes(search));
   const searchedExcludeMember = excludeMembers.filter((member) => member.name.includes(search));
+  const isLeader = user?.memberId === leader?.id;
 
   useEffect(() => {
     const handleOutsideClose = (e: MouseEvent) => {
@@ -80,6 +83,9 @@ const ParticipantMenu = ({
                 key={searchedLeader.id}
                 member={searchedLeader}
                 type="LEADER"
+                isLeader={isLeader}
+                isTeamLeader={isTeamLeader}
+                category={category}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}
@@ -90,24 +96,31 @@ const ParticipantMenu = ({
                 key={member.id}
                 member={member}
                 type="INCLUDE"
-                isLeader={user?.memberId === searchedLeader?.id}
+                isLeader={isLeader}
+                isTeamLeader={isTeamLeader}
+                category={category}
                 onRemove={onRemove}
                 onAdd={onAdd}
                 onMandateLeader={onMandateLeader}
               />
             ))}
-            {searchedExcludeMember && searchedExcludeMember.length > 0 && <Divider />}
-            {searchedExcludeMember.map((member: Member) => (
-              <ParticipantItem
-                key={member.id}
-                member={member}
-                type="EXCLUDE"
-                isLeader={user?.memberId === searchedLeader?.id}
-                onRemove={onRemove}
-                onAdd={onAdd}
-                onMandateLeader={onMandateLeader}
-              />
-            ))}
+            {(isLeader || !isTeamLeader) && searchedExcludeMember?.length > 0 && (
+              <>
+                <Divider />
+                {searchedExcludeMember.map((member: Member) => (
+                  <ParticipantItem
+                    key={member.id}
+                    member={member}
+                    type="EXCLUDE"
+                    isLeader={isLeader}
+                    category={category}
+                    onRemove={onRemove}
+                    onAdd={onAdd}
+                    onMandateLeader={onMandateLeader}
+                  />
+                ))}
+              </>
+            )}
           </Flex>
         </Flex>
       </Flex>

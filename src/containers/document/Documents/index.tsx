@@ -37,6 +37,7 @@ const Documents = ({ teamId, groupId, category, refetchTrigger = false }: Docume
           <Grid gap={{ sm: '2', md: '4', xl: '8' }} templateColumns={`repeat(${itemsPerPage / 2}, 1fr)`} w="100%">
             {currentData.map((data) => (
               <DocumentCard
+                isTeam={category === 'teams'}
                 teamId={teamId}
                 id={data.id}
                 key={data.id}

@@ -15,6 +15,7 @@ const StudyParticipantMenu = ({
   studyId,
   teamId,
   leaderId,
+  isTeamLeader,
   studyMembers: originStudyMembers,
   refetchMembers = () => {},
 }: StudyParticipantMenuProps) => {
@@ -67,6 +68,8 @@ const StudyParticipantMenu = ({
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       leader={leader}
+      isTeamLeader={isTeamLeader}
+      category="studies"
       includeMembers={includeMembers}
       excludeMembers={excludeMembers}
       onAdd={handleAddMember}

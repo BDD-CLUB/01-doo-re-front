@@ -8,6 +8,7 @@ import DocumentModal from '@/containers/study/DocumentModal';
 import { DocumentList } from '@/types';
 
 const DocumentCard = ({
+  isTeam = false,
   teamId,
   studyId,
   id,
@@ -50,6 +51,7 @@ const DocumentCard = ({
       rounded="xl"
     >
       <DocumentModal
+        isTeam={isTeam}
         teamId={teamId}
         studyId={studyId}
         id={id}

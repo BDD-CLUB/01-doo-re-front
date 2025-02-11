@@ -9,6 +9,7 @@ import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { getDocumentList } from '@/app/api/document';
 import { getStudy, getStudyMembers } from '@/app/api/study';
+import { useGetTeamInfoQuery } from '@/app/api/team';
 import DocumentCard from '@/components/DocumentCard';
 import Title from '@/components/Title';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
@@ -28,6 +29,7 @@ import useGetUser from '@/hooks/useGetUser';
 import { DocumentList, ParticipantType, Study, StudyMember } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
+  const { data: teamInfo } = useGetTeamInfoQuery(params.teamId);
   const [studyData, setStudyData] = useState<Study>();
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -40,6 +42,8 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const router = useRouter();
   const user = useGetUser();
   const myTeam = useGetMyTeam();
+  const [isTeamLeader, setIsTeamLeader] = useState<boolean>(false);
+  const [isStudyLeader, setIsStudyLeader] = useState<boolean>(false);
   if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
   if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
@@ -54,6 +58,16 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         profileImg: data.imageUrl,
       }) as ParticipantType,
   );
+
+  useEffect(() => {
+    if (!user || !teamInfo) return;
+    setIsTeamLeader(user.memberId === teamInfo.body.teamLeaderId);
+  }, [user, teamInfo, result]);
+
+  useEffect(() => {
+    if (!user || !studyData) return;
+    setIsStudyLeader(user.memberId === studyData.studyLeaderId);
+  }, [user, studyData, result]);
 
   useEffect(() => {
     getStudy(params.studyId).then((data) => {
@@ -176,11 +190,12 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
           <Flex direction="column" rowGap={{ base: '6', '2xl': '12' }}>
             {/* <Feed /> */}
             <Flex align="right" direction="column" rowGap="3">
-              {studyData && user && user.memberId === studyData.studyLeaderId && (
+              {studyData && user && (isTeamLeader || isStudyLeader) && (
                 <StudyParticipantMenu
                   studyId={params.studyId}
                   teamId={studyData?.teamReference.id}
                   leaderId={studyData?.studyLeaderId}
+                  isTeamLeader={isTeamLeader}
                   studyMembers={result || []}
                   refetchMembers={handleRefetchMembers}
                 />

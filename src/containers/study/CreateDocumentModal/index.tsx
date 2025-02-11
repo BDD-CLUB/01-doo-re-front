@@ -25,7 +25,7 @@ const DocumentBoxIcon = {
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: DocumentModalProps) => {
+const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, category }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
     IMAGE: [],
@@ -38,6 +38,7 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<DocumentAccessType>('ALL');
+  const [confirmPending, setConfirmPending] = useState<boolean>(false);
 
   const createDocs = useMutateWithToken(postDocument);
   const postDocs = useMutateWithToken(putDocument);
@@ -65,11 +66,24 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
       URL: [],
     });
     setDocType('IMAGE');
+    setConfirmPending(false);
   };
 
   const user = useGetUser();
 
   const onConfirmButtonClick = () => {
+    if (confirmPending) return;
+    if (
+      category === 'create' &&
+      ((doctype === 'IMAGE' && docList.IMAGE.length === 0) ||
+        (doctype === 'DOCUMENT' && docList.DOCUMENT.length === 0) ||
+        (doctype === 'URL' && docList.URL.length === 0))
+    ) {
+      alert('학습 자료를 업로드해주세요.');
+      return;
+    }
+    setConfirmPending(true);
+
     const createDocumentInfo: Document = {
       title,
       description,
@@ -328,14 +342,16 @@ const CreateDocumentModal = ({ isOpen, onClose, categoryData, category }: Docume
             </Flex>
           </>
         )}
-        <StyledRadioGroup
-          title="공개 범위"
-          defaultValue={category === 'create' ? 'ALL' : (categoryData as DocumentDetail).accessType}
-          onChange={handleChange}
-        >
-          <StyledRadio value="ALL">전체 공개</StyledRadio>
-          <StyledRadio value="TEAM">팀 공개</StyledRadio>
-        </StyledRadioGroup>
+        {isTeam && (
+          <StyledRadioGroup
+            title="공개 범위"
+            defaultValue={category === 'create' ? 'ALL' : (categoryData as DocumentDetail).accessType}
+            onChange={handleChange}
+          >
+            <StyledRadio value="ALL">전체 공개</StyledRadio>
+            <StyledRadio value="TEAM">팀 공개</StyledRadio>
+          </StyledRadioGroup>
+        )}
       </Flex>
     </ActionModal>
   );
