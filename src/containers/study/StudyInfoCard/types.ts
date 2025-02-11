@@ -1,7 +1,7 @@
 export interface StudyInfoCardProps {
   progress: number;
   startAt: Date;
-  endAt: Date;
+  endAt: Date | null;
   status: string;
 }
 
