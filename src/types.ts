@@ -125,6 +125,7 @@ export interface DocumentList {
 
 export interface DocumentFile {
   id: number;
+  name: string;
   url: string;
 }
 
