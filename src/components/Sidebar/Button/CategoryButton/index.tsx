@@ -3,10 +3,22 @@ import { BsCircleFill } from 'react-icons/bs';
 
 import { CategoryButtonProps } from '../../type';
 
-const CategoryButton = ({ path, text, isSelected, isTeam = false, isTeamMatch = false }: CategoryButtonProps) => {
+const CategoryButton = ({
+  path,
+  text,
+  isSelected,
+  isTeam = false,
+  isTeamMatch = false,
+  isStudy = false,
+}: CategoryButtonProps) => {
   return (
     <Button
       as="a"
+      sx={{
+        '&:hover > p': {
+          color: isSelected ? 'white' : 'orange',
+        },
+      }}
       justifyContent="flex-start"
       h="fit-content"
       p="2"
@@ -21,6 +33,11 @@ const CategoryButton = ({ path, text, isSelected, isTeam = false, isTeamMatch = 
       <Text textStyle={isTeam ? 'bold_xl' : 'md'} ml={isTeam ? '0px' : '24px'}>
         {text}
       </Text>
+      {isStudy && (
+        <Text textStyle="md" ml="4px" color={isSelected ? 'gray.100' : 'gray.200'}>
+          스터디
+        </Text>
+      )}
     </Button>
   );
 };
