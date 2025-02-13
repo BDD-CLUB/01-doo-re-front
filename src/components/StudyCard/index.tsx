@@ -54,6 +54,9 @@ const StudyCard = ({
         <CardHeader py="2">
           <Text textStyle="bold_md" overflow="hidden" textAlign="center" whiteSpace="nowrap" textOverflow="ellipsis">
             {name}
+            <Text as="span" ml="2" color="orange_dark">
+              스터디
+            </Text>
           </Text>
         </CardHeader>
         <CardBody py="0" textAlign="center" id={cropId.toString()}>
