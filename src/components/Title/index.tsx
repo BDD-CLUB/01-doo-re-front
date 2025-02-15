@@ -99,7 +99,6 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
         alignContent="center"
         display={{ base: isHovered ? 'block' : 'none', lg: 'none' }}
         w={{ base: '72', '2xl': '96' }}
-        h="100%"
         p="2"
         bg="white"
         borderRadius="base"
