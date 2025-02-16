@@ -106,7 +106,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                 status={studyData.status}
                 progress={studyData.studyProgressRatio}
                 startAt={new Date(studyData.startDate)}
-                endAt={new Date(studyData.endDate)}
+                endAt={studyData.endDate ? new Date(studyData.endDate) : null}
               />
             </>
           )}

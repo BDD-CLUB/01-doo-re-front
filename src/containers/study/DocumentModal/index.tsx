@@ -52,6 +52,14 @@ const DocumentModal = ({
     setReload((prev: boolean) => !prev);
   };
 
+  const absoluteUrl = (url: string) => {
+    try {
+      return new URL(url).href;
+    } catch {
+      return `https://${url}`;
+    }
+  };
+
   const user = useGetUser();
   const [isTeamMember, setIsMember] = useState<boolean>(false);
   const [isStudyMember, setIsStudyMember] = useState<boolean>(false);
@@ -130,14 +138,14 @@ const DocumentModal = ({
                 <IconBox
                   // leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
                   leftIcon={<BiFile size={30} />}
-                  content={data.url.toString()}
+                  content={data.name}
                   cursor="pointer"
                 />
               </Link>
             ))}
           {document?.type === 'URL' &&
             document.files.map((data) => (
-              <Link key={data.url} href={data.url} target="_blank" rel="noopener noreferrer">
+              <Link key={data.url} href={absoluteUrl(data.url)} target="_blank" rel="noopener noreferrer">
                 <IconBox leftIcon={<BiLink size="30" />} content={data.url} cursor="pointer" />
               </Link>
             ))}

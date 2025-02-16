@@ -1,5 +1,5 @@
-import { Text, Flex, Avatar, Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Text, Flex, Avatar, Box, keyframes } from '@chakra-ui/react';
+import { useEffect, useRef, useState } from 'react';
 
 import S3_URL from '@/constants/s3Url';
 
@@ -7,6 +7,22 @@ import { TitleProps } from './types';
 
 const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [textWidth, setTextWidth] = useState(0);
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  const textFlow = keyframes`
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-${textWidth}px + 100%)); }
+  `;
+  const textFlowAnimation = `${textFlow} 4s linear forwards`;
+
+  useEffect(() => {
+    if (textRef.current) {
+      textRef.current.style.maxWidth = 'none';
+      setTextWidth(textRef.current.scrollWidth);
+      textRef.current.style.maxWidth = '';
+    }
+  }, [name]);
 
   return (
     <Flex pos="relative" align="center" gap="3">
@@ -19,14 +35,26 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           src={imageUrl ? S3_URL(imageUrl) : '/images/doore_logo.png'}
         />
       )}
-      <Text
+      <Box
+        ref={textRef}
         textStyle="bold_3xl"
+        overflow="hidden"
+        maxW={isTeam ? { base: '56', lg: '64', xl: '96' } : { base: '56', md: '64', lg: '72', xl: '96' }}
+        whiteSpace="nowrap"
         cursor="default"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {name}
-      </Text>
+        <Text
+          display="block"
+          overflow={isHovered ? 'visible' : 'hidden'}
+          animation={isHovered ? textFlowAnimation : 'none'}
+          whiteSpace="nowrap"
+          textOverflow={isHovered ? 'unset' : 'ellipsis'}
+        >
+          {name}
+        </Text>
+      </Box>
 
       <Box pos="relative" display={{ base: 'none', lg: 'block' }} w="10" h="12" px="2">
         <Box pos="absolute" zIndex="1" top="50%" w="5" h="5" bg="white" transform="translate(0%, -50%) rotate(45deg)" />
@@ -34,7 +62,7 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           pos="absolute"
           left="4"
           align="center"
-          w={{ base: '72', '2xl': '96' }}
+          w={isTeam ? { base: '72', '2xl': '96' } : { base: '56', xl: '72', '2xl': '96' }}
           h="100%"
           px="3"
           bg="white"
@@ -71,7 +99,6 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
         alignContent="center"
         display={{ base: isHovered ? 'block' : 'none', lg: 'none' }}
         w={{ base: '72', '2xl': '96' }}
-        h="100%"
         p="2"
         bg="white"
         borderRadius="base"

@@ -13,6 +13,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 1,
+        name: '자료이름1',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],
@@ -31,6 +32,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 2,
+        name: '자료이름2',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],
@@ -49,6 +51,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 3,
+        name: '자료이름3',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],
@@ -68,6 +71,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 4,
+        name: '자료이름4',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],
@@ -86,6 +90,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 5,
+        name: '자료이름5',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],
@@ -105,6 +110,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 6,
+        name: '자료이름6',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],
@@ -123,6 +129,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 7,
+        name: '자료이름7',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],
@@ -141,6 +148,7 @@ const documentCardData: DocumentList[] = [
     files: [
       {
         id: 8,
+        name: '자료이름8',
         url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
       },
     ],

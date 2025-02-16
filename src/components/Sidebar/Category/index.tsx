@@ -24,8 +24,9 @@ const Category = ({ id, name, subCategory }: CategoryProps) => {
           <CategoryButton
             key={`study-${study.id}`}
             path={studyPath}
-            text={`${study.name} 스터디`}
+            text={study.name}
             isSelected={currentPath === studyPath}
+            isStudy
           />
         );
       })}
