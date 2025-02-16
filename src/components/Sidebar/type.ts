@@ -4,6 +4,7 @@ export interface CategoryButtonProps {
   isSelected: boolean;
   isTeam?: boolean;
   isTeamMatch?: boolean;
+  isStudy?: boolean;
 }
 
 export interface SidebarIconButtonProps {
