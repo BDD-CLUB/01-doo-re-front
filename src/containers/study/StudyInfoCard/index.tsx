@@ -23,7 +23,7 @@ const StudyInfoCard = ({ progress, startAt, endAt, status }: StudyInfoCardProps)
           스터디 기간
         </Text>
         <Text display={{ base: 'none', md: 'block' }}>
-          {dateFormat(startAt, '/')} - {dateFormat(endAt, '/')}
+          {dateFormat(startAt, '/')} - {endAt ? dateFormat(endAt, '/') : ''}
         </Text>
       </Flex>
     </Card>
