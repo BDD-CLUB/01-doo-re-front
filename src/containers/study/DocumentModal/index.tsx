@@ -88,7 +88,7 @@ const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setRelo
                 <IconBox
                   // leftIcon={data.type === 'pdf' ? <BiFile size={30} /> : <BsFolder2Open size={30} />}
                   leftIcon={<BiFile size={30} />}
-                  content={data.url.toString()}
+                  content={data.name}
                   cursor="pointer"
                 />
               </Link>
