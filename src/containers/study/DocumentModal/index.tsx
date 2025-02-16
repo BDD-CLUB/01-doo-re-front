@@ -39,6 +39,14 @@ const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setRelo
     setReload((prev: boolean) => !prev);
   };
 
+  const absoluteUrl = (url: string) => {
+    try {
+      return new URL(url).href;
+    } catch {
+      return `https://${url}`;
+    }
+  };
+
   return (
     <ActionModal
       isOpen={isOpen}
@@ -95,7 +103,7 @@ const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setRelo
             ))}
           {document?.type === 'URL' &&
             document.files.map((data) => (
-              <Link key={data.url} href={data.url} target="_blank" rel="noopener noreferrer">
+              <Link key={data.url} href={absoluteUrl(data.url)} target="_blank" rel="noopener noreferrer">
                 <IconBox leftIcon={<BiLink size="30" />} content={data.url} cursor="pointer" />
               </Link>
             ))}
