@@ -150,7 +150,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                   />
                   <Text>전체 보기</Text>
                 </Link>
-                {participantData && (
+                {participantData && (!isTeamLeader || isStudyLeader) && (
                   <IconButton
                     shadow="base"
                     aria-label=""
