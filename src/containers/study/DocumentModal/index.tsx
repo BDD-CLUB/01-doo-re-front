@@ -68,7 +68,11 @@ const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setRelo
           </Flex>
           <Flex justify="space-between">
             <Text cursor="default"> 공개범위</Text>
-            <Text cursor="default"> {document?.accessType === 'ALL' ? '전체 공개' : '팀 공개'} </Text>
+            {isTeam ? (
+              <Text cursor="default"> {document?.accessType === 'ALL' ? '전체 공개' : '팀 공개'} </Text>
+            ) : (
+              <Text cursor="default">스터디 공개</Text>
+            )}
           </Flex>
         </Flex>
       </Flex>
