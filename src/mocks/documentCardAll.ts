@@ -2,6 +2,7 @@ import { DocumentList } from '@/types';
 
 const documentCardDataAll: DocumentList[] = [
   {
+    teamId: 1,
     id: 1,
     title: '자료이름1',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -16,8 +17,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 2,
     title: '자료이름2',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -32,8 +35,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 3,
     title: '자료이름3',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -48,8 +53,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 4,
     title: '자료이름4',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -64,8 +71,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 5,
     title: '자료이름5',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -80,8 +89,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 6,
     title: '자료이름6',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -96,8 +107,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 7,
     title: '자료이름7',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -112,8 +125,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 8,
     title: '자료이름8',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -128,8 +143,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 9,
     title: '자료이름9',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -144,8 +161,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 10,
     title: '자료이름10',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -160,8 +179,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 11,
     title: '자료이름11',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -176,8 +197,10 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 12,
     title: '자료이름12',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
@@ -192,6 +215,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
 ];
 

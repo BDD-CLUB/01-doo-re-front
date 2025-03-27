@@ -10,7 +10,7 @@ import { DocumentList } from '@/types';
 
 import { DocumentPageProps } from './types';
 
-const Documents = ({ groupId, category, refetchTrigger = false }: DocumentPageProps) => {
+const Documents = ({ teamId, groupId, category, refetchTrigger = false }: DocumentPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(4);
@@ -38,6 +38,7 @@ const Documents = ({ groupId, category, refetchTrigger = false }: DocumentPagePr
             {currentData.map((data) => (
               <DocumentCard
                 isTeam={category === 'teams'}
+                teamId={teamId}
                 id={data.id}
                 key={data.id}
                 title={data.title}
@@ -47,6 +48,7 @@ const Documents = ({ groupId, category, refetchTrigger = false }: DocumentPagePr
                 setReload={setReload}
                 files={data.files}
                 type={data.type}
+                category={category}
               />
             ))}
           </Grid>
