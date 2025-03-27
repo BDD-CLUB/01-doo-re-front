@@ -10,7 +10,7 @@ import { BsLink45Deg } from 'react-icons/bs';
 import { getDocumentList } from '@/app/api/document';
 import { getGarden } from '@/app/api/garden';
 import { getStudies } from '@/app/api/study';
-import { postInviteTeam, useGetTeamInfoQuery } from '@/app/api/team';
+import { getTeams, postInviteTeam, useGetTeamInfoQuery } from '@/app/api/team';
 import { myTeamAtom } from '@/atom';
 import Garden3D from '@/components/Garden3D';
 import TabButton from '@/components/TabButton';
@@ -19,19 +19,21 @@ import { CARD_PER_PAGE, TEAM_CATEGORY_INFOS } from '@/constants/team';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { CreateDocument } from '@/containers/study/CreateDocumentModal/type';
 import StudyModal from '@/containers/study/Modal/StudyModal';
-import AttendanceRate from '@/containers/team/AttendanceRate';
 import DocumentGridView from '@/containers/team/DocumentGridView';
 import NavigationButton from '@/containers/team/NavigationButton';
 import StudyGridView from '@/containers/team/StudyGridView';
 import SuggestionCreate from '@/containers/team/SuggestionCreate';
 import TeamControlPanel from '@/containers/team/TeamControlPanel';
 import TeamMember from '@/containers/team/teamMember';
+import TeamRate from '@/containers/team/TeamRank';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
-import { DocumentList, Garden, StudyRank } from '@/types';
+import { DocumentList, Garden, StudyRank, TeamRank } from '@/types';
 
 const Page = ({ params }: { params: { teamId: number } }) => {
   const { data: teamInfo } = useGetTeamInfoQuery(params.teamId);
+  const [teamRank, setTeamRank] = useState<number>(0);
+  const [teamRankMax, setTeamRankMax] = useState<number>(0);
   const [garden, setGarden] = useState<Garden[]>([]);
   const [category, setCategory] = useState<string>(TEAM_CATEGORY_INFOS[0].name);
   const [cardIdx, setCardIdx] = useState<number>(0);
@@ -67,6 +69,18 @@ const Page = ({ params }: { params: { teamId: number } }) => {
       });
     }
   };
+
+  useEffect(() => {
+    getTeams().then((res) => {
+      if (!res.ok) return;
+      const matchedTeam = res.body.find((team: TeamRank) => team.teamReferenceResponse.id === Number(params.teamId));
+      if (matchedTeam) {
+        const teamWithRank = { ...matchedTeam, rank: res.body.indexOf(matchedTeam) + 1 };
+        setTeamRank(teamWithRank.rank);
+      }
+      setTeamRankMax(res.body.length);
+    });
+  }, []);
 
   useEffect(() => {
     getGarden(params.teamId).then((res) => {
@@ -213,9 +227,7 @@ const Page = ({ params }: { params: { teamId: number } }) => {
               />
             </Box>
           </Box>
-
-          {/* TODO  진행도 */}
-          <AttendanceRate attendanceRate={teamInfo?.body.attendanceRatio} />
+          <TeamRate teamRank={teamRank} maxRank={teamRankMax} />
         </Flex>
 
         <Flex direction="column" flex="1" gap="4">
