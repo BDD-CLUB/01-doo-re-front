@@ -18,6 +18,7 @@ const DocumentGridView = ({ teamId, documentArray, setReload = () => {} }: Docum
             description={document.description}
             date={document.date}
             uploaderName={document.uploaderName}
+            uploaderMemberId={document.uploaderMemberId}
             setReload={setReload}
             type={document.type}
             files={document.files}
