@@ -119,6 +119,7 @@ export interface DocumentList {
   description: string;
   date: string;
   uploaderName: string;
+  uploaderMemberId: number;
   type: 'IMAGE' | 'DOCUMENT' | 'URL';
   category: 'studies' | 'teams';
   // docsModalOpen: boolean;

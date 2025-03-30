@@ -8,6 +8,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/01/01',
     uploaderName: '김철수',
+    uploaderMemberId: 1,
     setReload: () => {},
     files: [
       {
@@ -26,6 +27,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/02/02',
     uploaderName: '김철수',
+    uploaderMemberId: 2,
     setReload: () => {},
     files: [
       {
@@ -44,6 +46,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/03/03',
     uploaderName: '김철수',
+    uploaderMemberId: 3,
     setReload: () => {},
     files: [
       {
@@ -62,6 +65,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/04/04',
     uploaderName: '김철수',
+    uploaderMemberId: 4,
     setReload: () => {},
     files: [
       {
@@ -80,6 +84,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/05/05',
     uploaderName: '김철수',
+    uploaderMemberId: 5,
     setReload: () => {},
     files: [
       {
@@ -98,6 +103,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/06/06',
     uploaderName: '김철수',
+    uploaderMemberId: 6,
     setReload: () => {},
     files: [
       {
@@ -116,6 +122,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/07/07',
     uploaderName: '김철수',
+    uploaderMemberId: 7,
     setReload: () => {},
     files: [
       {
@@ -134,6 +141,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/08/08',
     uploaderName: '김철수',
+    uploaderMemberId: 8,
     setReload: () => {},
     files: [
       {
@@ -152,6 +160,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/09/09',
     uploaderName: '김철수',
+    uploaderMemberId: 9,
     setReload: () => {},
     files: [
       {
@@ -170,6 +179,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/10/10',
     uploaderName: '김철수',
+    uploaderMemberId: 10,
     setReload: () => {},
     files: [
       {
@@ -188,6 +198,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/11/11',
     uploaderName: '김철수',
+    uploaderMemberId: 11,
     setReload: () => {},
     files: [
       {
@@ -206,6 +217,7 @@ const documentCardDataAll: DocumentList[] = [
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/12/12',
     uploaderName: '김철수',
+    uploaderMemberId: 12,
     setReload: () => {},
     files: [
       {

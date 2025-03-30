@@ -9,6 +9,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/01/01',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 1,
     setReload: () => {},
     files: [
       {
@@ -28,6 +29,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/02/02',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 2,
     setReload: () => {},
     files: [
       {
@@ -47,6 +49,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/03/03',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 3,
     setReload: () => {},
     files: [
       {
@@ -67,6 +70,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/04/04',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 4,
     setReload: () => {},
     files: [
       {
@@ -86,6 +90,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/05/05',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 5,
     setReload: () => {},
     files: [
       {
@@ -106,6 +111,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/06/06',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 6,
     setReload: () => {},
     files: [
       {
@@ -125,6 +131,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/07/07',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 7,
     setReload: () => {},
     files: [
       {
@@ -144,6 +151,7 @@ const documentCardData: DocumentList[] = [
     date: '2024/08/08',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 8,
     setReload: () => {},
     files: [
       {

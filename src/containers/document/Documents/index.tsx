@@ -45,6 +45,7 @@ const Documents = ({ teamId, groupId, category, refetchTrigger = false }: Docume
                 description={data.description}
                 date={data.date}
                 uploaderName={data.uploaderName}
+                uploaderMemberId={data.uploaderMemberId}
                 setReload={setReload}
                 files={data.files}
                 type={data.type}

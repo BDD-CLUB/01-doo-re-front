@@ -173,6 +173,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                       description={data.description}
                       date={data.date}
                       uploaderName={data.uploaderName}
+                      uploaderMemberId={data.uploaderMemberId}
                       setReload={() => {}}
                       files={data.files}
                       type={data.type}
