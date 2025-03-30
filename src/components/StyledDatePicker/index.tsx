@@ -1,4 +1,5 @@
 import { Input, InputGroup, Icon, InputRightElement, Box } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import DatePicker from 'react-datepicker';
 import { BiCalendar } from 'react-icons/bi';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,6 +14,7 @@ const StyledDatePicker = ({ label, selectedDate, onChange }: StyledDatePickerPro
         selected={selectedDate}
         onChange={onChange}
         wrapperClassName="styled_date_picker"
+        minDate={dayjs().startOf('day').toDate()}
         customInput={
           <InputGroup w="100%">
             <Input
