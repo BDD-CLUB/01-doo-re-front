@@ -13,6 +13,7 @@ const StyledDatePicker = ({ label, selectedDate, onChange }: StyledDatePickerPro
         selected={selectedDate}
         onChange={onChange}
         wrapperClassName="styled_date_picker"
+        minDate={new Date()}
         customInput={
           <InputGroup w="100%">
             <Input
