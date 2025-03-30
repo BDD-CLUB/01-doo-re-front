@@ -12,8 +12,8 @@ const postDocument = (token: string, groupType: string, groupId: number, request
     },
   });
 
-const getDocumentList = (category: string, teamId: number, page: number, size: number) =>
-  documentFetcher(`/documents/${category}/${teamId}?page=${page}&size=${size}`);
+const getDocumentList = (groupType: string, teamId: number, page: number, size: number) =>
+  documentFetcher(`/documents/${groupType}/${teamId}?page=${page}&size=${size}`);
 
 const getDocument = (token: string, documentId: number) =>
   documentFetcher(`/documents/${documentId}`, {
