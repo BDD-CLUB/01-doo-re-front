@@ -39,6 +39,7 @@ const Documents = ({ teamId, groupId, category, refetchTrigger = false }: Docume
               <DocumentCard
                 isTeam={category === 'teams'}
                 teamId={teamId}
+                studyId={groupId}
                 id={data.id}
                 key={data.id}
                 title={data.title}
