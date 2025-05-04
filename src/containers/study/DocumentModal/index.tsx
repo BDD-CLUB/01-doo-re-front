@@ -101,6 +101,7 @@ const DocumentModal = ({
       onSubButtonClick={() => onDelete()}
       onMainButtonClick={() => setIsCreateDocsModalOpen(true)}
       isNoFooter={user?.memberId !== document?.uploaderMemberId}
+      hasCloseButton
     >
       <Flex textStyle="bold_md" gap="4">
         <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">
