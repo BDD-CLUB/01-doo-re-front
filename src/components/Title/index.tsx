@@ -56,56 +56,67 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
         </Text>
       </Box>
 
-      <Box pos="relative" display={{ base: 'none', lg: 'block' }} w="10" h="12" px="2">
-        <Box pos="absolute" zIndex="1" top="50%" w="5" h="5" bg="white" transform="translate(0%, -50%) rotate(45deg)" />
-        <Flex
-          pos="absolute"
-          left="4"
-          align="center"
-          w={isTeam ? { base: '72', '2xl': '96' } : { base: '56', xl: '72', '2xl': '96' }}
-          h="100%"
-          px="3"
-          bg="white"
-          borderRadius="base"
-          shadow="md"
-          _hover={{
-            h: 'auto',
-          }}
-          role="group"
-        >
-          <Text
+      {description && (
+        <>
+          <Box pos="relative" display={{ base: 'none', lg: 'block' }} w="10" h="12" px="2">
+            <Box
+              pos="absolute"
+              zIndex="1"
+              top="50%"
+              w="5"
+              h="5"
+              bg="white"
+              transform="translate(0%, -50%) rotate(45deg)"
+            />
+            <Flex
+              pos="absolute"
+              left="4"
+              align="center"
+              w={isTeam ? { base: '72', '2xl': '96' } : { base: '56', xl: '72', '2xl': '96' }}
+              h="100%"
+              px="3"
+              bg="white"
+              borderRadius="base"
+              shadow="md"
+              _hover={{
+                h: 'auto',
+              }}
+              role="group"
+            >
+              <Text
+                zIndex="2"
+                w="100%"
+                h="6"
+                _groupHover={{
+                  h: '100%',
+                  py: 3,
+                  overflow: 'visible',
+                  WebkitLineClamp: 'unset',
+                }}
+                whiteSpace="pre-wrap"
+                noOfLines={1}
+              >
+                {description}
+              </Text>
+            </Flex>
+          </Box>
+          <Box
+            pos="absolute"
             zIndex="2"
-            w="100%"
-            h="6"
-            _groupHover={{
-              h: '100%',
-              py: 3,
-              overflow: 'visible',
-              WebkitLineClamp: 'unset',
-            }}
-            whiteSpace="pre-wrap"
-            noOfLines={1}
+            top="100%"
+            left={isTeam ? '10' : '0'}
+            alignContent="center"
+            display={{ base: isHovered ? 'block' : 'none', lg: 'none' }}
+            w={{ base: '72', '2xl': '96' }}
+            p="2"
+            bg="white"
+            borderRadius="base"
+            shadow="md"
           >
-            {description}
-          </Text>
-        </Flex>
-      </Box>
-
-      <Box
-        pos="absolute"
-        zIndex="2"
-        top="100%"
-        left={isTeam ? '10' : '0'}
-        alignContent="center"
-        display={{ base: isHovered ? 'block' : 'none', lg: 'none' }}
-        w={{ base: '72', '2xl': '96' }}
-        p="2"
-        bg="white"
-        borderRadius="base"
-        shadow="md"
-      >
-        <Text>{description}</Text>
-      </Box>
+            <Text>{description}</Text>
+          </Box>
+        </>
+      )}
     </Flex>
   );
 };

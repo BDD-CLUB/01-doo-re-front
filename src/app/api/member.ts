@@ -29,4 +29,30 @@ const useGetSideBarInfoQuery = () => {
   });
 };
 
-export { getSidebarInfo, useGetSideBarInfoQuery, patchStudyMandate };
+const deleteUser = (token: string) =>
+  memberFetcher('/members', {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+const patchUserName = (token: string, name: string) =>
+  memberFetcher('/members/me', {
+    method: 'PATCH',
+    body: JSON.stringify({ name }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+const patchUserImage = (token: string, image: FormData) =>
+  memberFetcher('/members/me/image', {
+    method: 'PATCH',
+    body: image,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export { getSidebarInfo, useGetSideBarInfoQuery, deleteUser, patchStudyMandate, patchUserName, patchUserImage };
