@@ -67,6 +67,7 @@ const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: Curriculu
                   <CurriculumItem
                     key={curriculum.id}
                     id={curriculum.id}
+                    isStudyLeader={isStudyLeader}
                     participantId={curriculum.participantId}
                     name={curriculum.name}
                     itemOrder={curriculum.itemOrder}
