@@ -2,21 +2,34 @@
 
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiFile, BiLink } from 'react-icons/bi';
 
 import { deleteDocument, getDocument } from '@/app/api/document';
+import { getStudyMembers } from '@/app/api/study';
+import { getTeamMembers } from '@/app/api/team';
 import IconBox from '@/components/IconBox';
 import ActionModal from '@/components/Modal/ActionModal';
+import AlertModal from '@/components/Modal/AlertModal';
 import S3_URL from '@/constants/s3Url';
 import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
+import useGetUser from '@/hooks/useGetUser';
 import colors from '@/theme/foundations/colors';
-import { DocumentDetail } from '@/types';
+import { DocumentDetail, Member } from '@/types';
 
 import { DocumentModalProps } from './types';
 
-const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setReload }: DocumentModalProps) => {
+const DocumentModal = ({
+  isTeam = false,
+  teamId,
+  studyId,
+  id,
+  isOpen,
+  category,
+  setIsDocsModalOpen,
+  setReload,
+}: DocumentModalProps) => {
   const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
 
   const {
@@ -47,6 +60,35 @@ const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setRelo
     }
   };
 
+  const user = useGetUser();
+  const [isTeamMember, setIsMember] = useState<boolean>(false);
+  const [isStudyMember, setIsStudyMember] = useState<boolean>(false);
+  const { result: teamMembers } = useGetFetchWithToken(getTeamMembers, [teamId], user);
+  const { result: studyMembers } = useGetFetchWithToken(getStudyMembers, [studyId], user);
+
+  useEffect(() => {
+    if (user?.isLogin) {
+      setIsMember(teamMembers?.some((member: Member) => member.id === user.memberId));
+      setIsStudyMember(studyMembers?.some((member: { memberId: number }) => member.memberId === user.memberId));
+    }
+  }, [teamMembers, studyMembers, user]);
+
+  if (!isTeamMember && category === 'teams') {
+    return (
+      <AlertModal isOpen={isOpen} onClose={() => setIsDocsModalOpen(false)} title="접근 권한이 없습니다." size="sm">
+        <Text>{user?.isLogin ? '팀원만 접근 가능합니다.' : '로그인 후 접근 가능합니다.'}</Text>
+      </AlertModal>
+    );
+  }
+
+  if (!isStudyMember && category === 'studies') {
+    return (
+      <AlertModal isOpen={isOpen} onClose={() => setIsDocsModalOpen(false)} title="접근 권한이 없습니다." size="sm">
+        <Text>{user?.isLogin ? '스터디원만 접근 가능합니다.' : '로그인 후 접근 가능합니다.'}</Text>
+      </AlertModal>
+    );
+  }
+
   return (
     <ActionModal
       isOpen={isOpen}
@@ -56,6 +98,7 @@ const DocumentModal = ({ isTeam = false, id, isOpen, setIsDocsModalOpen, setRelo
       mainButtonText="수정"
       onSubButtonClick={() => onDelete()}
       onMainButtonClick={() => setIsCreateDocsModalOpen(true)}
+      isNoFooter={user?.memberId !== document?.uploaderMemberId}
     >
       <Flex textStyle="bold_md" gap="4">
         <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">

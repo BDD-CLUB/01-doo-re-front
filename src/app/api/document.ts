@@ -4,7 +4,7 @@ import { UpdateDocument } from '@/containers/study/CreateDocumentModal/type';
 const documentFetcher = fetcher();
 
 const postDocument = (token: string, groupType: string, groupId: number, request: FormData) =>
-  documentFetcher(`/${groupType}/${groupId}/documents`, {
+  documentFetcher(`/documents/${groupType}/${groupId}`, {
     method: 'POST',
     body: request,
     headers: {
@@ -12,11 +12,11 @@ const postDocument = (token: string, groupType: string, groupId: number, request
     },
   });
 
-const getDocumentList = (category: string, teamId: number, page: number, size: number) =>
-  documentFetcher(`/${category}/${teamId}/documents?page=${page}&size=${size}`);
+const getDocumentList = (groupType: string, groupId: number, page: number, size: number) =>
+  documentFetcher(`/documents/${groupType}/${groupId}?page=${page}&size=${size}`);
 
 const getDocument = (token: string, documentId: number) =>
-  documentFetcher(`/${documentId}`, {
+  documentFetcher(`/documents/${documentId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -27,7 +27,7 @@ const putDocument = (
   documentId: number,
   request: Pick<UpdateDocument, 'title' | 'description' | 'accessType'>,
 ) =>
-  documentFetcher(`/${documentId}`, {
+  documentFetcher(`/documents/${documentId}`, {
     method: 'PUT',
     body: request,
     headers: {
@@ -36,7 +36,7 @@ const putDocument = (
   });
 
 const deleteDocument = (token: string, documentId: number) =>
-  documentFetcher(`/${documentId}`, {
+  documentFetcher(`/documents/${documentId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,

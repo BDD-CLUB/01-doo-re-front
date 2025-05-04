@@ -2,11 +2,13 @@ import { DocumentList } from '@/types';
 
 const documentCardDataAll: DocumentList[] = [
   {
+    teamId: 1,
     id: 1,
     title: '자료이름1',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/01/01',
     uploaderName: '김철수',
+    uploaderMemberId: 1,
     setReload: () => {},
     files: [
       {
@@ -16,13 +18,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 2,
     title: '자료이름2',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/02/02',
     uploaderName: '김철수',
+    uploaderMemberId: 2,
     setReload: () => {},
     files: [
       {
@@ -32,13 +37,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 3,
     title: '자료이름3',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/03/03',
     uploaderName: '김철수',
+    uploaderMemberId: 3,
     setReload: () => {},
     files: [
       {
@@ -48,13 +56,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 4,
     title: '자료이름4',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/04/04',
     uploaderName: '김철수',
+    uploaderMemberId: 4,
     setReload: () => {},
     files: [
       {
@@ -64,13 +75,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 5,
     title: '자료이름5',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/05/05',
     uploaderName: '김철수',
+    uploaderMemberId: 5,
     setReload: () => {},
     files: [
       {
@@ -80,13 +94,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 6,
     title: '자료이름6',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/06/06',
     uploaderName: '김철수',
+    uploaderMemberId: 6,
     setReload: () => {},
     files: [
       {
@@ -96,13 +113,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 7,
     title: '자료이름7',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/07/07',
     uploaderName: '김철수',
+    uploaderMemberId: 7,
     setReload: () => {},
     files: [
       {
@@ -112,13 +132,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 8,
     title: '자료이름8',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/08/08',
     uploaderName: '김철수',
+    uploaderMemberId: 8,
     setReload: () => {},
     files: [
       {
@@ -128,13 +151,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 9,
     title: '자료이름9',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/09/09',
     uploaderName: '김철수',
+    uploaderMemberId: 9,
     setReload: () => {},
     files: [
       {
@@ -144,13 +170,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 10,
     title: '자료이름10',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/10/10',
     uploaderName: '김철수',
+    uploaderMemberId: 10,
     setReload: () => {},
     files: [
       {
@@ -160,13 +189,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 11,
     title: '자료이름11',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/11/11',
     uploaderName: '김철수',
+    uploaderMemberId: 11,
     setReload: () => {},
     files: [
       {
@@ -176,13 +208,16 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 12,
     title: '자료이름12',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/12/12',
     uploaderName: '김철수',
+    uploaderMemberId: 12,
     setReload: () => {},
     files: [
       {
@@ -192,6 +227,7 @@ const documentCardDataAll: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
 ];
 

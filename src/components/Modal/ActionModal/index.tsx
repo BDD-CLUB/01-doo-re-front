@@ -12,6 +12,7 @@ const ActionModal = ({
   mainButtonText,
   onMainButtonClick,
   size,
+  isNoFooter,
 }: ActionModalProps) => {
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose} size={size || 'md'}>
@@ -21,14 +22,16 @@ const ActionModal = ({
           {title}
         </Text>
         <ModalBody p="4">{children}</ModalBody>
-        <ModalFooter justifyContent="end" gap="4" pt="0" pb="4">
-          <Button onClick={onSubButtonClick} variant="white">
-            {subButtonText}
-          </Button>
-          <Button onClick={onMainButtonClick} variant="orange">
-            {mainButtonText}
-          </Button>
-        </ModalFooter>
+        {!isNoFooter && (
+          <ModalFooter justifyContent="end" gap="4" pt="0" pb="4">
+            <Button onClick={onSubButtonClick} variant="white">
+              {subButtonText}
+            </Button>
+            <Button onClick={onMainButtonClick} variant="orange">
+              {mainButtonText}
+            </Button>
+          </ModalFooter>
+        )}
       </ModalContent>
     </Modal>
   );

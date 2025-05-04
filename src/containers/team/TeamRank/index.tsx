@@ -1,8 +1,10 @@
 import { CircularProgress, CircularProgressLabel, useBreakpointValue, Text } from '@chakra-ui/react';
 
-import { AttendanceRateProps } from './types';
+import { TeamRankProps } from './types';
 
-const AttendanceRate = ({ attendanceRate }: AttendanceRateProps) => {
+const TeamRank = ({ teamRank, maxRank }: TeamRankProps) => {
+  const progressValue = ((maxRank - teamRank + 1) / maxRank) * 100;
+
   return (
     <CircularProgress
       pos="absolute"
@@ -13,13 +15,13 @@ const AttendanceRate = ({ attendanceRate }: AttendanceRateProps) => {
       transform={{ base: 'translateY(0%)', lg: 'translateY(-50%)' }}
       size={useBreakpointValue({ base: 24, md: 40, lg: 56 })}
       thickness="5"
-      value={attendanceRate}
+      value={progressValue}
     >
       <CircularProgressLabel color="orange">
-        <Text textStyle={useBreakpointValue({ base: 'bold_md', md: 'bold_2xl' })}>{attendanceRate}%</Text>
+        <Text textStyle={useBreakpointValue({ base: 'bold_md', md: 'bold_2xl' })}>{teamRank}등</Text>
       </CircularProgressLabel>
     </CircularProgress>
   );
 };
 
-export default AttendanceRate;
+export default TeamRank;

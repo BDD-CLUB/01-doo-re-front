@@ -111,13 +111,17 @@ export interface Document {
 }
 
 export interface DocumentList {
+  readonly teamId: number;
+  readonly studyId?: number;
   isTeam?: boolean;
   id: number;
   title: string;
   description: string;
   date: string;
   uploaderName: string;
+  uploaderMemberId: number;
   type: 'IMAGE' | 'DOCUMENT' | 'URL';
+  category: 'studies' | 'teams';
   // docsModalOpen: boolean;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
   files: DocumentFile[];

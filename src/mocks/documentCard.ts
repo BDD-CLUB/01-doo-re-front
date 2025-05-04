@@ -2,12 +2,14 @@ import { DocumentList } from '@/types';
 
 const documentCardData: DocumentList[] = [
   {
+    teamId: 1,
     id: 1,
     title: '자료이름1',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/01/01',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 1,
     setReload: () => {},
     files: [
       {
@@ -17,14 +19,17 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 2,
     title: '자료이름2',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/02/02',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 2,
     setReload: () => {},
     files: [
       {
@@ -34,14 +39,17 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 3,
     title: '자료이름3',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/03/03',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 3,
     setReload: () => {},
     files: [
       {
@@ -51,15 +59,18 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
 
   {
+    teamId: 1,
     id: 4,
     title: '자료이름4',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/04/04',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 4,
     setReload: () => {},
     files: [
       {
@@ -69,14 +80,17 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 5,
     title: '자료이름5',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/05/05',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 5,
     setReload: () => {},
     files: [
       {
@@ -86,15 +100,18 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
 
   {
+    teamId: 1,
     id: 6,
     title: '자료이름6',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/06/06',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 6,
     setReload: () => {},
     files: [
       {
@@ -104,14 +121,17 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 7,
     title: '자료이름7',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/07/07',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 7,
     setReload: () => {},
     files: [
       {
@@ -121,14 +141,17 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
   {
+    teamId: 1,
     id: 8,
     title: '자료이름8',
     description: '이번 포스팅은 [스터디 목적]에 관한것입니다. 먼저 [목차]는 이렇습니다.',
     date: '2024/08/08',
     // bookmark: 1111,
     uploaderName: '김철수',
+    uploaderMemberId: 8,
     setReload: () => {},
     files: [
       {
@@ -138,6 +161,7 @@ const documentCardData: DocumentList[] = [
       },
     ],
     type: 'IMAGE',
+    category: 'studies',
   },
 ];
 
