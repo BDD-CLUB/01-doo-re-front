@@ -5,11 +5,13 @@ import { useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 // import { BiBell, BiUser } from 'react-icons/bi';
+import { BiUser } from 'react-icons/bi';
 import { BsPlus, BsGrid } from 'react-icons/bs';
 import { MdOutlineLogout } from 'react-icons/md';
 
 import { useGetSideBarInfoQuery } from '@/app/api/member';
 import { defaultUserAtom, myTeamAtom, userAtom } from '@/atom';
+import S3_URL from '@/constants/s3Url';
 import GoogleLoginButton from '@/containers/main/GoogleLoginButton';
 import TeamModal from '@/containers/team/Modal/TeamModal';
 import useGetUser from '@/hooks/useGetUser';
@@ -27,6 +29,11 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const router = useRouter();
 
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
+
+  const handleMyPageButtonClick = () => {
+    setIsOpen(false);
+    router.push('/my');
+  };
 
   const handleLogOutButtonClick = () => {
     setUser(defaultUserAtom);
@@ -68,7 +75,10 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           />
         </Flex>
         <Flex align="center" direction="column" gap="4" mb="16">
-          <Avatar size={isOpen ? 'lg' : 'md'} src={sidebarInfo?.body?.imageUrl} />
+          <Avatar
+            size={isOpen ? 'lg' : 'md'}
+            src={sidebarInfo?.body?.imageUrl ? S3_URL(sidebarInfo.body.imageUrl) : undefined}
+          />
           {isOpen && (
             <Text textStyle="bold_2xl" px="10" py="1" color="white" bg="green_dark" rounded="full">
               {user?.isLogin ? sidebarInfo?.body?.name : '비회원'}
@@ -77,8 +87,8 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
           {user?.isLogin ? (
             <Flex direction={isOpen ? 'row' : 'column'} gap="4">
               {/* TODO: 기능 완료하고 주석 풀기 */}
-              {/* <SidebarIconButton icon={<BiBell />} onClick={() => {}} />
-              <SidebarIconButton icon={<BiUser />} onClick={() => {}} /> */}
+              {/* <SidebarIconButton icon={<BiBell />} onClick={() => {}} /> */}
+              <SidebarIconButton icon={<BiUser />} onClick={handleMyPageButtonClick} />
               <SidebarIconButton icon={<MdOutlineLogout />} onClick={handleLogOutButtonClick} />
             </Flex>
           ) : (
