@@ -19,7 +19,8 @@ import { getMyStudies } from '../api/study';
 
 const Page = () => {
   const [myStudies, setMyStudies] = useState<Study[]>([]);
-  const [myDocuments, setMyDocuments] = useState<Document[]>([]);
+  // TODO: getMyDocuments API 호출 후 주석 해제
+  // const [myDocuments, setMyDocuments] = useState<Document[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<'나의 학습자료' | '나의 스터디' | '종료 스터디'>(
     '나의 학습자료',
   );
