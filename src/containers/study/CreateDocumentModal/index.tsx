@@ -25,6 +25,14 @@ const DocumentBoxIcon = {
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
+const AlertContent = ({ message }: { message: string }) => {
+  return (
+    <Text textStyle="md" color="orange_dark">
+      {message}
+    </Text>
+  );
+};
+
 const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, category }: DocumentModalProps) => {
   const [doctype, setDocType] = useState<DocumentType>('IMAGE');
   const [docList, setDocList] = useState<DocumentList>({
@@ -39,6 +47,8 @@ const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, ca
   const [description, setDescription] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<DocumentAccessType>('ALL');
   const [confirmPending, setConfirmPending] = useState<boolean>(false);
+  const [alertTitle, setAlertTitle] = useState<boolean>(false);
+  const [alertDescription, setAlertDescription] = useState<boolean>(false);
 
   const createDocs = useMutateWithToken(postDocument);
   const postDocs = useMutateWithToken(putDocument);
@@ -82,6 +92,15 @@ const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, ca
       alert('학습 자료를 업로드해주세요.');
       return;
     }
+    if (title === '') {
+      setAlertTitle(true);
+      return;
+    }
+    if (description === '') {
+      setAlertDescription(true);
+      return;
+    }
+
     setConfirmPending(true);
 
     const createDocumentInfo: Document = {
@@ -233,7 +252,10 @@ const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, ca
       onMainButtonClick={onConfirmButtonClick}
     >
       <Flex direction="column" gap="4">
-        <Text textStyle="bold_xl">학습자료 제목</Text>
+        <Flex direction="column">
+          <Text textStyle="bold_xl">학습자료 제목</Text>
+          {alertTitle && <AlertContent message="필수 입력 란입니다." />}
+        </Flex>
         <Input
           sx={{
             color: 'white',
@@ -243,11 +265,18 @@ const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, ca
               ...textStyles.bold_md,
             },
           }}
+          onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+            if (e.target.value !== '') setAlertTitle(false);
+            else setAlertTitle(true);
+          }}
           onChange={handleTitleChange}
-          placeholder={category === 'create' ? '학습자료 제목을 입력해주세요.' : (categoryData as DocumentDetail).title}
+          placeholder="학습자료 제목을 입력해주세요."
           value={title}
         />
-        <Text textStyle="bold_xl">학습자료 소개</Text>
+        <Flex direction="column">
+          <Text textStyle="bold_xl">학습자료 소개</Text>
+          {alertDescription && <AlertContent message="필수 입력 란입니다." />}
+        </Flex>
         <Textarea
           sx={{
             color: 'white',
@@ -257,10 +286,12 @@ const CreateDocumentModal = ({ isTeam = false, isOpen, onClose, categoryData, ca
               ...textStyles.bold_md,
             },
           }}
+          onBlur={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            if (e.target.value !== '') setAlertDescription(false);
+            else setAlertDescription(true);
+          }}
           onChange={handleDescriptionChange}
-          placeholder={
-            category === 'create' ? '학습자료 소개를 입력해주세요.' : (categoryData as DocumentDetail).description
-          }
+          placeholder="학습자료 소개를 입력해주세요."
           value={description}
         />
         {category === 'create' && (

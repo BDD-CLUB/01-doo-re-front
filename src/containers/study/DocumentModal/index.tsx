@@ -31,11 +31,12 @@ const DocumentModal = ({
   setReload,
 }: DocumentModalProps) => {
   const [createDocsModalOpen, setIsCreateDocsModalOpen] = useState<boolean>(false);
-
   const {
     result: document,
+    refetch: refetchDocument,
   }: {
     result: DocumentDetail;
+    refetch: () => void;
   } = useGetFetchWithToken(getDocument, [id]);
   const deleteDocs = useMutateWithToken(deleteDocument);
   const onDelete = () => {
@@ -50,6 +51,7 @@ const DocumentModal = ({
     setIsDocsModalOpen(false);
     setIsCreateDocsModalOpen(false);
     setReload((prev: boolean) => !prev);
+    refetchDocument();
   };
 
   const absoluteUrl = (url: string) => {

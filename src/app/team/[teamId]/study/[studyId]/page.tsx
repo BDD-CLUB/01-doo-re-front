@@ -95,6 +95,14 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
     refetchStudyMembers();
   };
 
+  const handleReloadDocuments = () => {
+    getDocumentList('studies', params.studyId, 0, 4).then((res) => {
+      if (res.ok) {
+        setDocumentArray(res.body.content);
+      }
+    });
+  };
+
   return (
     <>
       <Flex direction="column" gap="0" w="100%" p="8">
@@ -174,7 +182,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                       date={data.date}
                       uploaderName={data.uploaderName}
                       uploaderMemberId={data.uploaderMemberId}
-                      setReload={() => {}}
+                      setReload={handleReloadDocuments}
                       files={data.files}
                       type={data.type}
                       category="studies"
