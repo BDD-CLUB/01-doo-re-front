@@ -7,7 +7,14 @@ import { patchCurriculumCompleted } from '@/app/api/study';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import { Curriculum } from '@/types';
 
-const CurriculumItem = ({ id, name, itemOrder, isChecked: isCheckedProps, participantId }: Curriculum) => {
+const CurriculumItem = ({
+  id,
+  name,
+  itemOrder,
+  isChecked: isCheckedProps,
+  participantId,
+  isStudyLeader = false,
+}: Curriculum) => {
   const [isChecked, setIsChecked] = useState(isCheckedProps);
   const completeCurriculum = useMutateWithToken(patchCurriculumCompleted);
 
@@ -29,15 +36,17 @@ const CurriculumItem = ({ id, name, itemOrder, isChecked: isCheckedProps, partic
           {name}
         </Text>
       </Box>
-      <Checkbox
-        borderColor={isChecked ? 'orange' : 'orange_light'}
-        bgColor="white"
-        colorScheme="white"
-        defaultChecked={isChecked}
-        iconColor="orange"
-        onChange={handleCheckboxChange}
-        size="lg"
-      />
+      {isStudyLeader && (
+        <Checkbox
+          borderColor={isChecked ? 'orange' : 'orange_light'}
+          bgColor="white"
+          colorScheme="white"
+          defaultChecked={isChecked}
+          iconColor="orange"
+          onChange={handleCheckboxChange}
+          size="lg"
+        />
+      )}
     </Flex>
   );
 };

@@ -74,6 +74,7 @@ export interface Curriculum {
   name: string;
   itemOrder: number;
   isChecked?: boolean;
+  isStudyLeader?: boolean;
 }
 
 export interface PostCurriculum {
