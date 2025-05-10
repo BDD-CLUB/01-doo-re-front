@@ -3,6 +3,7 @@
 import { Avatar, Box, Button, Card, Flex, Grid, IconButton, Input, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { BsTrashFill } from 'react-icons/bs';
 import { MdBorderColor } from 'react-icons/md';
 
 import StudyCard from '@/components/StudyCard';
@@ -14,7 +15,7 @@ import useGetUser from '@/hooks/useGetUser';
 import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 import { Study } from '@/types';
 
-import { patchUserImage, patchUserName, useGetSideBarInfoQuery } from '../api/member';
+import { deleteUserImage, patchUserImage, patchUserName, useGetSideBarInfoQuery } from '../api/member';
 import { getMyStudies } from '../api/study';
 
 const Page = () => {
@@ -29,6 +30,7 @@ const Page = () => {
   const [profileImageFormData, setProfileImageFile] = useState<FormData | null>(null);
   const [name, setName] = useState<string>('');
   const [isEditName, setIsEditName] = useState<boolean>(false);
+  const [isNoImage, setIsNoImage] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -41,12 +43,20 @@ const Page = () => {
 
   const editProfileName = useMutateWithToken(patchUserName, user);
   const editProfileImage = useMutateWithToken(patchUserImage, user);
+  const deleteProfileImage = useMutateWithToken(deleteUserImage, user);
+
+  const getAvatarSrc = (imageUrl?: string) => {
+    if (!imageUrl || imageUrl === 'TEMP_URL') {
+      return undefined;
+    }
+    return imageUrl.startsWith('https') ? imageUrl : S3_URL(imageUrl);
+  };
 
   useEffect(() => {
     if (sidebarInfo?.body) {
-      const { imageUrl } = sidebarInfo.body;
-      const validUrl = imageUrl?.startsWith('https') ? imageUrl : S3_URL(imageUrl);
-      setProfileImage(validUrl);
+      const avatarSrc = getAvatarSrc(sidebarInfo.body.imageUrl);
+      setProfileImage(avatarSrc ?? '');
+      setIsNoImage(!avatarSrc);
       setName(sidebarInfo.body.name);
     }
   }, [sidebarInfo]);
@@ -75,6 +85,7 @@ const Page = () => {
       formData.append('file', file);
       setProfileImageFile(formData);
       setProfileImage(URL.createObjectURL(file));
+      setIsNoImage(false);
     }
   };
 
@@ -89,8 +100,32 @@ const Page = () => {
         refetchSidebar();
       });
     }
+    if (isNoImage) {
+      deleteProfileImage().then(() => {
+        refetchSidebar();
+      });
+    }
     setIsEditName(false);
+    setIsNoImage(false);
     setIsEditProfile(false);
+  };
+
+  const handleProfileImageDelete = () => {
+    setIsNoImage(true);
+    setProfileImage('');
+    setProfileImageFile(null);
+  };
+
+  const handleCancelEditProfile = () => {
+    setIsEditName(false);
+    setIsNoImage(false);
+    setIsEditProfile(false);
+    if (sidebarInfo?.body) {
+      const avatarSrc = getAvatarSrc(sidebarInfo.body.imageUrl);
+      setProfileImage(avatarSrc ?? '');
+      setIsNoImage(!avatarSrc);
+      setName(sidebarInfo.body.name);
+    }
   };
 
   const handleDeleteModalOpen = () => {
@@ -117,34 +152,61 @@ const Page = () => {
       <Card w="100%" p="8" bg="white" borderRadius="2xl">
         <Flex align="center" gap="4">
           <Box pos="relative">
-            <Avatar borderWidth="3px" borderColor="gray.100" size="lg" src={profileImage} />
+            <Avatar
+              key={isNoImage ? 'deleted' : 'loaded'}
+              borderWidth="3px"
+              borderColor="gray.100"
+              size="lg"
+              src={isNoImage ? undefined : profileImage}
+            />
             {isEditProfile && (
-              <Flex
-                pos="absolute"
-                right="0"
-                bottom="0"
-                align="center"
-                justify="center"
-                bg="white"
-                borderRadius="full"
-                shadow="sm"
-              >
-                <IconButton
-                  shadow="base"
-                  aria-label="profile image edit"
-                  icon={<MdBorderColor color="black" />}
-                  onClick={handleProfileImageClick}
-                  size="icon_md"
-                  variant="transparent"
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  ref={fileInputRef}
-                  onChange={handleProfileImageChange}
-                />
-              </Flex>
+              <>
+                <Flex
+                  pos="absolute"
+                  right="0"
+                  bottom="0"
+                  align="center"
+                  justify="center"
+                  bg="white"
+                  borderRadius="full"
+                  shadow="sm"
+                >
+                  <IconButton
+                    shadow="base"
+                    aria-label="profile image edit"
+                    icon={<MdBorderColor color="black" />}
+                    onClick={handleProfileImageClick}
+                    size="icon_md"
+                    variant="transparent"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    ref={fileInputRef}
+                    onChange={handleProfileImageChange}
+                  />
+                </Flex>
+                <Flex
+                  pos="absolute"
+                  bottom="0"
+                  left="0"
+                  align="center"
+                  justify="center"
+                  bg="white"
+                  borderRadius="full"
+                  shadow="sm"
+                >
+                  <IconButton
+                    shadow="base"
+                    aria-label="profile image edit"
+                    icon={<BsTrashFill color="black" />}
+                    onClick={handleProfileImageDelete}
+                    size="icon_md"
+                    variant="transparent"
+                  />
+                </Flex>
+              </>
             )}
           </Box>
           <Box pos="relative">
@@ -230,11 +292,11 @@ const Page = () => {
             border="1px solid"
             borderColor="gray.100"
             shadow="md"
-            onClick={handleDeleteModalOpen}
+            onClick={isEditProfile ? handleCancelEditProfile : handleDeleteModalOpen}
             size="sm"
             variant="white"
           >
-            회원탈퇴
+            {isEditProfile ? '취소' : '회원 탈퇴'}
           </Button>
           <Button
             px="4"
