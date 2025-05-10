@@ -55,4 +55,20 @@ const patchUserImage = (token: string, image: FormData) =>
     },
   });
 
-export { getSidebarInfo, useGetSideBarInfoQuery, deleteUser, patchStudyMandate, patchUserName, patchUserImage };
+const deleteUserImage = (token: string) =>
+  memberFetcher('/members/me/image', {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export {
+  getSidebarInfo,
+  useGetSideBarInfoQuery,
+  deleteUser,
+  patchStudyMandate,
+  patchUserName,
+  patchUserImage,
+  deleteUserImage,
+};
