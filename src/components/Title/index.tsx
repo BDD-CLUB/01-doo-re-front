@@ -32,7 +32,7 @@ const Title = ({ isTeam, name, description, imageUrl }: TitleProps) => {
           borderColor="gray.100"
           shadow="none"
           size="md"
-          src={imageUrl ? S3_URL(imageUrl) : '/images/doore_logo.png'}
+          src={imageUrl && imageUrl !== 'TEMP_URL' ? S3_URL(imageUrl) : S3_URL('default/logo.png')}
         />
       )}
       <Box
