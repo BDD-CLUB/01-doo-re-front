@@ -77,7 +77,12 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
         <Flex align="center" direction="column" gap="4" mb="16">
           <Avatar
             size={isOpen ? 'lg' : 'md'}
-            src={sidebarInfo?.body?.imageUrl ? S3_URL(sidebarInfo.body.imageUrl) : undefined}
+            src={
+              sidebarInfo?.body?.imageUrl &&
+              (sidebarInfo.body.imageUrl.startsWith('https')
+                ? sidebarInfo.body.imageUrl
+                : S3_URL(sidebarInfo.body.imageUrl))
+            }
           />
           {isOpen && (
             <Text textStyle="bold_2xl" px="10" py="1" color="white" bg="green_dark" rounded="full">

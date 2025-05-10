@@ -44,7 +44,9 @@ const Page = () => {
 
   useEffect(() => {
     if (sidebarInfo?.body) {
-      setProfileImage(S3_URL(sidebarInfo.body.imageUrl));
+      const { imageUrl } = sidebarInfo.body;
+      const validUrl = imageUrl?.startsWith('https') ? imageUrl : S3_URL(imageUrl);
+      setProfileImage(validUrl);
       setName(sidebarInfo.body.name);
     }
   }, [sidebarInfo]);
