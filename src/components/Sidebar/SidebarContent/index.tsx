@@ -52,10 +52,9 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
       <Flex pos="sticky" top="0" left="0" direction="column" h="100vh" px={isOpen ? '4' : '2'} py="4" bg="green">
         <Flex justify={isOpen ? 'space-between' : 'center'} mb="16">
           {isOpen && (
-            // TODO - 추후 로고 대체
             <Button as="a" p="0" bg="transparent" _hover={{ bg: 'transparent' }} href="/">
               <Text textStyle="bold_3xl" color="white">
-                DOO RE
+                DOORE
               </Text>
             </Button>
           )}
