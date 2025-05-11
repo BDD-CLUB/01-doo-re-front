@@ -14,6 +14,7 @@ import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
 import useRefetchSideBar from '@/hooks/useRefetchSideBar';
 import { Study } from '@/types';
+import getAvatarSrc from '@/utils/avatarUtils';
 
 import { deleteUserImage, patchUserImage, patchUserName, useGetSideBarInfoQuery } from '../api/member';
 import { getMyStudies } from '../api/study';
@@ -44,13 +45,6 @@ const Page = () => {
   const editProfileName = useMutateWithToken(patchUserName, user);
   const editProfileImage = useMutateWithToken(patchUserImage, user);
   const deleteProfileImage = useMutateWithToken(deleteUserImage, user);
-
-  const getAvatarSrc = (imageUrl?: string) => {
-    if (!imageUrl || imageUrl === 'TEMP_URL') {
-      return undefined;
-    }
-    return imageUrl.startsWith('https') ? imageUrl : S3_URL(imageUrl);
-  };
 
   useEffect(() => {
     if (sidebarInfo?.body) {

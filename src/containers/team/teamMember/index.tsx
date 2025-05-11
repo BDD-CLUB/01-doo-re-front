@@ -7,6 +7,7 @@ import { getTeamMembers } from '@/app/api/team';
 import ParticipantMenu from '@/components/ParticipantMenu';
 import { useGetFetchWithToken } from '@/hooks/useFetchWithToken';
 import { Member, TeamMemberDetail } from '@/types';
+import getAvatarSrc from '@/utils/avatarUtils';
 
 import MandateTeamLeaderModal from './MandateTeamLeaderModal';
 import RemoveTeamMemberModal from './RemoveTeamMemberModal';
@@ -75,7 +76,7 @@ const TeamMember = ({ teamId, teamName }: { teamId: number; teamName: string }) 
       >
         <AvatarGroup max={useBreakpointValue({ base: 3, lg: 4 })} size="md">
           {members?.map((member) => {
-            return <Avatar key={member.id} name={member.name} src={member.imageUrl} />;
+            return <Avatar key={member.id} name={member.name} src={getAvatarSrc(member.imageUrl)} />;
           })}
         </AvatarGroup>
       </ParticipantMenu>
