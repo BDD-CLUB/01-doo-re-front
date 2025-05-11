@@ -19,6 +19,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -38,6 +39,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -57,6 +59,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -76,6 +79,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -95,6 +99,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -114,6 +119,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -133,6 +139,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -152,6 +159,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -171,6 +179,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -190,6 +199,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -209,6 +219,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -228,6 +239,7 @@ const documentCardDataAll: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
 ];
 

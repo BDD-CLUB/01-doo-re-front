@@ -23,6 +23,7 @@ const DocumentGridView = ({ teamId, documentArray, setReload = () => {} }: Docum
             type={document.type}
             files={document.files}
             category="teams"
+            accessType={document.accessType}
             // bookmark={document.bookmark}
             // img={document.img}
           />

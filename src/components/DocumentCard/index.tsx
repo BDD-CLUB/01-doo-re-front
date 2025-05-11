@@ -19,6 +19,7 @@ const DocumentCard = ({
   files,
   type,
   category,
+  accessType,
 }: DocumentList) => {
   const [docsModalOpen, setIsDocsModalOpen] = useState<boolean>(false);
 
@@ -59,6 +60,7 @@ const DocumentCard = ({
         setIsDocsModalOpen={setIsDocsModalOpen}
         setReload={setReload}
         category={category}
+        accessType={accessType}
       />
 
       <Image h="60" objectFit="cover" alt="study card" rounded="sm" src={firstImg()} />

@@ -187,6 +187,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                       files={data.files}
                       type={data.type}
                       category="studies"
+                      accessType={data.accessType}
                     />
                   ))}
                 </Grid>

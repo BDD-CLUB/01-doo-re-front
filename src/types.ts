@@ -123,6 +123,7 @@ export interface DocumentList {
   uploaderMemberId: number;
   type: 'IMAGE' | 'DOCUMENT' | 'URL';
   category: 'studies' | 'teams';
+  accessType: DocumentAccessType;
   // docsModalOpen: boolean;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
   files: DocumentFile[];
