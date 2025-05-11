@@ -49,6 +49,8 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
 
   const { result, refetch: refetchStudyMembers } = useGetFetchWithToken(getStudyMembers, [params?.studyId]);
 
+  const isMyStudy = result?.some((member: StudyMember) => member.memberId === user?.memberId);
+
   const participantData = result?.map(
     (data: StudyMember) =>
       ({
@@ -188,6 +190,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                       type={data.type}
                       category="studies"
                       accessType={data.accessType}
+                      isMyStudy={isMyStudy}
                     />
                   ))}
                 </Grid>

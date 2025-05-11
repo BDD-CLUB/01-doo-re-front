@@ -252,7 +252,12 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           )}
           {category === '학습자료' && documentArray.length === 0 && <SuggestionCreate category="학습자료" />}
           {category === '학습자료' && (
-            <DocumentGridView teamId={params.teamId} setReload={setReloadTrigger} documentArray={documentArray} />
+            <DocumentGridView
+              teamId={params.teamId}
+              setReload={setReloadTrigger}
+              documentArray={documentArray}
+              isMyTeam={isMyTeam}
+            />
           )}
         </Flex>
       </Flex>

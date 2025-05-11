@@ -124,6 +124,8 @@ export interface DocumentList {
   type: 'IMAGE' | 'DOCUMENT' | 'URL';
   category: 'studies' | 'teams';
   accessType: DocumentAccessType;
+  isMyTeam?: boolean;
+  isMyStudy?: boolean;
   // docsModalOpen: boolean;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
   files: DocumentFile[];

@@ -20,14 +20,20 @@ const DocumentCard = ({
   type,
   category,
   accessType,
+  isMyTeam = false,
+  isMyStudy = false,
 }: DocumentList) => {
   const [docsModalOpen, setIsDocsModalOpen] = useState<boolean>(false);
 
   const firstImg = () => {
     if (files.length === 0) return '/png/noImg.png';
     if (type === 'IMAGE') {
-      return S3_URL(files[0].url);
+      if ((category === 'teams' && isMyTeam) || (category === 'studies' && isMyStudy)) {
+        return S3_URL(files[0].url);
+      }
+      return '/png/noImg.png';
     }
+
     if (type === 'URL') {
       return '/png/link.png';
     }
