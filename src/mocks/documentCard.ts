@@ -20,6 +20,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -40,6 +41,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -60,6 +62,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
 
   {
@@ -81,6 +84,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -101,6 +105,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
 
   {
@@ -122,6 +127,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -142,6 +148,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
   {
     teamId: 1,
@@ -162,6 +169,7 @@ const documentCardData: DocumentList[] = [
     ],
     type: 'IMAGE',
     category: 'studies',
+    accessType: 'TEAM',
   },
 ];
 

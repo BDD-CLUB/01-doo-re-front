@@ -27,6 +27,7 @@ const DocumentModal = ({
   id,
   isOpen,
   category,
+  accessType,
   setIsDocsModalOpen,
   setReload,
 }: DocumentModalProps) => {
@@ -75,12 +76,28 @@ const DocumentModal = ({
     }
   }, [teamMembers, studyMembers, user]);
 
-  if (!isTeamMember && category === 'teams') {
-    return (
-      <AlertModal isOpen={isOpen} onClose={() => setIsDocsModalOpen(false)} title="접근 권한이 없습니다." size="sm">
-        <Text>{user?.isLogin ? '팀원만 접근 가능합니다.' : '로그인 후 접근 가능합니다.'}</Text>
-      </AlertModal>
-    );
+  if (category === 'teams' && !isTeamMember) {
+    const isTeamAccess = accessType === 'TEAM';
+    const notLoggedIn = !user?.isLogin;
+    let message = '';
+
+    if (isTeamAccess) {
+      if (notLoggedIn) {
+        message = '로그인 후 접근 가능합니다.';
+      } else {
+        message = '팀원만 접근 가능합니다.';
+      }
+    } else if (notLoggedIn) {
+      message = '로그인 후 접근 가능합니다.';
+    }
+
+    if (message) {
+      return (
+        <AlertModal isOpen={isOpen} onClose={() => setIsDocsModalOpen(false)} title="접근 권한이 없습니다." size="sm">
+          <Text>{message}</Text>
+        </AlertModal>
+      );
+    }
   }
 
   if (!isStudyMember && category === 'studies') {

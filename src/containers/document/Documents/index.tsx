@@ -51,6 +51,7 @@ const Documents = ({ teamId, groupId, category, refetchTrigger = false }: Docume
                 files={data.files}
                 type={data.type}
                 category={category}
+                accessType={data.accessType}
               />
             ))}
           </Grid>

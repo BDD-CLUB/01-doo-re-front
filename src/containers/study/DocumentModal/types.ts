@@ -1,3 +1,5 @@
+import { DocumentAccessType } from '@/types';
+
 export interface DocumentData {
   id: number;
   type: string;
@@ -12,6 +14,7 @@ export interface DocumentModalProps {
   id: number;
   isOpen: boolean;
   category: 'studies' | 'teams';
+  accessType: DocumentAccessType;
   setIsDocsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
   // setIsCreateDocsModalOpen: () => void;
