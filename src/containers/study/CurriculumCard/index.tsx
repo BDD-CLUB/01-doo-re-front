@@ -14,7 +14,7 @@ import CurriculumItem from './CurriculumItem';
 import { CurriculumCardProps } from './types';
 import CurriculumModal from '../CurriculumModal';
 
-const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: CurriculumCardProps) => {
+const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader, isStudyMember }: CurriculumCardProps) => {
   const { studyId } = useParams<{ studyId: string }>();
 
   const user = useAtomValue(userAtom);
@@ -67,7 +67,7 @@ const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader }: Curriculu
                   <CurriculumItem
                     key={curriculum.id}
                     id={curriculum.id}
-                    isStudyLeader={isStudyLeader}
+                    isStudyMember={isStudyMember}
                     participantId={curriculum.participantId}
                     name={curriculum.name}
                     itemOrder={curriculum.itemOrder}
