@@ -1,6 +1,7 @@
 import { Flex, Avatar, Text, Grid, Link, Card } from '@chakra-ui/react';
 
 import colors from '@/theme/foundations/colors';
+import getAvatarSrc from '@/utils/avatarUtils';
 
 import { ParticipantProps } from './types';
 
@@ -27,7 +28,7 @@ const Participant = ({ participantInfos }: ParticipantProps) => {
             ...otherParticipants.map((data) => ({ data, color: 'inherit' })),
           ].map(({ data, color }) => (
             <Flex key={data.id} justify="center" mb="3">
-              <Avatar size="sm" src={data.profileImg} />
+              <Avatar size="sm" src={getAvatarSrc(data.profileImg)} />
               <Link href={data.myPageUrl}>
                 <Text textStyle="bold_sm" ml="2" color={color}>
                   {data.name}

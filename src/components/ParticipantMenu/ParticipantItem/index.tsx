@@ -3,6 +3,7 @@ import { RiAddLine, RiCloseFill, RiVipCrownLine } from 'react-icons/ri';
 
 import { ParticipantItemProps } from '@/components/ParticipantMenu/types';
 import colors from '@/theme/foundations/colors';
+import getAvatarSrc from '@/utils/avatarUtils';
 
 const ParticipantItem = ({
   member,
@@ -34,7 +35,7 @@ const ParticipantItem = ({
 
   return (
     <Flex key={member.id} align="center" role="group">
-      <Avatar size="sm" src={member.imageUrl} />
+      <Avatar size="sm" src={getAvatarSrc(member.imageUrl)} />
       <Flex flexGrow="1" overflow="hidden" ml="4">
         <Text
           textStyle="bold_sm"

@@ -11,10 +11,10 @@ import { MdOutlineLogout } from 'react-icons/md';
 
 import { useGetSideBarInfoQuery } from '@/app/api/member';
 import { defaultUserAtom, myTeamAtom, userAtom } from '@/atom';
-import S3_URL from '@/constants/s3Url';
 import GoogleLoginButton from '@/containers/main/GoogleLoginButton';
 import TeamModal from '@/containers/team/Modal/TeamModal';
 import useGetUser from '@/hooks/useGetUser';
+import getAvatarSrc from '@/utils/avatarUtils';
 
 import SidebarIconButton from '../Button/SidebarIconButton';
 import Category from '../Category';
@@ -29,13 +29,6 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
   const router = useRouter();
 
   const { data: sidebarInfo } = useGetSideBarInfoQuery();
-
-  const getAvatarSrc = (imageUrl?: string) => {
-    if (!imageUrl || imageUrl === 'TEMP_URL') {
-      return undefined;
-    }
-    return imageUrl.startsWith('https') ? imageUrl : S3_URL(imageUrl);
-  };
 
   const handleMyPageButtonClick = () => {
     setIsOpen(false);
