@@ -13,7 +13,7 @@ const CurriculumItem = ({
   itemOrder,
   isChecked: isCheckedProps,
   participantId,
-  isStudyLeader = false,
+  isStudyMember = false,
 }: Curriculum) => {
   const [isChecked, setIsChecked] = useState(isCheckedProps);
   const completeCurriculum = useMutateWithToken(patchCurriculumCompleted);
@@ -36,7 +36,7 @@ const CurriculumItem = ({
           {name}
         </Text>
       </Box>
-      {isStudyLeader && (
+      {isStudyMember && (
         <Checkbox
           borderColor={isChecked ? 'orange' : 'orange_light'}
           bgColor="white"

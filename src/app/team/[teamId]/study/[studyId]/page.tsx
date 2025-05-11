@@ -136,6 +136,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                 cropId={studyData.cropId}
                 studyProgressRatio={studyData.studyProgressRatio}
                 isStudyLeader={user.memberId === studyData.studyLeaderId}
+                isStudyMember={result?.some((data: { memberId: number }) => data.memberId === user.memberId)}
               />
             )}
 
