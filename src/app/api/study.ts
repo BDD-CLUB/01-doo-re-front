@@ -97,10 +97,25 @@ const getCurriculum = (token: string, studyId: number) =>
     },
   });
 
+const getCurriculumAll = (token: string, studyId: number) =>
+  studyFetcher(`/studies/${studyId}/curriculums/all`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const useGetCurriculumInfoQuery = (token: string, studyId: number) => {
   return useQuery({
     queryFn: () => getCurriculum(token, studyId),
     queryKey: ['curriculum', studyId],
+  });
+};
+
+const useGetCurriculumAllQuery = (token: string, studyId: number) => {
+  return useQuery({
+    queryFn: () => getCurriculumAll(token, studyId),
+    queryKey: ['curriculumAll', studyId],
   });
 };
 
@@ -147,7 +162,9 @@ export {
   getStudyMembers,
   getStudies,
   getCurriculum,
+  getCurriculumAll,
   useGetCurriculumInfoQuery,
+  useGetCurriculumAllQuery,
   postCurriculum,
   patchCurriculumCompleted,
 };

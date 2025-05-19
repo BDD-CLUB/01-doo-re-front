@@ -14,6 +14,7 @@ import AutoResizeTextarea from '@/components/AutoResizeTextarea';
 import ActionModal from '@/components/Modal/ActionModal';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useRefetchCurriculum from '@/hooks/useRefetchCurriculum';
+import useRefetchCurriculumAll from '@/hooks/useRefetchCurriculumAll';
 
 import { EditCurriculum, CurriculumModalProps } from './type';
 
@@ -32,6 +33,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
 
   const editCurriculum = useMutateWithToken(postCurriculum);
   const refetchCurriculum = useRefetchCurriculum(+studyId);
+  const refetchCurriculumAll = useRefetchCurriculumAll(+studyId);
 
   const handleNewCurriculumChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewCurriculum(event.target.value);
@@ -110,6 +112,7 @@ const CurriculumModal = ({ isOpen, onClose, originCurriculums }: CurriculumModal
 
     editCurriculum(Number(studyId), curriculumItems, deletedCurriculumItems).then(() => {
       refetchCurriculum();
+      refetchCurriculumAll();
       handleModalClose();
     });
   };
