@@ -32,6 +32,7 @@ const Page = ({ searchParams }: { searchParams: { code: string } }) => {
             alert('유효하지 않은 초대링크입니다.');
             router.replace('/');
           }
+          setLoginBackPath('/');
         });
       } else {
         setLoginBackPath(`/team/${teamId}/join?code=${code}`);
