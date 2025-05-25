@@ -22,6 +22,13 @@ const getDocument = (token: string, documentId: number) =>
     },
   });
 
+const getMyDocumentList = (token: string) =>
+  documentFetcher('/documents/members/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 const putDocument = (
   token: string,
   documentId: number,
@@ -43,4 +50,4 @@ const deleteDocument = (token: string, documentId: number) =>
     },
   });
 
-export { postDocument, getDocumentList, getDocument, putDocument, deleteDocument };
+export { postDocument, getDocumentList, getDocument, getMyDocumentList, putDocument, deleteDocument };

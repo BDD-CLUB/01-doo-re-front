@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BsTrashFill } from 'react-icons/bs';
 import { MdBorderColor } from 'react-icons/md';
 
+import DocumentCard from '@/components/DocumentCard';
 import StudyCard from '@/components/StudyCard';
 import Title from '@/components/Title';
 import S3_URL from '@/constants/s3Url';
@@ -13,19 +14,20 @@ import DeleteUserModal from '@/containers/member/Modal/DeleteUserModal';
 import { useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
 import useRefetchSideBar from '@/hooks/useRefetchSideBar';
-import { Study } from '@/types';
+import { Document, Study } from '@/types';
 import getAvatarSrc from '@/utils/avatarUtils';
 
+import { getMyDocumentList } from '../api/document';
 import { deleteUserImage, patchUserImage, patchUserName, useGetSideBarInfoQuery } from '../api/member';
 import { getMyStudies } from '../api/study';
 
 const Page = () => {
   const [myStudies, setMyStudies] = useState<Study[]>([]);
-  // TODO: getMyDocuments API 호출 후 주석 해제
-  // const [myDocuments, setMyDocuments] = useState<Document[]>([]);
+  const [myDocuments, setMyDocuments] = useState<Document[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<'나의 학습자료' | '나의 스터디' | '종료 스터디'>(
     '나의 학습자료',
   );
+  const [reloadTrigger, setReloadTrigger] = useState<boolean>(false);
   const [isEditProfile, setIsEditProfile] = useState<boolean>(false);
   const [profileImage, setProfileImage] = useState<string>('');
   const [profileImageFormData, setProfileImageFile] = useState<FormData | null>(null);
@@ -65,8 +67,13 @@ const Page = () => {
   }, [user]);
 
   useEffect(() => {
-    // TODO: getMyDocuments API 호출
-  }, [user]);
+    if (!user || !user.isLogin) return;
+    getMyDocumentList(user.token).then((res) => {
+      if (res.ok && res.body) {
+        setMyDocuments(res.body);
+      }
+    });
+  }, [user, reloadTrigger]);
 
   const handleProfileImageClick = () => {
     fileInputRef.current?.click();
@@ -352,6 +359,27 @@ const Page = () => {
                   cropId={study.cropId}
                   studyProgressRatio={study.studyProgressRatio}
                   rank={index + 1}
+                />
+              ))}
+            {selectedCategory === '나의 학습자료' &&
+              myDocuments &&
+              myDocuments.length > 0 &&
+              myDocuments.map((data) => (
+                <DocumentCard
+                  teamId={-1}
+                  studyId={-1}
+                  id={data.id ?? -1}
+                  key={data.id}
+                  title={data.title}
+                  description={data.description}
+                  date={data.date ?? ''}
+                  uploaderName={data.uploaderName ?? ''}
+                  uploaderMemberId={data.uploaderMemberId ?? -1}
+                  setReload={setReloadTrigger}
+                  files={data.files ?? []}
+                  type={data.type}
+                  category="myPage"
+                  accessType={data.accessType}
                 />
               ))}
           </Grid>

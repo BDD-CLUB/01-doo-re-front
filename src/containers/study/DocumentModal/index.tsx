@@ -121,23 +121,31 @@ const DocumentModal = ({
       hasCloseButton
     >
       <Flex textStyle="bold_md" gap="4">
-        <Box w={3 / 5} p="4" textColor="white" bgColor={colors.orange_dark} rounded="2xl">
+        <Box
+          w={category === 'myPage' ? 'full' : 3 / 5}
+          p="4"
+          textColor="white"
+          bgColor={colors.orange_dark}
+          rounded="2xl"
+        >
           <Text cursor="default">{document?.description}</Text>
         </Box>
-        <Flex justify="space-between" direction="column" w={2 / 5} p="4" bgColor={colors.orange_light} rounded="2xl">
-          <Flex justify="space-between">
-            <Text cursor="default"> 작성자</Text>
-            <Text cursor="default"> {document?.uploaderName} </Text>
+        {category !== 'myPage' && (
+          <Flex justify="space-between" direction="column" w={2 / 5} p="4" bgColor={colors.orange_light} rounded="2xl">
+            <Flex justify="space-between">
+              <Text cursor="default"> 작성자</Text>
+              <Text cursor="default"> {document?.uploaderName} </Text>
+            </Flex>
+            <Flex justify="space-between">
+              <Text cursor="default"> 공개범위</Text>
+              {isTeam ? (
+                <Text cursor="default"> {document?.accessType === 'ALL' ? '전체 공개' : '팀 공개'} </Text>
+              ) : (
+                <Text cursor="default">스터디 공개</Text>
+              )}
+            </Flex>
           </Flex>
-          <Flex justify="space-between">
-            <Text cursor="default"> 공개범위</Text>
-            {isTeam ? (
-              <Text cursor="default"> {document?.accessType === 'ALL' ? '전체 공개' : '팀 공개'} </Text>
-            ) : (
-              <Text cursor="default">스터디 공개</Text>
-            )}
-          </Flex>
-        </Flex>
+        )}
       </Flex>
       <Text textStyle="bold_xl" mt="8" cursor="default">
         첨부파일

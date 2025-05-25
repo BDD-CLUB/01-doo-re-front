@@ -28,7 +28,7 @@ const DocumentCard = ({
   const firstImg = () => {
     if (files.length === 0) return '/png/noImg.png';
     if (type === 'IMAGE') {
-      if ((category === 'teams' && isMyTeam) || (category === 'studies' && isMyStudy)) {
+      if ((category === 'teams' && isMyTeam) || (category === 'studies' && isMyStudy) || category === 'myPage') {
         return S3_URL(files[0].url);
       }
       return '/png/noImg.png';
