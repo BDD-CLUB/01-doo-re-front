@@ -13,7 +13,7 @@ export interface DocumentModalProps {
   isTeam?: boolean;
   id: number;
   isOpen: boolean;
-  category: 'studies' | 'teams';
+  category: 'studies' | 'teams' | 'myPage';
   accessType: DocumentAccessType;
   setIsDocsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;

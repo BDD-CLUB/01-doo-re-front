@@ -103,12 +103,17 @@ export interface StudyRank {
 }
 
 export interface Document {
+  readonly id?: number;
   title: string;
   description: string;
   accessType: DocumentAccessType;
   type: DocumentType;
   url: string;
+  files?: DocumentFile[];
+  date?: string;
   uploaderId: number;
+  uploaderName?: string;
+  uploaderMemberId?: number;
 }
 
 export interface DocumentList {
@@ -122,7 +127,7 @@ export interface DocumentList {
   uploaderName: string;
   uploaderMemberId: number;
   type: 'IMAGE' | 'DOCUMENT' | 'URL';
-  category: 'studies' | 'teams';
+  category: 'studies' | 'teams' | 'myPage';
   accessType: DocumentAccessType;
   isMyTeam?: boolean;
   isMyStudy?: boolean;
