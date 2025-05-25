@@ -121,7 +121,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
             </>
           )}
         </Flex>
-        {studyData && studyData?.status !== 'ENDED' && user && (
+        {studyData && studyData?.status !== 'ENDED' && user?.isLogin && (
           <StudyControlPanel
             isStudyLeader={user.memberId === studyData.studyLeaderId}
             isStudyMember={result?.some((data: { memberId: number }) => data.memberId === user.memberId)}
