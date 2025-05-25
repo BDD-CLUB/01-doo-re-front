@@ -14,6 +14,7 @@ const CurriculumItem = ({
   isChecked: isCheckedProps,
   participantId,
   isStudyMember = false,
+  setReload = () => {},
 }: Curriculum) => {
   const [isChecked, setIsChecked] = useState(isCheckedProps);
   const completeCurriculum = useMutateWithToken(patchCurriculumCompleted);
@@ -21,7 +22,9 @@ const CurriculumItem = ({
   const handleCheckboxChange = () => {
     if (participantId) {
       setIsChecked((prev) => !prev);
-      completeCurriculum(id, participantId);
+      completeCurriculum(id, participantId).then(() => {
+        setReload((prev) => !prev);
+      });
     }
   };
 

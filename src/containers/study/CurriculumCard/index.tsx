@@ -3,6 +3,7 @@
 import { Flex, Image, Card, useDisclosure, Text, IconButton } from '@chakra-ui/react';
 import { useAtomValue } from 'jotai';
 import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 import { useGetCurriculumAllQuery, useGetCurriculumInfoQuery } from '@/app/api/study';
@@ -14,7 +15,13 @@ import CurriculumItem from './CurriculumItem';
 import { CurriculumCardProps } from './types';
 import CurriculumModal from '../CurriculumModal';
 
-const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader, isStudyMember }: CurriculumCardProps) => {
+const CurriculumCard = ({
+  cropId,
+  studyProgressRatio,
+  isStudyLeader,
+  isStudyMember,
+  setReload,
+}: CurriculumCardProps) => {
   const { studyId } = useParams<{ studyId: string }>();
 
   const user = useAtomValue(userAtom);
@@ -30,6 +37,12 @@ const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader, isStudyMemb
       id: matched?.id ?? item.id,
     };
   });
+
+  useEffect(() => {
+    if (setReload) {
+      setReload((prev) => !prev);
+    }
+  }, [myCurriculums, setReload]);
 
   const { isOpen: isCurriculumModalOpen, onOpen: onActionModalOpen, onClose: onCurriculumModalClose } = useDisclosure();
 
@@ -83,6 +96,7 @@ const CurriculumCard = ({ cropId, studyProgressRatio, isStudyLeader, isStudyMemb
                     name={curriculum.name}
                     itemOrder={curriculum.itemOrder}
                     isChecked={curriculum.isChecked}
+                    setReload={setReload}
                   />
                 );
               })
