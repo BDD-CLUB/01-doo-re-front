@@ -37,6 +37,7 @@ const SidebarContent = ({ isOpen, setIsOpen }: SidebarContentProps) => {
 
   const handleLogOutButtonClick = () => {
     setUser(defaultUserAtom);
+    setMyTeams([]);
     router.push('/');
   };
 
