@@ -75,6 +75,7 @@ export interface Curriculum {
   itemOrder: number;
   isChecked?: boolean;
   isStudyMember?: boolean;
+  setReload?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface PostCurriculum {

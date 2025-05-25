@@ -3,4 +3,5 @@ export interface CurriculumCardProps {
   studyProgressRatio: number;
   isStudyLeader: boolean;
   isStudyMember: boolean;
+  setReload?: React.Dispatch<React.SetStateAction<boolean>>;
 }

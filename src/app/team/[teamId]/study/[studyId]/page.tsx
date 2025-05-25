@@ -44,6 +44,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
   const myTeam = useGetMyTeam();
   const [isTeamLeader, setIsTeamLeader] = useState<boolean>(false);
   const [isStudyLeader, setIsStudyLeader] = useState<boolean>(false);
+  const [reload, setReload] = useState<boolean>(false);
   if (user && !user.isLogin) router.replace(`/team/${params.teamId}`);
   if (myTeam && !myTeam.some((id) => id === +params.teamId)) router.replace(`/team/${params.teamId}`);
 
@@ -88,7 +89,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
         setStudyData(data.body);
       });
     }
-  }, [params.studyId, isTerminateModalOpen]);
+  }, [params.studyId, isTerminateModalOpen, reload]);
 
   const handleRefetchMembers = () => {
     getStudy(params.studyId).then((data) => {
@@ -139,6 +140,7 @@ const Page = ({ params }: { params: { teamId: number; studyId: number } }) => {
                 studyProgressRatio={studyData.studyProgressRatio}
                 isStudyLeader={user.memberId === studyData.studyLeaderId}
                 isStudyMember={result?.some((data: { memberId: number }) => data.memberId === user.memberId)}
+                setReload={setReload}
               />
             )}
 
