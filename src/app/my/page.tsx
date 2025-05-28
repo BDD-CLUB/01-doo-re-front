@@ -349,7 +349,7 @@ const Page = () => {
               filteredStudies.map((study, index) => (
                 <StudyCard
                   key={study.id}
-                  teamId={2}
+                  teamId={study.teamId}
                   id={study.id}
                   name={study.name}
                   description={study.description}
