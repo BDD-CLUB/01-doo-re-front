@@ -19,7 +19,7 @@ const DeleteUserModal = ({ isOpen, onClose }: DeleteUserModalProps) => {
   const handleDeleteUserButtonClick = () => {
     deleteUserInfo().then((res) => {
       if (!res.ok) {
-        alert(res.body.message || '회원 탈퇴에 실패했습니다.');
+        alert(res.body?.message || '회원 탈퇴에 실패했습니다.');
         onClose();
         return;
       }
