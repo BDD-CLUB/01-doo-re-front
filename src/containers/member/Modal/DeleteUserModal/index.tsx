@@ -17,7 +17,12 @@ const DeleteUserModal = ({ isOpen, onClose }: DeleteUserModalProps) => {
   const router = useRouter();
 
   const handleDeleteUserButtonClick = () => {
-    deleteUserInfo().then(() => {
+    deleteUserInfo().then((res) => {
+      if (!res.ok) {
+        alert(res.body.message || '회원 탈퇴에 실패했습니다.');
+        onClose();
+        return;
+      }
       setUser(defaultUserAtom);
       refetchSidebar();
       onClose();
