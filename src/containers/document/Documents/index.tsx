@@ -10,7 +10,7 @@ import { DocumentList } from '@/types';
 
 import { DocumentPageProps } from './types';
 
-const Documents = ({ teamId, groupId, category, refetchTrigger = false }: DocumentPageProps) => {
+const Documents = ({ teamId, groupId, category, refetchTrigger = false, isMyTeam = false }: DocumentPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [documentArray, setDocumentArray] = useState<DocumentList[]>([]);
   const [documentLength, setDocumentLength] = useState<number>(4);
@@ -52,6 +52,7 @@ const Documents = ({ teamId, groupId, category, refetchTrigger = false }: Docume
                 type={data.type}
                 category={category}
                 accessType={data.accessType}
+                isMyTeam={isMyTeam}
               />
             ))}
           </Grid>
