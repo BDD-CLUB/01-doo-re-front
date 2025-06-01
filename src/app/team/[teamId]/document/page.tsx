@@ -34,7 +34,13 @@ const Page = ({ params }: { params: { teamId: number } }) => {
           </Button>
         )}
       </Flex>
-      <Documents teamId={params.teamId} groupId={params.teamId} category="teams" refetchTrigger={openCreateModal} />
+      <Documents
+        teamId={params.teamId}
+        groupId={params.teamId}
+        category="teams"
+        refetchTrigger={openCreateModal}
+        isMyTeam={auth}
+      />
       <CreateDocumentModal
         isTeam
         isOpen={openCreateModal}
