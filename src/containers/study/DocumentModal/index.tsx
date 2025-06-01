@@ -119,6 +119,7 @@ const DocumentModal = ({
       onMainButtonClick={() => setIsCreateDocsModalOpen(true)}
       isNoFooter={user?.memberId !== document?.uploaderMemberId}
       hasCloseButton
+      size="lg"
     >
       <Flex textStyle="bold_md" gap="4">
         <Box
