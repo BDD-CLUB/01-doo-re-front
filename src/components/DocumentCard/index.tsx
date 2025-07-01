@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import S3_URL from '@/constants/s3Url';
 import DocumentModal from '@/containers/study/DocumentModal';
+import useGetUser from '@/hooks/useGetUser';
 import { DocumentList } from '@/types';
 
 const DocumentCard = ({
@@ -23,12 +24,17 @@ const DocumentCard = ({
   isMyTeam = false,
   isMyStudy = false,
 }: DocumentList) => {
+  const user = useGetUser();
+
   const [docsModalOpen, setIsDocsModalOpen] = useState<boolean>(false);
 
   const firstImg = () => {
     if (files.length === 0) return '/png/noImg.png';
     if (type === 'IMAGE') {
       if ((category === 'teams' && isMyTeam) || (category === 'studies' && isMyStudy) || category === 'myPage') {
+        return S3_URL(files[0].url);
+      }
+      if (user && user.isLogin && accessType === 'ALL') {
         return S3_URL(files[0].url);
       }
       return '/png/noImg.png';
