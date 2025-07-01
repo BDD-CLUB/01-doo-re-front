@@ -14,7 +14,12 @@ const LeaveTeamModal = ({ id, name, isOpen, onClose }: LeaveTeamModalProps) => {
   const router = useRouter();
 
   const handleLeaveTeamButtonClick = () => {
-    leaveTeam(id).then(() => {
+    leaveTeam(id).then((res) => {
+      if (!res.ok) {
+        alert(res.body.message || '팀에서 탈퇴하는데 실패했습니다.');
+        onClose();
+        return;
+      }
       refetchSidebar();
       onClose();
       router.replace('/');
