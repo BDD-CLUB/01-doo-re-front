@@ -228,7 +228,7 @@ const TeamModal = ({ teamInfo, isOpen, onClose }: TeamModalProps) => {
               variant="orange_light"
             />
           </Flex>
-          {thumbnailPath ? (
+          {thumbnailPath && thumbnailPath !== 'TEMP_URL' ? (
             <Image w="40" alt="thumbnail" src={S3_URL(thumbnailPath)} />
           ) : (
             thumbnail && <Image w="40" alt="thumbnail" src={URL.createObjectURL(thumbnail)} />
