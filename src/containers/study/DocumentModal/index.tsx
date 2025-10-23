@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Flex, Text, Image } from '@chakra-ui/react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { BiFile, BiLink } from 'react-icons/bi';
@@ -64,6 +64,7 @@ const DocumentModal = ({
   };
 
   const user = useGetUser();
+  const [isTeamLeader, setIsTeamLeader] = useState<boolean>(false);
   const [isTeamMember, setIsMember] = useState<boolean>(false);
   const [isStudyMember, setIsStudyMember] = useState<boolean>(false);
   const { result: teamMembers } = useGetFetchWithToken(getTeamMembers, [teamId], user);
@@ -71,6 +72,9 @@ const DocumentModal = ({
 
   useEffect(() => {
     if (user?.isLogin) {
+      setIsTeamLeader(
+        teamMembers?.some((member: Member) => member.id === user.memberId && member.teamRole === 'ROLE_팀장'),
+      );
       setIsMember(teamMembers?.some((member: Member) => member.id === user.memberId));
       setIsStudyMember(studyMembers?.some((member: { memberId: number }) => member.memberId === user.memberId));
     }
@@ -117,7 +121,7 @@ const DocumentModal = ({
       mainButtonText="수정"
       onSubButtonClick={() => onDelete()}
       onMainButtonClick={() => setIsCreateDocsModalOpen(true)}
-      isNoFooter={user?.memberId !== document?.uploaderMemberId}
+      isNoFooter={!isTeamLeader && user?.memberId !== document?.uploaderMemberId}
       hasCloseButton
       size="lg"
     >

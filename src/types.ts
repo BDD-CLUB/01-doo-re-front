@@ -62,6 +62,7 @@ export interface Member {
   readonly id: number;
   name: string;
   imageUrl: string;
+  teamRole: string;
 }
 
 export interface TeamMemberDetail extends Member {
