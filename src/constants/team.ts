@@ -7,3 +7,8 @@ export const TEAM_CATEGORY_INFOS: TabButtonInfoType[] = [
   { id: 2, name: '학습자료', wholeView: true, page: '/' },
   // { id: 3, name: '작물창고', wholeView: false },
 ];
+
+export const TEAM_ROLES = {
+  LEADER: 'ROLE_팀장',
+  MEMBER: 'ROLE_팀원',
+};
