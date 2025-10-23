@@ -17,7 +17,7 @@ import CreateDocumentModal from '@/containers/study/CreateDocumentModal';
 import { useGetFetchWithToken, useMutateWithToken } from '@/hooks/useFetchWithToken';
 import useGetUser from '@/hooks/useGetUser';
 import colors from '@/theme/foundations/colors';
-import { DocumentDetail, Member } from '@/types';
+import { DocumentDetail, Member, TeamMemberDetail } from '@/types';
 
 import { DocumentModalProps } from './types';
 
@@ -74,7 +74,9 @@ const DocumentModal = ({
   useEffect(() => {
     if (user?.isLogin) {
       setIsTeamLeader(
-        teamMembers?.some((member: Member) => member.id === user.memberId && member.teamRole === TEAM_ROLES.LEADER),
+        teamMembers?.some(
+          (member: TeamMemberDetail) => member.id === user.memberId && member.teamRole === TEAM_ROLES.LEADER,
+        ),
       );
       setIsMember(teamMembers?.some((member: Member) => member.id === user.memberId));
       setIsStudyMember(studyMembers?.some((member: { memberId: number }) => member.memberId === user.memberId));
